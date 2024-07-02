@@ -11,7 +11,7 @@
         body {
             background-color: black;
             color: white;
-            font-size: 23px;
+            font-size: 64px;
             font-family: Arial, sans-serif;
             display: flex;
             justify-content: center;
