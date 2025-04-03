@@ -56,6 +56,14 @@
       padding-left: 1rem;
     }
 
+    .cursor {
+      animation: blink 1s step-start infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
     @media (max-width: 768px) {
       .intro {
         flex-direction: column;
@@ -74,7 +82,7 @@
     <div class="intro">
       <img src="cat.jpg" alt="Avatar de codigopersonal" class="avatar">
       <div class="intro-text">
-        <h1>~ codigopersonal</h1>
+        <h1>~ codigopersonal<span class="cursor">█</span></h1>
         <p>Explorá mis proyectos, ideas y experimentos tech.</p>
 
         <h2>$ whoami</h2>
@@ -84,19 +92,4 @@
 
     <h2>$ ls proyectos/</h2>
     <ul>
-      <li><a href="https://github.com/maniat1k/solarizedxterm">solarizedxterm</a></li>
-      <li><a href="https://github.com/maniat1k/windows11_fixMBR">windows11_fixMBR</a></li>
-      <li><a href="https://github.com/maniat1k/birame">birame</a></li>
-    </ul>
-
-    <h2>$ cat apoyo.txt</h2>
-    <p>¿Te sirvió algún proyecto? Invitame un café:</p>
-    <p><a href="https://ko-fi.com/tuusuario" target="_blank">☕ Apoyame en Ko-fi</a></p>
-
-    <h2>$ contacto --redes</h2>
-    <ul>
-      <li><a href="https://maniat1k.github.io/main/">Blog</a></li>
-    </ul>
-  </div>
-</body>
-</html>
+      <li><a href="https://github.com/maniat
