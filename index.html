@@ -111,6 +111,7 @@
 
     <h2>$ cat apoyo.txt</h2>
     <p>¿Te sirvió algún proyecto? Invitame un café:</p>
+    <div id="kofi-last-post" style="margin-bottom: 1rem;">Cargando última publicación...</div>
     <p><a href="https://ko-fi.com/marcelolemos" target="_blank">☕ Apoyame en Ko-fi</a></p>
 
     <h2>$ contacto --redes</h2>
@@ -199,6 +200,41 @@
         fetchAllRepos();
       }
     }
+
+    // Mostrar última publicación de Ko-fi con imagen y título
+    async function fetchKoFiPost() {
+      try {
+        const response = await fetch("https://ko-fi.com/marcelolemos/?action=posts");
+        const text = await response.text();
+        const parser = new DOMParser();
+        const html = parser.parseFromString(text, "text/html");
+
+        const postLink = html.querySelector(".post-card__content a");
+        const postImg = html.querySelector(".post-card img");
+
+        const container = document.getElementById("kofi-last-post");
+
+        if (postLink && postImg) {
+          const title = postLink.textContent.trim();
+          const url = postLink.href;
+          const imgSrc = postImg.src;
+
+          container.innerHTML = `
+            <a href="${url}" target="_blank">
+              <img src="${imgSrc}" alt="${title}" style="max-width:100%; border: 1px solid #00FF00; margin-bottom: 0.5rem;">
+            </a>
+            <p><a href="${url}" target="_blank">${title}</a></p>
+          `;
+        } else {
+          container.innerText = "Sin publicaciones recientes.";
+        }
+      } catch (e) {
+        console.warn("No se pudo cargar la última publicación de Ko-fi.");
+        document.getElementById("kofi-last-post").innerText = "Publicación no disponible.";
+      }
+    }
+
+    fetchKoFiPost();
   </script>
 </body>
 </html>
