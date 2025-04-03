@@ -91,10 +91,8 @@
     </div>
 
     <h2>$ ls proyectos/</h2>
-    <ul>
-      <li><a href="https://github.com/maniat1k/solarizedxterm">solarizedxterm</a></li>
-      <li><a href="https://github.com/maniat1k/windows11_fixMBR">windows11_fixMBR</a></li>
-      <li><a href="https://github.com/maniat1k/birame">birame</a></li>
+    <ul id="repo-list">
+      <li>Cargando proyectos...</li>
     </ul>
 
     <h2>$ cat apoyo.txt</h2>
@@ -106,5 +104,76 @@
       <li><a href="https://maniat1k.github.io/main/">Blog</a></li>
     </ul>
   </div>
+
+  <script>
+    const repos = ["solarizedxterm", "windows11_fixMBR", "birame"];
+    const user = "maniat1k";
+    const cacheKey = "github_repo_cache";
+    const cacheTimeKey = "github_repo_cache_time";
+    const cacheDuration = 60 * 60 * 1000; // 1 hora
+
+    function renderRepoList(data) {
+      const list = document.getElementById("repo-list");
+      list.innerHTML = "";
+
+      data.sort((a, b) => b.stargazers_count - a.stargazers_count);
+
+      data.forEach(repo => {
+        const li = document.createElement("li");
+
+        const link = document.createElement("a");
+        link.href = repo.html_url;
+        link.textContent = `★ ${repo.name}`;
+        link.target = "_blank";
+        link.style.color = "#00FF00";
+
+        const stars = document.createElement("span");
+        stars.textContent = ` — ${repo.stargazers_count} estrella${repo.stargazers_count !== 1 ? "s" : ""}`;
+        stars.style.marginLeft = "0.5rem";
+
+        const starBtn = document.createElement("a");
+        starBtn.href = `${repo.html_url}/stargazers`;
+        starBtn.textContent = "🌟 Dar estrella";
+        starBtn.target = "_blank";
+        starBtn.style.marginLeft = "1rem";
+        starBtn.style.color = "#00FF00";
+
+        li.appendChild(link);
+        li.appendChild(stars);
+        li.appendChild(starBtn);
+        list.appendChild(li);
+      });
+    }
+
+    async function fetchRepoData() {
+      try {
+        const data = await Promise.all(
+          repos.map(repo =>
+            fetch(`https://api.github.com/repos/${user}/${repo}`).then(res => res.json())
+          )
+        );
+        localStorage.setItem(cacheKey, JSON.stringify(data));
+        localStorage.setItem(cacheTimeKey, Date.now().toString());
+        renderRepoList(data);
+      } catch (error) {
+        console.warn("Error al obtener datos de GitHub. Usando caché si existe.");
+        const cached = localStorage.getItem(cacheKey);
+        if (cached) renderRepoList(JSON.parse(cached));
+      }
+    }
+
+    const lastFetch = localStorage.getItem(cacheTimeKey);
+    if (!lastFetch || Date.now() - lastFetch > cacheDuration) {
+      fetchRepoData();
+    } else {
+      const cached = localStorage.getItem(cacheKey);
+      if (cached) {
+        renderRepoList(JSON.parse(cached));
+        fetchRepoData(); // refresco en segundo plano
+      } else {
+        fetchRepoData();
+      }
+    }
+  </script>
 </body>
 </html>
