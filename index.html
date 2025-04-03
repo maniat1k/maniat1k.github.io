@@ -5,39 +5,65 @@
   <title>codigopersonal</title>
   <style>
     body {
-      background-color: black;
+      background: black url('cover.webp') no-repeat center center fixed;
+      background-size: cover;
       color: #00FF00;
       font-family: monospace;
+      margin: 0;
       padding: 2rem;
+      text-shadow: 0 0 5px #00FF00;
+    }
+    .contenedor {
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 2rem;
+      border: 1px solid #00FF00;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1, h2 {
+      color: #00FF00;
     }
     a {
       color: #00FF00;
       text-decoration: underline;
     }
+    ul {
+      list-style-type: "> ";
+    }
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+      .contenedor {
+        padding: 1rem;
+      }
+    }
   </style>
 </head>
 <body>
-  <h1>~ Bienvenido a codigopersonal</h1>
-  <p>Explorá mis proyectos, ideas y experimentos tech.</p>
+  <div class="contenedor">
+    <h1>~ codigopersonal</h1>
+    <p>Explorá mis proyectos, ideas y experimentos tech.</p>
 
-  <h2>$ whoami</h2>
-  <p>Marcelo — Automatización, Música, Código & Café ☕</p>
+    <h2>$ whoami</h2>
+    <p>Marcelo — Automatización, Música, Código & Café ☕</p>
 
-  <h2>$ ls proyectos/</h2>
-  <ul>
-    <li><a href="https://github.com/maniat1k/solarizedxterm">solarizedxterm</a></li>
-    <li><a href="https://github.com/maniat1k/windows11_fixMBR">windows11_fixMBR</a></li>
-    <li><a href="https://github.com/maniat1k/birame">birame</a></li>
-  </ul>
+    <h2>$ ls proyectos/</h2>
+    <ul>
+      <li><a href="https://github.com/maniat1k/solarizedxterm">solarizedxterm</a></li>
+      <li><a href="https://github.com/maniat1k/windows11_fixMBR">windows11_fixMBR</a></li>
+      <li><a href="https://github.com/maniat1k/birame">birame</a></li>
+    </ul>
 
-  <h2>$ cat apoyo.txt</h2>
-  <p>Si algún proyecto te sirvió, podés invitarme un café ☕</p>
-  <p><a href="https://ko-fi.com/tuusuario" target="_blank">➡️ Apoyame en Ko-fi</a></p>
+    <h2>$ cat apoyo.txt</h2>
+    <p>¿Te sirvió algún proyecto? Invitame un café:</p>
+    <p><a href="https://ko-fi.com/tuusuario" target="_blank">☕ Apoyame en Ko-fi</a></p>
 
-  <h2>$ contacto --redes</h2>
-  <ul>
-    <li><a href="https://twitter.com/s0ymarcelo">Twitter (@s0ymarcelo)</a></li>
-    <li><a href="https://maniat1k.github.io/main/">Blog</a></li>
-  </ul>
+    <h2>$ contacto --redes</h2>
+    <ul>
+      <li><a href="https://twitter.com/s0ymarcelo">Twitter (@s0ymarcelo)</a></li>
+      <li><a href="https://maniat1k.github.io/main/">Blog</a></li>
+    </ul>
+  </div>
 </body>
 </html>
