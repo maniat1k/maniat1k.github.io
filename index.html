@@ -13,40 +13,74 @@
       padding: 2rem;
       text-shadow: 0 0 5px #00FF00;
     }
+
     .contenedor {
-      background-color: rgba(0, 0, 0, 0.8);
+      background-color: rgba(0, 0, 0, 0.85);
       padding: 2rem;
       border: 1px solid #00FF00;
-      max-width: 800px;
+      max-width: 900px;
       margin: auto;
     }
+
+    .intro {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+
+    .avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 2px solid #00FF00;
+      object-fit: cover;
+    }
+
+    .intro-text {
+      flex: 1;
+    }
+
     h1, h2 {
       color: #00FF00;
+      margin: 0;
     }
+
     a {
       color: #00FF00;
       text-decoration: underline;
     }
+
     ul {
       list-style-type: "> ";
+      padding-left: 1rem;
     }
+
     @media (max-width: 768px) {
-      body {
-        padding: 1rem;
+      .intro {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
       }
-      .contenedor {
-        padding: 1rem;
+
+      .intro-text {
+        margin-top: 1rem;
       }
     }
   </style>
 </head>
 <body>
   <div class="contenedor">
-    <h1>~ codigopersonal</h1>
-    <p>Explorá mis proyectos, ideas y experimentos tech.</p>
+    <div class="intro">
+      <img src="cat.jpg" alt="Avatar de codigopersonal" class="avatar">
+      <div class="intro-text">
+        <h1>~ codigopersonal</h1>
+        <p>Explorá mis proyectos, ideas y experimentos tech.</p>
 
-    <h2>$ whoami</h2>
-    <p>Marcelo — Automatización, Música, Código & Café ☕</p>
+        <h2>$ whoami</h2>
+        <p>Marcelo — Automatización, Música, Código & Café ☕</p>
+      </div>
+    </div>
 
     <h2>$ ls proyectos/</h2>
     <ul>
@@ -61,7 +95,6 @@
 
     <h2>$ contacto --redes</h2>
     <ul>
-      <li><a href="https://twitter.com/s0ymarcelo">Twitter (@s0ymarcelo)</a></li>
       <li><a href="https://maniat1k.github.io/main/">Blog</a></li>
     </ul>
   </div>
