@@ -80,7 +80,7 @@
 
     .reddit-button {
       position: fixed;
-      top: 10px;
+      top: 0;
       right: 10px;
       background-color: black;
       border: 1px solid #00FF00;
@@ -89,25 +89,63 @@
       cursor: pointer;
       z-index: 1000;
       font-family: monospace;
+      border-bottom-left-radius: 10px;
+      box-shadow: 0 0 5px #00FF00;
+    }
+
+    .reddit-cuerda {
+      position: fixed;
+      top: 0;
+      right: 45px;
+      width: 2px;
+      height: 50px;
+      background-color: #00FF00;
+      z-index: 999;
     }
 
     .reddit-dropdown {
       display: none;
       position: fixed;
-      top: 50px;
+      top: 55px;
       right: 10px;
       background-color: black;
       border: 1px solid #00FF00;
       padding: 1rem;
-      max-width: 300px;
+      max-width: 350px;
       max-height: 400px;
       overflow-y: auto;
-      z-index: 999;
+      z-index: 998;
+      box-shadow: 0 0 20px #00FF00;
+      animation: dropDown 0.3s ease-out;
     }
 
-    .reddit-dropdown a {
+    @keyframes dropDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reddit-post {
+      margin-bottom: 1rem;
+      font-size: 0.95rem;
+    }
+
+    .reddit-post a {
       display: block;
-      margin-bottom: 0.5rem;
+      color: #00FF00;
+      text-decoration: none;
+      margin-bottom: 0.2rem;
+    }
+
+    .reddit-post span {
+      font-size: 0.75rem;
+      color: #00FF00;
+      opacity: 0.8;
     }
 
     @media (max-width: 768px) {
@@ -124,7 +162,9 @@
   </style>
 </head>
 <body>
-  <button class="reddit-button" id="redditToggle">reddit</button>
+
+  <div class="reddit-cuerda"></div>
+  <button class="reddit-button" id="redditToggle">📜 reddit</button>
   <div class="reddit-dropdown" id="redditDropdown">Cargando publicaciones...</div>
 
   <div class="contenedor">
@@ -185,7 +225,6 @@
         link.href = repo.html_url;
         link.textContent = `★ ${repo.name}`;
         link.target = "_blank";
-        link.style.color = "#00FF00";
 
         const stars = document.createElement("span");
         stars.textContent = ` — ${repo.stargazers_count} estrella${repo.stargazers_count !== 1 ? "s" : ""}`;
@@ -196,7 +235,6 @@
         starBtn.textContent = "🌟 Dar estrella";
         starBtn.target = "_blank";
         starBtn.style.marginLeft = "1rem";
-        starBtn.style.color = "#00FF00";
 
         li.appendChild(link);
         li.appendChild(stars);
@@ -215,7 +253,6 @@
 
         renderRepoList(data);
       } catch (error) {
-        console.warn("Error al obtener repos desde GitHub.");
         const cached = localStorage.getItem(cacheKey);
         if (cached) renderRepoList(JSON.parse(cached));
       }
@@ -234,7 +271,6 @@
       }
     }
 
-    // Reddit Dropdown
     const redditToggle = document.getElementById("redditToggle");
     const redditDropdown = document.getElementById("redditDropdown");
 
@@ -256,7 +292,14 @@
         redditDropdown.innerHTML = posts.map(post => {
           const title = post.data.title;
           const url = `https://www.reddit.com${post.data.permalink}`;
-          return `<a href="${url}" target="_blank">• ${title}</a>`;
+          const subreddit = post.data.subreddit;
+          const date = new Date(post.data.created_utc * 1000).toLocaleDateString("es-UY");
+          return `
+            <div class="reddit-post">
+              <a href="${url}" target="_blank">> ${title}</a>
+              <span>r/${subreddit} — ${date}</span>
+            </div>
+          `;
         }).join("");
       } catch (e) {
         redditDropdown.innerText = "No se pudieron cargar los posts.";
@@ -267,3 +310,4 @@
   </script>
 </body>
 </html>
+
