@@ -143,25 +143,25 @@
       </select>
     </label>
     <p class="nota-aviso">Equivalente en dólares (cotización BROU): <span id="usd_equivalente">-</span></p>
-    <button onclick="calcularAhorro()">Calcular Ahorro</button>
-    <div class="result" id="resultadoAhorro"></div>
-
-    <canvas id="graficaAhorro" style="margin-top: 30px;"></canvas>
 
     <h2>Simulador de Plazo Fijo</h2>
     <label>Seleccionar Banco:
       <select id="banco" onchange="cargarTasa()">
-        <option value="">Seleccionar</option>
-        <option value="BROU">BROU</option>
+        <option value="BROU" selected>BROU</option>
         <option value="ITAU">Itaú</option>
       </select>
     </label>
-    <label>Tasa de interés anual (%): <input type="number" id="tasa" step="0.01" /></label>
-    <p class="nota-aviso">* La tasa de interés es estimada y puede variar según el plazo y condiciones del banco.</p>
+    <label>Tasa de interés anual (%): <input type="number" id="tasa" step="0.01" value="7.25" /></label>
+    <p class="nota-aviso">* La tasa de interés es estimada para BROU a 360 días. Podés modificarla si querés comparar otras opciones.</p>
     <label>Monto a invertir ($UYU): <input type="number" id="inversion" /></label>
     <label>Plazo en días: <input type="number" id="plazo" value="360" /></label>
-    <button onclick="calcularPlazoFijo()">Calcular Ganancia</button>
+
+    <button onclick="calcularTodo()">Calcular todo</button>
+
+    <div class="result" id="resultadoAhorro"></div>
     <div class="result" id="resultadoPlazo"></div>
+
+    <canvas id="graficaAhorro" style="margin-top: 30px;"></canvas>
 
     <div class="footer">
       <div class="kofi-wrapper">
@@ -179,7 +179,10 @@
   </div>
 
   <script>
-    let cotizacionDolar = 39.65; // valor estimado manual
+    let cotizacionDolar = 39.65;
+    let resultadoAnterior = '';
+    let diasAnterior = null;
+    let datosAnteriores = [];
 
     function parseNumber(input) {
       return parseFloat((input || '').replace(/\./g, '').replace(',', '.')) || 0;
@@ -191,11 +194,21 @@
       document.getElementById('usd_equivalente').innerText = `$${enUSD} USD`;
     }
 
+    function calcularTodo() {
+      resultadoAnterior = document.getElementById('resultadoAhorro').innerText;
+      calcularAhorro();
+      calcularPlazoFijo();
+    }
+
     function calcularAhorro() {
       const objetivo = parseNumber(document.getElementById('objetivo').value);
       const aporte = parseNumber(document.getElementById('aporte').value);
       const frecuencia = parseFloat(document.getElementById('frecuencia').value);
       if (!objetivo || !aporte || !frecuencia) return;
+      if (objetivo < 10000) {
+        document.getElementById('resultadoAhorro').innerText = '⚠️ El monto mínimo para abrir una cuenta de ahorro es $10.000. Por favor ingresá un monto mayor.';
+        return;
+      }
 
       const aportesNecesarios = Math.ceil(objetivo / aporte);
       const diasTotales = Math.ceil(aportesNecesarios / (1 / frecuencia));
@@ -215,29 +228,54 @@
         default: descripcion = frecuencia + ' días';
       }
 
+      let comparacion = '';
+      if (diasAnterior !== null && diasAnterior !== diasTotales) {
+        const diferencia = Math.abs(diasTotales - diasAnterior);
+        comparacion = `\n\n📌 Comparado con el cálculo anterior, este plan te llevará ${diferencia} día(s) ${diasTotales < diasAnterior ? 'menos' : 'más'}.`;
+      }
+      diasAnterior = diasTotales;
+
       document.getElementById('resultadoAhorro').innerText =
-        `Necesitás hacer ${aportesNecesarios} aportes de $${aporte}.
-Con una frecuencia de ${descripcion}, llegarás en aproximadamente ${diasTotales} días (alrededor del ${fechaFinal.toLocaleDateString('es-ES', opcionesFecha)}).`;
+        `📊 Para alcanzar tu meta de $${objetivo}, necesitas hacer ${aportesNecesarios} aportes de $${aporte}.
+🕓 Con una frecuencia de ${descripcion}, vas a lograrlo en unos ${diasTotales} días, es decir, alrededor del ${fechaFinal.toLocaleDateString('es-ES', opcionesFecha)}.${comparacion}`;
 
       document.getElementById('inversion').value = objetivo;
 
       const ctx = document.getElementById('graficaAhorro').getContext('2d');
-      if (window.miGrafica) window.miGrafica.destroy();
       const datos = Array.from({ length: aportesNecesarios }, (_, i) => aporte * (i + 1));
+
+      if (window.miGrafica) window.miGrafica.destroy();
+
+      const datasets = [
+        {
+          label: 'Ahorro actual',
+          data: datos,
+          borderColor: '#007bff',
+          fill: false
+        }
+      ];
+
+      if (datosAnteriores.length) {
+        datasets.push({
+          label: 'Ahorro anterior',
+          data: datosAnteriores,
+          borderColor: '#ff9900',
+          fill: false,
+          borderDash: [5, 5]
+        });
+      }
+
+      datosAnteriores = datos;
+
       window.miGrafica = new Chart(ctx, {
         type: 'line',
         data: {
           labels: datos.map((_, i) => `#${i + 1}`),
-          datasets: [{
-            label: 'Ahorro acumulado',
-            data: datos,
-            borderColor: '#007bff',
-            fill: false
-          }]
+          datasets: datasets
         },
         options: {
           responsive: true,
-          plugins: { legend: { display: false } },
+          plugins: { legend: { display: true } },
           scales: { y: { beginAtZero: true } }
         }
       });
