@@ -25,6 +25,16 @@
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
     }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .header img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+    }
     p.intro {
       font-size: 1em;
       color: #555;
@@ -59,12 +69,17 @@
       border-radius: 5px;
       white-space: pre-line;
     }
+    .nota-aviso {
+      font-size: 0.85em;
+      color: #888;
+      margin-top: 8px;
+    }
     .footer {
       margin-top: 40px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      font-size: 0.9em;
+      font-size: 0.75em;
       color: #666;
     }
     .footer-content {
@@ -72,15 +87,11 @@
       align-items: center;
       gap: 16px;
     }
-    .footer img.avatar {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-    }
     .footer .links {
       display: flex;
       flex-direction: column;
       line-height: 1.4;
+      font-size: 0.75em;
     }
     .footer a {
       text-decoration: none;
@@ -101,29 +112,19 @@
       background-color: #111;
       text-decoration: underline;
     }
-    .kofi-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 0.75em;
-      max-width: 140px;
-    }
     .kofi-wrapper img {
       height: 40px;
       border: none;
       border-radius: 6px;
     }
-    .kofi-wrapper span {
-      margin-top: 0.3rem;
-      text-align: center;
-      font-size: 0.75em;
-      color: #444;
-    }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Calculadora de Ahorro</h1>
+    <div class="header">
+      <img src="cat.jpg" alt="Avatar de Maniat1k" />
+      <h1>Calculadora de Ahorro</h1>
+    </div>
     <p class="intro">
       Esta herramienta te ayuda a planificar cuánto tiempo y esfuerzo te tomará alcanzar una meta de ahorro determinada, 
       y simular posibles ganancias si decides invertir ese dinero en un plazo fijo. También verás una gráfica del progreso de tu ahorro.
@@ -155,6 +156,7 @@
       </select>
     </label>
     <label>Tasa de interés anual (%): <input type="number" id="tasa" step="0.01" /></label>
+    <p class="nota-aviso">* La tasa de interés es estimada y puede variar según el plazo y condiciones del banco.</p>
     <label>Monto a invertir ($UYU): <input type="number" id="inversion" /></label>
     <label>Plazo en días: <input type="number" id="plazo" value="360" /></label>
     <button onclick="calcularPlazoFijo()">Calcular Ganancia</button>
@@ -165,10 +167,8 @@
         <a href='https://ko-fi.com/marcelolemos' target='_blank'>
           <img src='https://storage.ko-fi.com/cdn/kofi5.png' alt='Ko-fi'>
         </a>
-        <span>Invitame un café ☕</span>
       </div>
       <div class="footer-content">
-        <img class="avatar" src="cat.jpg" alt="Avatar de Maniat1k" />
         <div class="links">
           <a class="github" href="https://github.com/maniat1k" target="_blank">Visitar mi GitHub</a>
           <a class="retro-link" href="https://maniat1k.github.io/" target="_blank">Ir a mi sitio</a>
@@ -232,9 +232,13 @@ Con una frecuencia de ${descripcion}, llegarás en aproximadamente ${diasTotales
 
     function cargarTasa() {
       const banco = document.getElementById('banco').value;
+      const plazo = parseInt(document.getElementById('plazo').value);
       let tasa = '';
-      if (banco === 'BROU') tasa = 7.25;
-      else if (banco === 'ITAU') tasa = 8.0;
+      if (banco === 'BROU') {
+        tasa = plazo >= 360 ? 7.25 : 6.8;
+      } else if (banco === 'ITAU') {
+        tasa = plazo >= 360 ? 8.0 : 7.6;
+      }
       document.getElementById('tasa').value = tasa;
     }
 
