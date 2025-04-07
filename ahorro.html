@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora de Ahorro</title>
+  <title>Calculadora de Ahorro con Tasas</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
@@ -14,9 +14,6 @@
       background-color: #fdfdfb;
       color: #333;
     }
-    h1, h2 {
-      color: #2c3e50;
-    }
     .container {
       max-width: 800px;
       margin: auto;
@@ -25,20 +22,8 @@
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
     }
-    .header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .header img {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-    }
-    p.intro {
-      font-size: 1em;
-      color: #555;
-      margin-bottom: 1.5rem;
+    h1, h2 {
+      color: #2c3e50;
     }
     label {
       display: block;
@@ -74,226 +59,90 @@
       color: #888;
       margin-top: 8px;
     }
-    .footer {
-      margin-top: 40px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 0.75em;
-      color: #666;
+    .tasas {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      display: none;
     }
-    .footer-content {
-      display: flex;
-      align-items: center;
-      gap: 16px;
+    .tasas table {
+      width: 100%;
+      border-collapse: collapse;
     }
-    .footer .links {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.4;
-      font-size: 0.75em;
-    }
-    .footer a {
-      text-decoration: none;
-    }
-    .footer a.github {
-      color: #007bff;
-    }
-    .footer a.retro-link {
-      color: #00ff00;
-      background-color: black;
-      font-family: "Courier New", Courier, monospace;
-      padding: 2px 6px;
-      border-radius: 4px;
-      text-shadow: 0 0 2px #00ff00;
-      width: fit-content;
-    }
-    .footer a.retro-link:hover {
-      background-color: #111;
-      text-decoration: underline;
-    }
-    .kofi-wrapper img {
-      height: 40px;
-      border: none;
-      border-radius: 6px;
+    .tasas th, .tasas td {
+      padding: 8px;
+      border-bottom: 1px solid #ccc;
+      text-align: left;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="header">
-      <img src="cat.jpg" alt="Avatar de Maniat1k" />
-      <h1>Calculadora de Ahorro</h1>
-    </div>
-    <p class="intro">
-      Esta herramienta te ayuda a planificar cuánto tiempo y esfuerzo te tomará alcanzar una meta de ahorro determinada, 
-      y simular posibles ganancias si decides invertir ese dinero en un plazo fijo. También verás una gráfica del progreso de tu ahorro.
-    </p>
+    <h1>Calculadora de Ahorro</h1>
 
-    <h2>Ahorro Manual</h2>
-    <label>Objetivo de ahorro ($UYU): <input type="text" id="objetivo" oninput="actualizarDolares()" /></label>
-    <label>Monto por aporte: <input type="text" id="aporte" /></label>
-    <label>Frecuencia:
-      <select id="frecuencia">
-        <option value="1">1 vez por día</option>
-        <option value="0.5">2 veces por día</option>
-        <option value="7">1 vez por semana</option>
-        <option value="3.5">2 veces por semana</option>
-        <option value="30">1 vez por mes</option>
-      </select>
-    </label>
-    <p class="nota-aviso">Equivalente en dólares (cotización BROU): <span id="usd_equivalente">-</span></p>
-
-    <h2>Simulador de Plazo Fijo</h2>
     <label>Seleccionar Banco:
-      <select id="banco" onchange="cargarTasa()">
-        <option value="BROU" selected>BROU</option>
+      <select id="banco" onchange="mostrarTasas()">
+        <option value="">-- Elegir --</option>
+        <option value="BROU">BROU</option>
         <option value="ITAU">Itaú</option>
       </select>
     </label>
-    <label>Tasa de interés anual (%): <input type="number" id="tasa" step="0.01" value="7.25" /></label>
-    <p class="nota-aviso">* La tasa de interés es estimada para BROU a 360 días. Podés modificarla si querés comparar otras opciones.</p>
+
+    <div id="tasasBROU" class="tasas">
+      <h2>Plazos y Tasas – BROU</h2>
+      <table>
+        <thead><tr><th>Plazo</th><th>Tasa Estimada</th></tr></thead>
+        <tbody>
+          <tr><td>30–59 días</td><td>6.00%</td></tr>
+          <tr><td>60–89 días</td><td>6.50%</td></tr>
+          <tr><td>90–179 días</td><td>7.00%</td></tr>
+          <tr><td>180–365 días</td><td>7.25%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div id="tasasITAU" class="tasas">
+      <h2>Plazos y Tasas – Itaú</h2>
+      <table>
+        <thead><tr><th>Plazo</th><th>Tasa Estimada</th></tr></thead>
+        <tbody>
+          <tr><td>30 días</td><td>6.5%</td></tr>
+          <tr><td>60 días</td><td>7.0%</td></tr>
+          <tr><td>91 días</td><td>7.2%</td></tr>
+          <tr><td>181 días</td><td>7.5%</td></tr>
+          <tr><td>270 días</td><td>7.75%</td></tr>
+          <tr><td>367 días</td><td>8.0%</td></tr>
+          <tr><td>547 días</td><td>8.1%</td></tr>
+          <tr><td>732 días</td><td>8.2%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
     <label>Monto a invertir ($UYU): <input type="number" id="inversion" /></label>
     <label>Plazo en días: <input type="number" id="plazo" value="360" /></label>
+    <label>Tasa de interés anual (%): <input type="number" id="tasa" step="0.01" /></label>
 
-    <button onclick="calcularTodo()">Calcular todo</button>
-
-    <div class="result" id="resultadoAhorro"></div>
-    <div class="result" id="resultadoPlazo"></div>
-
-    <canvas id="graficaAhorro" style="margin-top: 30px;"></canvas>
-
-    <div class="footer">
-      <div class="kofi-wrapper">
-        <a href='https://ko-fi.com/marcelolemos' target='_blank'>
-          <img src='https://storage.ko-fi.com/cdn/kofi5.png' alt='Ko-fi'>
-        </a>
-      </div>
-      <div class="footer-content">
-        <div class="links">
-          <a class="github" href="https://github.com/maniat1k" target="_blank">Visitar mi GitHub</a>
-          <a class="retro-link" href="https://maniat1k.github.io/" target="_blank">Ir a mi sitio</a>
-        </div>
-      </div>
-    </div>
+    <button onclick="calcularPlazo()">Calcular Ganancia</button>
+    <div class="result" id="resultado"></div>
   </div>
 
   <script>
-    let cotizacionDolar = 39.65;
-    let resultadoAnterior = '';
-    let diasAnterior = null;
-    let datosAnteriores = [];
-
-    function parseNumber(input) {
-      return parseFloat((input || '').replace(/\./g, '').replace(',', '.')) || 0;
+    function mostrarTasas() {
+      document.getElementById("tasasBROU").style.display = "none";
+      document.getElementById("tasasITAU").style.display = "none";
+      const banco = document.getElementById("banco").value;
+      if (banco === "BROU") {
+        document.getElementById("tasasBROU").style.display = "block";
+        document.getElementById("tasa").value = 7.25;
+      } else if (banco === "ITAU") {
+        document.getElementById("tasasITAU").style.display = "block";
+        document.getElementById("tasa").value = 8.00;
+      }
     }
 
-    function actualizarDolares() {
-      const valorUYU = parseNumber(document.getElementById('objetivo').value);
-      const enUSD = (valorUYU / cotizacionDolar).toFixed(2);
-      document.getElementById('usd_equivalente').innerText = `$${enUSD} USD`;
-    }
-
-    function calcularTodo() {
-      resultadoAnterior = document.getElementById('resultadoAhorro').innerText;
-      calcularAhorro();
-      calcularPlazoFijo();
-    }
-
-    function calcularAhorro() {
-      const objetivo = parseNumber(document.getElementById('objetivo').value);
-      const aporte = parseNumber(document.getElementById('aporte').value);
-      const frecuencia = parseFloat(document.getElementById('frecuencia').value);
-      if (!objetivo || !aporte || !frecuencia) return;
-      if (objetivo < 10000) {
-        document.getElementById('resultadoAhorro').innerText = '⚠️ El monto mínimo para abrir una cuenta de ahorro es $10.000. Por favor ingresá un monto mayor.';
-        return;
-      }
-
-      const aportesNecesarios = Math.ceil(objetivo / aporte);
-      const diasTotales = Math.ceil(aportesNecesarios / (1 / frecuencia));
-
-      const hoy = new Date();
-      const fechaFinal = new Date(hoy);
-      fechaFinal.setDate(hoy.getDate() + diasTotales);
-      const opcionesFecha = { day: '2-digit', month: '2-digit', year: 'numeric' };
-
-      let descripcion = '';
-      switch (frecuencia) {
-        case 1: descripcion = '1 vez por día'; break;
-        case 0.5: descripcion = '2 veces por día'; break;
-        case 7: descripcion = '1 vez por semana'; break;
-        case 3.5: descripcion = '2 veces por semana'; break;
-        case 30: descripcion = '1 vez por mes'; break;
-        default: descripcion = frecuencia + ' días';
-      }
-
-      let comparacion = '';
-      if (diasAnterior !== null && diasAnterior !== diasTotales) {
-        const diferencia = Math.abs(diasTotales - diasAnterior);
-        comparacion = `\n\n📌 Comparado con el cálculo anterior, este plan te llevará ${diferencia} día(s) ${diasTotales < diasAnterior ? 'menos' : 'más'}.`;
-      }
-      diasAnterior = diasTotales;
-
-      document.getElementById('resultadoAhorro').innerText =
-        `📊 Para alcanzar tu meta de $${objetivo}, necesitas hacer ${aportesNecesarios} aportes de $${aporte}.
-🕓 Con una frecuencia de ${descripcion}, vas a lograrlo en unos ${diasTotales} días, es decir, alrededor del ${fechaFinal.toLocaleDateString('es-ES', opcionesFecha)}.${comparacion}`;
-
-      document.getElementById('inversion').value = objetivo;
-
-      const ctx = document.getElementById('graficaAhorro').getContext('2d');
-      const datos = Array.from({ length: aportesNecesarios }, (_, i) => aporte * (i + 1));
-
-      if (window.miGrafica) window.miGrafica.destroy();
-
-      const datasets = [
-        {
-          label: 'Ahorro actual',
-          data: datos,
-          borderColor: '#007bff',
-          fill: false
-        }
-      ];
-
-      if (datosAnteriores.length) {
-        datasets.push({
-          label: 'Ahorro anterior',
-          data: datosAnteriores,
-          borderColor: '#ff9900',
-          fill: false,
-          borderDash: [5, 5]
-        });
-      }
-
-      datosAnteriores = datos;
-
-      window.miGrafica = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: datos.map((_, i) => `#${i + 1}`),
-          datasets: datasets
-        },
-        options: {
-          responsive: true,
-          plugins: { legend: { display: true } },
-          scales: { y: { beginAtZero: true } }
-        }
-      });
-    }
-
-    function cargarTasa() {
-      const banco = document.getElementById('banco').value;
-      const plazo = parseInt(document.getElementById('plazo').value);
-      let tasa = '';
-      if (banco === 'BROU') {
-        tasa = plazo >= 360 ? 7.25 : 6.8;
-      } else if (banco === 'ITAU') {
-        tasa = plazo >= 360 ? 8.0 : 7.6;
-      }
-      document.getElementById('tasa').value = tasa;
-    }
-
-    function calcularPlazoFijo() {
+    function calcularPlazo() {
       const inversion = parseFloat(document.getElementById('inversion').value);
       const tasa = parseFloat(document.getElementById('tasa').value);
       const plazo = parseInt(document.getElementById('plazo').value);
@@ -302,8 +151,9 @@
       const interes = inversion * (tasa / 100) * (plazo / 365);
       const total = inversion + interes;
 
-      document.getElementById('resultadoPlazo').innerText =
-        `Ganancia estimada: $${interes.toFixed(2)}\nTotal al vencimiento: $${total.toFixed(2)}`;
+      document.getElementById('resultado').innerText =
+        `Ganancia estimada: $${interes.toFixed(2)}
+Total al vencimiento: $${total.toFixed(2)}`;
     }
   </script>
 </body>
