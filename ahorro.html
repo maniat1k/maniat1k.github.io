@@ -131,8 +131,8 @@
     </p>
 
     <h2>Ahorro Manual</h2>
-    <label>Objetivo de ahorro ($UYU): <input type="number" id="objetivo" /></label>
-    <label>Monto por aporte: <input type="number" id="aporte" /></label>
+    <label>Objetivo de ahorro ($UYU): <input type="text" id="objetivo" oninput="actualizarDolares()" /></label>
+    <label>Monto por aporte: <input type="text" id="aporte" /></label>
     <label>Frecuencia:
       <select id="frecuencia">
         <option value="1">1 vez por día</option>
@@ -142,6 +142,7 @@
         <option value="30">1 vez por mes</option>
       </select>
     </label>
+    <p class="nota-aviso">Equivalente en dólares (cotización BROU): <span id="usd_equivalente">-</span></p>
     <button onclick="calcularAhorro()">Calcular Ahorro</button>
     <div class="result" id="resultadoAhorro"></div>
 
@@ -178,9 +179,21 @@
   </div>
 
   <script>
+    let cotizacionDolar = 39.65; // valor estimado manual
+
+    function parseNumber(input) {
+      return parseFloat((input || '').replace(/\./g, '').replace(',', '.')) || 0;
+    }
+
+    function actualizarDolares() {
+      const valorUYU = parseNumber(document.getElementById('objetivo').value);
+      const enUSD = (valorUYU / cotizacionDolar).toFixed(2);
+      document.getElementById('usd_equivalente').innerText = `$${enUSD} USD`;
+    }
+
     function calcularAhorro() {
-      const objetivo = parseFloat(document.getElementById('objetivo').value);
-      const aporte = parseFloat(document.getElementById('aporte').value);
+      const objetivo = parseNumber(document.getElementById('objetivo').value);
+      const aporte = parseNumber(document.getElementById('aporte').value);
       const frecuencia = parseFloat(document.getElementById('frecuencia').value);
       if (!objetivo || !aporte || !frecuencia) return;
 
