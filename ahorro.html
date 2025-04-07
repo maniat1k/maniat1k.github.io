@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Calculadora de Ahorro</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
@@ -126,7 +126,7 @@
       <h1>Calculadora de Ahorro</h1>
     </div>
     <p class="intro">
-      Esta herramienta te ayuda a planificar cuánto tiempo y esfuerzo te tomará alcanzar una meta de ahorro determinada, 
+      Esta herramienta te ayuda a planificar cuánto tiempo y esfuerzo te tomará alcanzar una meta de ahorro determinada,
       y simular posibles ganancias si decides invertir ese dinero en un plazo fijo. También verás una gráfica del progreso de tu ahorro.
     </p>
 
@@ -146,15 +146,17 @@
 
     <h2>Simulador de Plazo Fijo</h2>
     <label>Seleccionar Banco:
-      <select id="banco" onchange="cargarTasa()">
+      <select id="banco" onchange="actualizarPlazos()">
         <option value="BROU" selected>BROU</option>
         <option value="ITAU">Itaú</option>
       </select>
     </label>
-    <label>Tasa de interés anual (%): <input type="number" id="tasa" step="0.01" value="7.25" /></label>
-    <p class="nota-aviso">* La tasa de interés es estimada para BROU a 360 días. Podés modificarla si querés comparar otras opciones.</p>
-    <label>Monto a invertir ($UYU): <input type="number" id="inversion" /></label>
-    <label>Plazo en días: <input type="number" id="plazo" value="360" /></label>
+    <label>Plazo en días:
+      <select id="plazo" onchange="cargarTasa()"></select>
+    </label>
+    <label>Tasa de interés anual (%): <input type="number" id="tasa" step="0.01" readonly /></label>
+    <p class="nota-aviso">* La tasa se actualiza automáticamente según el banco y el plazo.</p>
+    <label>Monto a invertir ($UYU): <input type="number" id="inversion" readonly /></label>
 
     <button onclick="calcularTodo()">Calcular todo</button>
 
@@ -184,6 +186,11 @@
     let diasAnterior = null;
     let datosAnteriores = [];
 
+    const tasasPorBanco = {
+      BROU: { 30: 5.5, 90: 6.8, 180: 7.0, 360: 7.25 },
+      ITAU: { 30: 6.0, 90: 7.2, 180: 7.5, 360: 8.0 }
+    };
+
     function parseNumber(input) {
       return parseFloat((input || '').replace(/\./g, '').replace(',', '.')) || 0;
     }
@@ -192,6 +199,27 @@
       const valorUYU = parseNumber(document.getElementById('objetivo').value);
       const enUSD = (valorUYU / cotizacionDolar).toFixed(2);
       document.getElementById('usd_equivalente').innerText = `$${enUSD} USD`;
+    }
+
+    function actualizarPlazos() {
+      const banco = document.getElementById('banco').value;
+      const plazoSelect = document.getElementById('plazo');
+      const plazos = Object.keys(tasasPorBanco[banco]);
+      plazoSelect.innerHTML = '';
+      plazos.forEach(p => {
+        const option = document.createElement('option');
+        option.value = p;
+        option.textContent = `${p} días`;
+        plazoSelect.appendChild(option);
+      });
+      cargarTasa();
+    }
+
+    function cargarTasa() {
+      const banco = document.getElementById('banco').value;
+      const plazo = parseInt(document.getElementById('plazo').value);
+      const tasa = tasasPorBanco[banco][plazo];
+      document.getElementById('tasa').value = tasa;
     }
 
     function calcularTodo() {
@@ -281,18 +309,6 @@
       });
     }
 
-    function cargarTasa() {
-      const banco = document.getElementById('banco').value;
-      const plazo = parseInt(document.getElementById('plazo').value);
-      let tasa = '';
-      if (banco === 'BROU') {
-        tasa = plazo >= 360 ? 7.25 : 6.8;
-      } else if (banco === 'ITAU') {
-        tasa = plazo >= 360 ? 8.0 : 7.6;
-      }
-      document.getElementById('tasa').value = tasa;
-    }
-
     function calcularPlazoFijo() {
       const inversion = parseFloat(document.getElementById('inversion').value);
       const tasa = parseFloat(document.getElementById('tasa').value);
@@ -305,6 +321,9 @@
       document.getElementById('resultadoPlazo').innerText =
         `Ganancia estimada: $${interes.toFixed(2)}\nTotal al vencimiento: $${total.toFixed(2)}`;
     }
+
+    // Inicializar plazos y tasa al cargar
+    window.onload = actualizarPlazos;
   </script>
 </body>
 </html>
