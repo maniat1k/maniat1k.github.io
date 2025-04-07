@@ -93,6 +93,24 @@
       background-color: #111;
       text-decoration: underline;
     }
+    .kofi-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.75em;
+      max-width: 140px;
+    }
+    .kofi-wrapper img {
+      height: 40px;
+      border: none;
+      border-radius: 6px;
+    }
+    .kofi-wrapper span {
+      margin-top: 0.3rem;
+      text-align: center;
+      font-size: 0.75em;
+      color: #444;
+    }
   </style>
 </head>
 <body>
@@ -122,10 +140,11 @@
     <div class="result" id="resultadoPlazo"></div>
 
     <div class="footer">
-     <div style="margin: 1rem 0;">
-  <a href='https://ko-fi.com/marcelolemos' target='_blank'>
-    <img src='https://storage.ko-fi.com/cdn/kofi5.png' alt='Ko-fi' style='height: 40px; border: none; border-radius: 6px;'>
-  </a>
+      <div class="kofi-wrapper">
+        <a href='https://ko-fi.com/marcelolemos' target='_blank'>
+          <img src='https://storage.ko-fi.com/cdn/kofi5.png' alt='Ko-fi'>
+        </a>
+        <span>Invitame un café ☕</span>
       </div>
       <div class="footer-content">
         <img class="avatar" src="cat.jpg" alt="Avatar de Maniat1k" />
