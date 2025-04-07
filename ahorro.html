@@ -53,31 +53,39 @@
     }
     .footer {
       margin-top: 40px;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
       font-size: 0.9em;
       color: #666;
     }
     .footer img {
-      width: 32px;
-      height: 32px;
-      vertical-align: middle;
-      margin-right: 8px;
-      border-radius: 8px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+    }
+    .footer .links {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.4;
     }
     .footer a {
-      color: #007bff;
       text-decoration: none;
-      margin: 0 10px;
     }
-    .retro-link {
+    .footer a.github {
+      color: #007bff;
+    }
+    .footer a.retro-link {
       color: #00ff00;
       background-color: black;
       font-family: "Courier New", Courier, monospace;
-      padding: 4px 8px;
+      padding: 2px 6px;
       border-radius: 4px;
       text-shadow: 0 0 2px #00ff00;
+      width: fit-content;
     }
-    .retro-link:hover {
+    .footer a.retro-link:hover {
       background-color: #111;
       text-decoration: underline;
     }
@@ -110,13 +118,11 @@
     <div class="result" id="resultadoPlazo"></div>
 
     <div class="footer">
-      <a href="https://github.com/maniat1k" target="_blank">
-        <img src="cat.jpg" alt="Avatar de Maniat1k" />
-        Visitar mi GitHub
-      </a>
-      <a href="https://maniat1k.github.io/" target="_blank" class="retro-link">
-        Ir a mi sitio
-      </a>
+      <img src="cat.jpg" alt="Avatar de Maniat1k" />
+      <div class="links">
+        <a class="github" href="https://github.com/maniat1k" target="_blank">Visitar mi GitHub</a>
+        <a class="retro-link" href="https://maniat1k.github.io/" target="_blank">Ir a mi sitio</a>
+      </div>
     </div>
   </div>
 
