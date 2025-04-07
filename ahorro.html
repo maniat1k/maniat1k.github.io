@@ -74,6 +74,11 @@
       color: #888;
       margin-top: 8px;
     }
+    .ayuda-auto {
+      font-size: 0.85em;
+      color: #444;
+      margin-top: 10px;
+    }
     .footer {
       margin-top: 40px;
       display: flex;
@@ -135,6 +140,7 @@
     <label>Monto por aporte: <input type="text" id="aporte" /></label>
     <label>Frecuencia:
       <select id="frecuencia">
+        <option value="">--</option>
         <option value="1">1 vez por día</option>
         <option value="0.5">2 veces por día</option>
         <option value="7">1 vez por semana</option>
@@ -159,6 +165,7 @@
     <label>Monto a invertir ($UYU): <input type="number" id="inversion" /></label>
     <label>Plazo en días: <input type="number" id="plazo" value="360" /></label>
     <button onclick="calcularTodo()">Generar plan y simular ganancia</button>
+    <p class="ayuda-auto" id="ayudaSugerencia"></p>
     <div class="result" id="resultadoPlazo"></div>
 
     <div class="footer">
@@ -191,127 +198,29 @@
     }
 
     function calcularTodo() {
+      sugerirValores();
       calcularAhorro();
       calcularPlazoFijo();
     }
 
-    function calcularAhorro() {
+    function sugerirValores() {
       const objetivo = parseNumber(document.getElementById('objetivo').value);
-      const aporte = parseNumber(document.getElementById('aporte').value);
-      const frecuencia = parseFloat(document.getElementById('frecuencia').value);
+      let aporte = parseNumber(document.getElementById('aporte').value);
+      let frecuencia = document.getElementById('frecuencia').value;
+      let mensaje = '';
 
-      if (!objetivo || !aporte || !frecuencia) return;
-      if (objetivo < 10000) {
-        document.getElementById('resultadoAhorro').innerText =
-          'El monto mínimo para abrir una cuenta de ahorro en BROU o ITAU es de $10.000.';
-        return;
+      if (objetivo && !aporte) {
+        aporte = Math.round(objetivo / 30);
+        document.getElementById('aporte').value = aporte;
+        mensaje += `Sugerimos un aporte de $${aporte}`;
       }
-
-      const aportesNecesarios = Math.ceil(objetivo / aporte);
-      const diasTotales = Math.ceil(aportesNecesarios / (1 / frecuencia));
-
-      const hoy = new Date();
-      const fechaFinal = new Date(hoy);
-      fechaFinal.setDate(hoy.getDate() + diasTotales);
-      const opcionesFecha = { day: '2-digit', month: '2-digit', year: 'numeric' };
-
-      let descripcion = '';
-      switch (frecuencia) {
-        case 1: descripcion = '1 vez por día'; break;
-        case 0.5: descripcion = '2 veces por día'; break;
-        case 7: descripcion = '1 vez por semana'; break;
-        case 3.5: descripcion = '2 veces por semana'; break;
-        case 30: descripcion = '1 vez por mes'; break;
-        default: descripcion = frecuencia + ' días';
+      if (objetivo && !frecuencia) {
+        frecuencia = "1";
+        document.getElementById('frecuencia').value = frecuencia;
+        mensaje += mensaje ? ` una vez por día.` : `Frecuencia sugerida: 1 vez por día.`;
       }
-
-      let comparativa = '';
-      if (ultimoPlan) {
-        const diferencia = ultimoPlan.diasTotales - diasTotales;
-        comparativa = `\nComparado con el plan anterior (${ultimoPlan.diasTotales} días), este plan te ahorra ${diferencia} días.`;
-      }
-
-      document.getElementById('resultadoAhorro').innerText =
-        `Necesitás hacer ${aportesNecesarios} aportes de $${aporte}.
-Con una frecuencia de ${descripcion}, llegarás en aproximadamente ${diasTotales} días (alrededor del ${fechaFinal.toLocaleDateString('es-ES', opcionesFecha)}).${comparativa}`;
-
-      document.getElementById('inversion').value = objetivo;
-
-      const ctx = document.getElementById('graficaAhorro').getContext('2d');
-      if (window.miGrafica) window.miGrafica.destroy();
-
-      const datos = Array.from({ length: aportesNecesarios }, (_, i) => aporte * (i + 1));
-      const datasets = [
-        {
-          label: 'Ahorro actual',
-          data: datos,
-          borderColor: '#007bff',
-          fill: false
-        }
-      ];
-
-      if (ultimoPlan) {
-        const datosPrevios = Array.from({ length: ultimoPlan.aportes }, (_, i) => ultimoPlan.aporte * (i + 1));
-        datasets.push({
-          label: 'Plan anterior',
-          data: datosPrevios,
-          borderColor: '#ccc',
-          borderDash: [5, 5],
-          fill: false
-        });
-      }
-
-      window.miGrafica = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: datos.map((_, i) => `#${i + 1}`),
-          datasets: datasets
-        },
-        options: {
-          responsive: true,
-          plugins: { legend: { display: true } },
-          scales: { y: { beginAtZero: true } }
-        }
-      });
-
-      ultimoPlan = {
-        objetivo,
-        aporte,
-        frecuencia,
-        diasTotales,
-        aportes: aportesNecesarios
-      };
+      document.getElementById('ayudaSugerencia').innerText = mensaje ? `📌 ${mensaje}` : '';
     }
-
-    function cargarTasa() {
-      const banco = document.getElementById('banco').value;
-      const plazo = parseInt(document.getElementById('plazo').value);
-      let tasa = '';
-      if (banco === 'BROU') {
-        tasa = plazo >= 360 ? 7.25 : 6.8;
-      } else if (banco === 'ITAU') {
-        tasa = plazo >= 360 ? 8.0 : 7.6;
-      }
-      document.getElementById('tasa').value = tasa;
-    }
-
-    function calcularPlazoFijo() {
-      const inversion = parseFloat(document.getElementById('inversion').value);
-      const tasa = parseFloat(document.getElementById('tasa').value);
-      const plazo = parseInt(document.getElementById('plazo').value);
-      if (!inversion || !tasa || !plazo) return;
-
-      const interes = inversion * (tasa / 100) * (plazo / 365);
-      const total = inversion + interes;
-
-      document.getElementById('resultadoPlazo').innerText =
-        `Ganancia estimada: $${interes.toFixed(2)}\nTotal al vencimiento: $${total.toFixed(2)}`;
-    }
-
-    window.onload = function() {
-      document.getElementById('banco').value = 'BROU';
-      cargarTasa();
-    };
   </script>
 </body>
 </html>
