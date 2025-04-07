@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Calculadora de Ahorro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Inter', sans-serif;
       margin: 0;
       padding: 20px;
-      background-color: #f8f9fa;
+      background-color: #fdfdfb;
       color: #333;
     }
     h1, h2 {
       color: #2c3e50;
     }
     .container {
-      max-width: 700px;
+      max-width: 800px;
       margin: auto;
       background: white;
       padding: 30px;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
     }
     label {
       display: block;
@@ -36,13 +38,13 @@
       font-size: 1em;
     }
     button {
-      background-color: #007bff;
+      background-color: #b0b0b0;
       color: white;
       cursor: pointer;
       margin-top: 20px;
     }
     button:hover {
-      background-color: #0056b3;
+      background-color: #888;
     }
     .result {
       margin-top: 20px;
@@ -132,9 +134,18 @@
     <button onclick="calcularAhorro()">Calcular Ahorro</button>
     <div class="result" id="resultadoAhorro"></div>
 
+    <canvas id="graficaAhorro" style="margin-top: 30px;"></canvas>
+
     <h2>Simulador de Plazo Fijo</h2>
-    <label>Monto a invertir ($UYU): <input type="number" id="inversion" /></label>
+    <label>Seleccionar Banco:
+      <select id="banco" onchange="cargarTasa()">
+        <option value="">Seleccionar</option>
+        <option value="BROU">BROU</option>
+        <option value="ITAU">Itaú</option>
+      </select>
+    </label>
     <label>Tasa de interés anual (%): <input type="number" id="tasa" step="0.01" /></label>
+    <label>Monto a invertir ($UYU): <input type="number" id="inversion" /></label>
     <label>Plazo en días: <input type="number" id="plazo" /></label>
     <button onclick="calcularPlazoFijo()">Calcular Ganancia</button>
     <div class="result" id="resultadoPlazo"></div>
@@ -161,7 +172,6 @@
       const objetivo = parseFloat(document.getElementById('objetivo').value);
       const aporte = parseFloat(document.getElementById('aporte').value);
       const frecuencia = parseFloat(document.getElementById('frecuencia').value);
-
       if (!objetivo || !aporte || !frecuencia) return;
 
       const aportesNecesarios = Math.ceil(objetivo / aporte);
@@ -169,39 +179,63 @@
 
       let descripcion = '';
       switch (frecuencia) {
-        case 1:
-          descripcion = '1 vez por día'; break;
-        case 0.5:
-          descripcion = '2 veces por día'; break;
-        case 7:
-          descripcion = '1 vez por semana'; break;
-        case 3.5:
-          descripcion = '2 veces por semana'; break;
-        case 30:
-          descripcion = '1 vez por mes'; break;
-        default:
-          descripcion = frecuencia + ' días';
+        case 1: descripcion = '1 vez por día'; break;
+        case 0.5: descripcion = '2 veces por día'; break;
+        case 7: descripcion = '1 vez por semana'; break;
+        case 3.5: descripcion = '2 veces por semana'; break;
+        case 30: descripcion = '1 vez por mes'; break;
+        default: descripcion = frecuencia + ' días';
       }
 
       document.getElementById('resultadoAhorro').innerText =
         `Necesitás hacer ${aportesNecesarios} aportes de $${aporte}.
-
 Con una frecuencia de ${descripcion}, llegarás en aproximadamente ${diasTotales} días.`;
+
+      // set inversión por defecto
+      document.getElementById('inversion').value = objetivo;
+
+      // graficar
+      const ctx = document.getElementById('graficaAhorro').getContext('2d');
+      if (window.miGrafica) window.miGrafica.destroy();
+      const datos = Array.from({ length: aportesNecesarios }, (_, i) => aporte * (i + 1));
+      window.miGrafica = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: datos.map((_, i) => `#${i + 1}`),
+          datasets: [{
+            label: 'Ahorro acumulado',
+            data: datos,
+            borderColor: '#007bff',
+            fill: false
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } }
+        }
+      });
+    }
+
+    function cargarTasa() {
+      const banco = document.getElementById('banco').value;
+      let tasa = '';
+      if (banco === 'BROU') tasa = 7.25;
+      else if (banco === 'ITAU') tasa = 8.0;
+      document.getElementById('tasa').value = tasa;
     }
 
     function calcularPlazoFijo() {
       const inversion = parseFloat(document.getElementById('inversion').value);
       const tasa = parseFloat(document.getElementById('tasa').value);
       const plazo = parseInt(document.getElementById('plazo').value);
-
       if (!inversion || !tasa || !plazo) return;
 
       const interes = inversion * (tasa / 100) * (plazo / 365);
       const total = inversion + interes;
 
       document.getElementById('resultadoPlazo').innerText =
-        `Ganancia estimada: $${interes.toFixed(2)}
-Total al vencimiento: $${total.toFixed(2)}`;
+        `Ganancia estimada: $${interes.toFixed(2)}\nTotal al vencimiento: $${total.toFixed(2)}`;
     }
   </script>
 </body>
