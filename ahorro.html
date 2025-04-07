@@ -51,6 +51,22 @@
       padding: 15px;
       border-radius: 5px;
     }
+    .footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.9em;
+      color: #666;
+    }
+    .footer img {
+      width: 32px;
+      height: 32px;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    .footer a {
+      color: #007bff;
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
@@ -78,6 +94,13 @@
     <label>Plazo en días: <input type="number" id="plazo" /></label>
     <button onclick="calcularPlazoFijo()">Calcular Ganancia</button>
     <div class="result" id="resultadoPlazo"></div>
+
+    <div class="footer">
+      <a href="https://github.com/maniat1k" target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/83437026?v=4" alt="Avatar de Maniat1k" />
+        Visitar mi GitHub
+      </a>
+    </div>
   </div>
 
   <script>
