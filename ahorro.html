@@ -59,8 +59,9 @@
       gap: 16px;
       font-size: 0.9em;
       color: #666;
+      position: relative;
     }
-    .footer img {
+    .footer img.avatar {
       width: 48px;
       height: 48px;
       border-radius: 50%;
@@ -88,6 +89,21 @@
     .footer a.retro-link:hover {
       background-color: #111;
       text-decoration: underline;
+    }
+    .ko-fi-button-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ko-fi-button-container iframe {
+      max-width: 100%;
+      max-height: 100%;
+      border: none;
     }
   </style>
 </head>
@@ -118,7 +134,10 @@
     <div class="result" id="resultadoPlazo"></div>
 
     <div class="footer">
-      <img src="cat.jpg" alt="Avatar de Maniat1k" />
+      <div class="ko-fi-button-container">
+        <iframe src="https://ko-fi.com/marcelolemos/?hidefeed=true&widget=true&embed=true&preview=true" height="24" title="kofi"></iframe>
+      </div>
+      <img class="avatar" src="cat.jpg" alt="Avatar de Maniat1k" />
       <div class="links">
         <a class="github" href="https://github.com/maniat1k" target="_blank">Visitar mi GitHub</a>
         <a class="retro-link" href="https://maniat1k.github.io/" target="_blank">Ir a mi sitio</a>
