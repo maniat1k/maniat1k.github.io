@@ -149,17 +149,16 @@
     <h2>Simulador de Plazo Fijo</h2>
     <label>Seleccionar Banco:
       <select id="banco" onchange="cargarTasa()">
-        <option value="">Seleccionar</option>
         <option value="BROU">BROU</option>
         <option value="ITAU">Itaú</option>
       </select>
     </label>
     <label>Tasa de interés anual (%): <input type="number" id="tasa" step="0.01" /></label>
-    <p class="nota-aviso">* La tasa de interés es estimada y puede variar según el plazo y condiciones del banco.</p>
+    <p class="nota-aviso">* La tasa de interés es estimada y puede variar según el plazo y condiciones del banco.<br>
+    Actualmente se muestra la tasa para BROU por defecto, pero podés cambiarla o simular con ITAU.</p>
     <label>Monto a invertir ($UYU): <input type="number" id="inversion" /></label>
     <label>Plazo en días: <input type="number" id="plazo" value="360" /></label>
-    <button onclick="calcularAhorro()">Generar plan de ahorro</button>
-    <button onclick="calcularPlazoFijo()">Calcular Ganancia</button>
+    <button onclick="calcularTodo()">Generar plan y simular ganancia</button>
     <div class="result" id="resultadoPlazo"></div>
 
     <div class="footer">
@@ -189,6 +188,11 @@
       const valorUYU = parseNumber(document.getElementById('objetivo').value);
       const enUSD = (valorUYU / cotizacionDolar).toFixed(2);
       document.getElementById('usd_equivalente').innerText = `$${enUSD} USD`;
+    }
+
+    function calcularTodo() {
+      calcularAhorro();
+      calcularPlazoFijo();
     }
 
     function calcularAhorro() {
@@ -303,6 +307,11 @@ Con una frecuencia de ${descripcion}, llegarás en aproximadamente ${diasTotales
       document.getElementById('resultadoPlazo').innerText =
         `Ganancia estimada: $${interes.toFixed(2)}\nTotal al vencimiento: $${total.toFixed(2)}`;
     }
+
+    window.onload = function() {
+      document.getElementById('banco').value = 'BROU';
+      cargarTasa();
+    };
   </script>
 </body>
 </html>
