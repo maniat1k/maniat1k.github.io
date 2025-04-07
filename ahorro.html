@@ -180,150 +180,148 @@
     </div>
   </div>
 
-  <script>
-    let cotizacionDolar = 39.65;
-    let resultadoAnterior = '';
-    let diasAnterior = null;
-    let datosAnteriores = [];
+  <!-- Te paso solo el bloque <script> actualizado para evitar duplicación -->
+<script>
+  let cotizacionDolar = 39.65;
+  let resultadoAnterior = '';
+  let diasAnterior = null;
+  let gananciaAnterior = null;
+  let datosAnteriores = [];
 
-    const tasasPorBanco = {
-      BROU: { 30: 5.5, 90: 6.8, 180: 7.0, 360: 7.25 },
-      ITAU: { 30: 6.0, 90: 7.2, 180: 7.5, 360: 8.0 }
-    };
+  const tasasPorBanco = {
+    BROU: { 30: 5.5, 90: 6.8, 180: 7.0, 360: 7.25 },
+    ITAU: { 30: 6.0, 90: 7.2, 180: 7.5, 360: 8.0 }
+  };
 
-    function parseNumber(input) {
-      return parseFloat((input || '').replace(/\./g, '').replace(',', '.')) || 0;
-    }
+  function parseNumber(input) {
+    return parseFloat((input || '').replace(/\./g, '').replace(',', '.')) || 0;
+  }
 
-    function actualizarDolares() {
-      const valorUYU = parseNumber(document.getElementById('objetivo').value);
-      const enUSD = (valorUYU / cotizacionDolar).toFixed(2);
-      document.getElementById('usd_equivalente').innerText = `$${enUSD} USD`;
-    }
+  function actualizarDolares() {
+    const valorUYU = parseNumber(document.getElementById('objetivo').value);
+    const enUSD = (valorUYU / cotizacionDolar).toFixed(2);
+    document.getElementById('usd_equivalente').innerText = `$${enUSD} USD`;
+  }
 
-    function actualizarPlazos() {
-      const banco = document.getElementById('banco').value;
-      const plazoSelect = document.getElementById('plazo');
-      const plazos = Object.keys(tasasPorBanco[banco]);
-      plazoSelect.innerHTML = '';
-      plazos.forEach(p => {
-        const option = document.createElement('option');
-        option.value = p;
-        option.textContent = `${p} días`;
-        plazoSelect.appendChild(option);
-      });
-      cargarTasa();
-    }
+  function actualizarPlazos() {
+    const banco = document.getElementById('banco').value;
+    const plazoSelect = document.getElementById('plazo');
+    const plazos = Object.keys(tasasPorBanco[banco]);
+    plazoSelect.innerHTML = '';
+    plazos.forEach(p => {
+      const option = document.createElement('option');
+      option.value = p;
+      option.textContent = `${p} días`;
+      plazoSelect.appendChild(option);
+    });
+    cargarTasa();
+  }
 
-    function cargarTasa() {
-      const banco = document.getElementById('banco').value;
-      const plazo = parseInt(document.getElementById('plazo').value);
-      const tasa = tasasPorBanco[banco][plazo];
-      document.getElementById('tasa').value = tasa;
-    }
+  function cargarTasa() {
+    const banco = document.getElementById('banco').value;
+    const plazo = parseInt(document.getElementById('plazo').value);
+    const tasa = tasasPorBanco[banco][plazo];
+    document.getElementById('tasa').value = tasa;
+  }
 
-    function calcularTodo() {
-      resultadoAnterior = document.getElementById('resultadoAhorro').innerText;
-      calcularAhorro();
-      calcularPlazoFijo();
-    }
+  function calcularTodo() {
+    resultadoAnterior = document.getElementById('resultadoPlazo').innerText;
+    calcularAhorroYPlazoFijo();
+  }
 
-    function calcularAhorro() {
-      const objetivo = parseNumber(document.getElementById('objetivo').value);
-      const aporte = parseNumber(document.getElementById('aporte').value);
-      const frecuencia = parseFloat(document.getElementById('frecuencia').value);
-      if (!objetivo || !aporte || !frecuencia) return;
-      if (objetivo < 10000) {
-        document.getElementById('resultadoAhorro').innerText = '⚠️ El monto mínimo para abrir una cuenta de ahorro es $10.000. Por favor ingresá un monto mayor.';
-        return;
-      }
+  function calcularAhorroYPlazoFijo() {
+    const objetivo = parseNumber(document.getElementById('objetivo').value);
+    const aporte = parseNumber(document.getElementById('aporte').value);
+    const frecuencia = parseFloat(document.getElementById('frecuencia').value);
+    const tasa = parseFloat(document.getElementById('tasa').value);
+    const plazo = parseInt(document.getElementById('plazo').value);
+    const banco = document.getElementById('banco').value;
 
-      const aportesNecesarios = Math.ceil(objetivo / aporte);
-      const diasTotales = Math.ceil(aportesNecesarios / (1 / frecuencia));
-
-      const hoy = new Date();
-      const fechaFinal = new Date(hoy);
-      fechaFinal.setDate(hoy.getDate() + diasTotales);
-      const opcionesFecha = { day: '2-digit', month: '2-digit', year: 'numeric' };
-
-      let descripcion = '';
-      switch (frecuencia) {
-        case 1: descripcion = '1 vez por día'; break;
-        case 0.5: descripcion = '2 veces por día'; break;
-        case 7: descripcion = '1 vez por semana'; break;
-        case 3.5: descripcion = '2 veces por semana'; break;
-        case 30: descripcion = '1 vez por mes'; break;
-        default: descripcion = frecuencia + ' días';
-      }
-
-      let comparacion = '';
-      if (diasAnterior !== null && diasAnterior !== diasTotales) {
-        const diferencia = Math.abs(diasTotales - diasAnterior);
-        comparacion = `\n\n📌 Comparado con el cálculo anterior, este plan te llevará ${diferencia} día(s) ${diasTotales < diasAnterior ? 'menos' : 'más'}.`;
-      }
-      diasAnterior = diasTotales;
-
-      document.getElementById('resultadoAhorro').innerText =
-        `📊 Para alcanzar tu meta de $${objetivo}, necesitas hacer ${aportesNecesarios} aportes de $${aporte}.
-🕓 Con una frecuencia de ${descripcion}, vas a lograrlo en unos ${diasTotales} días, es decir, alrededor del ${fechaFinal.toLocaleDateString('es-ES', opcionesFecha)}.${comparacion}`;
-
-      document.getElementById('inversion').value = objetivo;
-
-      const ctx = document.getElementById('graficaAhorro').getContext('2d');
-      const datos = Array.from({ length: aportesNecesarios }, (_, i) => aporte * (i + 1));
-
-      if (window.miGrafica) window.miGrafica.destroy();
-
-      const datasets = [
-        {
-          label: 'Ahorro actual',
-          data: datos,
-          borderColor: '#007bff',
-          fill: false
-        }
-      ];
-
-      if (datosAnteriores.length) {
-        datasets.push({
-          label: 'Ahorro anterior',
-          data: datosAnteriores,
-          borderColor: '#ff9900',
-          fill: false,
-          borderDash: [5, 5]
-        });
-      }
-
-      datosAnteriores = datos;
-
-      window.miGrafica = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: datos.map((_, i) => `#${i + 1}`),
-          datasets: datasets
-        },
-        options: {
-          responsive: true,
-          plugins: { legend: { display: true } },
-          scales: { y: { beginAtZero: true } }
-        }
-      });
-    }
-
-    function calcularPlazoFijo() {
-      const inversion = parseFloat(document.getElementById('inversion').value);
-      const tasa = parseFloat(document.getElementById('tasa').value);
-      const plazo = parseInt(document.getElementById('plazo').value);
-      if (!inversion || !tasa || !plazo) return;
-
-      const interes = inversion * (tasa / 100) * (plazo / 365);
-      const total = inversion + interes;
-
+    if (!objetivo || !aporte || !frecuencia || objetivo < 10000) {
       document.getElementById('resultadoPlazo').innerText =
-        `Ganancia estimada: $${interes.toFixed(2)}\nTotal al vencimiento: $${total.toFixed(2)}`;
+        '⚠️ Ingresá un objetivo de al menos $10.000 y los demás valores requeridos.';
+      return;
     }
 
-    // Inicializar plazos y tasa al cargar
-    window.onload = actualizarPlazos;
-  </script>
+    const aportesNecesarios = Math.ceil(objetivo / aporte);
+    const diasTotales = Math.ceil(aportesNecesarios / (1 / frecuencia));
+
+    const hoy = new Date();
+    const fechaFinal = new Date(hoy);
+    fechaFinal.setDate(hoy.getDate() + diasTotales);
+    const opcionesFecha = { day: '2-digit', month: '2-digit', year: 'numeric' };
+
+    const descripcion = {
+      1: '1 vez por día',
+      0.5: '2 veces por día',
+      7: '1 vez por semana',
+      3.5: '2 veces por semana',
+      30: '1 vez por mes'
+    }[frecuencia] || `${frecuencia} días`;
+
+    // Plazo fijo
+    const interes = objetivo * (tasa / 100) * (plazo / 365);
+    const total = objetivo + interes;
+
+    // Comparación con cálculo anterior
+    let comparacion = '';
+    if (diasAnterior !== null) {
+      const difDias = diasTotales - diasAnterior;
+      const difGanancia = interes - (gananciaAnterior || 0);
+
+      comparacion =
+        `\n\n📌 Comparado con el cálculo anterior:\n` +
+        `- Te llevará ${Math.abs(difDias)} día(s) ${difDias < 0 ? 'menos' : 'más'} ahorrar tu meta.\n` +
+        `- Vas a ganar ${difGanancia >= 0 ? '$' + difGanancia.toFixed(2) + ' más' : '$' + Math.abs(difGanancia).toFixed(2) + ' menos'} si lo dejás ${plazo} días en ${banco}.`;
+    }
+
+    diasAnterior = diasTotales;
+    gananciaAnterior = interes;
+
+    document.getElementById('resultadoPlazo').innerText =
+      `📊 Meta: $${objetivo} | Aporte: $${aporte} (${descripcion})\n` +
+      `🗓️ Tiempo estimado: ${diasTotales} días → ${fechaFinal.toLocaleDateString('es-ES', opcionesFecha)}\n\n` +
+      `🏦 Plazo fijo en ${banco} a ${plazo} días\n` +
+      `💰 Ganancia estimada: $${interes.toFixed(2)} → Total: $${total.toFixed(2)}${comparacion}`;
+
+    document.getElementById('inversion').value = objetivo;
+
+    const ctx = document.getElementById('graficaAhorro').getContext('2d');
+    const datos = Array.from({ length: aportesNecesarios }, (_, i) => aporte * (i + 1));
+
+    if (window.miGrafica) window.miGrafica.destroy();
+
+    const datasets = [
+      { label: 'Ahorro actual', data: datos, borderColor: '#007bff', fill: false }
+    ];
+
+    if (datosAnteriores.length) {
+      datasets.push({
+        label: 'Ahorro anterior',
+        data: datosAnteriores,
+        borderColor: '#ff9900',
+        fill: false,
+        borderDash: [5, 5]
+      });
+    }
+
+    datosAnteriores = datos;
+
+    window.miGrafica = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: datos.map((_, i) => `#${i + 1}`),
+        datasets: datasets
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: true } },
+        scales: { y: { beginAtZero: true } }
+      }
+    });
+  }
+
+  window.onload = actualizarPlazos;
+</script>
 </body>
 </html>
