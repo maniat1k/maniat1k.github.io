@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora de Ahorro</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      background-color: #e9ecef;
+      padding: 15px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Calculadora de Ahorro</h1>
+
+    <h2>Ahorro Manual</h2>
+    <label>Objetivo de ahorro ($UYU): <input type="number" id="objetivo" /></label>
+    <label>Monto por aporte: <input type="number" id="aporte" /></label>
+    <label>Frecuencia:
+      <select id="frecuencia">
+        <option value="1">1 vez por día</option>
+        <option value="0.5">2 veces por día</option>
+        <option value="7">1 vez por semana</option>
+        <option value="3.5">2 veces por semana</option>
+        <option value="30">1 vez por mes</option>
+      </select>
+    </label>
+    <button onclick="calcularAhorro()">Calcular Ahorro</button>
+    <div class="result" id="resultadoAhorro"></div>
+
+    <h2>Simulador de Plazo Fijo</h2>
+    <label>Monto a invertir ($UYU): <input type="number" id="inversion" /></label>
+    <label>Tasa de interés anual (%): <input type="number" id="tasa" step="0.01" /></label>
+    <label>Plazo en días: <input type="number" id="plazo" /></label>
+    <button onclick="calcularPlazoFijo()">Calcular Ganancia</button>
+    <div class="result" id="resultadoPlazo"></div>
+  </div>
+
+  <script>
+    function calcularAhorro() {
+      const objetivo = parseFloat(document.getElementById('objetivo').value);
+      const aporte = parseFloat(document.getElementById('aporte').value);
+      const frecuencia = parseFloat(document.getElementById('frecuencia').value);
+
+      if (!objetivo || !aporte || !frecuencia) return;
+
+      const aportesNecesarios = Math.ceil(objetivo / aporte);
+      const diasTotales = Math.ceil(aportesNecesarios / (1 / frecuencia));
+
+      let descripcion = '';
+      switch (frecuencia) {
+        case 1:
+          descripcion = '1 vez por día'; break;
+        case 0.5:
+          descripcion = '2 veces por día'; break;
+        case 7:
+          descripcion = '1 vez por semana'; break;
+        case 3.5:
+          descripcion = '2 veces por semana'; break;
+        case 30:
+          descripcion = '1 vez por mes'; break;
+        default:
+          descripcion = frecuencia + ' días';
+      }
+
+      document.getElementById('resultadoAhorro').innerText =
+        `Necesitás hacer ${aportesNecesarios} aportes de $${aporte}.
+
+Con una frecuencia de ${descripcion}, llegarás en aproximadamente ${diasTotales} días.`;
+    }
+
+    function calcularPlazoFijo() {
+      const inversion = parseFloat(document.getElementById('inversion').value);
+      const tasa = parseFloat(document.getElementById('tasa').value);
+      const plazo = parseInt(document.getElementById('plazo').value);
+
+      if (!inversion || !tasa || !plazo) return;
+
+      const interes = inversion * (tasa / 100) * (plazo / 365);
+      const total = inversion + interes;
+
+      document.getElementById('resultadoPlazo').innerText =
+        `Ganancia estimada: $${interes.toFixed(2)}
+Total al vencimiento: $${total.toFixed(2)}`;
+    }
+  </script>
+</body>
+</html>
