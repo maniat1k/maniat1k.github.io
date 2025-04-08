@@ -211,7 +211,11 @@
     <label>Tasa de interés anual (%): <input type="number" id="tasa" step="0.01" readonly /></label>
     <p class="nota-aviso">* La tasa se actualiza automáticamente según el banco y el plazo.</p>
     <label>Monto a invertir ($UYU): <input type="number" id="inversion" readonly /></label>
-
+    <label style="margin-top: 20px;">
+    <input type="checkbox" id="usarCompuesto" />
+    Simular interés compuesto: reinvertir cada $10.000 en plazo fijo por el tiempo restante.
+    </label>
+    
     <button onclick="calcularTodo()">Calcular todo</button>
 
     <div class="result" id="resultadoAhorro"></div>
@@ -335,17 +339,37 @@
       });
     }
 
-    function calcularPlazoFijo() {
-      const inversion = parseFloat(document.getElementById('inversion').value);
-      const tasa = parseFloat(document.getElementById('tasa').value);
-      const plazo = parseInt(document.getElementById('plazo').value);
-      if (!inversion || !tasa || !plazo) return;
-      const interes = inversion * (tasa / 100) * (plazo / 365);
-      const total = inversion + interes;
-      document.getElementById('resultadoPlazo').innerText =
-        `Ganancia estimada: $${interes.toFixed(2)}
-Total al vencimiento: $${total.toFixed(2)}`;
+function calcularPlazoFijo() {
+  const inversion = parseFloat(document.getElementById('inversion').value);
+  const tasa = parseFloat(document.getElementById('tasa').value);
+  const plazo = parseInt(document.getElementById('plazo').value);
+  const usarCompuesto = document.getElementById('usarCompuesto').checked;
+
+  if (!inversion || !tasa || !plazo) return;
+
+  let interes, total;
+
+  if (!usarCompuesto) {
+    interes = inversion * (tasa / 100) * (plazo / 365);
+    total = inversion + interes;
+  } else {
+    // Aplicar interés compuesto por bloques de $10.000
+    const bloques = Math.floor(inversion / 10000);
+    const restante = inversion % 10000;
+    interes = 0;
+    total = 0;
+    for (let i = 0; i < bloques; i++) {
+      const t = 10000 * Math.pow(1 + (tasa / 100), plazo / 365);
+      interes += t - 10000;
+      total += t;
     }
+    total += restante; // resto sin reinversión
+  }
+
+  document.getElementById('resultadoPlazo').innerText =
+    `Ganancia estimada: $${interes.toFixed(2)}\nTotal al vencimiento: $${total.toFixed(2)}`;
+}
+
 
     function actualizarPopupPlazos() {
       const banco = document.getElementById('popupBanco').value;
