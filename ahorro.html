@@ -186,8 +186,6 @@
 
     <h2>Ahorro Manual</h2>
     <label>Objetivo de ahorro ($UYU): <input type="text" id="objetivo" oninput="actualizarDolares()" /></label>
-<label>Dinero ya disponible ($UYU): <input type="text" id="disponible" oninput="actualizarDolares()" /></label>
-
     <label>Monto por aporte: <input type="text" id="aporte" /></label>
     <label>Frecuencia:
       <select id="frecuencia">
@@ -250,15 +248,11 @@
       return parseFloat((input || '').replace(/\./g, '').replace(',', '.')) || 0;
     }
 
-    
-function actualizarDolares() {
-  const objetivo = parseNumber(document.getElementById('objetivo').value);
-  const disponible = parseNumber(document.getElementById('disponible')?.value);
-  const totalUSD = (objetivo / cotizacionDolar).toFixed(2);
-  const dispoUSD = disponible ? (disponible / cotizacionDolar).toFixed(2) : '0.00';
-  document.getElementById('usd_equivalente').innerText =
-    `$${totalUSD} USD (de los cuales $${disponible} = $${dispoUSD} USD ya disponibles)`;
-}
+    function actualizarDolares() {
+      const valorUYU = parseNumber(document.getElementById('objetivo').value);
+      const enUSD = (valorUYU / cotizacionDolar).toFixed(2);
+      document.getElementById('usd_equivalente').innerText = `$${enUSD} USD`;
+    }
 
     function actualizarPlazos() {
       const banco = document.getElementById('banco').value;
@@ -290,15 +284,13 @@ function actualizarDolares() {
     function calcularAhorro() {
       const objetivo = parseNumber(document.getElementById('objetivo').value);
       const aporte = parseNumber(document.getElementById('aporte').value);
-      const disponible = parseNumber(document.getElementById('disponible')?.value);
-      const objetivoRestante = Math.max(0, objetivo - disponible);
       const frecuencia = parseFloat(document.getElementById('frecuencia').value);
       if (!objetivo || !aporte || !frecuencia) return;
       if (objetivo < 10000) {
         document.getElementById('resultadoAhorro').innerText = '⚠️ El monto mínimo para abrir una cuenta de ahorro es $10.000. Por favor ingresá un monto mayor.';
         return;
       }
-      const aportesNecesarios = Math.ceil(objetivoRestante / aporte);
+      const aportesNecesarios = Math.ceil(objetivo / aporte);
       const diasTotales = Math.ceil(aportesNecesarios / (1 / frecuencia));
       const hoy = new Date();
       const fechaFinal = new Date(hoy);
