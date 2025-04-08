@@ -186,6 +186,8 @@
 
     <h2>Ahorro Manual</h2>
     <label>Objetivo de ahorro ($UYU): <input type="text" id="objetivo" oninput="actualizarDolares()" /></label>
+<label>Dinero ya disponible ($UYU): <input type="text" id="disponible" oninput="actualizarDolares()" /></label>
+
     <label>Monto por aporte: <input type="text" id="aporte" /></label>
     <label>Frecuencia:
       <select id="frecuencia">
@@ -210,12 +212,8 @@
     </label>
     <label>Tasa de interés anual (%): <input type="number" id="tasa" step="0.01" readonly /></label>
     <p class="nota-aviso">* La tasa se actualiza automáticamente según el banco y el plazo.</p>
-    <label>Monto a invertir ($UYU): <input type="number" id="inversion" /></label>
-    <label style="margin-top: 20px;">
-    <input type="checkbox" id="usarCompuesto" />
-    Simular interés compuesto: reinvertir cada $10.000 en plazo fijo por el tiempo restante.
-    </label>
-    
+    <label>Monto a invertir ($UYU): <input type="number" id="inversion" readonly /></label>
+
     <button onclick="calcularTodo()">Calcular todo</button>
 
     <div class="result" id="resultadoAhorro"></div>
@@ -252,11 +250,15 @@
       return parseFloat((input || '').replace(/\./g, '').replace(',', '.')) || 0;
     }
 
-    function actualizarDolares() {
-      const valorUYU = parseNumber(document.getElementById('objetivo').value);
-      const enUSD = (valorUYU / cotizacionDolar).toFixed(2);
-      document.getElementById('usd_equivalente').innerText = `$${enUSD} USD`;
-    }
+    
+function actualizarDolares() {
+  const objetivo = parseNumber(document.getElementById('objetivo').value);
+  const disponible = parseNumber(document.getElementById('disponible')?.value);
+  const totalUSD = (objetivo / cotizacionDolar).toFixed(2);
+  const dispoUSD = disponible ? (disponible / cotizacionDolar).toFixed(2) : '0.00';
+  document.getElementById('usd_equivalente').innerText =
+    `$${totalUSD} USD (de los cuales $${disponible} = $${dispoUSD} USD ya disponibles)`;
+}
 
     function actualizarPlazos() {
       const banco = document.getElementById('banco').value;
@@ -288,13 +290,15 @@
     function calcularAhorro() {
       const objetivo = parseNumber(document.getElementById('objetivo').value);
       const aporte = parseNumber(document.getElementById('aporte').value);
+      const disponible = parseNumber(document.getElementById('disponible')?.value);
+      const objetivoRestante = Math.max(0, objetivo - disponible);
       const frecuencia = parseFloat(document.getElementById('frecuencia').value);
       if (!objetivo || !aporte || !frecuencia) return;
       if (objetivo < 10000) {
         document.getElementById('resultadoAhorro').innerText = '⚠️ El monto mínimo para abrir una cuenta de ahorro es $10.000. Por favor ingresá un monto mayor.';
         return;
       }
-      const aportesNecesarios = Math.ceil(objetivo / aporte);
+      const aportesNecesarios = Math.ceil(objetivoRestante / aporte);
       const diasTotales = Math.ceil(aportesNecesarios / (1 / frecuencia));
       const hoy = new Date();
       const fechaFinal = new Date(hoy);
@@ -339,37 +343,17 @@
       });
     }
 
-function calcularPlazoFijo() {
-  const inversion = parseFloat(document.getElementById('inversion').value);
-  const tasa = parseFloat(document.getElementById('tasa').value);
-  const plazo = parseInt(document.getElementById('plazo').value);
-  const usarCompuesto = document.getElementById('usarCompuesto').checked;
-
-  if (!inversion || !tasa || !plazo) return;
-
-  let interes, total;
-
-  if (!usarCompuesto) {
-    interes = inversion * (tasa / 100) * (plazo / 365);
-    total = inversion + interes;
-  } else {
-    // Aplicar interés compuesto por bloques de $10.000
-    const bloques = Math.floor(inversion / 10000);
-    const restante = inversion % 10000;
-    interes = 0;
-    total = 0;
-    for (let i = 0; i < bloques; i++) {
-      const t = 10000 * Math.pow(1 + (tasa / 100), plazo / 365);
-      interes += t - 10000;
-      total += t;
+    function calcularPlazoFijo() {
+      const inversion = parseFloat(document.getElementById('inversion').value);
+      const tasa = parseFloat(document.getElementById('tasa').value);
+      const plazo = parseInt(document.getElementById('plazo').value);
+      if (!inversion || !tasa || !plazo) return;
+      const interes = inversion * (tasa / 100) * (plazo / 365);
+      const total = inversion + interes;
+      document.getElementById('resultadoPlazo').innerText =
+        `Ganancia estimada: $${interes.toFixed(2)}
+Total al vencimiento: $${total.toFixed(2)}`;
     }
-    total += restante; // resto sin reinversión
-  }
-
-  document.getElementById('resultadoPlazo').innerText =
-    `Ganancia estimada: $${interes.toFixed(2)}\nTotal al vencimiento: $${total.toFixed(2)}`;
-}
-
 
     function actualizarPopupPlazos() {
       const banco = document.getElementById('popupBanco').value;
@@ -398,11 +382,7 @@ function calcularPlazoFijo() {
       actualizarPlazos();
       document.getElementById('plazo').value = plazo;
       cargarTasa();
-      const inversionInput = document.getElementById('inversion');
-        if (!inversionInput.value || inversionInput.value === '0') {
-          inversionInput.value = objetivo;
-        }
-
+      document.getElementById('inversion').value = objetivo;
       document.getElementById('aporte').value = Math.ceil(objetivo / 30);
       document.getElementById('frecuencia').value = 1;
       calcularTodo();
