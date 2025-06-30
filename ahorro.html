@@ -307,6 +307,8 @@
     }
 
     function calcularAhorro() {
+	  function calcularAhorro() {
+      if (!validarEntradasAhorro()) return;
       const objetivo = parseNumber(document.getElementById('objetivo').value);
       const aporte = parseNumber(document.getElementById('aporte').value);
       const frecuencia = parseFloat(document.getElementById('frecuencia').value);
