@@ -45,28 +45,27 @@
       margin-top: 15px;
     }
     input, select, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1em;
+  background-color: #28a745; /* Verde acción */
+  color: white;
+  cursor: pointer;
+  margin-top: 20px;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+button:hover {
+  background-color: #218838;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+    button {
+      background-color: #b0b0b0;
+      color: white;
+      cursor: pointer;
+      margin-top: 20px;
     }
-	button {
-		background-color: #28a745; /* Verde acción */
-		color: white;
-		cursor: pointer;
-		margin-top: 20px;
-		border: none;
-		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-		transition: background-color 0.3s ease, box-shadow 0.3s ease;
-	}
-
-	button:hover {
-		background-color: #218838;
-		box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-	}
-
+    button:hover {
+      background-color: #888;
+    }
     .result {
       margin-top: 20px;
       font-weight: bold;
@@ -192,7 +191,7 @@
 
     <h2>Ahorro Manual</h2>
     <label>Objetivo de ahorro ($UYU): <input type="text" id="objetivo" oninput="actualizarDolares()" /></label>
-    <label>Monto por aporte: <input type="text" id="aporte" /></label>
+    <label>Monto por aporte: <input type="text" id="aporte" oninput="validarEntradasAhorro()" /></label>
     <label>Frecuencia:
       <select id="frecuencia">
         <option value="1">1 vez por día</option>
@@ -255,29 +254,30 @@
     }
 
     function actualizarDolares() {
+
+    function validarEntradasAhorro() {
+      const objetivo = parseNumber(document.getElementById('objetivo').value);
+      const aporte = parseNumber(document.getElementById('aporte').value);
+      const mensajeDiv = document.getElementById('resultadoAhorro');
+
+      if (!objetivo || !aporte) {
+        mensajeDiv.innerText = '⚠️ Completá todos los campos para poder calcular.';
+        return false;
+      }
+
+      if (aporte >= objetivo) {
+        mensajeDiv.innerText = '⚠️ El aporte no puede ser igual o mayor al objetivo. Por favor ajustá los valores.';
+        return false;
+      }
+
+      mensajeDiv.innerText = '';
+      return true;
+    }
+
       const valorUYU = parseNumber(document.getElementById('objetivo').value);
       const enUSD = (valorUYU / cotizacionDolar).toFixed(2);
       document.getElementById('usd_equivalente').innerText = `$${enUSD} USD`;
     }
-	function validarEntradasAhorro() {
-		const objetivo = parseNumber(document.getElementById('objetivo').value);
-		const aporte = parseNumber(document.getElementById('aporte').value);
-		const mensajeDiv = document.getElementById('resultadoAhorro');
-  
-		if (!objetivo || !aporte) {
-		mensajeDiv.innerText = '⚠️ Completá todos los campos para poder calcular.';
-		return false;
-	}
-
-  if (aporte >= objetivo) {
-    mensajeDiv.innerText = '⚠️ El aporte no puede ser igual o mayor al objetivo. Por favor ajustá los valores.';
-    return false;
-  }
-
-  mensajeDiv.innerText = '';
-  return true;
-}
-
 
     function actualizarPlazos() {
       const banco = document.getElementById('banco').value;
@@ -290,6 +290,7 @@
         opt.textContent = `${p} días`;
         select.appendChild(opt);
       });
+      document.getElementById('popupPlazo').selectedIndex = 0;
       cargarTasa();
     }
 
@@ -307,7 +308,6 @@
     }
 
     function calcularAhorro() {
-	  function calcularAhorro() {
       if (!validarEntradasAhorro()) return;
       const objetivo = parseNumber(document.getElementById('objetivo').value);
       const aporte = parseNumber(document.getElementById('aporte').value);
@@ -385,6 +385,7 @@ Total al vencimiento: $${total.toFixed(2)}`;
         opt.textContent = `${p} días`;
         select.appendChild(opt);
       });
+      document.getElementById('popupPlazo').selectedIndex = 0;
     }
 
     function usarValoresPopup() {
