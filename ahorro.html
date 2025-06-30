@@ -321,11 +321,14 @@ button:hover {
       document.getElementById('tasa').value = tasa;
     }
 
+    
     function calcularTodo() {
+      if (!validarEntradasAhorro()) return;
       resultadoAnterior = document.getElementById('resultadoAhorro').innerText;
       calcularAhorro();
       calcularPlazoFijo();
     }
+    
 
     function calcularAhorro() {
       if (!validarEntradasAhorro()) return;
