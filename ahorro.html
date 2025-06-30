@@ -1,90 +1,42 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Calculadora de Ahorro</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
+      font-family: sans-serif;
       padding: 20px;
       background-color: #fdfdfb;
-      color: #333;
-    }
-    h1, h2 {
-      color: #2c3e50;
-    }
-    .container {
-      max-width: 800px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-    }
-    .header {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .header img {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-    }
-    p.intro {
-      font-size: 1em;
-      color: #555;
-      margin-bottom: 1.5rem;
-    }
-    label {
-      display: block;
-      margin-top: 15px;
     }
     input, select {
-  width: 100%;
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 1em;
-  background-color: white;
-  color: #333;
-}
-
-button {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  font-size: 1em;
-  background-color: #28a745;
-  color: white;
-  cursor: pointer;
-  margin-top: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-button:hover {
-  background-color: #218838;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-button:hover {
-  background-color: #218838;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+      background-color: white;
+      color: #333;
+    }
     button {
-      background-color: #b0b0b0;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      background-color: #28a745;
       color: white;
       cursor: pointer;
       margin-top: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
     button:hover {
-      background-color: #888;
+      background-color: #218838;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
     .result {
       margin-top: 20px;
@@ -94,186 +46,40 @@ button:hover {
       border-radius: 5px;
       white-space: pre-line;
     }
-    .nota-aviso {
-      font-size: 0.85em;
-      color: #888;
-      margin-top: 8px;
-    }
-    .footer {
-      margin-top: 40px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 0.75em;
-      color: #666;
-    }
-    .footer-content {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-    .footer .links {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.4;
-      font-size: 0.75em;
-    }
-    .footer a {
-      text-decoration: none;
-    }
-    .footer a.github {
-      color: #007bff;
-    }
-    .footer a.retro-link {
-      color: #00ff00;
-      background-color: black;
-      font-family: "Courier New", Courier, monospace;
-      padding: 2px 6px;
-      border-radius: 4px;
-      text-shadow: 0 0 2px #00ff00;
-      width: fit-content;
-    }
-    .footer a.retro-link:hover {
-      background-color: #111;
-      text-decoration: underline;
-    }
-    .kofi-wrapper img {
-      height: 40px;
-      border: none;
-      border-radius: 6px;
-    }
-    .popup-overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background-color: rgba(0,0,0,0.6);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
-    .popup-box {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      width: 320px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-    }
-    .popup-box label {
-      display: block;
-      margin-top: 12px;
-      font-size: 0.95em;
-    }
-    .popup-box input, .popup-box select {
-      width: 100%;
-      margin-top: 5px;
-      padding: 8px;
-      font-size: 1em;
-    }
-    .popup-box button {
-      margin-top: 20px;
-      width: 100%;
-      background-color: #b0b0b0;
-      color: white;
-      border: none;
-      padding: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
   </style>
 </head>
 <body>
-  <div id="popup" class="popup-overlay">
-    <div class="popup-box">
-      <h3>Antes de empezar</h3>
-      <label>¿Cuál es tu objetivo de ahorro? ($UYU)
-        <input type="number" id="popupObjetivo" />
-      </label>
-      <label>Banco:
-        <select id="popupBanco" onchange="actualizarPopupPlazos()">
-          <option value="BROU">BROU</option>
-          <option value="ITAU">Itaú</option>
-        </select>
-      </label>
-      <label>Plazo en días:
-        <select id="popupPlazo"></select>
-      </label>
-      <button onclick="usarValoresPopup()">Calcular y continuar</button>
-    </div>
-  </div>
 
-  <div class="container">
-    <div class="header">
-      <img src="cat.jpg" alt="Avatar de Maniat1k" />
-      <h1>Calculadora de Ahorro</h1>
-    </div>
-    <p class="intro">Esta herramienta te ayuda a planificar cuánto tiempo y esfuerzo te tomará alcanzar una meta de ahorro determinada, y simular posibles ganancias si decides invertir ese dinero en un plazo fijo.</p>
+  <h1>Calculadora de Ahorro</h1>
 
-    <h2>Ahorro Manual</h2>
-    <label>Objetivo de ahorro ($UYU): <input type="text" id="objetivo" oninput="actualizarDolares()" /></label>
-    <label>Monto por aporte: <input type="text" id="aporte" oninput="validarEntradasAhorro()" /></label>
-    <label>Frecuencia:
-      <select id="frecuencia">
-        <option value="1">1 vez por día</option>
-        <option value="0.5">2 veces por día</option>
-        <option value="7">1 vez por semana</option>
-        <option value="3.5">2 veces por semana</option>
-        <option value="30">1 vez por mes</option>
-      </select>
-    </label>
-    <p class="nota-aviso">Equivalente en dólares (cotización BROU): <span id="usd_equivalente">-</span></p>
+  <label>Objetivo de ahorro ($UYU): <input type="text" id="objetivo" oninput="actualizarDolares()" /></label>
+  <label>Monto por aporte: <input type="text" id="aporte" oninput="validarEntradasAhorro()" /></label>
+  <label>Frecuencia:
+    <select id="frecuencia">
+      <option value="1">1 vez por día</option>
+      <option value="0.5">2 veces por día</option>
+      <option value="7">1 vez por semana</option>
+      <option value="3.5">2 veces por semana</option>
+      <option value="30">1 vez por mes</option>
+    </select>
+  </label>
 
-    <h2>Simulador de Plazo Fijo</h2>
-    <label>Seleccionar Banco:
-      <select id="banco" onchange="actualizarPlazos()">
-        <option value="BROU" selected>BROU</option>
-        <option value="ITAU">Itaú</option>
-      </select>
-    </label>
-    <label>Plazo en días:
-      <select id="plazo" onchange="cargarTasa()"></select>
-    </label>
-    <label>Tasa de interés anual (%): <input type="number" id="tasa" step="0.01" readonly /></label>
-    <p class="nota-aviso">* La tasa se actualiza automáticamente según el banco y el plazo.</p>
-    <label>Monto a invertir ($UYU): <input type="number" id="inversion" readonly /></label>
+  <button onclick="calcularTodo()">Calcular todo</button>
 
-    <button onclick="calcularTodo()">Calcular todo</button>
-
-    <div class="result" id="resultadoAhorro"></div>
-    <div class="result" id="resultadoPlazo"></div>
-
-    <canvas id="graficaAhorro" style="margin-top: 30px;"></canvas>
-
-    <div class="footer">
-      <div class="kofi-wrapper">
-        <a href='https://ko-fi.com/marcelolemos' target='_blank'>
-          <img src='https://storage.ko-fi.com/cdn/kofi5.png' alt='Ko-fi'>
-        </a>
-      </div>
-      <div class="footer-content">
-        <div class="links">
-          <a class="github" href="https://github.com/maniat1k" target="_blank">Visitar mi GitHub</a>
-          <a class="retro-link" href="https://maniat1k.github.io/" target="_blank">Ir a mi sitio</a>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="result" id="resultadoAhorro"></div>
 
   <script>
     let cotizacionDolar = 39.65;
-    let resultadoAnterior = '';
-    let diasAnterior = null;
-    let datosAnteriores = [];
-    const tasasPorBanco = {
-      BROU: { 30: 5.5, 90: 6.8, 180: 7.0, 360: 7.25 },
-      ITAU: { 30: 6.0, 90: 7.2, 180: 7.5, 360: 8.0 }
-    };
 
     function parseNumber(input) {
       return parseFloat((input || '').replace(/\./g, '').replace(',', '.')) || 0;
     }
 
     function actualizarDolares() {
+      const valorUYU = parseNumber(document.getElementById('objetivo').value);
+      const enUSD = (valorUYU / cotizacionDolar).toFixed(2);
+      console.log("Cotización: $" + enUSD);
+    }
 
     function validarEntradasAhorro() {
       const objetivo = parseNumber(document.getElementById('objetivo').value);
@@ -294,147 +100,27 @@ button:hover {
       return true;
     }
 
-      const valorUYU = parseNumber(document.getElementById('objetivo').value);
-      const enUSD = (valorUYU / cotizacionDolar).toFixed(2);
-      document.getElementById('usd_equivalente').innerText = `$${enUSD} USD`;
-    }
-
-    function actualizarPlazos() {
-      const banco = document.getElementById('banco').value;
-      const select = document.getElementById('plazo');
-      select.innerHTML = '';
-      const plazos = Object.keys(tasasPorBanco[banco]);
-      plazos.forEach(p => {
-        const opt = document.createElement('option');
-        opt.value = p;
-        opt.textContent = `${p} días`;
-        select.appendChild(opt);
-      });
-      document.getElementById('popupPlazo').selectedIndex = 0;
-      cargarTasa();
-    }
-
-    function cargarTasa() {
-      const banco = document.getElementById('banco').value;
-      const plazo = parseInt(document.getElementById('plazo').value);
-      const tasa = tasasPorBanco[banco][plazo];
-      document.getElementById('tasa').value = tasa;
-    }
-
-    
-    function calcularTodo() {
-      if (!validarEntradasAhorro()) return;
-      resultadoAnterior = document.getElementById('resultadoAhorro').innerText;
-      calcularAhorro();
-      calcularPlazoFijo();
-    }
-    
-
     function calcularAhorro() {
       if (!validarEntradasAhorro()) return;
       const objetivo = parseNumber(document.getElementById('objetivo').value);
       const aporte = parseNumber(document.getElementById('aporte').value);
       const frecuencia = parseFloat(document.getElementById('frecuencia').value);
-      if (!objetivo || !aporte || !frecuencia) return;
-      if (objetivo < 10000) {
-        document.getElementById('resultadoAhorro').innerText = '⚠️ El monto mínimo para abrir una cuenta de ahorro es $10.000. Por favor ingresá un monto mayor.';
-        return;
-      }
       const aportesNecesarios = Math.ceil(objetivo / aporte);
       const diasTotales = Math.ceil(aportesNecesarios / (1 / frecuencia));
       const hoy = new Date();
       const fechaFinal = new Date(hoy);
       fechaFinal.setDate(hoy.getDate() + diasTotales);
       const opcionesFecha = { day: '2-digit', month: '2-digit', year: 'numeric' };
-      let descripcion = '';
-      switch (frecuencia) {
-        case 1: descripcion = '1 vez por día'; break;
-        case 0.5: descripcion = '2 veces por día'; break;
-        case 7: descripcion = '1 vez por semana'; break;
-        case 3.5: descripcion = '2 veces por semana'; break;
-        case 30: descripcion = '1 vez por mes'; break;
-        default: descripcion = frecuencia + ' días';
-      }
-      let comparacion = '';
-      if (diasAnterior !== null && diasAnterior !== diasTotales) {
-        const diferencia = Math.abs(diasTotales - diasAnterior);
-        comparacion = `
-
-📌 Comparado con el cálculo anterior, este plan te llevará ${diferencia} día(s) ${diasTotales < diasAnterior ? 'menos' : 'más'}.`;
-      }
-      diasAnterior = diasTotales;
       document.getElementById('resultadoAhorro').innerText =
-        `📊 Para alcanzar tu meta de $${objetivo}, necesitas hacer ${aportesNecesarios} aportes de $${aporte}.
-🕓 Con una frecuencia de ${descripcion}, vas a lograrlo en unos ${diasTotales} días, es decir, alrededor del ${fechaFinal.toLocaleDateString('es-ES', opcionesFecha)}.${comparacion}`;
-
-      document.getElementById('inversion').value = objetivo;
-      const ctx = document.getElementById('graficaAhorro').getContext('2d');
-      const datos = Array.from({ length: aportesNecesarios }, (_, i) => aporte * (i + 1));
-      if (window.miGrafica) window.miGrafica.destroy();
-      const datasets = [
-        { label: 'Ahorro actual', data: datos, borderColor: '#007bff', fill: false }
-      ];
-      if (datosAnteriores.length) {
-        datasets.push({ label: 'Ahorro anterior', data: datosAnteriores, borderColor: '#ff9900', fill: false, borderDash: [5, 5] });
-      }
-      datosAnteriores = datos;
-      window.miGrafica = new Chart(ctx, {
-        type: 'line',
-        data: { labels: datos.map((_, i) => `#${i + 1}`), datasets },
-        options: { responsive: true, plugins: { legend: { display: true } }, scales: { y: { beginAtZero: true } } }
-      });
+        `📊 Para alcanzar tu meta de $${objetivo}, necesitás hacer ${aportesNecesarios} aportes de $${aporte}.
+🕓 Lo lograrás en unos ${diasTotales} días (~ ${fechaFinal.toLocaleDateString('es-ES', opcionesFecha)}).`;
     }
 
-    function calcularPlazoFijo() {
-      const inversion = parseFloat(document.getElementById('inversion').value);
-      const tasa = parseFloat(document.getElementById('tasa').value);
-      const plazo = parseInt(document.getElementById('plazo').value);
-      if (!inversion || !tasa || !plazo) return;
-      const interes = inversion * (tasa / 100) * (plazo / 365);
-      const total = inversion + interes;
-      document.getElementById('resultadoPlazo').innerText =
-        `Ganancia estimada: $${interes.toFixed(2)}
-Total al vencimiento: $${total.toFixed(2)}`;
+    function calcularTodo() {
+      console.log("Botón calcular todo clickeado.");
+      calcularAhorro();
     }
-
-    function actualizarPopupPlazos() {
-      const banco = document.getElementById('popupBanco').value;
-      const select = document.getElementById('popupPlazo');
-      select.innerHTML = '';
-      const plazos = Object.keys(tasasPorBanco[banco]);
-      plazos.forEach(p => {
-        const opt = document.createElement('option');
-        opt.value = p;
-        opt.textContent = `${p} días`;
-        select.appendChild(opt);
-      });
-      document.getElementById('popupPlazo').selectedIndex = 0;
-    }
-
-    function usarValoresPopup() {
-      const objetivo = parseFloat(document.getElementById('popupObjetivo').value);
-      const banco = document.getElementById('popupBanco').value;
-      const plazo = parseInt(document.getElementById('popupPlazo').value);
-      if (!objetivo || objetivo < 10000) {
-        alert('⚠️ El monto mínimo para abrir una cuenta de ahorro es $10.000.');
-        return;
-      }
-      document.getElementById('popup').style.display = 'none';
-      document.getElementById('objetivo').value = objetivo;
-      document.getElementById('banco').value = banco;
-      actualizarPlazos();
-      document.getElementById('plazo').value = plazo;
-      cargarTasa();
-      document.getElementById('inversion').value = objetivo;
-      document.getElementById('aporte').value = Math.ceil(objetivo / 30);
-      document.getElementById('frecuencia').value = 1;
-      calcularTodo();
-    }
-
-    window.onload = function () {
-      actualizarPlazos();
-      actualizarPopupPlazos();
-    };
   </script>
+
 </body>
 </html>
