@@ -259,6 +259,25 @@
       const enUSD = (valorUYU / cotizacionDolar).toFixed(2);
       document.getElementById('usd_equivalente').innerText = `$${enUSD} USD`;
     }
+	function validarEntradasAhorro() {
+		const objetivo = parseNumber(document.getElementById('objetivo').value);
+		const aporte = parseNumber(document.getElementById('aporte').value);
+		const mensajeDiv = document.getElementById('resultadoAhorro');
+  
+		if (!objetivo || !aporte) {
+		mensajeDiv.innerText = '⚠️ Completá todos los campos para poder calcular.';
+		return false;
+	}
+
+  if (aporte >= objetivo) {
+    mensajeDiv.innerText = '⚠️ El aporte no puede ser igual o mayor al objetivo. Por favor ajustá los valores.';
+    return false;
+  }
+
+  mensajeDiv.innerText = '';
+  return true;
+}
+
 
     function actualizarPlazos() {
       const banco = document.getElementById('banco').value;
