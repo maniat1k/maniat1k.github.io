@@ -44,14 +44,34 @@
       display: block;
       margin-top: 15px;
     }
-    input, select, button {
-  background-color: #28a745; /* Verde acción */
+    input, select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+  background-color: white;
+  color: #333;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  background-color: #28a745;
   color: white;
   cursor: pointer;
   margin-top: 20px;
-  border: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+  background-color: #218838;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 button:hover {
   background-color: #218838;
