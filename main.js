@@ -1,10 +1,15 @@
 const user = "maniat1k";
+const GITHUB_TOKEN = "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";
 const cacheKey = "github_repo_cache";
 const cacheTimeKey = "github_repo_cache_time";
 const cacheDuration = 60 * 60 * 1000;
 
 async function fetchCommitCount(repo) {
-  const response = await fetch(`https://api.github.com/repos/${user}/${repo.name}/commits?per_page=1`);
+  const response = await fetch(`https://api.github.com/repos/${user}/${repo.name}/commits?per_page=1`, {
+    headers: {
+      Authorization: `token ${GITHUB_TOKEN}`
+    }
+  });
   const linkHeader = response.headers.get('Link');
   if (linkHeader) {
     const match = linkHeader.match(/&page=(\d+)>; rel="last"/);
@@ -39,7 +44,11 @@ async function renderRepoList(data) {
 
 async function fetchAllRepos() {
   try {
-    const response = await fetch(`https://api.github.com/users/${user}/repos?per_page=100`);
+    const response = await fetch(`https://api.github.com/users/${user}/repos?per_page=100`, {
+      headers: {
+        Authorization: `token ${GITHUB_TOKEN}`
+      }
+    });
     const data = await response.json();
     localStorage.setItem(cacheKey, JSON.stringify(data));
     localStorage.setItem(cacheTimeKey, Date.now().toString());
@@ -67,13 +76,15 @@ async function fetchRedditPosts() {
   try {
     const res = await fetch("https://www.reddit.com/user/maniat1k13/submitted.json");
     const data = await res.json();
-    const posts = data.data.children.map(post => ({
-      date: new Date(post.data.created_utc * 1000),
-      title: post.data.title,
-      url: `https://www.reddit.com${post.data.permalink}`,
-      type: "Reddit",
-      icon: "👽"
-    }));
+    const posts = data.data.children.map(post => {
+      return {
+        date: new Date(post.data.created_utc * 1000),
+        title: post.data.title,
+        url: `https://www.reddit.com${post.data.permalink}`,
+        type: "Reddit",
+        icon: "👽"
+      };
+    });
 
     renderEntries(posts);
   } catch (e) {
@@ -85,13 +96,13 @@ function renderEntries(entries) {
   const cont = document.getElementById("contenido-dinamico");
   entries.sort((a, b) => b.date - a.date);
 
-  cont.innerHTML = entries.map(entry => \`
+  cont.innerHTML = entries.map(entry => `
     <div style="margin-bottom: 1rem;">
-      <strong>\${entry.icon}</strong>
-      <a href="\${entry.url}" target="_blank">\${entry.title}</a><br>
-      <small>\${entry.date.toLocaleDateString("es-UY")}</small>
+      <strong>${entry.icon}</strong>
+      <a href="${entry.url}" target="_blank">${entry.title}</a><br>
+      <small>${entry.date.toLocaleDateString("es-UY")}</small>
     </div>
-  \`).join("");
+  `).join("");
 }
 
 fetchRedditPosts();
