@@ -1,41 +1,26 @@
 const user = "maniat1k";
-const GITHUB_TOKEN = "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";
-const cacheKey = "github_repo_cache";
-const cacheTimeKey = "github_repo_cache_time";
+const cacheKey = "github_repo_cache_public";
+const cacheTimeKey = "github_repo_cache_time_public";
 const cacheDuration = 60 * 60 * 1000;
 
-async function fetchCommitCount(repo) {
-  const response = await fetch(`https://api.github.com/repos/${user}/${repo.name}/commits?per_page=1`, {
-    headers: {
-      Authorization: `token ${GITHUB_TOKEN}`
-    }
-  });
-  const linkHeader = response.headers.get('Link');
-  if (linkHeader) {
-    const match = linkHeader.match(/&page=(\d+)>; rel="last"/);
-    return match ? parseInt(match[1]) : 1;
-  }
-  return 1;
-}
-
-async function renderRepoList(data) {
+function renderRepoList(data) {
   const list = document.getElementById("repo-list");
-  list.innerHTML = "<li>Cargando estadísticas...</li>";
+  list.innerHTML = "";
 
   const publicRepos = data.filter(repo => !repo.private);
-  const reposWithCommits = await Promise.all(publicRepos.map(async repo => {
-    const commitCount = await fetchCommitCount(repo);
-    return { ...repo, commitCount };
-  }));
 
-  reposWithCommits.sort((a, b) => b.commitCount - a.commitCount);
+  if (publicRepos.length === 0) {
+    list.innerHTML = "<li>No hay proyectos públicos aún.</li>";
+    return;
+  }
 
-  list.innerHTML = "";
-  reposWithCommits.forEach(repo => {
+  publicRepos.sort((a, b) => b.stargazers_count - a.stargazers_count);
+
+  publicRepos.forEach(repo => {
     const li = document.createElement("li");
     const link = document.createElement("a");
     link.href = repo.html_url;
-    link.textContent = `📦 ${repo.name} — ${repo.commitCount} commits`;
+    link.textContent = `📦 ${repo.name} — ${repo.stargazers_count}★`;
     link.target = "_blank";
     li.appendChild(link);
     list.appendChild(li);
@@ -44,11 +29,7 @@ async function renderRepoList(data) {
 
 async function fetchAllRepos() {
   try {
-    const response = await fetch(`https://api.github.com/users/${user}/repos?per_page=100`, {
-      headers: {
-        Authorization: `token ${GITHUB_TOKEN}`
-      }
-    });
+    const response = await fetch(`https://api.github.com/users/${user}/repos?per_page=100`);
     const data = await response.json();
     localStorage.setItem(cacheKey, JSON.stringify(data));
     localStorage.setItem(cacheTimeKey, Date.now().toString());
@@ -76,15 +57,13 @@ async function fetchRedditPosts() {
   try {
     const res = await fetch("https://www.reddit.com/user/maniat1k13/submitted.json");
     const data = await res.json();
-    const posts = data.data.children.map(post => {
-      return {
-        date: new Date(post.data.created_utc * 1000),
-        title: post.data.title,
-        url: `https://www.reddit.com${post.data.permalink}`,
-        type: "Reddit",
-        icon: "👽"
-      };
-    });
+    const posts = data.data.children.map(post => ({
+      date: new Date(post.data.created_utc * 1000),
+      title: post.data.title,
+      url: `https://www.reddit.com${post.data.permalink}`,
+      type: "Reddit",
+      icon: "👽"
+    }));
 
     renderEntries(posts);
   } catch (e) {
