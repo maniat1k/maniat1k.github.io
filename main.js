@@ -3,24 +3,34 @@ const cacheKey = "github_repo_cache";
 const cacheTimeKey = "github_repo_cache_time";
 const cacheDuration = 60 * 60 * 1000;
 
-function renderRepoList(data) {
-  const list = document.getElementById("repo-list");
-  list.innerHTML = "";
-
-  const withStars = data
-    .filter(repo => !repo.private && repo.stargazers_count > 0)
-    .sort((a, b) => b.stargazers_count - a.stargazers_count);
-
-  if (withStars.length === 0) {
-    list.innerHTML = "<li>No hay proyectos con estrellas ⭐ aún.</li>";
-    return;
+async function fetchCommitCount(repo) {
+  const response = await fetch(`https://api.github.com/repos/${user}/${repo.name}/commits?per_page=1`);
+  const linkHeader = response.headers.get('Link');
+  if (linkHeader) {
+    const match = linkHeader.match(/&page=(\d+)>; rel="last"/);
+    return match ? parseInt(match[1]) : 1;
   }
+  return 1;
+}
 
-  withStars.forEach(repo => {
+async function renderRepoList(data) {
+  const list = document.getElementById("repo-list");
+  list.innerHTML = "<li>Cargando estadísticas...</li>";
+
+  const publicRepos = data.filter(repo => !repo.private);
+  const reposWithCommits = await Promise.all(publicRepos.map(async repo => {
+    const commitCount = await fetchCommitCount(repo);
+    return { ...repo, commitCount };
+  }));
+
+  reposWithCommits.sort((a, b) => b.commitCount - a.commitCount);
+
+  list.innerHTML = "";
+  reposWithCommits.forEach(repo => {
     const li = document.createElement("li");
     const link = document.createElement("a");
     link.href = repo.html_url;
-    link.textContent = `★ ${repo.name} — ${repo.stargazers_count} estrellas`;
+    link.textContent = `📦 ${repo.name} — ${repo.commitCount} commits`;
     link.target = "_blank";
     li.appendChild(link);
     list.appendChild(li);
