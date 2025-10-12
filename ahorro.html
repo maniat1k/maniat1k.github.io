@@ -1,0 +1,126 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Calculadora de Ahorro</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background-color: #fdfdfb;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+      background-color: white;
+      color: #333;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      background-color: #28a745;
+      color: white;
+      cursor: pointer;
+      margin-top: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    button:hover {
+      background-color: #218838;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      background-color: #e9ecef;
+      padding: 15px;
+      border-radius: 5px;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Calculadora de Ahorro</h1>
+
+  <label>Objetivo de ahorro ($UYU): <input type="text" id="objetivo" oninput="actualizarDolares()" /></label>
+  <label>Monto por aporte: <input type="text" id="aporte" oninput="validarEntradasAhorro()" /></label>
+  <label>Frecuencia:
+    <select id="frecuencia">
+      <option value="1">1 vez por día</option>
+      <option value="0.5">2 veces por día</option>
+      <option value="7">1 vez por semana</option>
+      <option value="3.5">2 veces por semana</option>
+      <option value="30">1 vez por mes</option>
+    </select>
+  </label>
+
+  <button onclick="calcularTodo()">Calcular todo</button>
+
+  <div class="result" id="resultadoAhorro"></div>
+
+  <script>
+    let cotizacionDolar = 39.65;
+
+    function parseNumber(input) {
+      return parseFloat((input || '').replace(/\./g, '').replace(',', '.')) || 0;
+    }
+
+    function actualizarDolares() {
+      const valorUYU = parseNumber(document.getElementById('objetivo').value);
+      const enUSD = (valorUYU / cotizacionDolar).toFixed(2);
+      console.log("Cotización: $" + enUSD);
+    }
+
+    function validarEntradasAhorro() {
+      const objetivo = parseNumber(document.getElementById('objetivo').value);
+      const aporte = parseNumber(document.getElementById('aporte').value);
+      const mensajeDiv = document.getElementById('resultadoAhorro');
+
+      if (!objetivo || !aporte) {
+        mensajeDiv.innerText = '⚠️ Completá todos los campos para poder calcular.';
+        return false;
+      }
+
+      if (aporte >= objetivo) {
+        mensajeDiv.innerText = '⚠️ El aporte no puede ser igual o mayor al objetivo. Por favor ajustá los valores.';
+        return false;
+      }
+
+      mensajeDiv.innerText = '';
+      return true;
+    }
+
+    function calcularAhorro() {
+      if (!validarEntradasAhorro()) return;
+      const objetivo = parseNumber(document.getElementById('objetivo').value);
+      const aporte = parseNumber(document.getElementById('aporte').value);
+      const frecuencia = parseFloat(document.getElementById('frecuencia').value);
+      const aportesNecesarios = Math.ceil(objetivo / aporte);
+      const diasTotales = Math.ceil(aportesNecesarios / (1 / frecuencia));
+      const hoy = new Date();
+      const fechaFinal = new Date(hoy);
+      fechaFinal.setDate(hoy.getDate() + diasTotales);
+      const opcionesFecha = { day: '2-digit', month: '2-digit', year: 'numeric' };
+      document.getElementById('resultadoAhorro').innerText =
+        `📊 Para alcanzar tu meta de $${objetivo}, necesitás hacer ${aportesNecesarios} aportes de $${aporte}.
+🕓 Lo lograrás en unos ${diasTotales} días (~ ${fechaFinal.toLocaleDateString('es-ES', opcionesFecha)}).`;
+    }
+
+    function calcularTodo() {
+      console.log("Botón calcular todo clickeado.");
+      calcularAhorro();
+    }
+  </script>
+
+</body>
+</html>
