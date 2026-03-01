@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Calculadora de ahorro en UYU con proyeccion de aportes y fecha estimada de objetivo." />
   <title>Calculadora de Ahorro</title>
   <style>
     body {
@@ -50,6 +51,7 @@
 </head>
 <body>
 
+  <main>
   <h1>Calculadora de Ahorro</h1>
 
   <label>Objetivo de ahorro ($UYU): <input type="text" id="objetivo" oninput="actualizarDolares()" /></label>
@@ -66,7 +68,8 @@
 
   <button onclick="calcularTodo()">Calcular todo</button>
 
-  <div class="result" id="resultadoAhorro"></div>
+  <div class="result" id="resultadoAhorro" aria-live="polite"></div>
+  </main>
 
   <script>
     let cotizacionDolar = 39.65;
