@@ -147,7 +147,7 @@
                 <a class="nav-link active text-uppercase ls-4 text-white" aria-current="page" href="index.html">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="index.html">Portfolio 
+                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="#projects">Projects 
                 </a>
               </li>
               <li class="nav-item">
@@ -171,7 +171,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="index.html">Contact 
+                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="#about">About 
                 </a>
               </li>
             </ul>
@@ -300,66 +300,103 @@
     </div>
   </section>
 
+  <section id="projects" class="py-5">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="display-3">Projects</h2>
+        <p class="postf">Repos públicos cargados desde GitHub y curados localmente.</p>
+      </div>
+
+      <div class="row g-3 justify-content-center py-4 projects-controls">
+        <div class="col-md-4">
+          <label for="projectFilter" class="form-label fw-semibold">Filtrar por tag/language</label>
+          <select id="projectFilter" class="form-select">
+            <option value="all">Todos</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="projectSort" class="form-label fw-semibold">Ordenar</label>
+          <select id="projectSort" class="form-select">
+            <option value="updated">Updated</option>
+            <option value="stars">Stars</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="projectsPinned" class="row g-4 mb-4"></div>
+      <div id="projectsGrid" class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4"></div>
+      <p id="projectsMeta" class="postg mt-4 mb-0 small text-center"></p>
+    </div>
+  </section>
+
+  <section id="about" class="py-5">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="display-3">About / Experience</h2>
+        <p class="postf">Contenido editado manualmente desde un archivo local para evitar scraping.</p>
+      </div>
+
+      <div class="row g-4 mt-2">
+        <div class="col-lg-4">
+          <article class="p-4 border rounded-4 h-100 bg-yellow">
+            <h3 class="h4" id="aboutHeadline">Cargando perfil...</h3>
+            <p id="aboutSummary" class="postf mb-4">Actualiza <code>data/linkedin.md</code> para personalizar esta sección.</p>
+            <a id="linkedinButton" class="btn btn-primary text-uppercase text-decoration-none" href="https://www.linkedin.com/in/your-linkedin-handle/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          </article>
+        </div>
+        <div class="col-lg-8">
+          <div id="experienceTimeline" class="d-flex flex-column gap-3"></div>
+          <div class="p-4 border rounded-4 mt-3">
+            <h3 class="h5">Skills / Focus</h3>
+            <div id="skillsList" class="d-flex flex-wrap gap-2"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section>
     <div class="container">
       <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-7">
           <div class="h-100 bg-yellow p-4 rounded-4">
             <h3>
               Licencias y certificaciones
             </h3>
-            <div class="py-4">
-              <p class="text-dark-emphasis">
-                sept 2025
-              </p>
-              <h5>
-			Google: Go Beyound the Numbers: Translate Data into Insights
-              </h5>
-              <p class="text-dark-emphasis">
-                Apply the exploratory data analysis (EDA) process | Explore the benefits of structuring and cleaning data | Investigate raw data using Python | Create data visualizations using Tableau 
-              </p>
+            <p class="postf mb-4">
+              Formación continua en análisis, datos y automatización. Cuando me compartas la imagen con el listado completo, lo agrego todo en este bloque.
+            </p>
+            <div class="cert-list">
+              <article class="cert-item">
+                <p class="cert-date mb-1">sept 2025</p>
+                <h5 class="mb-2">Google: Go Beyond the Numbers: Translate Data into Insights</h5>
+                <p class="text-dark-emphasis mb-0">EDA, estructuración y limpieza de datos, análisis en Python y visualización en Tableau.</p>
+              </article>
+              <article class="cert-item">
+                <p class="cert-date mb-1">ago 2025</p>
+                <h5 class="mb-2">Google: Get Started with Python</h5>
+                <p class="text-dark-emphasis mb-0">Fundamentos de Python, estructuras de datos, control de flujo y resolución de tareas orientadas a datos.</p>
+              </article>
+              <article class="cert-item">
+                <p class="cert-date mb-1">2025</p>
+                <h5 class="mb-2">The Nuts and Bolts of Machine Learning</h5>
+                <p class="text-dark-emphasis mb-0">Conceptos base para proyectos de machine learning y evaluación de modelos.</p>
+              </article>
+              <article class="cert-item">
+                <p class="cert-date mb-1">2025</p>
+                <h5 class="mb-2">Become a Data Analyst (ETL, SQL, Power BI, Python, R)</h5>
+                <p class="text-dark-emphasis mb-0">Flujos de análisis de datos de punta a punta, desde ETL hasta reporting y visualización.</p>
+              </article>
+              <article class="cert-item">
+                <p class="cert-date mb-1">2025</p>
+                <h5 class="mb-2">REQUISITOS DE SOFTWARE: UN ENFOQUE PRÁCTICO</h5>
+                <p class="text-dark-emphasis mb-0">Levantamiento, análisis y documentación de requisitos aplicados a proyectos reales.</p>
+              </article>
             </div>
-            <p class="text-dark-emphasis">
-              ago 2025
-            </p>
-            <h5>
-              Google: Get Started with Python
-            </h5>
-            <p class="text-dark-emphasis">
-              Explain how Python is used by data professionals | Explore basic Python building blocks, including syntax and semantics | Understand loops, control statements, and string manipulation | Use data structures to store and organize data 
-            </p>
           </div>
         </div>
 
-        <div class="col-lg-4">
-          <div class="h-100 bg-green p-4 rounded-4">
-            <h3>
-              Experiencia
-            </h3>
-            <div class="py-4">
-              <p class="text-dark-emphasis">
-                2011 - Actualidad
-              </p>
-              <h5>
-                Analista de Sistemas / DevOps – ASSE
-              </h5>
-              <p class="text-dark-emphasis">
-                Responsable de automatizar procesos, mantener entornos Odoo y coordinar despliegues en entornos Linux. Desarrollo de scripts en Bash, Python y SQL para validación de datos, testing funcional y soporte de sistemas críticos.
-              </p>
-            </div>
-            <p class="text-dark-emphasis">
-              2017 - 2020
-            </p>
-            <h5>
-              Soporte Infraestructurra - K&S
-            </h5>
-            <p class="text-dark-emphasis">
-              Mantenimiento de servidores Linux, soporte técnico de infraestructura y automatización básica de tareas con scripts Bash. Administración de usuarios, redes internas y entornos virtualizados.
-            </p>
-          </div>
-        </div>
-
-        <div class="col-lg-4">
+        <div class="col-lg-5">
   <div class="h-100 bg-teal p-4 rounded-4">
     <h3>Intereses</h3>
 
@@ -698,13 +735,13 @@
                   <a class="text-decoration-none text-white" href="index.html">Home</a>
                 </li>
                 <li>
-                  <a class="text-decoration-none text-white" href="#">About</a>
+                  <a class="text-decoration-none text-white" href="#about">About</a>
                 </li>
                 <li>
                   <a class="text-decoration-none text-white" href="index.html">Team</a>
                 </li>
                 <li>
-                  <a class="text-decoration-none text-white" href="index.html">Portfolio</a>
+                  <a class="text-decoration-none text-white" href="#projects">Projects</a>
                 </li>
               </ul>
             </div>
@@ -747,6 +784,9 @@
   <script type="text/javascript" src="js/lightbox.min.js"></script>
 
   <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+  <script src="data/projects.data.js"></script>
+  <script src="data/projects.curated.data.js"></script>
+  <script src="data/linkedin.data.js"></script>
   <script src="js/script.js"></script>
 </body>
 

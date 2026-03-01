@@ -250,3 +250,72 @@ a:hover {
   color: #00032E;            /* Azul de la marca */
   letter-spacing: 0;
 }
+
+/* data-driven sections */
+.project-card {
+    border: 1px solid #e6e6e6;
+    border-radius: 1rem;
+    background: var(--bs-white);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+.project-card .project-meta {
+    font-size: 0.9rem;
+    color: var(--bs-gray);
+}
+
+.project-tag {
+    border: 1px solid #e8e8e8;
+    background: #fafafa;
+    color: #3b3b3b;
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+    font-size: 0.75rem;
+}
+
+.project-card.pinned-card {
+    border-color: #f0d7d4;
+    background: #fff8f6;
+}
+
+.experience-item {
+    border: 1px solid #ececec;
+    border-left: 4px solid var(--bs-primary);
+    border-radius: 0.75rem;
+    background: #fff;
+    padding: 1rem 1.25rem;
+}
+
+.experience-item h4 {
+    margin-bottom: 0.2rem;
+}
+
+.cert-list {
+    display: grid;
+    gap: 0.9rem;
+}
+
+.cert-item {
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 0.85rem;
+    padding: 0.85rem 1rem;
+}
+
+.cert-item h5 {
+    font-size: 1.1rem;
+    line-height: 1.2;
+}
+
+.cert-date {
+    color: #5d5d5d;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+}

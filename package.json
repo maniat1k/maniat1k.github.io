@@ -1,0 +1,12 @@
+{
+  "name": "maniat1k-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static portfolio with GitHub-driven projects and LinkedIn content pipeline.",
+  "scripts": {
+    "refresh:github": "node scripts/refresh-github-projects.mjs",
+    "refresh:linkedin": "node scripts/refresh-linkedin-fallback.mjs",
+    "refresh:data": "npm run refresh:github && npm run refresh:linkedin",
+    "preview": "node scripts/preview.mjs"
+  }
+}
