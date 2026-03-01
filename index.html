@@ -303,7 +303,7 @@
   <section id="projects" class="py-5">
     <div class="container">
       <div class="text-center">
-        <h2 class="display-3">Projects</h2>
+        <h2 class="display-3">Projectos</h2>
         <p class="postf">Repos públicos cargados desde GitHub y curados localmente.</p>
       </div>
 
@@ -329,29 +329,31 @@
     </div>
   </section>
 
-  <section id="about" class="py-5">
+  <section id="about" class="py-5 mb-4">
     <div class="container">
       <div class="text-center">
-        <h2 class="display-3">About / Experience</h2>
+        <h2 class="display-3">Sobre mi / Experiencia</h2>
         <p class="postf">Contenido editado manualmente desde un archivo local para evitar scraping.</p>
       </div>
 
       <div class="row g-4 mt-2">
-        <div class="col-lg-4">
+        <div class="col-12">
           <article class="p-4 border rounded-4 h-100 bg-yellow">
             <h3 class="h4" id="aboutHeadline">Cargando perfil...</h3>
             <p id="aboutSummary" class="postf mb-4">Actualiza <code>data/linkedin.md</code> para personalizar esta sección.</p>
             <a id="linkedinButton" class="btn btn-primary text-uppercase text-decoration-none" href="https://www.linkedin.com/in/your-linkedin-handle/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </article>
         </div>
-        <div class="col-lg-8">
-          <div id="experienceTimeline" class="d-flex flex-column gap-3"></div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12">
           <div class="p-4 border rounded-4 mt-3">
             <h3 class="h5">Skills / Focus</h3>
             <div id="skillsList" class="d-flex flex-wrap gap-2"></div>
           </div>
         </div>
       </div>
+      <div id="experienceTimeline" class="d-none" aria-hidden="true"></div>
     </div>
   </section>
 
