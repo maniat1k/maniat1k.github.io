@@ -144,35 +144,25 @@
           <div class="offcanvas-body">
             <ul class="navbar-nav flex-grow-1 p-4">
               <li class="nav-item">
-                <a class="nav-link active text-uppercase ls-4 text-white" aria-current="page" href="index.html">Home</a>
+                <a class="nav-link active text-uppercase ls-4 text-white" aria-current="page" href="#top">Inicio</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="#projects">Projects 
-                </a>
+                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="#projects">Projects</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="index.html">Single Portfolio 
-                </a>
+                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="#dev-notes">Dev Notes</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="index.html">Single Post 
-                </a>
+                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="#latest-x">Latest on X</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="index.html">Styles 
-                </a>
+                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="#about">Sobre mi</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="index.html">Blog 
-                </a>
+                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="#footer">Contacto</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="index.html">Team 
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="#about">About 
-                </a>
+                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="https://github.com/maniat1k" target="_blank" rel="noopener noreferrer">GitHub</a>
               </li>
             </ul>
           </div>
@@ -288,10 +278,10 @@
             </div>
             <div class="text-md-start">
               <h5 style= "color: #FDCB58;">
-                Diseño Grafico
+                DevOps & Observabilidad
               </h5>
               <p class="postf">
-                Diseño visual orientado a proyectos tecnológicos, interfaces limpias y documentación profesional.
+                Monitoreo, trazabilidad de cambios y operación confiable con enfoque en estabilidad, diagnóstico y mejora continua.
               </p>
             </div>
           </div>
@@ -329,6 +319,76 @@
     </div>
   </section>
 
+  <section id="dev-log" class="py-5">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="display-3">Dev Log</h2>
+        <p class="postf mb-0">Últimos commits públicos para mostrar progreso técnico real en repositorios activos.</p>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="p-4 border rounded-4 bg-white">
+            <div id="devLogList" class="row g-3"></div>
+            <p id="devLogFallback" class="postf mb-0 d-none">
+              No se pudieron cargar los commits.
+              <a href="https://github.com/maniat1k" target="_blank" rel="noopener noreferrer">Ver actividad completa en GitHub</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dev-notes" class="py-5">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="display-3">Dev Notes / Changelog</h2>
+        <p class="postf mb-0">Cambios concretos de arquitectura, automatización y mejoras de calidad aplicadas al portal.</p>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="p-4 border rounded-4 bg-white">
+            <div id="devNotesList" class="row g-3"></div>
+            <p id="devNotesFallback" class="postf mb-0 d-none">
+              No se pudo cargar el changelog ahora mismo.
+              <a href="https://github.com/maniat1k" target="_blank" rel="noopener noreferrer">Ver actividad en GitHub</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="latest-x" class="py-5">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="display-3">Latest on X</h2>
+        <p class="postf mb-0">Actualizaciones cortas de progreso y construcción.</p>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12">
+          <article class="p-4 border rounded-4 bg-white x-widget-card">
+            <div id="xTimelinePlaceholder" class="x-widget-skeleton" aria-hidden="true"></div>
+            <a
+              id="xTimelineAnchor"
+              class="twitter-timeline"
+              data-theme="light"
+              data-dnt="true"
+              data-chrome="noheader nofooter noborders transparent"
+              data-height="560"
+              href="https://x.com/maniat1kUy">
+              Timeline de @maniat1kUy
+            </a>
+            <div id="xTimelineFallback" class="x-fallback-box d-none" role="status" aria-live="polite">
+              No se pudo cargar el feed.
+              <a href="https://x.com/maniat1kUy" target="_blank" rel="noopener noreferrer">Abrir perfil en X</a>.
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="about" class="py-5 mb-4">
     <div class="container">
       <div class="text-center">
@@ -338,9 +398,9 @@
       <div class="row g-4 mt-2">
         <div class="col-12">
           <article class="p-4 border rounded-4 h-100 bg-yellow">
-            <h3 class="h4" id="aboutHeadline">Cargando perfil...</h3>
-            <p id="aboutSummary" class="postf mb-4">Actualiza <code>data/linkedin.md</code> para personalizar esta sección.</p>
-            <a id="linkedinButton" class="btn btn-primary text-uppercase text-decoration-none d-inline-flex align-items-center gap-2" href="https://www.linkedin.com/in/your-linkedin-handle/" target="_blank" rel="noopener noreferrer">
+            <h3 class="h4" id="aboutHeadline">Administrador de Sistemas · DevOps mindset</h3>
+            <p id="aboutSummary" class="postf mb-4">Perfil orientado a automatización operativa, calidad de datos, trazabilidad y mejora continua en plataformas críticas.</p>
+            <a id="linkedinButton" class="btn btn-primary text-uppercase text-decoration-none d-inline-flex align-items-center gap-2" href="https://www.linkedin.com/in/marcelolemosuy/" target="_blank" rel="noopener noreferrer">
               <svg class="linkedin stroke-2" width="18" height="18" aria-hidden="true" focusable="false">
                 <use xlink:href="#linkedin"></use>
               </svg>
@@ -608,112 +668,20 @@ ORDER BY contract_status;</code></pre>
     </div>
   </section>
 
-  <!-- <section class="py-5">
-    <div class="container">
-      <div class="text-center">
-        <h2 class="display-3">
-          Últimos posts!
-        </h2>
-        <p>
-          Pequeños destellos de escritura, ya que no uso otra cosa que microblogin. Basicamente en un futuro alguna vuelta le voy a encontrar para publicar mis ultimos tweets como se hacia antes y ya no.
-        </p>
-      </div>
-      <div class="row py-4">
-        <div class="col-lg-6 p-3" >
-          <div class="post-item p-3 border rounded-5" >
-            <blockquote class="twitter-tweet"><p lang="es" dir="ltr">Lo que hice / lo que interpreto <a href="https://twitter.com/hashtag/ChatGPT?src=hash&amp;ref_src=twsrc%5Etfw">#ChatGPT</a> <a href="https://t.co/buBOAy9W6s">pic.twitter.com/buBOAy9W6s</a></p>&mdash; maniat1k (@maniat1kUy) <a href="https://twitter.com/maniat1kUy/status/1973759046395334884?ref_src=twsrc%5Etfw">October 2, 2025</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-          </div>
-        </div>
-        <div class="col-lg-6 p-3">
-          <div class="post-item p-3 border rounded-5">
-           <blockquote class="twitter-tweet" data-media-max-width="560"><p lang="en" dir="ltr">1 Hour Lo-Fi Chill Beats | Relaxing Study &amp; Focus Music <a href="https://t.co/NH3wtdzyHo">https://t.co/NH3wtdzyHo</a> via <a href="https://twitter.com/YouTube?ref_src=twsrc%5Etfw">@YouTube</a></p>&mdash; maniat1k (@maniat1kUy) <a href="https://twitter.com/maniat1kUy/status/1972166662322569369?ref_src=twsrc%5Etfw">September 28, 2025</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-          </div>
-        </div>
-        <div class="col-lg-6 p-3">
-          <div class="post-item p-3 border rounded-5">
-            <blockquote class="twitter-tweet"><p lang="en" dir="ltr">aprendiendo a poder sacar texto de un audio en <a href="https://twitter.com/hashtag/python?src=hash&amp;ref_src=twsrc%5Etfw">#python</a> <br>python -m whisper &quot;audio.mp3&quot; --language es --task transcribe --model small --output_format all --output_dir &quot;.\transcripts&quot;</p>&mdash; maniat1k (@maniat1kUy) <a href="https://twitter.com/maniat1kUy/status/1966147294094569957?ref_src=twsrc%5Etfw">September 11, 2025</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-          </div>
-        </div>
-        <div class="col-lg-6 p-3">
-          <div class="post-item p-3 border rounded-5">
-            <blockquote class="twitter-tweet"><p lang="es" dir="ltr">🚀 Nace la identidad visual de MANIAT1K<br>Code Hard / Deploy Harder 💻⚡<br>Diseño + Geek + DevOps = 🔥<a href="https://twitter.com/hashtag/Branding?src=hash&amp;ref_src=twsrc%5Etfw">#Branding</a> <a href="https://twitter.com/hashtag/Design?src=hash&amp;ref_src=twsrc%5Etfw">#Design</a> <a href="https://twitter.com/hashtag/DevOps?src=hash&amp;ref_src=twsrc%5Etfw">#DevOps</a> <a href="https://twitter.com/hashtag/GeekCulture?src=hash&amp;ref_src=twsrc%5Etfw">#GeekCulture</a> <a href="https://twitter.com/hashtag/Tech?src=hash&amp;ref_src=twsrc%5Etfw">#Tech</a> <a href="https://t.co/RBcFckDvEM">pic.twitter.com/RBcFckDvEM</a></p>&mdash; maniat1k (@maniat1kUy) <a href="https://twitter.com/maniat1kUy/status/1959262645648855470?ref_src=twsrc%5Etfw">August 23, 2025</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-          </div>
-        </div>
-      </div>
-      <div class="text-center">
-        
-      </div>
-    </div>
-  </section>-->
   </main>
   <footer id="footer" class="bg-black text-white py-5">
-    <div class="container-sm">
-      <div class="row g-md-5 my-5">
-        <div class="col-md-4">
-          <div class="info-box">
-            <img src="images/logo-2.png" class="img-fluid" alt="Logo alternativo de maniat1k">
-            <p class="py-4">
-               Suscríbete al boletín que no pienso hacer 😅 para recibir actualizaciones que no voy a dar 😂 relacionadas con la marca, diseños y más.
-            </p>
-
-            <div class="social-links">
-              <svg class="twitter" width="24" height="24">
-                <use xlink:href="#twitter"></use>
-              </svg>
-              <svg class="github" width="24" height="24">
-                <use xlink:href="#github"></use>
-              </svg>
-			  <svg class="youtube" width="24" height="24">
-                <use xlink:href="#youtube"></use>
-              </svg>
-			  <svg class="instagram" width="24" height="24">
-                <use xlink:href="#instagram"></use>
-              </svg>
-			  <svg class="instagram" width="24" height="24">
-                <use xlink:href="#linkedin"></use>
-              </svg>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="row">
-            <div class="col-6">
-              <ul class="list-unstyled">
-                <li>
-                  <a class="text-decoration-none text-white" href="index.html">Home</a>
-                </li>
-                <li>
-                  <a class="text-decoration-none text-white" href="#about">About</a>
-                </li>
-                <li>
-                  <a class="text-decoration-none text-white" href="index.html">Team</a>
-                </li>
-                <li>
-                  <a class="text-decoration-none text-white" href="#projects">Projects</a>
-                </li>
-              </ul>
-            </div>
-            <div class="col-6">
-              <h6>
-                <a class="text-decoration-none text-white" href="index.html">Blog</a>
-              </h6>
-              <h6>
-                <a class="text-decoration-none text-white" href="index.html">Contact</a>
-              </h6>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-5">
-          <p>
-            No dudes en contactarme si quieres colaborar conmigo o simplemente tener una conversación.
-          </p>
-          <h3>
-            <a href="mailto:maniat1kster@gmail.com" class="text-white text-decoration-none">maniat1kster@gmail.com</a>
-          </h3>
-        </div>
+    <div class="container-sm text-center">
+      <p class="mb-2 fw-semibold">Maniat1k · Creator Tech</p>
+      <p class="postg mb-3">© <span id="currentYear"></span></p>
+      <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
+        <a class="text-decoration-none text-white" href="https://github.com/maniat1k" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <span class="text-white-50">·</span>
+        <a class="text-decoration-none text-white" href="https://x.com/maniat1kUy" target="_blank" rel="noopener noreferrer">X</a>
+        <span class="text-white-50">·</span>
+        <a class="text-decoration-none text-white" href="https://www.instagram.com/maniat1k/" target="_blank" rel="noopener noreferrer">Instagram</a>
       </div>
-      <div class="row">
-        <p>©2024 Jessica. Free HTML Template by <a href="https://templatesjungle.com/" class="text-white" target="_blank" rel="noopener noreferrer">TemplatesJungle</a>. Distributed By <a href="https://themewagon.com" class="text-white" target="_blank" rel="noopener noreferrer">ThemeWagon</a> </p>
+      <div class="mt-4">
+        <a id="contactButton" class="btn btn-outline-light text-uppercase text-decoration-none" href="#" rel="nofollow">Contactar</a>
       </div>
     </div>
   </footer>
@@ -738,6 +706,8 @@ ORDER BY contract_status;</code></pre>
   <script src="data/linkedin.data.js"></script>
   <script src="js/script.js"></script>
   <script src="js/feed-loader.js"></script>
+  <script src="js/dev-log.js"></script>
+  <script src="js/dev-notes.js"></script>
 </body>
 
 </html>

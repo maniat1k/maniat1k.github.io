@@ -347,7 +347,7 @@
 
       timelineNode.innerHTML = "";
       if (!parsed.experience.length) {
-        timelineNode.innerHTML = '<div class="experience-item"><p class="mb-0">Agrega tu experiencia en <code>data/linkedin.md</code>.</p></div>';
+        timelineNode.innerHTML = '<div class="experience-item"><p class="mb-0">Experiencia profesional disponible en el perfil de LinkedIn.</p></div>';
       } else {
         parsed.experience.forEach((item) => {
           const block = document.createElement("article");
@@ -369,9 +369,91 @@
         skillsNode.appendChild(chip);
       });
     } catch (error) {
-      timelineNode.innerHTML = '<div class="experience-item"><p class="mb-0">No se pudo cargar LinkedIn. Ejecutá <code>npm run refresh:linkedin</code> y recargá.</p></div>';
+      headlineNode.textContent = "Administrador de Sistemas · DevOps mindset";
+      summaryNode.textContent = "Perfil orientado a automatización operativa, QA estructurado y mejora continua de plataformas.";
+      timelineNode.innerHTML = '<div class="experience-item"><p class="mb-0">No se pudo sincronizar el detalle completo ahora mismo. Puedes ver el perfil actualizado en LinkedIn.</p></div>';
+      skillsNode.innerHTML = "";
+      ["Automatización", "DevOps", "Linux", "PostgreSQL", "Odoo", "QA"].forEach((skill) => {
+        const chip = document.createElement("span");
+        chip.className = "project-tag";
+        chip.textContent = skill;
+        skillsNode.appendChild(chip);
+      });
       console.error(error);
     }
+  }
+
+  function initXTimeline() {
+    const anchor = document.getElementById("xTimelineAnchor");
+    const placeholder = document.getElementById("xTimelinePlaceholder");
+    const fallback = document.getElementById("xTimelineFallback");
+    if (!anchor || !placeholder || !fallback) return;
+
+    let settled = false;
+
+    function showFallback() {
+      if (settled) return;
+      settled = true;
+      placeholder.classList.add("d-none");
+      anchor.classList.add("d-none");
+      fallback.classList.remove("d-none");
+    }
+
+    function showWidget() {
+      if (settled) return;
+      settled = true;
+      placeholder.classList.add("d-none");
+      fallback.classList.add("d-none");
+      anchor.classList.remove("d-none");
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        observer.disconnect();
+
+        const script = document.createElement("script");
+        script.src = "https://platform.twitter.com/widgets.js";
+        script.async = true;
+        script.defer = true;
+        script.charset = "utf-8";
+        script.onload = function() {
+          setTimeout(() => {
+            const iframe = anchor.parentElement ? anchor.parentElement.querySelector("iframe.twitter-timeline") : null;
+            if (iframe) {
+              showWidget();
+            } else {
+              showFallback();
+            }
+          }, 2800);
+        };
+        script.onerror = showFallback;
+        document.body.appendChild(script);
+      });
+    }, { rootMargin: "200px 0px" });
+
+    observer.observe(anchor);
+    setTimeout(showFallback, 9000);
+  }
+
+  function initContactButton() {
+    const button = document.getElementById("contactButton");
+    if (!button) return;
+
+    const userCodes = [109, 97, 110, 105, 97, 116, 49, 107, 115, 116, 101, 114];
+    const hostCodes = [103, 109, 97, 105, 108, 46, 99, 111, 109];
+    const user = String.fromCharCode.apply(null, userCodes);
+    const host = String.fromCharCode.apply(null, hostCodes);
+    const mail = `${user}@${host}`;
+
+    button.href = `mailto:${mail}`;
+    button.setAttribute("aria-label", "Contactar por correo");
+  }
+
+  function initFooterYear() {
+    const yearNode = document.getElementById("currentYear");
+    if (!yearNode) return;
+    yearNode.textContent = String(new Date().getFullYear());
   }
 
   function initHeroParallax() {
@@ -416,5 +498,8 @@
     initProjects();
     initLinkedInSection();
     initHeroParallax();
+    initXTimeline();
+    initContactButton();
+    initFooterYear();
   });
 })();

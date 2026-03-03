@@ -1,130 +1,53 @@
-Perfecto. Te dejo una versión más sobria, profesional y lista para copiar/pegar directamente en tu README.
+# Maniat1k Portfolio
 
----
+Sitio estatico personal publicado en GitHub Pages.
 
-# MANIAT1K — Portal Personal
+## Desarrollo local
 
-Portal estático profesional diseñado para centralizar actividad pública, proyectos y presencia digital en un único entorno coherente y automatizado.
-
-El sitio está optimizado para GitHub Pages y no depende de APIs en tiempo de ejecución.
-
----
-
-## Objetivo
-
-* Unificar actividad reciente de distintas plataformas.
-* Mantener un sistema visual consistente basado en tarjetas.
-* Automatizar la generación de contenido sin romper el diseño existente.
-* Garantizar funcionamiento idéntico en producción y entorno local.
-
----
-
-## Arquitectura
-
-El sitio funciona bajo un esquema de generación previa de datos:
-
-1. Un proceso automatizado obtiene publicaciones recientes.
-2. Se normalizan los datos en archivos JSON estáticos.
-3. Se generan imágenes representativas para cada tarjeta.
-4. GitHub Pages sirve únicamente contenido estático.
-5. El frontend solo realiza `fetch` local a `/data/*.json`.
-
-Esto elimina dependencias externas en runtime y evita problemas de CORS o autenticación.
-
----
+1. `npm install`
+2. `npm run feeds:build`
+3. `npm run dev`
+4. Abrir `http://localhost:4173`
 
 ## Estructura principal
 
-```
-/
-├── index.html
-├── css/
-├── js/
-├── data/
-├── assets/
-│   ├── cards/
-│   └── fallback/
-├── scripts/
-└── .github/workflows/
-```
+- `index.html`: layout y secciones.
+- `css/style.css`: estilos globales.
+- `js/script.js`: comportamiento principal (Projects, About, Hero, X embed fallback).
+- `js/feed-loader.js`: grilla social (Instagram/YouTube/Reddit/X).
+- `js/dev-notes.js`: render de Dev Notes.
+- `data/`: fuentes estaticas (`projects.json`, `all.json`, `dev-notes.json`, etc.).
+- `scripts/feeds/fetch-feeds.mjs`: build de feeds sociales.
+- `.github/workflows/feeds.yml`: automatizacion en Actions.
 
----
+## Content workflow
 
-## Modelo de datos
+### GitHub repos (actualizacion automatica)
 
-Cada tarjeta se construye a partir de una estructura normalizada:
+- La seccion **Projects** se alimenta de `data/projects.json`.
+- Se actualiza con `npm run refresh:github`.
+- El repositorio puede ejecutar ese refresco en CI y versionar el JSON para que GitHub Pages sirva contenido estatico.
 
-```json
-{
-  "id": "unique-id",
-  "source": "youtube|instagram|reddit|x|github",
-  "title": "Título",
-  "url": "https://...",
-  "date": "ISO-8601",
-  "image": "/assets/cards/imagen.webp",
-  "image_alt": "Descripción breve"
-}
-```
+### X embed (timeline oficial)
 
----
+- La seccion **Latest on X** usa el widget oficial de X para `@maniat1kUy`.
+- El script de widgets se carga en lazy mode cuando la seccion entra en viewport.
+- Si el embed falla (bloqueo, offline o script no disponible), se muestra un fallback con mensaje y link al perfil.
 
-## Sistema de imágenes
+Para cambiar usuario o enlace:
 
-Para cada tarjeta:
+- Editar `index.html` en la seccion `#latest-x` (`href` del timeline y del fallback).
+- Mantener el mismo `id` de los nodos para no romper la inicializacion en `js/script.js`.
 
-1. Se utiliza thumbnail oficial si está disponible.
-2. Si no existe, se intenta obtener `og:image`.
-3. Si no hay imagen válida, se genera captura automática.
-4. Como último recurso, se aplica fallback por fuente.
+## Feeds sociales
 
-Reglas:
+El build `npm run feeds:build` genera:
 
-* No se repiten imágenes dentro del mismo render.
-* Las imágenes respetan el ratio del contenedor.
-* No se altera el sistema de animaciones existente.
+- `data/instagram.json`
+- `data/youtube.json`
+- `data/reddit.json`
+- `data/x.json`
+- `data/all.json`
+- assets de imagen en `assets/cards/`
 
----
-
-## Generación de feeds
-
-Construcción manual local:
-
-```
-npm install
-npm run feeds:build
-```
-
-Servidor local:
-
-```
-npx serve .
-```
-
----
-
-## Automatización
-
-Un workflow de GitHub Actions:
-
-* Genera feeds periódicamente.
-* Actualiza `/data` y `/assets`.
-* Realiza commit automático.
-* Mantiene el portal actualizado sin intervención manual.
-
----
-
-## Principio operativo
-
-Producción estable = datos generados previamente + frontend simple.
-
-Sin llamadas externas en el navegador.
-Sin dependencias frágiles.
-Sin impacto en la experiencia visual.
-
----
-
-Si querés, ahora podemos ajustar el tono aún más hacia:
-
-* Perfil corporativo institucional
-* Marca personal técnica
-* Estudio creativo minimalista
+Si una fuente externa falla, el frontend mantiene render parcial y muestra fallback amigable.
