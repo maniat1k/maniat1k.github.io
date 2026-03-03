@@ -75,3 +75,14 @@ Complementa su perfil con gestión ágil de proyectos (Redmine, GLPI), documenta
 - Graylog
 - OpenLDAP
 - Odoo / GRP
+- HTML / GitHub Pages
+- Shell scripting
+- PowerShell
+- Batch scripting
+- Zsh / Oh My Zsh
+- Automatización de tareas
+- Optimización de Windows 11
+- Troubleshooting (Windows/Linux)
+- Hardening y ajustes de sistema
+- Documentación técnica
+- Gestión de incidencias

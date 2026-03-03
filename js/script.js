@@ -2,6 +2,18 @@
 
   "use strict";
 
+  var isotopeInstances = [];
+
+  function destroyIsotope() {
+    isotopeInstances.forEach(function(instance) {
+      instance.$buttonGroup.off(".portfolioFilters");
+      if (instance.$grid.data("isotope")) {
+        instance.$grid.isotope("destroy");
+      }
+    });
+    isotopeInstances = [];
+  }
+
   $(function() {
     initIsotope();
 
@@ -16,10 +28,14 @@
 
   // init Isotope
   var initIsotope = function() {
+    destroyIsotope();
+
     $(".grid").each(function() {
       var $grid = $(this);
       var $buttonGroup = $("#filters.button-group");
       if (!$buttonGroup.length) return;
+
+      if (!$grid.find(".portfolio-item").length) return;
 
       var $checked = $buttonGroup.find(".is-checked");
       var filterValue = $checked.attr("data-filter") || "*";
@@ -29,7 +45,7 @@
         filter: filterValue
       });
 
-      $buttonGroup.on("click", "a", function(e) {
+      $buttonGroup.on("click.portfolioFilters", "a", function(e) {
         e.preventDefault();
         var $button = $(this);
         filterValue = $button.attr("data-filter");
@@ -37,7 +53,14 @@
         $buttonGroup.find(".is-checked").removeClass("is-checked");
         $button.addClass("is-checked");
       });
+
+      isotopeInstances.push({ $grid: $grid, $buttonGroup: $buttonGroup });
     });
+  };
+
+  window.PortfolioGrid = {
+    initIsotope: initIsotope,
+    destroyIsotope: destroyIsotope
   };
 
 })(jQuery);
@@ -351,8 +374,47 @@
     }
   }
 
+  function initHeroParallax() {
+    const image = document.querySelector(".hero-portrait");
+    const wrap = document.querySelector(".hero-portrait-wrap");
+    if (!image || !wrap) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let ticking = false;
+    const maxShift = 56;
+    const speed = 0.16;
+    const wrapStart = wrap.getBoundingClientRect().top + window.scrollY;
+
+    function update() {
+      ticking = false;
+      const viewportH = window.innerHeight || document.documentElement.clientHeight || 1;
+      const anchor = wrapStart - viewportH * 0.45;
+      const delta = (window.scrollY - anchor) * speed;
+      // Reverse parallax: when page goes down, image moves up.
+      const translate = Math.max(-maxShift, Math.min(maxShift, -delta));
+      image.style.transform = `translate3d(0, ${translate.toFixed(2)}px, 0) scale(1.12)`;
+    }
+
+    function onScrollOrResize() {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    }
+
+    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    window.addEventListener("resize", onScrollOrResize);
+    window.addEventListener("keydown", function(e) {
+      if (e.key === "ArrowUp" || e.key === "ArrowDown" || e.key === "PageUp" || e.key === "PageDown" || e.key === " ") {
+        window.requestAnimationFrame(update);
+      }
+    });
+    onScrollOrResize();
+  }
+
   document.addEventListener("DOMContentLoaded", function() {
     initProjects();
     initLinkedInSection();
+    initHeroParallax();
   });
 })();
