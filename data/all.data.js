@@ -1,7 +1,7 @@
 window.__PORTFOLIO_FEEDS__ = {
   "source": "all",
-  "generated_at": "2026-03-03T02:41:49.600Z",
-  "total": 8,
+  "generated_at": "2026-03-03T13:10:05.593Z",
+  "total": 6,
   "items": [
     {
       "source": "instagram",
@@ -42,26 +42,6 @@ window.__PORTFOLIO_FEEDS__ = {
       "image_alt": "X post 2 (manual)",
       "summary": "Sip a full",
       "id": "x_ba2697742a35"
-    },
-    {
-      "source": "reddit",
-      "title": "Comentario en r/Burises",
-      "url": "https://www.reddit.com/r/Burises/comments/1okdmex/abrí_mi_propio_negocio/nmcbqrs/",
-      "date": "2025-10-31T09:33:11.000Z",
-      "image": "assets/cards/reddit_reddit_f743aa5ec5cb_portal.svg",
-      "image_alt": "r/Burises",
-      "summary": "Felicidades! No hay mucho para acotar. Más que a darle con todo.",
-      "id": "reddit_f743aa5ec5cb"
-    },
-    {
-      "source": "reddit",
-      "title": "Comentario en r/Burises",
-      "url": "https://www.reddit.com/r/Burises/comments/1o9yqhf/le_saqué_las_rueditas_a_mi_bicicleta/nk5leke/",
-      "date": "2025-10-18T15:34:34.000Z",
-      "image": "assets/cards/reddit_reddit_98bab3808e88_portal.svg",
-      "image_alt": "r/Burises",
-      "summary": "Mezclaste temas en esto que leo. Pero te felicito por tu avance. Pero leo muchas vergüenzas y limitaciones ahí. Vamos a seguir adelante.",
-      "id": "reddit_98bab3808e88"
     },
     {
       "source": "youtube",
