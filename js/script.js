@@ -89,6 +89,32 @@
     });
   }
 
+  function getLanguageColor(language) {
+    const palette = {
+      JavaScript: "#f1e05a",
+      TypeScript: "#3178c6",
+      Python: "#3572A5",
+      HTML: "#e34c26",
+      CSS: "#563d7c",
+      Shell: "#89e051",
+      PowerShell: "#012456",
+      Dockerfile: "#384d54",
+      Jupyter: "#DA5B0B",
+      "Jupyter Notebook": "#DA5B0B",
+      PHP: "#4F5D95",
+      Ruby: "#701516",
+      Go: "#00ADD8",
+      Rust: "#dea584",
+      Java: "#b07219",
+      C: "#555555",
+      "C++": "#f34b7d",
+      "C#": "#178600",
+      Vue: "#41b883",
+      React: "#61dafb"
+    };
+    return palette[language] || "#8b949e";
+  }
+
   function buildTagOptions(projects) {
     const set = new Set();
     projects.forEach((project) => {
@@ -115,25 +141,34 @@
     col.className = "col";
 
     const safeDescription = project.description || "Sin descripción.";
-    const tags = [];
-    if (project.language) tags.push(project.language);
-    (project.topics || []).slice(0, 4).forEach((topic) => tags.push(topic));
+    const language = project.language || "N/A";
+    const languageColor = getLanguageColor(project.language);
+    const visibilityBadge = project.private ? "Private" : "Public";
+    const updatedLabel = formatDate(project.updated_at);
 
     col.innerHTML = `
       <article class="project-card ${isPinned ? "pinned-card" : ""} h-100 p-4">
-        <div class="d-flex align-items-start justify-content-between gap-3">
-          <h3 class="h5 mb-1">${project.name}</h3>
-          ${isPinned ? '<span class="badge text-bg-dark">Pinned</span>' : ""}
-        </div>
-        <p class="project-meta mb-2">Updated: ${formatDate(project.updated_at)}</p>
-        <p class="mb-3">${safeDescription}</p>
-        <p class="project-meta mb-3">★ ${project.stargazers_count} · Forks: ${project.forks_count} ${project.fork ? "· Fork" : ""} ${project.archived ? "· Archived" : ""}</p>
-        <div class="d-flex flex-wrap gap-2 mb-3">
-          ${tags.map((tag) => `<span class="project-tag">${tag}</span>`).join("")}
-        </div>
-        <div class="d-flex flex-wrap gap-2">
-          <a class="btn btn-primary btn-sm text-uppercase text-decoration-none" href="${project.html_url}" target="_blank" rel="noopener noreferrer">Repo</a>
-          ${project.homepage ? `<a class="btn btn-outline-dark btn-sm text-uppercase text-decoration-none" href="${project.homepage}" target="_blank" rel="noopener noreferrer">Live</a>` : ""}
+        <header class="repo-card-header mb-3">
+          <div class="repo-card-title-wrap">
+            <h3 class="repo-card-title mb-0">${project.name}</h3>
+          </div>
+          <div class="repo-card-badges">
+            ${isPinned ? '<span class="badge text-bg-dark">Pinned</span>' : ""}
+            <span class="badge text-bg-light border">${visibilityBadge}</span>
+          </div>
+        </header>
+
+        <p class="repo-card-description mb-3">${safeDescription}</p>
+
+        <p class="repo-card-meta mb-3">
+          <span class="repo-meta-item"><span class="repo-lang-dot" style="background-color:${languageColor};"></span>${language}</span>
+          <span class="repo-meta-item">★ ${project.stargazers_count}</span>
+          <span class="repo-meta-item">Forks ${project.forks_count}</span>
+          <span class="repo-meta-item">Updated ${updatedLabel}</span>
+        </p>
+
+        <div class="repo-card-footer">
+          <a class="btn btn-primary btn-sm text-uppercase text-decoration-none" href="${project.html_url}" target="_blank" rel="noopener noreferrer">Ver repo</a>
         </div>
       </article>
     `;
@@ -186,25 +221,20 @@
 
       function render() {
         const filterValue = filterSelect.value;
-        const sortValue = sortSelect.value;
 
         const sorted = [...visibleProjects].sort((a, b) => {
-          if (sortValue === "stars") return b.stargazers_count - a.stargazers_count;
           return new Date(b.updated_at) - new Date(a.updated_at);
         });
 
         const filtered = sorted.filter((project) => projectMatchesFilter(project, filterValue));
-        const pinned = filtered.filter((project) => pinnedSet.has(project.name));
-        const regular = filtered.filter((project) => !pinnedSet.has(project.name));
 
         pinnedGrid.innerHTML = "";
         projectsGrid.innerHTML = "";
 
-        if (pinned.length) {
-          pinned.forEach((project) => pinnedGrid.appendChild(createProjectCard(project, true)));
-        }
-
-        regular.forEach((project) => projectsGrid.appendChild(createProjectCard(project, false)));
+        filtered.forEach((project) => {
+          const isPinned = pinnedSet.has(project.name);
+          projectsGrid.appendChild(createProjectCard(project, isPinned));
+        });
 
         meta.textContent = `${filtered.length} proyectos visibles · Fuente: GitHub API · Última actualización: ${formatDate(projectsPayload.generated_at)}`;
       }

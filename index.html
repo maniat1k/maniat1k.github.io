@@ -301,13 +301,12 @@
         <div class="col-md-4">
           <label for="projectSort" class="form-label fw-semibold">Ordenar</label>
           <select id="projectSort" class="form-select">
-            <option value="updated">Updated</option>
-            <option value="stars">Stars</option>
+            <option value="updated">Más recientes</option>
           </select>
         </div>
       </div>
 
-      <div id="projectsPinned" class="row g-4 mb-4"></div>
+      <div id="projectsPinned" class="d-none" aria-hidden="true"></div>
       <div id="projectsGrid" class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4"></div>
       <p id="projectsMeta" class="postg mt-4 mb-0 small text-center"></p>
     </div>
