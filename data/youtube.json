@@ -1,6 +1,6 @@
 {
   "source": "youtube",
-  "generated_at": "2026-03-04T13:08:52.100Z",
+  "generated_at": "2026-03-04T16:24:00.253Z",
   "total": 2,
   "items": [
     {
@@ -8,7 +8,7 @@
       "title": "Lo-Fi Chill Beat · Original Short Track (3 min)",
       "url": "https://www.youtube.com/watch?v=qlkqu_X27pA",
       "date": "2025-09-28T12:12:01.000Z",
-      "image": "assets/cards/youtube_youtube_9a6352225010.jpg",
+      "image": "https://i.ytimg.com/vi/qlkqu_X27pA/hqdefault.jpg",
       "image_alt": "Lo-Fi Chill Beat · Original Short Track (3 min)",
       "summary": "Lo-Fi Chill Beat · Original Short Track (3 min)",
       "id": "youtube_9a6352225010"
@@ -18,7 +18,7 @@
       "title": "1 Hour Lo-Fi Chill Beats | Relaxing Study & Focus Music",
       "url": "https://www.youtube.com/watch?v=QY12dtPKDf4",
       "date": "2025-09-28T05:08:49.000Z",
-      "image": "assets/cards/youtube_youtube_dcc0333943a9.jpg",
+      "image": "https://i.ytimg.com/vi/QY12dtPKDf4/hqdefault.jpg",
       "image_alt": "1 Hour Lo-Fi Chill Beats | Relaxing Study & Focus Music",
       "summary": "1 Hour Lo-Fi Chill Beats | Relaxing Study & Focus Music",
       "id": "youtube_dcc0333943a9"

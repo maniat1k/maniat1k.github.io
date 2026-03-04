@@ -3,6 +3,8 @@
     "url": "https://www.instagram.com/p/DNs3LvqQBwx/",
     "title": "Instagram post 1",
     "date": "2026-03-01T00:00:00.000Z",
+    "image": "assets/cards/instagram_instagram_5d9842018864.jpg",
+    "image_alt": "Instagram post 1",
     "summary": "🚀 Nuevo Brand Board de MANIAT1K 
 Diseño + cultura geek + mindset DevOps. 
 Un código visual que refleja lo que somos: rebeldía, estilo retro-tech y despliegue en cualquier entorno. "
@@ -11,6 +13,8 @@ Un código visual que refleja lo que somos: rebeldía, estilo retro-tech y despl
     "url": "https://www.instagram.com/p/DNgpZ1BJA8z/?img_index=1",
     "title": "Instagram post 2",
     "date": "2026-02-25T00:00:00.000Z",
+    "image": "assets/cards/instagram_instagram_aca8cbbca2ff.jpg",
+    "image_alt": "Instagram post 2",
     "summary": "Mi laboratorio visual va tomando forma
 No se trata solo de programar, sino también de crear espacios donde el código respire diseño."
   }

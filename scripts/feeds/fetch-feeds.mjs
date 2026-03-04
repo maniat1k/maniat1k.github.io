@@ -48,6 +48,58 @@ function stripHtml(html) {
     .trim();
 }
 
+function parsePossiblyLooseJson(content) {
+  try {
+    return JSON.parse(content);
+  } catch {
+    let out = "";
+    let inString = false;
+    let escaped = false;
+
+    for (let i = 0; i < content.length; i += 1) {
+      const ch = content[i];
+      if (!inString) {
+        if (ch === '"') inString = true;
+        out += ch;
+        continue;
+      }
+
+      if (escaped) {
+        out += ch;
+        escaped = false;
+        continue;
+      }
+
+      if (ch === "\\") {
+        out += ch;
+        escaped = true;
+        continue;
+      }
+
+      if (ch === '"') {
+        inString = false;
+        out += ch;
+        continue;
+      }
+
+      if (ch === "\n") {
+        out += "\\n";
+        continue;
+      }
+
+      if (ch === "\r") continue;
+      if (ch === "\t") {
+        out += "\\t";
+        continue;
+      }
+
+      out += ch;
+    }
+
+    return JSON.parse(out);
+  }
+}
+
 async function fetchText(url) {
   const res = await fetch(url, { headers: { "User-Agent": USER_AGENT } });
   if (!res.ok) throw new Error(`HTTP ${res.status} ${url}`);
@@ -95,7 +147,7 @@ async function ensureDirs() {
 async function readManualSource(source) {
   const manualPath = path.join(DATA_DIR, `${source}.manual.json`);
   try {
-    const raw = JSON.parse(await fs.readFile(manualPath, "utf8"));
+    const raw = parsePossiblyLooseJson(await fs.readFile(manualPath, "utf8"));
     const items = Array.isArray(raw) ? raw : raw.items;
     return Array.isArray(items) ? items : [];
   } catch (error) {

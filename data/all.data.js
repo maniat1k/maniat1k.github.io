@@ -1,7 +1,7 @@
 window.__PORTFOLIO_FEEDS__ = {
   "source": "all",
-  "generated_at": "2026-03-04T13:08:53.231Z",
-  "total": 6,
+  "generated_at": "2026-03-04T16:24:00.271Z",
+  "total": 8,
   "items": [
     {
       "source": "instagram",
@@ -14,16 +14,6 @@ window.__PORTFOLIO_FEEDS__ = {
       "id": "instagram_5d9842018864"
     },
     {
-      "source": "x",
-      "title": "X post 1 (manual)",
-      "url": "https://x.com/maniat1kUy/status/2028127763022954983",
-      "date": "2026-03-01T00:00:00.000Z",
-      "image": "assets/cards/x_x_8f00e913343a_portal.svg",
-      "image_alt": "X post 1 (manual)",
-      "summary": "Le di una afinada a mi portal. Proyectos traídos desde GitHub y perfil más prolijo. De a poco, pero firme. https://maniat1k.github.io",
-      "id": "x_8f00e913343a"
-    },
-    {
       "source": "instagram",
       "title": "Instagram post 2",
       "url": "https://www.instagram.com/p/DNgpZ1BJA8z/?img_index=1",
@@ -34,21 +24,59 @@ window.__PORTFOLIO_FEEDS__ = {
       "id": "instagram_aca8cbbca2ff"
     },
     {
-      "source": "x",
-      "title": "X post 2 (manual)",
-      "url": "https://x.com/maniat1kUy/status/2025706488111435976",
-      "date": "2026-02-25T00:00:00.000Z",
-      "image": "assets/cards/x_x_ba2697742a35_portal.svg",
-      "image_alt": "X post 2 (manual)",
-      "summary": "Sip a full",
-      "id": "x_ba2697742a35"
+      "source": "github",
+      "id": "github_birame",
+      "title": "birame",
+      "url": "https://github.com/maniat1k/birame",
+      "date": "2026-02-23T16:46:18.000Z",
+      "image": "",
+      "image_alt": "birame",
+      "summary": "based on bira zsh theme!",
+      "stars": 4,
+      "updated_at": "2026-02-23T16:46:18.000Z"
+    },
+    {
+      "source": "github",
+      "id": "github_SlimWin-",
+      "title": "SlimWin-",
+      "url": "https://github.com/maniat1k/SlimWin-",
+      "date": "2026-02-23T16:46:13.000Z",
+      "image": "",
+      "image_alt": "SlimWin-",
+      "summary": "Una herramienta sencilla y eficaz para optimizar Windows 11.",
+      "stars": 2,
+      "updated_at": "2026-02-23T16:46:13.000Z"
+    },
+    {
+      "source": "github",
+      "id": "github_Solarizedxterm",
+      "title": "Solarizedxterm",
+      "url": "https://github.com/maniat1k/Solarizedxterm",
+      "date": "2026-02-23T16:45:24.000Z",
+      "image": "",
+      "image_alt": "Solarizedxterm",
+      "summary": "Solarized theme for xterm",
+      "stars": 7,
+      "updated_at": "2026-02-23T16:45:24.000Z"
+    },
+    {
+      "source": "github",
+      "id": "github_Clean_windows",
+      "title": "Clean_windows",
+      "url": "https://github.com/maniat1k/Clean_windows",
+      "date": "2026-02-23T16:43:34.000Z",
+      "image": "",
+      "image_alt": "Clean_windows",
+      "summary": "Un Bat para limpiar windows",
+      "stars": 2,
+      "updated_at": "2026-02-23T16:43:34.000Z"
     },
     {
       "source": "youtube",
       "title": "Lo-Fi Chill Beat · Original Short Track (3 min)",
       "url": "https://www.youtube.com/watch?v=qlkqu_X27pA",
       "date": "2025-09-28T12:12:01.000Z",
-      "image": "assets/cards/youtube_youtube_9a6352225010.jpg",
+      "image": "https://i.ytimg.com/vi/qlkqu_X27pA/hqdefault.jpg",
       "image_alt": "Lo-Fi Chill Beat · Original Short Track (3 min)",
       "summary": "Lo-Fi Chill Beat · Original Short Track (3 min)",
       "id": "youtube_9a6352225010"
@@ -58,7 +86,7 @@ window.__PORTFOLIO_FEEDS__ = {
       "title": "1 Hour Lo-Fi Chill Beats | Relaxing Study & Focus Music",
       "url": "https://www.youtube.com/watch?v=QY12dtPKDf4",
       "date": "2025-09-28T05:08:49.000Z",
-      "image": "assets/cards/youtube_youtube_dcc0333943a9.jpg",
+      "image": "https://i.ytimg.com/vi/QY12dtPKDf4/hqdefault.jpg",
       "image_alt": "1 Hour Lo-Fi Chill Beats | Relaxing Study & Focus Music",
       "summary": "1 Hour Lo-Fi Chill Beats | Relaxing Study & Focus Music",
       "id": "youtube_dcc0333943a9"

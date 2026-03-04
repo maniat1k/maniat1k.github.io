@@ -99,11 +99,18 @@
     const url = escapeHtml(item.url);
     const sourceLabel = SOURCE_LABELS[item.source];
     const dateLabel = formatDate(item.date);
+    const sourceIcon = item.source === "instagram" ? "instagram" : "youtube";
 
     col.innerHTML = `
       <article class="project-card feed-card h-100">
-        <a href="${url}" title="${title}" target="_blank" rel="noopener noreferrer" class="d-block text-decoration-none feed-card-media overflow-hidden">
+        <a href="${url}" title="${title}" target="_blank" rel="noopener noreferrer" class="d-block text-decoration-none feed-card-media overflow-hidden position-relative">
           <img src="${image}" alt="${imageAlt}" data-source="${item.source}" data-item-id="${escapeHtml(item.id || "")}" class="img-fluid" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <div class="media-overlay-band d-flex align-items-end justify-content-between p-3">
+            <p class="feed-media-label mb-0">${sourceLabel}</p>
+            <svg class="feed-media-icon" width="20" height="20" aria-hidden="true" focusable="false">
+              <use xlink:href="#${sourceIcon}"></use>
+            </svg>
+          </div>
         </a>
         <div class="feed-card-body p-3 p-xl-4 d-flex flex-column">
           <p class="postg small mb-2">${sourceLabel} · ${dateLabel}</p>
