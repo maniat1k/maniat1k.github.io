@@ -148,6 +148,11 @@
 
     col.innerHTML = `
       <article class="project-card ${isPinned ? "pinned-card" : ""} h-100 p-4">
+        <div class="repo-card-bg-mark" aria-hidden="true">
+          <svg width="140" height="140" viewBox="0 0 24 24" focusable="false">
+            <use xlink:href="#github"></use>
+          </svg>
+        </div>
         <header class="repo-card-header mb-3">
           <div class="repo-card-title-wrap">
             <h3 class="repo-card-title mb-0">${project.name}</h3>

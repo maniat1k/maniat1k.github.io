@@ -262,6 +262,8 @@ a:hover {
     display: flex;
     flex-direction: column;
     padding: 1.15rem !important;
+    position: relative;
+    overflow: hidden;
 }
 
 .project-card:hover {
@@ -347,6 +349,26 @@ a:hover {
 
 .repo-card-footer {
     margin-top: 0.15rem;
+}
+
+.repo-card-bg-mark {
+    position: absolute;
+    top: auto;
+    bottom: -22px;
+    right: -22px;
+    color: #7f8a96;
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.repo-card-bg-mark svg {
+    display: block;
+}
+
+.project-card > *:not(.repo-card-bg-mark) {
+    position: relative;
+    z-index: 1;
 }
 
 .experience-item {
