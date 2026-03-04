@@ -1,4 +1,4 @@
-name: Refresh Feeds
+name: Refresh Site Data
 
 on:
   workflow_dispatch:
@@ -23,27 +23,29 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install Playwright browser
-        run: npx playwright install --with-deps chromium
+      - name: Build GitHub data
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run refresh:github
+
+      - name: Build LinkedIn fallback
+        run: npm run refresh:linkedin
 
       - name: Build feed JSON
         env:
           YOUTUBE_HANDLE: maniat1kUy
-          REDDIT_USER: maniat1k13
-          X_HANDLE: maniat1kUy
           YOUTUBE_CHANNEL_ID: ${{ secrets.YOUTUBE_CHANNEL_ID }}
           INSTAGRAM_RSS_URL: ${{ secrets.INSTAGRAM_RSS_URL }}
-          X_RSS_URL: ${{ secrets.X_RSS_URL }}
         run: npm run feeds:build
 
-      - name: Commit updated feeds
+      - name: Commit updated data
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/*.json data/*.data.js data/*.manual.json assets/cards assets/fallback
+          git add data/*.json data/*.data.js data/*.manual.json
           if git diff --cached --quiet; then
-            echo "No feed changes to commit."
+            echo "No data changes to commit."
             exit 0
           fi
-          git commit -m "chore: refresh social feeds"
+          git commit -m "chore: refresh site data"
           git push

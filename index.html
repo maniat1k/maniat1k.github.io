@@ -150,12 +150,6 @@
                 <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="#projects">Projects</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="#dev-notes">Dev Notes</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="#latest-x">Latest on X</a>
-              </li>
-              <li class="nav-item">
                 <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="#about">Sobre mi</a>
               </li>
               <li class="nav-item">
@@ -329,61 +323,7 @@
         <div class="col-12">
           <div class="p-4 border rounded-4 bg-white">
             <div id="devLogList" class="row g-3"></div>
-            <p id="devLogFallback" class="postf mb-0 d-none">
-              No se pudieron cargar los commits.
-              <a href="https://github.com/maniat1k" target="_blank" rel="noopener noreferrer">Ver actividad completa en GitHub</a>.
-            </p>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="dev-notes" class="py-5">
-    <div class="container">
-      <div class="text-center">
-        <h2 class="display-3">Dev Notes / Changelog</h2>
-        <p class="postf mb-0">Cambios concretos de arquitectura, automatización y mejoras de calidad aplicadas al portal.</p>
-      </div>
-      <div class="row mt-4">
-        <div class="col-12">
-          <div class="p-4 border rounded-4 bg-white">
-            <div id="devNotesList" class="row g-3"></div>
-            <p id="devNotesFallback" class="postf mb-0 d-none">
-              No se pudo cargar el changelog ahora mismo.
-              <a href="https://github.com/maniat1k" target="_blank" rel="noopener noreferrer">Ver actividad en GitHub</a>.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="latest-x" class="py-5">
-    <div class="container">
-      <div class="text-center">
-        <h2 class="display-3">Latest on X</h2>
-        <p class="postf mb-0">Actualizaciones cortas de progreso y construcción.</p>
-      </div>
-      <div class="row mt-4">
-        <div class="col-12">
-          <article class="p-4 border rounded-4 bg-white x-widget-card">
-            <div id="xTimelinePlaceholder" class="x-widget-skeleton" aria-hidden="true"></div>
-            <a
-              id="xTimelineAnchor"
-              class="twitter-timeline"
-              data-theme="light"
-              data-dnt="true"
-              data-chrome="noheader nofooter noborders transparent"
-              data-height="560"
-              href="https://x.com/maniat1kUy">
-              Timeline de @maniat1kUy
-            </a>
-            <div id="xTimelineFallback" class="x-fallback-box d-none" role="status" aria-live="polite">
-              No se pudo cargar el feed.
-              <a href="https://x.com/maniat1kUy" target="_blank" rel="noopener noreferrer">Abrir perfil en X</a>.
-            </div>
-          </article>
         </div>
       </div>
     </div>
@@ -562,8 +502,7 @@ ORDER BY contract_status;</code></pre>
             <a href="#" class="btn btn-primary text-decoration-none text-uppercase is-checked" data-source="all" data-filter="*">Todos</a>
             <a href="#" class="btn btn-primary text-decoration-none text-uppercase" data-source="instagram" data-filter=".instagram">Instagram</a>
             <a href="#" class="btn btn-primary text-decoration-none text-uppercase" data-source="youtube" data-filter=".youtube">Youtube</a>
-            <a href="#" class="btn btn-primary text-decoration-none text-uppercase" data-source="reddit" data-filter=".reddit">Reddit</a>
-            <a href="#" class="btn btn-primary text-decoration-none text-uppercase" data-source="x" data-filter=".x">X</a>
+            <a href="#" class="btn btn-primary text-decoration-none text-uppercase" data-source="github" data-filter=".github">GitHub</a>
           </div>
         </div>
 
@@ -702,12 +641,10 @@ ORDER BY contract_status;</code></pre>
   <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
   <script src="data/all.data.js"></script>
   <script src="data/projects.data.js"></script>
-  <script src="data/projects.curated.data.js"></script>
   <script src="data/linkedin.data.js"></script>
   <script src="js/script.js"></script>
   <script src="js/feed-loader.js"></script>
   <script src="js/dev-log.js"></script>
-  <script src="js/dev-notes.js"></script>
 </body>
 
 </html>

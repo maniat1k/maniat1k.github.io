@@ -13,11 +13,12 @@ Sitio estatico personal publicado en GitHub Pages.
 
 - `index.html`: layout y secciones.
 - `css/style.css`: estilos globales.
-- `js/script.js`: comportamiento principal (Projects, About, Hero, X embed fallback).
-- `js/feed-loader.js`: grilla social (Instagram/YouTube/Reddit/X).
-- `js/dev-notes.js`: render de Dev Notes.
-- `data/`: fuentes estaticas (`projects.json`, `all.json`, `dev-notes.json`, etc.).
-- `scripts/feeds/fetch-feeds.mjs`: build de feeds sociales.
+- `js/script.js`: comportamiento principal (Projects + About/Skills).
+- `js/feed-loader.js`: grilla social (Instagram/YouTube/GitHub).
+- `js/dev-log.js`: render de commits desde JSON estatico.
+- `data/`: fuentes estaticas (`projects.json`, `pinned.json`, `devlog.json`, `github_languages.json`, `github_project_cards.json`, `all.json`).
+- `scripts/refresh-github-projects.mjs`: build de datos de GitHub (repos, pinned, commits, skills, cards).
+- `scripts/feeds/fetch-feeds.mjs`: build de feeds sociales (Instagram/YouTube) + merge opcional de cards GitHub.
 - `.github/workflows/feeds.yml`: automatizacion en Actions.
 
 ## Content workflow
@@ -25,19 +26,11 @@ Sitio estatico personal publicado en GitHub Pages.
 ### GitHub repos (actualizacion automatica)
 
 - La seccion **Projects** se alimenta de `data/projects.json`.
-- Se actualiza con `npm run refresh:github`.
-- El repositorio puede ejecutar ese refresco en CI y versionar el JSON para que GitHub Pages sirva contenido estatico.
-
-### X embed (timeline oficial)
-
-- La seccion **Latest on X** usa el widget oficial de X para `@maniat1kUy`.
-- El script de widgets se carga en lazy mode cuando la seccion entra en viewport.
-- Si el embed falla (bloqueo, offline o script no disponible), se muestra un fallback con mensaje y link al perfil.
-
-Para cambiar usuario o enlace:
-
-- Editar `index.html` en la seccion `#latest-x` (`href` del timeline y del fallback).
-- Mantener el mismo `id` de los nodos para no romper la inicializacion en `js/script.js`.
+- El badge **Pinned** se alimenta de `data/pinned.json` (GitHub GraphQL pinnedItems reales).
+- El **Dev Log** se alimenta de `data/devlog.json`.
+- **Skills/Focus** agrega idiomas de GitHub desde `data/github_languages.json` sin romper la base estatica de LinkedIn.
+- El feed **GitHub** (cards) se alimenta de `data/github_project_cards.json`.
+- Todo se actualiza con `npm run refresh:github`.
 
 ## Feeds sociales
 
@@ -45,9 +38,17 @@ El build `npm run feeds:build` genera:
 
 - `data/instagram.json`
 - `data/youtube.json`
-- `data/reddit.json`
-- `data/x.json`
 - `data/all.json`
-- assets de imagen en `assets/cards/`
+- (opcional) merge de `data/github_project_cards.json` dentro de `data/all.json`
 
-Si una fuente externa falla, el frontend mantiene render parcial y muestra fallback amigable.
+Si una fuente externa falla, el frontend mantiene render parcial sin placeholders de error.
+
+## Pipeline en GitHub Actions
+
+El workflow `.github/workflows/feeds.yml` ejecuta:
+
+1. `npm run refresh:github`
+2. `npm run refresh:linkedin`
+3. `npm run feeds:build`
+
+Y versiona los JSON generados en `data/` para que GitHub Pages sirva contenido estatico y confiable.

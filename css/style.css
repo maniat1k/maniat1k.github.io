@@ -417,49 +417,83 @@ a:hover {
 /* section rhythm */
 #projects .section-header h4,
 #dev-log .display-3,
-#dev-notes .display-3,
-#latest-x .display-3,
 #about .display-3 {
     letter-spacing: -0.015em;
 }
 
 #dev-log .postf,
-#dev-notes .postf,
-#latest-x .postf {
+#about .postf {
     max-width: 760px;
     margin-inline: auto;
 }
 
-/* x timeline */
-.x-widget-card {
-    min-height: 600px;
-    position: relative;
+.feed-empty-frame {
+    width: 100%;
+    height: 100%;
+    background: #f3f3f3;
+    border: 1px solid #ececec;
 }
 
-.x-widget-skeleton {
-    height: 560px;
-    border-radius: 0.75rem;
-    background: linear-gradient(90deg, #f1f1f1 25%, #e5e5e5 37%, #f1f1f1 63%);
-    background-size: 400% 100%;
-    animation: feed-shimmer 1.3s ease-in-out infinite;
+.feed-card {
+    min-height: 430px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
-.x-fallback-box {
-    border: 1px dashed #c7c7c7;
-    border-radius: 0.75rem;
-    padding: 1rem 1.1rem;
-    background: #fafafa;
-    color: #555;
+.feed-card-media {
+    aspect-ratio: 4 / 3;
+    border-bottom: 1px solid #efefef;
+    flex: 0 0 auto;
 }
 
-.x-fallback-box a {
-    color: #111;
+.feed-card-body {
+    flex: 1 1 auto;
+}
+
+.feed-summary {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.github-media {
+    background: linear-gradient(140deg, #f5f5f5 0%, #ededed 100%);
+}
+
+.github-media-overlay {
+    position: absolute;
+    inset: auto 0 0 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.48), rgba(0, 0, 0, 0));
+}
+
+.github-media-mark {
+    color: #151515;
+    opacity: 0.92;
+}
+
+.feed-media-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #f5f5f5;
     font-weight: 600;
 }
 
-#xTimelineAnchor {
-    display: block;
-    margin-top: 0.75rem;
+.github-project-card {
+    border-color: #e5e5e5;
+    box-shadow: none;
+}
+
+.github-project-card:hover {
+    transform: translateY(-1px);
+    box-shadow: none;
+}
+
+.github-card-icon {
+    color: #f5f5f5;
+    flex: 0 0 auto;
 }
 
 /* footer cleanup */

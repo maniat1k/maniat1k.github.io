@@ -89,23 +89,6 @@
     });
   }
 
-  function normalizeCurated(curatedData, projects) {
-    const names = new Set(projects.map((project) => project.name));
-    const curated = curatedData || {};
-    const hidden = Array.isArray(curated.hidden) ? curated.hidden.filter((name) => names.has(name)) : [];
-    let pinned = Array.isArray(curated.pinned) ? curated.pinned.filter((name) => names.has(name)) : [];
-
-    if (!pinned.length) {
-      pinned = projects
-        .filter((project) => !project.fork && !project.archived && project.description)
-        .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
-        .slice(0, 8)
-        .map((project) => project.name);
-    }
-
-    return { pinned, hidden };
-  }
-
   function buildTagOptions(projects) {
     const set = new Set();
     projects.forEach((project) => {
@@ -175,11 +158,11 @@
         projectsPayload = window.__PORTFOLIO_PROJECTS__ || null;
       }
 
-      let curatedPayload = {};
+      let pinnedPayload = {};
       try {
-        curatedPayload = await fetchJson("data/projects.curated.json");
+        pinnedPayload = await fetchJson("data/pinned.json");
       } catch {
-        curatedPayload = window.__PORTFOLIO_CURATED__ || {};
+        pinnedPayload = { repos: [] };
       }
 
       if (!projectsPayload || !Array.isArray(projectsPayload.projects)) {
@@ -187,9 +170,9 @@
       }
 
       const rawProjects = Array.isArray(projectsPayload.projects) ? projectsPayload.projects : [];
-      const curated = normalizeCurated(curatedPayload, rawProjects);
-      const visibleProjects = rawProjects.filter((project) => !curated.hidden.includes(project.name));
-      const pinnedSet = new Set(curated.pinned);
+      const visibleProjects = rawProjects;
+      const pinnedRepos = Array.isArray(pinnedPayload?.repos) ? pinnedPayload.repos : [];
+      const pinnedSet = new Set(pinnedRepos);
 
       const filterOptions = buildTagOptions(visibleProjects);
       filterOptions.forEach((option) => {
@@ -230,9 +213,38 @@
       sortSelect.addEventListener("change", render);
       render();
     } catch (error) {
-      projectsGrid.innerHTML = '<div class="col"><p class="postf">No se pudo cargar la sección Projects. Ejecutá <code>npm run refresh:github</code> y abrí el sitio con <code>npm run preview</code>.</p></div>';
+      pinnedGrid.innerHTML = "";
+      projectsGrid.innerHTML = "";
+      meta.textContent = "";
       console.error(error);
     }
+  }
+
+  function normalizeSkill(value) {
+    return String(value || "")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function mergeUniqueSkills(baseSkills, githubLanguages) {
+    const seen = new Set();
+    const out = [];
+
+    function push(value) {
+      const raw = String(value || "").trim();
+      if (!raw) return;
+      const key = normalizeSkill(raw);
+      if (!key || seen.has(key)) return;
+      seen.add(key);
+      out.push(raw);
+    }
+
+    baseSkills.forEach(push);
+    githubLanguages.forEach(push);
+    return out;
   }
 
   function parseLinkedInMarkdown(markdown) {
@@ -362,7 +374,16 @@
       }
 
       skillsNode.innerHTML = "";
-      parsed.skills.forEach((skill) => {
+      let githubLanguages = [];
+      try {
+        const payload = await fetchJson("data/github_languages.json");
+        const list = Array.isArray(payload?.languages) ? payload.languages : [];
+        githubLanguages = list.map((item) => item?.name).filter(Boolean).slice(0, 8);
+      } catch {
+        githubLanguages = [];
+      }
+
+      mergeUniqueSkills(parsed.skills, githubLanguages).forEach((skill) => {
         const chip = document.createElement("span");
         chip.className = "project-tag";
         chip.textContent = skill;
@@ -371,7 +392,7 @@
     } catch (error) {
       headlineNode.textContent = "Administrador de Sistemas · DevOps mindset";
       summaryNode.textContent = "Perfil orientado a automatización operativa, QA estructurado y mejora continua de plataformas.";
-      timelineNode.innerHTML = '<div class="experience-item"><p class="mb-0">No se pudo sincronizar el detalle completo ahora mismo. Puedes ver el perfil actualizado en LinkedIn.</p></div>';
+      timelineNode.innerHTML = "";
       skillsNode.innerHTML = "";
       ["Automatización", "DevOps", "Linux", "PostgreSQL", "Odoo", "QA"].forEach((skill) => {
         const chip = document.createElement("span");
@@ -381,59 +402,6 @@
       });
       console.error(error);
     }
-  }
-
-  function initXTimeline() {
-    const anchor = document.getElementById("xTimelineAnchor");
-    const placeholder = document.getElementById("xTimelinePlaceholder");
-    const fallback = document.getElementById("xTimelineFallback");
-    if (!anchor || !placeholder || !fallback) return;
-
-    let settled = false;
-
-    function showFallback() {
-      if (settled) return;
-      settled = true;
-      placeholder.classList.add("d-none");
-      anchor.classList.add("d-none");
-      fallback.classList.remove("d-none");
-    }
-
-    function showWidget() {
-      if (settled) return;
-      settled = true;
-      placeholder.classList.add("d-none");
-      fallback.classList.add("d-none");
-      anchor.classList.remove("d-none");
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        observer.disconnect();
-
-        const script = document.createElement("script");
-        script.src = "https://platform.twitter.com/widgets.js";
-        script.async = true;
-        script.defer = true;
-        script.charset = "utf-8";
-        script.onload = function() {
-          setTimeout(() => {
-            const iframe = anchor.parentElement ? anchor.parentElement.querySelector("iframe.twitter-timeline") : null;
-            if (iframe) {
-              showWidget();
-            } else {
-              showFallback();
-            }
-          }, 2800);
-        };
-        script.onerror = showFallback;
-        document.body.appendChild(script);
-      });
-    }, { rootMargin: "200px 0px" });
-
-    observer.observe(anchor);
-    setTimeout(showFallback, 9000);
   }
 
   function initContactButton() {
@@ -498,7 +466,6 @@
     initProjects();
     initLinkedInSection();
     initHeroParallax();
-    initXTimeline();
     initContactButton();
     initFooterYear();
   });
