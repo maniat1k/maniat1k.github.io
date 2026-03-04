@@ -427,6 +427,46 @@ a:hover {
     margin-inline: auto;
 }
 
+/* About bio card: keep heading strong and make body copy left-aligned using full inner card width. */
+#about .about-bio-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    text-align: left;
+}
+
+#about .about-bio-card #aboutHeadline {
+    margin-bottom: 0;
+}
+
+#about .about-bio-card #aboutSummary {
+    text-align: left;
+    width: 100%;
+    max-width: none;
+    line-height: 1.7;
+    margin-top: 0.9rem;
+    margin-bottom: 1.25rem !important;
+    margin-inline: 0;
+}
+
+#about .about-bio-card #linkedinButton {
+    margin-top: auto;
+    align-self: flex-start;
+}
+
+@media (max-width: 767.98px) {
+    #about .about-bio-card {
+        padding: 1.25rem !important;
+    }
+
+    #about .about-bio-card #aboutSummary {
+        width: 100%;
+        max-width: none;
+        line-height: 1.65;
+    }
+}
+
 .feed-empty-frame {
     width: 100%;
     height: 100%;
