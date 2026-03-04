@@ -32,6 +32,17 @@ Sitio estatico personal publicado en GitHub Pages.
 - El feed **GitHub** (cards) se alimenta de `data/github_project_cards.json`.
 - Todo se actualiza con `npm run refresh:github`.
 
+## Stats strip (data-driven)
+
+- Fuente editable local:
+  - `data/profile_metrics.json`: `experience_start_date` (o `experience_start_year`) y `analysis_testing_hours`.
+  - `data/automations.json`: usar `count` o `items` para calcular automatizaciones.
+- Archivo auto-generado:
+  - `data/stats.json` (no editar manualmente).
+- Generacion:
+  - `npm run stats:build`
+  - incluido en `npm run refresh:data` y en `.github/workflows/feeds.yml`.
+
 ## Feeds sociales
 
 El build `npm run feeds:build` genera:

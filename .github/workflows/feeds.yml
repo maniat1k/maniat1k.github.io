@@ -3,7 +3,7 @@ name: Refresh Site Data
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */12 * * *"
+    - cron: "0 */6 * * *"
 
 permissions:
   contents: write
@@ -30,6 +30,9 @@ jobs:
 
       - name: Build LinkedIn fallback
         run: npm run refresh:linkedin
+
+      - name: Build stats JSON
+        run: npm run stats:build
 
       - name: Build feed JSON
         env:

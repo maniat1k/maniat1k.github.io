@@ -89,6 +89,64 @@
     });
   }
 
+  function formatCompactHours(value) {
+    const number = Number(value || 0);
+    if (!Number.isFinite(number) || number <= 0) return "+0";
+    if (number >= 1000) {
+      const compact = Math.round(number / 1000);
+      return `+${compact}K`;
+    }
+    return `+${Math.round(number)}`;
+  }
+
+  function formatPlus(value) {
+    const number = Number(value || 0);
+    if (!Number.isFinite(number) || number <= 0) return "+0";
+    return `+${Math.round(number)}`;
+  }
+
+  function applyStatsStripValues(stats) {
+    const map = {
+      years_experience: formatPlus(stats?.years_experience),
+      automations_count: formatPlus(stats?.automations_count),
+      analysis_testing_hours: formatCompactHours(stats?.analysis_testing_hours),
+      github_projects_count: formatPlus(stats?.github_projects_count)
+    };
+
+    Object.entries(map).forEach(([key, value]) => {
+      const node = document.querySelector(`[data-stat-key="${key}"]`);
+      if (node) node.textContent = value;
+    });
+  }
+
+  async function initStatsStrip() {
+    const strip = document.getElementById("statsStrip");
+    if (!strip) return;
+
+    const fallback = {
+      years_experience: 15,
+      automations_count: 40,
+      analysis_testing_hours: 9000,
+      github_projects_count: 10
+    };
+
+    try {
+      const payload = await fetchJson("data/stats.json");
+      if (!payload || typeof payload !== "object") {
+        applyStatsStripValues(fallback);
+        return;
+      }
+      applyStatsStripValues({
+        years_experience: payload.years_experience,
+        automations_count: payload.automations_count,
+        analysis_testing_hours: payload.analysis_testing_hours,
+        github_projects_count: payload.github_projects_count
+      });
+    } catch {
+      applyStatsStripValues(fallback);
+    }
+  }
+
   function getLanguageColor(language) {
     const palette = {
       JavaScript: "#f1e05a",
@@ -498,6 +556,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", function() {
+    initStatsStrip();
     initProjects();
     initLinkedInSection();
     initHeroParallax();
