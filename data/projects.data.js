@@ -1,35 +1,47 @@
 window.__PORTFOLIO_PROJECTS__ = {
   "source": "https://api.github.com/users/maniat1k/repos?per_page=100&sort=updated",
-  "generated_at": "2026-03-01T13:53:16.561Z",
-  "total": 10,
+  "generated_at": "2026-03-05T01:05:09.158Z",
+  "total": 11,
   "projects": [
     {
+      "full_name": "maniat1k/maniat1k.github.io",
+      "default_branch": "main",
       "name": "maniat1k.github.io",
       "html_url": "https://github.com/maniat1k/maniat1k.github.io",
       "description": "",
       "topics": [],
-      "language": "HTML",
+      "language": "JavaScript",
       "stargazers_count": 1,
       "forks_count": 0,
-      "updated_at": "2026-03-01T13:27:14Z",
+      "updated_at": "2026-03-04T18:46:23Z",
       "homepage": "https://maniat1k.github.io/",
       "archived": false,
-      "fork": false
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
     },
     {
-      "name": "maniat1k",
-      "html_url": "https://github.com/maniat1k/maniat1k",
-      "description": "✨ My GitHub profile README — digital tools & tweaks to simplify tech.",
+      "full_name": "maniat1k/nido",
+      "default_branch": "develop",
+      "name": "nido",
+      "html_url": "https://github.com/maniat1k/nido",
+      "description": "Proyecto para una app de comercio de ropa de bebe",
       "topics": [],
-      "language": "",
+      "language": "Dart",
       "stargazers_count": 1,
       "forks_count": 0,
-      "updated_at": "2026-02-28T11:24:30Z",
+      "updated_at": "2026-03-04T13:49:59Z",
       "homepage": "",
       "archived": false,
-      "fork": false
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
     },
     {
+      "full_name": "maniat1k/savevm",
+      "default_branch": "master",
       "name": "savevm",
       "html_url": "https://github.com/maniat1k/savevm",
       "description": "Make a savestate solution on VirtualBox's VMS before the host go poweroff. ",
@@ -38,14 +50,19 @@ window.__PORTFOLIO_PROJECTS__ = {
         "virtualbox"
       ],
       "language": "Shell",
-      "stargazers_count": 1,
+      "stargazers_count": 0,
       "forks_count": 0,
-      "updated_at": "2026-02-23T16:46:19Z",
+      "updated_at": "2026-03-01T14:12:41Z",
       "homepage": "",
       "archived": false,
-      "fork": false
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
     },
     {
+      "full_name": "maniat1k/birame",
+      "default_branch": "master",
       "name": "birame",
       "html_url": "https://github.com/maniat1k/birame",
       "description": "based on bira zsh theme!",
@@ -56,90 +73,141 @@ window.__PORTFOLIO_PROJECTS__ = {
         "zsh-theme"
       ],
       "language": "Shell",
-      "stargazers_count": 4,
+      "stargazers_count": 3,
       "forks_count": 0,
-      "updated_at": "2026-02-23T16:46:18Z",
+      "updated_at": "2026-03-01T14:12:37Z",
       "homepage": "",
       "archived": false,
-      "fork": false
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
     },
     {
+      "full_name": "maniat1k/windows11_fixMBR",
+      "default_branch": "main",
       "name": "windows11_fixMBR",
       "html_url": "https://github.com/maniat1k/windows11_fixMBR",
       "description": "quitar mi intalacion de Ubuntu a mi instalacion de Windows",
       "topics": [],
       "language": "Batchfile",
-      "stargazers_count": 1,
+      "stargazers_count": 0,
       "forks_count": 0,
-      "updated_at": "2026-02-23T16:46:16Z",
+      "updated_at": "2026-03-01T14:12:35Z",
       "homepage": "",
       "archived": false,
-      "fork": false
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
     },
     {
+      "full_name": "maniat1k/SlimWin-",
+      "default_branch": "main",
       "name": "SlimWin-",
       "html_url": "https://github.com/maniat1k/SlimWin-",
       "description": "Una herramienta sencilla y eficaz para optimizar Windows 11. Este script elimina aplicaciones innecesarias, desactiva servicios no deseados, configura ajustes de privacidad y limpia tu sistema, todo desde una interfaz gráfica intuitiva. Perfecto para quienes buscan un Windows más rápido y eficiente.",
       "topics": [],
       "language": "PowerShell",
-      "stargazers_count": 2,
+      "stargazers_count": 1,
       "forks_count": 0,
-      "updated_at": "2026-02-23T16:46:13Z",
+      "updated_at": "2026-03-01T14:12:31Z",
       "homepage": "",
       "archived": false,
-      "fork": false
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
     },
     {
+      "full_name": "maniat1k/wintop",
+      "default_branch": "main",
       "name": "wintop",
       "html_url": "https://github.com/maniat1k/wintop",
       "description": "",
       "topics": [],
       "language": "PowerShell",
-      "stargazers_count": 1,
+      "stargazers_count": 0,
       "forks_count": 0,
-      "updated_at": "2026-02-23T16:45:28Z",
+      "updated_at": "2026-03-01T14:12:30Z",
       "homepage": "",
       "archived": false,
-      "fork": false
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
     },
     {
+      "full_name": "maniat1k/Solarizedxterm",
+      "default_branch": "master",
       "name": "Solarizedxterm",
       "html_url": "https://github.com/maniat1k/Solarizedxterm",
       "description": "Solarized theme for xterm",
       "topics": [],
       "language": "",
-      "stargazers_count": 7,
+      "stargazers_count": 6,
       "forks_count": 1,
-      "updated_at": "2026-02-23T16:45:24Z",
+      "updated_at": "2026-03-01T14:12:26Z",
       "homepage": "",
       "archived": false,
-      "fork": false
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
     },
     {
-      "name": "Clean_windows",
-      "html_url": "https://github.com/maniat1k/Clean_windows",
-      "description": "Un Bat para limpiar windows",
-      "topics": [],
-      "language": "Python",
-      "stargazers_count": 2,
-      "forks_count": 0,
-      "updated_at": "2026-02-23T16:43:34Z",
-      "homepage": "",
-      "archived": false,
-      "fork": false
-    },
-    {
+      "full_name": "maniat1k/maniat1k-brand",
+      "default_branch": "main",
       "name": "maniat1k-brand",
       "html_url": "https://github.com/maniat1k/maniat1k-brand",
       "description": "",
       "topics": [],
       "language": "Batchfile",
-      "stargazers_count": 1,
+      "stargazers_count": 0,
       "forks_count": 0,
-      "updated_at": "2026-02-23T16:43:34Z",
+      "updated_at": "2026-03-01T14:12:23Z",
       "homepage": "",
       "archived": false,
-      "fork": false
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
+    },
+    {
+      "full_name": "maniat1k/Clean_windows",
+      "default_branch": "main",
+      "name": "Clean_windows",
+      "html_url": "https://github.com/maniat1k/Clean_windows",
+      "description": "Un Bat para limpiar windows",
+      "topics": [],
+      "language": "Python",
+      "stargazers_count": 1,
+      "forks_count": 0,
+      "updated_at": "2026-03-01T14:12:20Z",
+      "homepage": "",
+      "archived": false,
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
+    },
+    {
+      "full_name": "maniat1k/maniat1k",
+      "default_branch": "main",
+      "name": "maniat1k",
+      "html_url": "https://github.com/maniat1k/maniat1k",
+      "description": "✨ My GitHub profile README — digital tools & tweaks to simplify tech.",
+      "topics": [],
+      "language": "",
+      "stargazers_count": 1,
+      "forks_count": 0,
+      "updated_at": "2026-02-28T11:24:30Z",
+      "homepage": "",
+      "archived": false,
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
     }
   ]
 };

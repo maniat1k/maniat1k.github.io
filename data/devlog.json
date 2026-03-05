@@ -1,6 +1,55 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-03-04T00:00:00.000Z",
-  "total": 0,
-  "items": []
+  "generated_at": "2026-03-05T01:05:11.675Z",
+  "total": 8,
+  "items": [
+    {
+      "repo": "maniat1k.github.io",
+      "message": "mejorando mis stats",
+      "date": "2026-03-04T18:46:13Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/a7ea143c8ab3bb5df7ced39eb75cc843401c0cc6"
+    },
+    {
+      "repo": "maniat1k.github.io",
+      "message": "añadiendo background  en proyecto",
+      "date": "2026-03-04T17:31:34Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/900cc1c1bbae1f15ec4a01cf6882dbadc3db3c32"
+    },
+    {
+      "repo": "maniat1k.github.io",
+      "message": "mejora en la vista de proyectos",
+      "date": "2026-03-04T17:22:43Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/7db7efa891b62ddd6c598c6a4389b7e5417644fd"
+    },
+    {
+      "repo": "maniat1k.github.io",
+      "message": "portal: mejora la posicion de Sobre Mi",
+      "date": "2026-03-04T17:09:54Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/d835a7b33b9d73f43264c0a815e19e554b283b3b"
+    },
+    {
+      "repo": "maniat1k.github.io",
+      "message": "portal: actualizacion de las tarjetas",
+      "date": "2026-03-04T16:30:17Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/754ee8e277de49dd9ce9858fca09a87aabf2a539"
+    },
+    {
+      "repo": "nido",
+      "message": "ci: relax analyzer to not fail on warnings",
+      "date": "2026-03-04T13:49:48Z",
+      "url": "https://github.com/maniat1k/nido/commit/42d353f273780d1fd688b4b330eea02bee9b125f"
+    },
+    {
+      "repo": "nido",
+      "message": "ci: add basic Flutter CI workflow",
+      "date": "2026-03-04T13:39:06Z",
+      "url": "https://github.com/maniat1k/nido/commit/b626a36791213848e849de366464782da1f03da7"
+    },
+    {
+      "repo": "nido",
+      "message": "Add initial roadmap for Nido project",
+      "date": "2026-03-04T12:21:10Z",
+      "url": "https://github.com/maniat1k/nido/commit/eb75d9e1cd5fbe25c67df89d021deebb48172f41"
+    }
+  ]
 }
