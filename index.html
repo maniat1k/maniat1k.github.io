@@ -202,108 +202,6 @@
     </div>
   </section>
 
-  <section class="p-5 ">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-3">
-          <div class="d-flex gap-4 align-items-start">
-            <div class="icon">
-              <svg class="text-primary monitor" width="50" height="50">
-                <use xlink:href="#monitor"></use>
-              </svg>
-            </div>
-            <div class="text-md-start">
-              <h5 style= "color: #FDCB58;">
-                Automatización & Scripting
-              </h5>
-              <p class="postf">
-                Desarrollo de scripts en Bash, Python y SQL para optimizar tareas, generar reportes y automatizar procesos complejos.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="d-flex gap-4 align-items-start">
-            <div class="icon">
-              <svg class="text-primary notes" width="50" height="50">
-                <use xlink:href="#notes"></use>
-              </svg>
-            </div>
-            <div class="text-md-start">
-              <h5 style= "color: #FDCB58;">
-                Análisis & Datos
-              </h5>
-              <p class="postf">
-                Limpieza, validación y visualización de datos con herramientas como Excel, Jupyter y PostgreSQL para mejorar la toma de decisiones.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3">
-          <div class="d-flex gap-4 align-items-start">
-            <div class="icon">
-              <svg class="text-primary laptop" width="50" height="50">
-                <use xlink:href="#laptop"></use>
-              </svg>
-            </div>
-            <div class="text-md-start">
-              <h5 style= "color: #FDCB58;">
-                DevOps & Observabilidad
-              </h5>
-              <p class="postf">
-                Monitoreo, trazabilidad de cambios y operación confiable con enfoque en estabilidad, diagnóstico y mejora continua.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="projects" class="py-5">
-    <div class="container">
-      <div class="text-center">
-        <h2 class="display-3">Proyectos</h2>
-        <p class="postf">Repos públicos cargados desde GitHub.</p>
-      </div>
-
-      <div class="row g-3 justify-content-center py-4 projects-controls">
-        <div class="col-md-4">
-          <label for="projectFilter" class="form-label fw-semibold">Filtrar por tag/lenguaje</label>
-          <select id="projectFilter" class="form-select">
-            <option value="all">Todos</option>
-          </select>
-        </div>
-        <div class="col-md-4">
-          <label for="projectSort" class="form-label fw-semibold">Ordenar</label>
-          <select id="projectSort" class="form-select">
-            <option value="updated">Más recientes</option>
-          </select>
-        </div>
-      </div>
-
-      <div id="projectsPinned" class="d-none" aria-hidden="true"></div>
-      <div id="projectsGrid" class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4"></div>
-      <p id="projectsMeta" class="postg mt-4 mb-0 small text-center"></p>
-    </div>
-  </section>
-
-  <section id="dev-log" class="py-5">
-    <div class="container">
-      <div class="text-center">
-        <h2 class="display-3">Dev Log</h2>
-        <p class="postf mb-0">Últimos commits públicos para mostrar progreso técnico real en repositorios activos.</p>
-      </div>
-      <div class="row mt-4">
-        <div class="col-12">
-          <div class="p-4 border rounded-4 bg-white">
-            <div id="devLogList" class="row g-3"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section id="about" class="py-5 mb-4">
     <div class="container">
       <div class="text-center">
@@ -413,6 +311,143 @@
     </div>
   </section>
 
+  <section class="portfolio py-5">
+    <div class="container">
+      <div class="justify-content-center">
+
+        <div class="row justify-content-center">
+
+          <div class="col-lg-6">
+            <div class="section-header text-center">
+              <h4 class="fw-bold fs-2 txt-fx slide-up">
+                Combino análisis funcional, automatización y sentido común para que los sistemas realmente funcionen.
+              </h4>
+            </div><!--section-header-->
+          </div>
+
+          <div id="filters" class="button-group d-flex flex-wrap gap-3 justify-content-center py-5">
+            <a href="#" class="btn btn-primary text-decoration-none text-uppercase is-checked" data-source="all" data-filter="*">Todos</a>
+            <a href="#" class="btn btn-primary text-decoration-none text-uppercase" data-source="instagram" data-filter=".instagram">Instagram</a>
+            <a href="#" class="btn btn-primary text-decoration-none text-uppercase" data-source="youtube" data-filter=".youtube">Youtube</a>
+            <a href="#" class="btn btn-primary text-decoration-none text-uppercase" data-source="github" data-filter=".github">GitHub</a>
+          </div>
+        </div>
+
+        <div id="portfolioGrid" class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4"></div>
+
+        <!--
+        <div class="text-center p-3">
+          <a href="index.html" class="btn btn-outline-dark btn-lg mt-3 text-uppercase text-decoration-none">
+            View All Works
+          </a>
+        </div>
+        -->
+
+      </div>
+  </section>
+
+  <section id="projects" class="py-5">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="display-3">Proyectos</h2>
+        <p class="postf">Repos públicos cargados desde GitHub.</p>
+      </div>
+
+      <div class="row g-3 justify-content-center py-4 projects-controls">
+        <div class="col-md-4">
+          <label for="projectFilter" class="form-label fw-semibold">Filtrar por tag/lenguaje</label>
+          <select id="projectFilter" class="form-select">
+            <option value="all">Todos</option>
+          </select>
+        </div>
+        <div class="col-md-4">
+          <label for="projectSort" class="form-label fw-semibold">Ordenar</label>
+          <select id="projectSort" class="form-select">
+            <option value="updated">Más recientes</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="projectsPinned" class="d-none" aria-hidden="true"></div>
+      <div id="projectsGrid" class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4"></div>
+      <p id="projectsMeta" class="postg mt-4 mb-0 small text-center"></p>
+    </div>
+  </section>
+
+  <section id="dev-log" class="py-5">
+    <div class="container">
+      <div class="text-center">
+        <h2 class="display-3">Dev Log</h2>
+        <p class="postf mb-0">Últimos commits públicos para mostrar progreso técnico real en repositorios activos.</p>
+      </div>
+      <div class="row mt-4">
+        <div class="col-12">
+          <div class="p-4 border rounded-4 bg-white">
+            <div id="devLogList" class="row g-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="p-5 ">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-3">
+          <div class="d-flex gap-4 align-items-start">
+            <div class="icon">
+              <svg class="text-primary monitor" width="50" height="50">
+                <use xlink:href="#monitor"></use>
+              </svg>
+            </div>
+            <div class="text-md-start">
+              <h5 style= "color: #FDCB58;">
+                Automatización & Scripting
+              </h5>
+              <p class="postf">
+                Desarrollo de scripts en Bash, Python y SQL para optimizar tareas, generar reportes y automatizar procesos complejos.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="d-flex gap-4 align-items-start">
+            <div class="icon">
+              <svg class="text-primary notes" width="50" height="50">
+                <use xlink:href="#notes"></use>
+              </svg>
+            </div>
+            <div class="text-md-start">
+              <h5 style= "color: #FDCB58;">
+                Análisis & Datos
+              </h5>
+              <p class="postf">
+                Limpieza, validación y visualización de datos con herramientas como Excel, Jupyter y PostgreSQL para mejorar la toma de decisiones.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-3">
+          <div class="d-flex gap-4 align-items-start">
+            <div class="icon">
+              <svg class="text-primary laptop" width="50" height="50">
+                <use xlink:href="#laptop"></use>
+              </svg>
+            </div>
+            <div class="text-md-start">
+              <h5 style= "color: #FDCB58;">
+                DevOps & Observabilidad
+              </h5>
+              <p class="postf">
+                Monitoreo, trazabilidad de cambios y operación confiable con enfoque en estabilidad, diagnóstico y mejora continua.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="py-5">
     <div class="container">
       <div class="rounded-4 p-5 hero-tech-bg">
@@ -457,41 +492,6 @@ ORDER BY contract_status;</code></pre>
         </div>
       </div>
     </div>
-  </section>
-
-  <section class="portfolio py-5">
-    <div class="container">
-      <div class="justify-content-center">
-
-        <div class="row justify-content-center">
-
-          <div class="col-lg-6">
-            <div class="section-header text-center">
-              <h4 class="fw-bold fs-2 txt-fx slide-up">
-                Combino análisis funcional, automatización y sentido común para que los sistemas realmente funcionen.
-              </h4>
-            </div><!--section-header-->
-          </div>
-
-          <div id="filters" class="button-group d-flex flex-wrap gap-3 justify-content-center py-5">
-            <a href="#" class="btn btn-primary text-decoration-none text-uppercase is-checked" data-source="all" data-filter="*">Todos</a>
-            <a href="#" class="btn btn-primary text-decoration-none text-uppercase" data-source="instagram" data-filter=".instagram">Instagram</a>
-            <a href="#" class="btn btn-primary text-decoration-none text-uppercase" data-source="youtube" data-filter=".youtube">Youtube</a>
-            <a href="#" class="btn btn-primary text-decoration-none text-uppercase" data-source="github" data-filter=".github">GitHub</a>
-          </div>
-        </div>
-
-        <div id="portfolioGrid" class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4"></div>
-
-        <!--
-        <div class="text-center p-3">
-          <a href="index.html" class="btn btn-outline-dark btn-lg mt-3 text-uppercase text-decoration-none">
-            View All Works
-          </a>
-        </div>
-        -->
-
-      </div>
   </section>
 
   <section>
