@@ -1,8 +1,14 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-03-05T19:05:58.102Z",
+  "generated_at": "2026-03-06T01:09:12.960Z",
   "total": 8,
   "items": [
+    {
+      "repo": "maniat1k.github.io",
+      "message": "chore: refresh site data",
+      "date": "2026-03-05T19:06:01Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/0af2f5c3d439d95511650668c238a7714f2a3aca"
+    },
     {
       "repo": "maniat1k.github.io",
       "message": "chore: refresh site data",
@@ -26,12 +32,6 @@
       "message": "mejorando mis stats",
       "date": "2026-03-04T18:46:13Z",
       "url": "https://github.com/maniat1k/maniat1k.github.io/commit/a7ea143c8ab3bb5df7ced39eb75cc843401c0cc6"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "message": "añadiendo background  en proyecto",
-      "date": "2026-03-04T17:31:34Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/900cc1c1bbae1f15ec4a01cf6882dbadc3db3c32"
     },
     {
       "repo": "nido",
