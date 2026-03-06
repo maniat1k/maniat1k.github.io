@@ -1,33 +1,78 @@
 {
   "source": "github-languages",
-  "generated_at": "2026-03-04T00:00:00.000Z",
+  "generated_at": "2026-03-06T12:29:33.198Z",
   "totals": {
-    "Shell": 3,
-    "PowerShell": 2,
-    "Batchfile": 2,
-    "Python": 1,
-    "HTML": 1
+    "JavaScript": 68351,
+    "HTML": 36703,
+    "CSS": 14157,
+    "Dart": 66390,
+    "C++": 24784,
+    "CMake": 19700,
+    "Swift": 1812,
+    "C": 1488,
+    "Kotlin": 118,
+    "Objective-C": 38,
+    "Shell": 1657,
+    "Batchfile": 4762,
+    "PowerShell": 12625,
+    "Python": 5506
   },
   "languages": [
     {
-      "name": "Shell",
-      "bytes": 3
+      "name": "JavaScript",
+      "bytes": 68351
     },
     {
-      "name": "PowerShell",
-      "bytes": 2
-    },
-    {
-      "name": "Batchfile",
-      "bytes": 2
-    },
-    {
-      "name": "Python",
-      "bytes": 1
+      "name": "Dart",
+      "bytes": 66390
     },
     {
       "name": "HTML",
-      "bytes": 1
+      "bytes": 36703
+    },
+    {
+      "name": "C++",
+      "bytes": 24784
+    },
+    {
+      "name": "CMake",
+      "bytes": 19700
+    },
+    {
+      "name": "CSS",
+      "bytes": 14157
+    },
+    {
+      "name": "PowerShell",
+      "bytes": 12625
+    },
+    {
+      "name": "Python",
+      "bytes": 5506
+    },
+    {
+      "name": "Batchfile",
+      "bytes": 4762
+    },
+    {
+      "name": "Swift",
+      "bytes": 1812
+    },
+    {
+      "name": "Shell",
+      "bytes": 1657
+    },
+    {
+      "name": "C",
+      "bytes": 1488
+    },
+    {
+      "name": "Kotlin",
+      "bytes": 118
+    },
+    {
+      "name": "Objective-C",
+      "bytes": 38
     }
   ]
 }

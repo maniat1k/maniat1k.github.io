@@ -1,8 +1,56 @@
 window.__PORTFOLIO_FEEDS__ = {
   "source": "all",
-  "generated_at": "2026-03-04T16:24:00.271Z",
+  "generated_at": "2026-03-06T12:29:34.564Z",
   "total": 8,
   "items": [
+    {
+      "source": "github",
+      "id": "github_maniat1k.github.io",
+      "title": "maniat1k.github.io",
+      "url": "https://github.com/maniat1k/maniat1k.github.io",
+      "date": "2026-03-06T06:33:31.000Z",
+      "image": "",
+      "image_alt": "maniat1k.github.io",
+      "summary": "Maniat1k Portfolio",
+      "stars": 1,
+      "updated_at": "2026-03-06T06:33:31.000Z"
+    },
+    {
+      "source": "github",
+      "id": "github_nido",
+      "title": "nido",
+      "url": "https://github.com/maniat1k/nido",
+      "date": "2026-03-04T13:49:59.000Z",
+      "image": "",
+      "image_alt": "nido",
+      "summary": "Proyecto para una app de comercio de ropa de bebe",
+      "stars": 1,
+      "updated_at": "2026-03-04T13:49:59.000Z"
+    },
+    {
+      "source": "github",
+      "id": "github_birame",
+      "title": "birame",
+      "url": "https://github.com/maniat1k/birame",
+      "date": "2026-03-01T14:12:37.000Z",
+      "image": "",
+      "image_alt": "birame",
+      "summary": "based on bira zsh theme!",
+      "stars": 3,
+      "updated_at": "2026-03-01T14:12:37.000Z"
+    },
+    {
+      "source": "github",
+      "id": "github_Solarizedxterm",
+      "title": "Solarizedxterm",
+      "url": "https://github.com/maniat1k/Solarizedxterm",
+      "date": "2026-03-01T14:12:26.000Z",
+      "image": "",
+      "image_alt": "Solarizedxterm",
+      "summary": "Solarized theme for xterm",
+      "stars": 6,
+      "updated_at": "2026-03-01T14:12:26.000Z"
+    },
     {
       "source": "instagram",
       "title": "Instagram post 1",
@@ -22,54 +70,6 @@ window.__PORTFOLIO_FEEDS__ = {
       "image_alt": "Instagram post 2",
       "summary": "Mi laboratorio visual va tomando forma No se trata solo de programar, sino también de crear espacios donde el código respire diseño.",
       "id": "instagram_aca8cbbca2ff"
-    },
-    {
-      "source": "github",
-      "id": "github_birame",
-      "title": "birame",
-      "url": "https://github.com/maniat1k/birame",
-      "date": "2026-02-23T16:46:18.000Z",
-      "image": "",
-      "image_alt": "birame",
-      "summary": "based on bira zsh theme!",
-      "stars": 4,
-      "updated_at": "2026-02-23T16:46:18.000Z"
-    },
-    {
-      "source": "github",
-      "id": "github_SlimWin-",
-      "title": "SlimWin-",
-      "url": "https://github.com/maniat1k/SlimWin-",
-      "date": "2026-02-23T16:46:13.000Z",
-      "image": "",
-      "image_alt": "SlimWin-",
-      "summary": "Una herramienta sencilla y eficaz para optimizar Windows 11.",
-      "stars": 2,
-      "updated_at": "2026-02-23T16:46:13.000Z"
-    },
-    {
-      "source": "github",
-      "id": "github_Solarizedxterm",
-      "title": "Solarizedxterm",
-      "url": "https://github.com/maniat1k/Solarizedxterm",
-      "date": "2026-02-23T16:45:24.000Z",
-      "image": "",
-      "image_alt": "Solarizedxterm",
-      "summary": "Solarized theme for xterm",
-      "stars": 7,
-      "updated_at": "2026-02-23T16:45:24.000Z"
-    },
-    {
-      "source": "github",
-      "id": "github_Clean_windows",
-      "title": "Clean_windows",
-      "url": "https://github.com/maniat1k/Clean_windows",
-      "date": "2026-02-23T16:43:34.000Z",
-      "image": "",
-      "image_alt": "Clean_windows",
-      "summary": "Un Bat para limpiar windows",
-      "stars": 2,
-      "updated_at": "2026-02-23T16:43:34.000Z"
     },
     {
       "source": "youtube",

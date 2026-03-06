@@ -1,6 +1,6 @@
 {
   "source": "github-project-cards",
-  "generated_at": "2026-03-04T00:00:00.000Z",
+  "generated_at": "2026-03-06T12:29:33.379Z",
   "total": 4,
   "items": [
     {
@@ -8,48 +8,48 @@
       "id": "github_Solarizedxterm",
       "title": "Solarizedxterm",
       "url": "https://github.com/maniat1k/Solarizedxterm",
-      "date": "2026-02-23T16:45:24Z",
+      "date": "2026-03-01T14:12:26Z",
       "summary": "Solarized theme for xterm",
       "image": "https://opengraph.githubassets.com/1/maniat1k/Solarizedxterm",
       "image_alt": "Preview de Solarizedxterm",
-      "stars": 7,
-      "updated_at": "2026-02-23T16:45:24Z"
+      "stars": 6,
+      "updated_at": "2026-03-01T14:12:26Z"
     },
     {
       "source": "github",
       "id": "github_birame",
       "title": "birame",
       "url": "https://github.com/maniat1k/birame",
-      "date": "2026-02-23T16:46:18Z",
+      "date": "2026-03-01T14:12:37Z",
       "summary": "based on bira zsh theme!",
       "image": "https://opengraph.githubassets.com/1/maniat1k/birame",
       "image_alt": "Preview de birame",
-      "stars": 4,
-      "updated_at": "2026-02-23T16:46:18Z"
+      "stars": 3,
+      "updated_at": "2026-03-01T14:12:37Z"
     },
     {
       "source": "github",
-      "id": "github_SlimWin-",
-      "title": "SlimWin-",
-      "url": "https://github.com/maniat1k/SlimWin-",
-      "date": "2026-02-23T16:46:13Z",
-      "summary": "Una herramienta sencilla y eficaz para optimizar Windows 11.",
-      "image": "https://opengraph.githubassets.com/1/maniat1k/SlimWin-",
-      "image_alt": "Preview de SlimWin-",
-      "stars": 2,
-      "updated_at": "2026-02-23T16:46:13Z"
+      "id": "github_maniat1k.github.io",
+      "title": "maniat1k.github.io",
+      "url": "https://github.com/maniat1k/maniat1k.github.io",
+      "date": "2026-03-06T06:33:31Z",
+      "summary": "Maniat1k Portfolio",
+      "image": "https://opengraph.githubassets.com/1/maniat1k/maniat1k.github.io",
+      "image_alt": "Preview de maniat1k.github.io",
+      "stars": 1,
+      "updated_at": "2026-03-06T06:33:31Z"
     },
     {
       "source": "github",
-      "id": "github_Clean_windows",
-      "title": "Clean_windows",
-      "url": "https://github.com/maniat1k/Clean_windows",
-      "date": "2026-02-23T16:43:34Z",
-      "summary": "Un Bat para limpiar windows",
-      "image": "https://opengraph.githubassets.com/1/maniat1k/Clean_windows",
-      "image_alt": "Preview de Clean_windows",
-      "stars": 2,
-      "updated_at": "2026-02-23T16:43:34Z"
+      "id": "github_nido",
+      "title": "nido",
+      "url": "https://github.com/maniat1k/nido",
+      "date": "2026-03-04T13:49:59Z",
+      "summary": "Proyecto para una app de comercio de ropa de bebe",
+      "image": "https://opengraph.githubassets.com/1/maniat1k/nido",
+      "image_alt": "Preview de nido",
+      "stars": 1,
+      "updated_at": "2026-03-04T13:49:59Z"
     }
   ]
 }

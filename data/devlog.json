@@ -1,6 +1,55 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-03-04T00:00:00.000Z",
-  "total": 0,
-  "items": []
+  "generated_at": "2026-03-06T12:29:30.882Z",
+  "total": 8,
+  "items": [
+    {
+      "repo": "maniat1k.github.io",
+      "message": "chore: refresh site data",
+      "date": "2026-03-06T06:33:28Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/0f68141c63073a8df59150d628e3c08581e1d6e4"
+    },
+    {
+      "repo": "maniat1k.github.io",
+      "message": "chore: refresh site data",
+      "date": "2026-03-06T01:09:15Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/b896d2e0b930b4b88701d4460b5c6a111d41c1d5"
+    },
+    {
+      "repo": "maniat1k.github.io",
+      "message": "chore: refresh site data",
+      "date": "2026-03-05T19:06:01Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/0af2f5c3d439d95511650668c238a7714f2a3aca"
+    },
+    {
+      "repo": "maniat1k.github.io",
+      "message": "chore: refresh site data",
+      "date": "2026-03-05T12:33:45Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/8d37c7627b1d308bb765b7cec6fd030b2df7241c"
+    },
+    {
+      "repo": "maniat1k.github.io",
+      "message": "chore: refresh site data",
+      "date": "2026-03-05T06:36:45Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/043c1f0a21119b0ba5bf2bce0e1034d68dc0f05b"
+    },
+    {
+      "repo": "nido",
+      "message": "ci: relax analyzer to not fail on warnings",
+      "date": "2026-03-04T13:49:48Z",
+      "url": "https://github.com/maniat1k/nido/commit/42d353f273780d1fd688b4b330eea02bee9b125f"
+    },
+    {
+      "repo": "nido",
+      "message": "ci: add basic Flutter CI workflow",
+      "date": "2026-03-04T13:39:06Z",
+      "url": "https://github.com/maniat1k/nido/commit/b626a36791213848e849de366464782da1f03da7"
+    },
+    {
+      "repo": "nido",
+      "message": "Add initial roadmap for Nido project",
+      "date": "2026-03-04T12:21:10Z",
+      "url": "https://github.com/maniat1k/nido/commit/eb75d9e1cd5fbe25c67df89d021deebb48172f41"
+    }
+  ]
 }

@@ -1,12 +1,10 @@
 {
   "source": "github-graphql-pinned",
-  "generated_at": "2026-03-04T00:00:00.000Z",
+  "generated_at": "2026-03-06T12:29:28.140Z",
   "repos": [
     "maniat1k",
-    "savevm",
-    "birame",
-    "windows11_fixMBR",
-    "SlimWin-",
-    "Solarizedxterm"
+    "maniat1k.github.io",
+    "Solarizedxterm",
+    "nido"
   ]
 }
