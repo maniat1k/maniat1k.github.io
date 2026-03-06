@@ -1,8 +1,14 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-03-06T01:09:12.960Z",
+  "generated_at": "2026-03-06T06:33:25.645Z",
   "total": 8,
   "items": [
+    {
+      "repo": "maniat1k.github.io",
+      "message": "chore: refresh site data",
+      "date": "2026-03-06T01:09:15Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/b896d2e0b930b4b88701d4460b5c6a111d41c1d5"
+    },
     {
       "repo": "maniat1k.github.io",
       "message": "chore: refresh site data",
@@ -26,12 +32,6 @@
       "message": "chore: refresh site data",
       "date": "2026-03-05T01:05:14Z",
       "url": "https://github.com/maniat1k/maniat1k.github.io/commit/346fe360ed1fcb67a0ae42c5e6b4f37958d7aa73"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "message": "mejorando mis stats",
-      "date": "2026-03-04T18:46:13Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/a7ea143c8ab3bb5df7ced39eb75cc843401c0cc6"
     },
     {
       "repo": "nido",
