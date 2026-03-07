@@ -1,8 +1,14 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-03-06T18:28:49.293Z",
+  "generated_at": "2026-03-07T01:00:43.034Z",
   "total": 8,
   "items": [
+    {
+      "repo": "maniat1k.github.io",
+      "message": "chore: refresh site data",
+      "date": "2026-03-06T18:28:54Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/b8ff45e7f0fcc85cc293040313cd6231eac80973"
+    },
     {
       "repo": "maniat1k.github.io",
       "message": "Merge branch 'main' of https://github.com/maniat1k/maniat1k.github.io",
@@ -26,12 +32,6 @@
       "message": "chore: refresh site data",
       "date": "2026-03-06T06:33:28Z",
       "url": "https://github.com/maniat1k/maniat1k.github.io/commit/0f68141c63073a8df59150d628e3c08581e1d6e4"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "message": "chore: refresh site data",
-      "date": "2026-03-06T01:09:15Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/b896d2e0b930b4b88701d4460b5c6a111d41c1d5"
     },
     {
       "repo": "nido",
