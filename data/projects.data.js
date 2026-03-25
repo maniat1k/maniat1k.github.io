@@ -1,6 +1,6 @@
 window.__PORTFOLIO_PROJECTS__ = {
   "source": "https://api.github.com/users/maniat1k/repos?per_page=100&sort=updated",
-  "generated_at": "2026-03-25T12:39:02.927Z",
+  "generated_at": "2026-03-25T18:40:53.395Z",
   "total": 11,
   "projects": [
     {
@@ -13,7 +13,7 @@ window.__PORTFOLIO_PROJECTS__ = {
       "language": "JavaScript",
       "stargazers_count": 1,
       "forks_count": 0,
-      "updated_at": "2026-03-25T06:49:17Z",
+      "updated_at": "2026-03-25T17:27:56Z",
       "homepage": "https://maniat1k.github.io/",
       "archived": false,
       "fork": false,
@@ -29,9 +29,9 @@ window.__PORTFOLIO_PROJECTS__ = {
       "description": "Proyecto para una app de comercio de ropa de bebe",
       "topics": [],
       "language": "Dart",
-      "stargazers_count": 1,
+      "stargazers_count": 0,
       "forks_count": 0,
-      "updated_at": "2026-03-04T13:49:59Z",
+      "updated_at": "2026-03-25T16:46:46Z",
       "homepage": "",
       "archived": false,
       "fork": false,

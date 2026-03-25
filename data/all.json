@@ -1,6 +1,6 @@
 {
   "source": "all",
-  "generated_at": "2026-03-25T12:39:08.475Z",
+  "generated_at": "2026-03-25T18:40:57.958Z",
   "total": 8,
   "items": [
     {
@@ -8,24 +8,12 @@
       "id": "github_maniat1k.github.io",
       "title": "maniat1k.github.io",
       "url": "https://github.com/maniat1k/maniat1k.github.io",
-      "date": "2026-03-25T06:49:17.000Z",
+      "date": "2026-03-25T17:27:56.000Z",
       "image": "",
       "image_alt": "maniat1k.github.io",
       "summary": "Maniat1k Portfolio",
       "stars": 1,
-      "updated_at": "2026-03-25T06:49:17.000Z"
-    },
-    {
-      "source": "github",
-      "id": "github_nido",
-      "title": "nido",
-      "url": "https://github.com/maniat1k/nido",
-      "date": "2026-03-04T13:49:59.000Z",
-      "image": "",
-      "image_alt": "nido",
-      "summary": "Proyecto para una app de comercio de ropa de bebe",
-      "stars": 1,
-      "updated_at": "2026-03-04T13:49:59.000Z"
+      "updated_at": "2026-03-25T17:27:56.000Z"
     },
     {
       "source": "github",
@@ -38,6 +26,18 @@
       "summary": "based on bira zsh theme!",
       "stars": 3,
       "updated_at": "2026-03-01T14:12:37.000Z"
+    },
+    {
+      "source": "github",
+      "id": "github_SlimWin-",
+      "title": "SlimWin-",
+      "url": "https://github.com/maniat1k/SlimWin-",
+      "date": "2026-03-01T14:12:31.000Z",
+      "image": "",
+      "image_alt": "SlimWin-",
+      "summary": "Una herramienta sencilla y eficaz para optimizar Windows 11. Este script elimina aplicaciones innecesarias, desactiva servicios no deseados, configura ajustes de privacidad y limpia tu sistema, todo desde una interfaz gráfica intuitiva....",
+      "stars": 1,
+      "updated_at": "2026-03-01T14:12:31.000Z"
     },
     {
       "source": "github",
