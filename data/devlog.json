@@ -1,8 +1,14 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-03-26T12:45:44.762Z",
+  "generated_at": "2026-03-26T18:49:42.348Z",
   "total": 8,
   "items": [
+    {
+      "repo": "maniat1k.github.io",
+      "message": "chore: refresh site data",
+      "date": "2026-03-26T12:45:46Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/c93c677c4b3edd6ac6222d2d4e03b278dd90091c"
+    },
     {
       "repo": "maniat1k.github.io",
       "message": "chore: refresh site data",
@@ -26,12 +32,6 @@
       "message": "Merge branch 'main' of https://github.com/maniat1k/maniat1k.github.io",
       "date": "2026-03-25T17:27:37Z",
       "url": "https://github.com/maniat1k/maniat1k.github.io/commit/bb76a4976d0fc9453c65021fe93132eb27000c5b"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "message": "Añadiendo un verificador rudimentario de Sintaxis",
-      "date": "2026-03-25T17:27:15Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/5741f518aa39c48b196696d49a180275ffdf82c8"
     },
     {
       "repo": "nido",
