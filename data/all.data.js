@@ -1,19 +1,19 @@
 window.__PORTFOLIO_FEEDS__ = {
   "source": "all",
-  "generated_at": "2026-03-28T01:06:51.544Z",
-  "total": 8,
+  "generated_at": "2026-03-28T06:43:51.399Z",
+  "total": 6,
   "items": [
     {
       "source": "github",
       "id": "github_maniat1k.github.io",
       "title": "maniat1k.github.io",
       "url": "https://github.com/maniat1k/maniat1k.github.io",
-      "date": "2026-03-27T18:41:04.000Z",
+      "date": "2026-03-28T01:06:55.000Z",
       "image": "",
       "image_alt": "maniat1k.github.io",
       "summary": "Maniat1k Portfolio",
       "stars": 1,
-      "updated_at": "2026-03-27T18:41:04.000Z"
+      "updated_at": "2026-03-28T01:06:55.000Z"
     },
     {
       "source": "github",
@@ -70,26 +70,6 @@ window.__PORTFOLIO_FEEDS__ = {
       "image_alt": "Instagram post 2",
       "summary": "Mi laboratorio visual va tomando forma No se trata solo de programar, sino también de crear espacios donde el código respire diseño.",
       "id": "instagram_aca8cbbca2ff"
-    },
-    {
-      "source": "youtube",
-      "title": "Lo-Fi Chill Beat · Original Short Track (3 min)",
-      "url": "https://www.youtube.com/watch?v=qlkqu_X27pA",
-      "date": "2025-09-28T12:12:01.000Z",
-      "image": "https://i.ytimg.com/vi/qlkqu_X27pA/hqdefault.jpg",
-      "image_alt": "Lo-Fi Chill Beat · Original Short Track (3 min)",
-      "summary": "Lo-Fi Chill Beat · Original Short Track (3 min)",
-      "id": "youtube_9a6352225010"
-    },
-    {
-      "source": "youtube",
-      "title": "1 Hour Lo-Fi Chill Beats | Relaxing Study & Focus Music",
-      "url": "https://www.youtube.com/watch?v=QY12dtPKDf4",
-      "date": "2025-09-28T05:08:49.000Z",
-      "image": "https://i.ytimg.com/vi/QY12dtPKDf4/hqdefault.jpg",
-      "image_alt": "1 Hour Lo-Fi Chill Beats | Relaxing Study & Focus Music",
-      "summary": "1 Hour Lo-Fi Chill Beats | Relaxing Study & Focus Music",
-      "id": "youtube_dcc0333943a9"
     }
   ]
 };
