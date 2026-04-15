@@ -1,8 +1,8 @@
 {
   "source": "github-languages",
-  "generated_at": "2026-04-15T01:17:41.692Z",
+  "generated_at": "2026-04-15T07:16:12.227Z",
   "totals": {
-    "JavaScript": 68558,
+    "JavaScript": 67635,
     "HTML": 42147,
     "CSS": 14157,
     "Dart": 103398,
@@ -24,7 +24,7 @@
     },
     {
       "name": "JavaScript",
-      "bytes": 68558
+      "bytes": 67635
     },
     {
       "name": "HTML",
