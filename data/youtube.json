@@ -1,7 +1,7 @@
 {
   "source": "youtube",
-  "generated_at": "2026-04-18T01:14:34.624Z",
+  "generated_at": "2026-04-18T06:54:52.737Z",
   "total": 0,
   "items": [],
-  "error": "HTTP 500 https://www.youtube.com/feeds/videos.xml?channel_id=UCi4JE9Jg-fP-FDglgOCwWmA"
+  "error": "HTTP 404 https://www.youtube.com/feeds/videos.xml?channel_id=UCi4JE9Jg-fP-FDglgOCwWmA"
 }
