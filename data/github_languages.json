@@ -1,13 +1,15 @@
 {
   "source": "github-languages",
-  "generated_at": "2026-05-23T12:55:05.943Z",
+  "generated_at": "2026-05-23T18:52:27.973Z",
   "totals": {
+    "JavaScript": 68558,
+    "HTML": 42147,
+    "CSS": 14157,
     "Dart": 103398,
     "C++": 24784,
     "CMake": 19700,
     "Swift": 1948,
     "C": 1488,
-    "HTML": 1206,
     "Kotlin": 118,
     "Objective-C": 38,
     "Shell": 1657,
@@ -21,12 +23,24 @@
       "bytes": 103398
     },
     {
+      "name": "JavaScript",
+      "bytes": 68558
+    },
+    {
+      "name": "HTML",
+      "bytes": 42147
+    },
+    {
       "name": "C++",
       "bytes": 24784
     },
     {
       "name": "CMake",
       "bytes": 19700
+    },
+    {
+      "name": "CSS",
+      "bytes": 14157
     },
     {
       "name": "PowerShell",
@@ -51,10 +65,6 @@
     {
       "name": "C",
       "bytes": 1488
-    },
-    {
-      "name": "HTML",
-      "bytes": 1206
     },
     {
       "name": "Kotlin",
