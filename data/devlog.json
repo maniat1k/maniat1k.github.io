@@ -1,55 +1,55 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-03-25T12:39:05.453Z",
+  "generated_at": "2026-06-09T14:15:52.796Z",
   "total": 8,
   "items": [
     {
       "repo": "maniat1k.github.io",
       "message": "chore: refresh site data",
-      "date": "2026-03-25T06:49:13Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/0afcf3fbf8c24f4b01b14ffe571c37aa2beb0edd"
+      "date": "2026-06-09T08:55:50Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/df3868ed004b54a8d31f93a81b941b5e88c2713a"
     },
     {
       "repo": "maniat1k.github.io",
       "message": "chore: refresh site data",
-      "date": "2026-03-25T01:07:42Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/cc2610abdf335fc2a9d4a8a3b29a07830b40eae2"
+      "date": "2026-06-09T01:54:31Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/1fdad775654eb50b879a983bd98e423d59cae59d"
     },
     {
       "repo": "maniat1k.github.io",
       "message": "chore: refresh site data",
-      "date": "2026-03-24T18:45:34Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/efa4d091c59a387ab67582426ca13532b29d24d0"
+      "date": "2026-06-08T19:57:50Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/1200e1851a2662ee96d74d955e0dad43dcf222a3"
     },
     {
       "repo": "maniat1k.github.io",
       "message": "chore: refresh site data",
-      "date": "2026-03-24T12:42:06Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/025299ef5fa13eff41479bd8220d57693bc356eb"
+      "date": "2026-06-08T15:22:56Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/b1f4a113c84cd7a09c9a57d1ea9f2b571915dd34"
     },
     {
       "repo": "maniat1k.github.io",
       "message": "chore: refresh site data",
-      "date": "2026-03-24T06:50:17Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/e8cdee5b5e129b8ad37aff3f11c159b9e3be77aa"
+      "date": "2026-06-08T10:13:01Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/36104d19f838add855499013816eaaf33df0d647"
     },
     {
       "repo": "nido",
-      "message": "ci: relax analyzer to not fail on warnings",
-      "date": "2026-03-04T13:49:48Z",
-      "url": "https://github.com/maniat1k/nido/commit/42d353f273780d1fd688b4b330eea02bee9b125f"
+      "message": "Merge pull request #2 from maniat1k/feat/publish-item-flow",
+      "date": "2026-03-25T16:46:40Z",
+      "url": "https://github.com/maniat1k/nido/commit/06e90a2f8826b404a686f6e5ce46330bcb9a818e"
     },
     {
       "repo": "nido",
-      "message": "ci: add basic Flutter CI workflow",
-      "date": "2026-03-04T13:39:06Z",
-      "url": "https://github.com/maniat1k/nido/commit/b626a36791213848e849de366464782da1f03da7"
+      "message": "últimos cambios ya no voy a tocar nada más por un tiempo",
+      "date": "2026-03-25T16:30:49Z",
+      "url": "https://github.com/maniat1k/nido/commit/c627f4fcf49e065dc65934d196b51dbf221459d5"
     },
     {
       "repo": "nido",
-      "message": "Add initial roadmap for Nido project",
-      "date": "2026-03-04T12:21:10Z",
-      "url": "https://github.com/maniat1k/nido/commit/eb75d9e1cd5fbe25c67df89d021deebb48172f41"
+      "message": "trabajo auditado",
+      "date": "2026-03-13T19:10:24Z",
+      "url": "https://github.com/maniat1k/nido/commit/7b170d0007e2d0691fb09731639da641cdb051f1"
     }
   ]
 }
