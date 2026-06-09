@@ -152,6 +152,9 @@
               <li class="nav-item">
                 <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="#about">Sobre mi</a>
               </li>
+              <li id="blogNavItem" class="nav-item d-none">
+                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="blog.html">Blog!</a>
+              </li>
               <li class="nav-item">
                 <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="#footer">Contacto</a>
               </li>
@@ -316,6 +319,24 @@
       <div class="justify-content-center">
 
         <div class="row justify-content-center">
+
+          <div id="latestTechNoteSection" class="col-12 mb-5 d-none">
+            <article class="project-card blog-feature-card p-4 p-lg-5">
+              <div class="row g-4 align-items-center">
+                <div class="col-lg-8">
+                  <p class="postg small text-uppercase mb-2">Última Nota Técnica</p>
+                  <h2 id="latestTechNoteTitle" class="h3 mb-3"></h2>
+                  <p id="latestTechNoteDate" class="project-meta mb-2"></p>
+                  <p id="latestTechNoteSummary" class="postf blog-summary mb-4"></p>
+                  <div id="latestTechNoteTags" class="d-flex flex-wrap gap-2 mb-4 d-none"></div>
+                  <div class="d-flex flex-wrap gap-2">
+                    <a id="latestTechNoteLink" class="btn btn-primary text-uppercase text-decoration-none" href="blog.html">Leer completo</a>
+                    <a class="btn btn-outline-dark text-uppercase text-decoration-none" href="blog.html">Ver todas</a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
 
           <div class="col-lg-6">
             <div class="section-header text-center">
@@ -732,6 +753,7 @@ SELECT * FROM integrity_check;
   <script src="data/projects.data.js"></script>
   <script src="data/linkedin.data.js"></script>
   <script src="js/script.js"></script>
+  <script src="js/blog.js"></script>
   <script src="js/feed-loader.js"></script>
   <script src="js/dev-log.js"></script>
 </body>

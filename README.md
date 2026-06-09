@@ -5,19 +5,23 @@ Sitio estatico personal publicado en GitHub Pages.
 ## Desarrollo local
 
 1. `npm install`
-2. `npm run feeds:build`
-3. `npm run dev`
-4. Abrir `http://localhost:4173`
+2. `npm run blog:build`
+3. `npm run feeds:build`
+4. `npm run dev`
+5. Abrir `http://localhost:4173`
 
 ## Estructura principal
 
 - `index.html`: layout y secciones.
 - `css/style.css`: estilos globales.
 - `js/script.js`: comportamiento principal (Projects + About/Skills).
+- `js/blog.js`: render de notas tecnicas en home y pagina de blog.
 - `js/feed-loader.js`: grilla social (Instagram/YouTube/GitHub).
 - `js/dev-log.js`: render de commits desde JSON estatico.
 - `data/`: fuentes estaticas (`projects.json`, `pinned.json`, `devlog.json`, `github_languages.json`, `github_project_cards.json`, `all.json`).
+- `blog/`: articulos fuente en Markdown con frontmatter YAML.
 - `scripts/refresh-github-projects.mjs`: build de datos de GitHub (repos, pinned, commits, skills, cards).
+- `scripts/build-blog.mjs`: build de `data/blog.json` a partir de archivos Markdown.
 - `scripts/feeds/fetch-feeds.mjs`: build de feeds sociales (Instagram/YouTube) + merge opcional de cards GitHub.
 - `.github/workflows/feeds.yml`: automatizacion en Actions.
 
@@ -43,6 +47,22 @@ Sitio estatico personal publicado en GitHub Pages.
   - `npm run stats:build`
   - incluido en `npm run refresh:data` y en `.github/workflows/feeds.yml`.
 
+## Notas tecnicas (Markdown)
+
+- Fuente editable local:
+  - `blog/*.md`
+- Frontmatter requerido:
+  - `title`
+  - `date`
+  - `summary`
+- Frontmatter opcional:
+  - `tags`
+- Archivo auto-generado:
+  - `data/blog.json` (no editar manualmente)
+- Generacion:
+  - `npm run blog:build`
+  - incluido en `npm run refresh:data` y en `.github/workflows/feeds.yml`
+
 ## Feeds sociales
 
 El build `npm run feeds:build` genera:
@@ -60,6 +80,8 @@ El workflow `.github/workflows/feeds.yml` ejecuta:
 
 1. `npm run refresh:github`
 2. `npm run refresh:linkedin`
-3. `npm run feeds:build`
+3. `npm run stats:build`
+4. `npm run blog:build`
+5. `npm run feeds:build`
 
 Y versiona los JSON generados en `data/` para que GitHub Pages sirva contenido estatico y confiable.

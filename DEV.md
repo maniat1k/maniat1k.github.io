@@ -24,6 +24,19 @@ Genera:
 - `data/youtube.json`
 - `data/all.json` (incluye cards GitHub si `github_project_cards.json` existe)
 
+## Build de notas tecnicas
+1. Crea archivos Markdown dentro de `blog/`.
+2. Usa frontmatter YAML con:
+- `title`
+- `date`
+- `summary`
+3. Ejecuta:
+```bash
+npm run blog:build
+```
+4. Esto actualiza:
+- `data/blog.json`
+
 ## Editar contenido de LinkedIn (sin scraping)
 1. Abre `data/linkedin.md`.
 2. Pega/edita:
@@ -37,6 +50,7 @@ Genera:
 ```bash
 npm run refresh:data
 ```
+Incluye GitHub, LinkedIn, stats, blog y feeds.
 
 ## Preview local
 ```bash

@@ -4,11 +4,12 @@
   "private": true,
   "description": "Static portfolio with GitHub-driven projects and LinkedIn content pipeline.",
   "scripts": {
+    "blog:build": "node scripts/build-blog.mjs",
     "feeds:build": "node scripts/feeds/fetch-feeds.mjs",
     "refresh:github": "node scripts/refresh-github-projects.mjs",
     "refresh:linkedin": "node scripts/refresh-linkedin-fallback.mjs",
     "stats:build": "node scripts/generate-stats.mjs",
-    "refresh:data": "npm run refresh:github && npm run refresh:linkedin && npm run stats:build && npm run feeds:build",
+    "refresh:data": "npm run refresh:github && npm run refresh:linkedin && npm run stats:build && npm run blog:build && npm run feeds:build",
     "preview": "node scripts/preview.mjs",
     "dev": "node scripts/preview.mjs"
   },
