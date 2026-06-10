@@ -1,20 +1,36 @@
 {
   "source": "blog-markdown",
-  "generated_at": "2026-06-09T17:36:58.148Z",
-  "total": 1,
+  "generated_at": "2026-06-10T19:07:58.608Z",
+  "total": 2,
   "latest": {
-    "slug": "2026-06-09-Donde seguir y aprender DevOps",
-    "title": "Dónde seguir y aprender DevOps en 2026",
-    "date": "2026-06-09T00:00:00.000Z",
-    "summary": "Recursos y orientación para aprender DevOps sin perderse en el ruido del 2026.",
+    "slug": "2026-06-10-De una calculadora de ahorro a una herramienta de diagnostico financiero",
+    "title": "De una calculadora de ahorro a una herramienta de diagnóstico financiero",
+    "date": "2026-06-10T00:00:00.000Z",
+    "summary": "Cómo una calculadora simple terminó evolucionando hacia una herramienta para entender mejor las finanzas personales.",
     "tags": [
-      "devops",
-      "aprendizaje",
-      "recursos"
+      "javascript",
+      "desarrollo-web",
+      "finanzas-personales",
+      "proyectos"
     ],
-    "url": "blog.html?slug=2026-06-09-Donde%20seguir%20y%20aprender%20DevOps"
+    "url": "blog.html?slug=2026-06-10-De%20una%20calculadora%20de%20ahorro%20a%20una%20herramienta%20de%20diagnostico%20financiero"
   },
   "posts": [
+    {
+      "slug": "2026-06-10-De una calculadora de ahorro a una herramienta de diagnostico financiero",
+      "file": "2026-06-10-De una calculadora de ahorro a una herramienta de diagnostico financiero.md",
+      "title": "De una calculadora de ahorro a una herramienta de diagnóstico financiero",
+      "date": "2026-06-10T00:00:00.000Z",
+      "summary": "Cómo una calculadora simple terminó evolucionando hacia una herramienta para entender mejor las finanzas personales.",
+      "tags": [
+        "javascript",
+        "desarrollo-web",
+        "finanzas-personales",
+        "proyectos"
+      ],
+      "html": "<h1>De una calculadora de ahorro a una herramienta de diagnóstico financiero</h1>\n<p>Mientras trabajaba en mi portfolio personal surgió una idea aparentemente sencilla:</p>\n<p>Crear una calculadora de ahorro.</p>\n<p>La primera versión era extremadamente básica. El usuario ingresaba un objetivo, un monto por aporte y una frecuencia. A partir de esos datos se calculaba cuántos aportes eran necesarios y cuánto tiempo demoraría alcanzar la meta.</p>\n<p>Funcionaba.</p>\n<p>Pero tenía un problema importante.</p>\n<p>Respondía una pregunta matemática.</p>\n<p>No respondía una pregunta financiera.</p>\n<hr>\n<h2>El problema real</h2>\n<p>Cuando alguien quiere ahorrar, normalmente no se pregunta:</p>\n<blockquote><p>¿Cuántos aportes necesito para llegar a $100.000?</p></blockquote>\n<p>La pregunta suele ser otra:</p>\n<blockquote><p>¿Cuánto puedo ahorrar realmente?</p></blockquote>\n<p>Y para responder eso primero hay que entender la situación actual.</p>\n<p>Ingresos.</p>\n<p>Gastos.</p>\n<p>Deudas.</p>\n<p>Tarjetas.</p>\n<p>Compromisos mensuales.</p>\n<p>La mayoría de las veces el problema no es calcular una meta futura.</p>\n<p>El problema es saber si existe capacidad de ahorro en el presente.</p>\n<hr>\n<h2>Cambiando el enfoque</h2>\n<p>A partir de esa idea decidí replantear completamente la herramienta.</p>\n<p>En lugar de preguntar únicamente por un objetivo de ahorro, la calculadora comenzó a pedir:</p>\n<ul><li>Ingreso mensual.</li><li>Gastos fijos.</li><li>Gastos variables.</li><li>Tarjetas y cuotas.</li><li>Meta de ahorro opcional.</li></ul>\n<p>Con esos datos ya es posible construir una fotografía básica de la situación financiera de una persona.</p>\n<hr>\n<h2>Incorporando la regla 50/30/20</h2>\n<p>Para darle contexto a los resultados tomé como referencia una de las reglas más conocidas de finanzas personales:</p>\n<h3>50%</h3>\n<p>Necesidades.</p>\n<p>Alquiler, servicios, alimentación, transporte y gastos esenciales.</p>\n<h3>30%</h3>\n<p>Deseos o gastos variables.</p>\n<p>Salidas, entretenimiento, compras personales y gastos discrecionales.</p>\n<h3>20%</h3>\n<p>Ahorro e inversión.</p>\n<p>Dinero destinado a construir reservas o alcanzar objetivos futuros.</p>\n<p>No es una regla absoluta.</p>\n<p>Tampoco funciona igual para todas las personas.</p>\n<p>Pero sirve como punto de comparación para entender rápidamente si existe equilibrio financiero.</p>\n<hr>\n<h2>Lo más importante no es el cálculo</h2>\n<p>La parte matemática es sencilla.</p>\n<p>Lo verdaderamente útil es la interpretación.</p>\n<p>Por ejemplo:</p>\n<p>Si los gastos fijos y las deudas superan ampliamente el 50% de los ingresos, el sistema puede advertir que existe una dependencia excesiva de compromisos permanentes.</p>\n<p>En ese escenario el problema no es ahorrar más.</p>\n<p>El problema es recuperar margen financiero.</p>\n<p>Ese tipo de observaciones aportan mucho más valor que mostrar un simple número.</p>\n<hr>\n<h2>Pensando como una herramienta y no como una calculadora</h2>\n<p>La nueva versión intenta responder preguntas como:</p>\n<ul><li>¿Tengo capacidad real de ahorro?</li><li>¿Qué porcentaje de mis ingresos ya está comprometido?</li><li>¿Estoy cerca de una distribución saludable?</li><li>¿Cuánto podría acumular en 3, 6 o 12 meses?</li><li>¿Cuánto demoraría alcanzar una meta específica?</li></ul>\n<p>La diferencia parece pequeña.</p>\n<p>Pero cambia completamente la utilidad de la herramienta.</p>\n<hr>\n<h2>Un proyecto simple con una enseñanza interesante</h2>\n<p>Muchas veces comenzamos desarrollando algo que resuelve una necesidad puntual.</p>\n<p>Sin embargo, cuando nos detenemos a analizar el problema de fondo, aparecen oportunidades mucho más interesantes.</p>\n<p>En este caso la idea inicial era construir una calculadora.</p>\n<p>El resultado terminó siendo una herramienta de diagnóstico financiero básico.</p>\n<p>Y probablemente siga evolucionando.</p>\n<p>Porque el objetivo no es mostrar números.</p>\n<p>El objetivo es ayudar a tomar mejores decisiones.</p>\n<hr>\n<h2>Próximos pasos</h2>\n<p>Algunas ideas para futuras versiones:</p>\n<ul><li>Gráficos visuales de distribución de gastos.</li><li>Comparación entre distintos escenarios de ahorro.</li><li>Seguimiento histórico.</li><li>Simulación de cancelación de deudas.</li><li>Objetivos múltiples.</li><li>Exportación de resultados.</li></ul>\n<p>Por ahora la herramienta cumple su propósito principal:</p>\n<p>Convertir datos simples en información útil para tomar decisiones.</p>\n<blockquote><p>🚀 Podés probar la herramienta acá:</p>\n<p><a href=\"https://maniat1k.github.io/ahorro.html\" target=\"_blank\" rel=\"noopener noreferrer\">https://maniat1k.github.io/ahorro.html</a></p></blockquote>",
+      "url": "blog.html?slug=2026-06-10-De%20una%20calculadora%20de%20ahorro%20a%20una%20herramienta%20de%20diagnostico%20financiero"
+    },
     {
       "slug": "2026-06-09-Donde seguir y aprender DevOps",
       "file": "2026-06-09-Donde seguir y aprender DevOps.md",

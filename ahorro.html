@@ -1,129 +1,487 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="Calculadora de ahorro en UYU con proyeccion de aportes y fecha estimada de objetivo." />
-  <title>Calculadora de Ahorro</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 20px;
-      background-color: #fdfdfb;
-    }
-    input, select {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1em;
-      background-color: white;
-      color: #333;
-    }
-    button {
-      width: 100%;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      font-size: 1em;
-      background-color: #28a745;
-      color: white;
-      cursor: pointer;
-      margin-top: 20px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    button:hover {
-      background-color: #218838;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-    }
-    .result {
-      margin-top: 20px;
-      font-weight: bold;
-      background-color: #e9ecef;
-      padding: 15px;
-      border-radius: 5px;
-      white-space: pre-line;
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description"
+    content="Calculadora de diagnóstico financiero personal basada en la regla 50/30/20 para evaluar ingresos, gastos y capacidad de ahorro." />
+
+  <title>Diagnóstico Financiero 50/30/20</title>
+
+  <!-- fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/ahorro.css">
 </head>
+
 <body>
+  <!-- Header/Navbar -->
+  <header id="top" class="position-sticky top-0 start-0" style="z-index:10;">
+    <nav class="navbar bg-white fixed-top">
+      <div class="container-fluid">
+        <div class="d-flex align-items-center g-4">
+          <a class="navbar-brand d-flex" href="index.html">
+            <img src="images/logo.png" class="img-fluid" id="logo" alt="Logo de maniat1k">
+          </a>
+        </div>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"
+          aria-label="Abrir menu de navegacion" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+          <span class="navbar-toggler-icon-custom">
+            <svg class="text-primary menu" width="32" height="32">
+              <use xlink:href="#menu"></use>
+            </svg>
+          </span>
+        </button>
+        <div class="offcanvas offcanvas-end text-white" tabindex="-1" id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header">
+            <h2 id="offcanvasNavbarLabel" class="visually-hidden">Menu de navegacion</h2>
+            <button type="button" class="btn-close btn-close-white ms-3" data-bs-dismiss="offcanvas"
+              aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a class="nav-link text-white" href="index.html">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white" href="ahorro.html">Diagnóstico Financiero</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
 
-  <main>
-  <h1>Calculadora de Ahorro</h1>
+  <!-- Main Content -->
+  <main class="pt-5 pb-5">
+    <div class="container-lg py-5">
+      <!-- Title Section -->
+      <section class="mb-5 pt-5">
+        <div class="row align-items-center">
+          <div class="col-lg-8">
+            <h1 class="display-6 fw-bold mb-3">
+              <span class="text-warning">Diagnóstico Financiero</span> Personal
+            </h1>
+            <p class="lead text-secondary mb-3">
+              Basado en la regla 50/30/20, evalúa cómo distribuyes tus ingresos y descubre tu capacidad real de ahorro.
+            </p>
+            <a href="index.html" class="btn btn-outline-dark text-uppercase text-decoration-none">Volver al portfolio</a>
+          </div>
+        </div>
+      </section>
 
-  <label>Objetivo de ahorro ($UYU): <input type="text" id="objetivo" oninput="actualizarDolares()" /></label>
-  <label>Monto por aporte: <input type="text" id="aporte" oninput="validarEntradasAhorro()" /></label>
-  <label>Frecuencia:
-    <select id="frecuencia">
-      <option value="1">1 vez por día</option>
-      <option value="0.5">2 veces por día</option>
-      <option value="7">1 vez por semana</option>
-      <option value="3.5">2 veces por semana</option>
-      <option value="30">1 vez por mes</option>
-    </select>
-  </label>
+      <!-- Input Section -->
+      <section class="mb-5" id="inputSection">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4 p-lg-5">
+            <h2 class="card-title h3 mb-4 fw-bold">Información Financiera</h2>
 
-  <button onclick="calcularTodo()">Calcular todo</button>
+            <form id="financialForm" novalidate>
+              <!-- Ingreso Mensual -->
+              <div class="mb-4">
+                <label for="monthlyIncome" class="form-label fw-bold">
+                  Ingreso Mensual <span class="text-danger">*</span>
+                </label>
+                <div class="input-group input-group-lg">
+                  <span class="input-group-text bg-light border-0">$</span>
+                  <input type="text" class="form-control border-0 bg-light" id="monthlyIncome" 
+                    placeholder="Ej: 3000 o 3.000,00" required data-type="currency">
+                </div>
+                <small class="text-muted d-block mt-2">Campo obligatorio. Acepta puntos o comas como separadores.</small>
+              </div>
 
-  <div class="result" id="resultadoAhorro" aria-live="polite"></div>
+              <!-- Fixed Expenses Section -->
+              <div class="mb-5">
+                <h3 class="h5 fw-bold mb-3 text-secondary">Gastos Fijos (Necesidades)</h3>
+                <p class="text-muted small mb-3">Gastos recurrentes mensuales que son difíciles de reducir.</p>
+
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="rent" class="form-label">Alquiler/Hipoteca</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-0">$</span>
+                      <input type="text" class="form-control border-0 bg-light" id="rent" 
+                        placeholder="0" data-type="currency">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="utilities" class="form-label">Servicios (Luz, Agua, Internet, etc.)</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-0">$</span>
+                      <input type="text" class="form-control border-0 bg-light" id="utilities" 
+                        placeholder="0" data-type="currency">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="food" class="form-label">Alimentación</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-0">$</span>
+                      <input type="text" class="form-control border-0 bg-light" id="food" 
+                        placeholder="0" data-type="currency">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="transport" class="form-label">Transporte</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-0">$</span>
+                      <input type="text" class="form-control border-0 bg-light" id="transport" 
+                        placeholder="0" data-type="currency">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="insurance" class="form-label">Seguros</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-0">$</span>
+                      <input type="text" class="form-control border-0 bg-light" id="insurance" 
+                        placeholder="0" data-type="currency">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="otherFixed" class="form-label">Otros Gastos Fijos</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-0">$</span>
+                      <input type="text" class="form-control border-0 bg-light" id="otherFixed" 
+                        placeholder="0" data-type="currency">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Variable Expenses Section -->
+              <div class="mb-5">
+                <h3 class="h5 fw-bold mb-3 text-secondary">Gastos Variables (Deseos)</h3>
+                <p class="text-muted small mb-3">Gastos personales y de entretenimiento que puedes ajustar.</p>
+
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="entertainment" class="form-label">Entretenimiento/Ocio</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-0">$</span>
+                      <input type="text" class="form-control border-0 bg-light" id="entertainment" 
+                        placeholder="0" data-type="currency">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="dining" class="form-label">Comidas Fuera/Cafés</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-0">$</span>
+                      <input type="text" class="form-control border-0 bg-light" id="dining" 
+                        placeholder="0" data-type="currency">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="shopping" class="form-label">Compras/Ropa</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-0">$</span>
+                      <input type="text" class="form-control border-0 bg-light" id="shopping" 
+                        placeholder="0" data-type="currency">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="subscriptions" class="form-label">Suscripciones</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-0">$</span>
+                      <input type="text" class="form-control border-0 bg-light" id="subscriptions" 
+                        placeholder="0" data-type="currency">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="otherVariable" class="form-label">Otros Gastos Variables</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-0">$</span>
+                      <input type="text" class="form-control border-0 bg-light" id="otherVariable" 
+                        placeholder="0" data-type="currency">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Debt Section -->
+              <div class="mb-5">
+                <h3 class="h5 fw-bold mb-3 text-secondary">Tarjetas y Cuotas</h3>
+                <p class="text-muted small mb-3">Pagos mensuales de tarjetas de crédito, préstamos y cuotas.</p>
+
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label for="creditCards" class="form-label">Tarjetas de Crédito</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-0">$</span>
+                      <input type="text" class="form-control border-0 bg-light" id="creditCards" 
+                        placeholder="0" data-type="currency">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="loans" class="form-label">Préstamos/Cuotas</label>
+                    <div class="input-group">
+                      <span class="input-group-text bg-light border-0">$</span>
+                      <input type="text" class="form-control border-0 bg-light" id="loans" 
+                        placeholder="0" data-type="currency">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Savings Goal -->
+              <div class="mb-4">
+                <label for="savingsGoal" class="form-label fw-bold">
+                  Meta de Ahorro (Opcional)
+                </label>
+                <div class="input-group input-group-lg">
+                  <span class="input-group-text bg-light border-0">$</span>
+                  <input type="text" class="form-control border-0 bg-light" id="savingsGoal" 
+                    placeholder="Ej: 10000" data-type="currency">
+                </div>
+                <small class="text-muted d-block mt-2">Ingresa una cantidad si quieres proyectar cuándo la alcanzarás.</small>
+              </div>
+
+              <!-- Calculate Button -->
+              <div class="d-grid gap-2 d-md-flex">
+                <button type="submit" class="btn btn-dark btn-lg fw-bold">
+                  Calcular Diagnóstico
+                </button>
+                <button type="reset" class="btn btn-outline-secondary btn-lg fw-bold">
+                  Limpiar
+                </button>
+              </div>
+            </form>
+
+            <!-- Info Box -->
+            <div class="alert alert-light mt-5 mb-0 border border-secondary-subtle">
+              <p class="mb-0 small">
+                <strong>📌 La regla 50/30/20:</strong> Es una referencia orientativa donde idealmente 50% de tus 
+                ingresos van a necesidades, 30% a gastos personales y 20% a ahorro. No es una obligación, sino una 
+                guía para evaluar el equilibrio financiero.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Results Section (Initially Hidden) -->
+      <section id="resultsSection" style="display: none;">
+        <!-- Recommendations Alert -->
+        <div id="recommendationsAlert" class="mb-4"></div>
+
+        <!-- Financial Summary Card -->
+        <div class="row mb-4">
+          <div class="col-lg-8">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body p-4 p-lg-5">
+                <h2 class="card-title h3 mb-4 fw-bold">Resumen Financiero Mensual</h2>
+                <div class="row text-center g-3">
+                  <div class="col-md-6">
+                    <p class="text-muted small mb-2">Ingreso Total</p>
+                    <p class="h3 fw-bold text-success" id="summaryIncome">$0.00</p>
+                  </div>
+                  <div class="col-md-6">
+                    <p class="text-muted small mb-2">Total Comprometido</p>
+                    <p class="h3 fw-bold" id="summaryCommitted">$0.00</p>
+                  </div>
+                  <div class="col-md-6">
+                    <p class="text-muted small mb-2">Disponible Mensual</p>
+                    <p class="h3 fw-bold" id="summaryAvailable">$0.00</p>
+                  </div>
+                  <div class="col-md-6">
+                    <p class="text-muted small mb-2">Capacidad Real de Ahorro</p>
+                    <p class="h3 fw-bold text-warning" id="summarySavingCapacity">$0.00</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Status Indicator Card -->
+          <div class="col-lg-4">
+            <div class="card border-0 shadow-sm" id="statusCard">
+              <div class="card-body p-4 p-lg-5 text-center">
+                <p class="text-muted small mb-3">Estado Financiero</p>
+                <div id="statusIndicator" class="mb-3">
+                  <p class="h1 mb-2" id="statusEmoji">🟢</p>
+                  <p class="h5 fw-bold" id="statusLabel">Saludable</p>
+                </div>
+                <p class="small" id="statusDescription">Tu situación financiera es estable.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Distribution 50/30/20 Card -->
+        <div class="row mb-4">
+          <div class="col-lg-8">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body p-4 p-lg-5">
+                <h2 class="card-title h3 mb-4 fw-bold">Distribución 50/30/20</h2>
+
+                <!-- Necesidades (50%) -->
+                <div class="mb-4">
+                  <div class="d-flex justify-content-between mb-2">
+                    <span class="fw-bold">Necesidades (50%)</span>
+                    <span id="needsPercentage" class="fw-bold">0%</span>
+                  </div>
+                  <div class="progress mb-2" style="height: 8px;">
+                    <div id="needsBar" class="progress-bar bg-primary" style="width: 0%"></div>
+                  </div>
+                  <div class="row text-muted small">
+                    <div class="col-6">
+                      <span>Recomendado:</span>
+                      <strong id="needsRecommended">$0.00</strong>
+                    </div>
+                    <div class="col-6 text-end">
+                      <span>Actual:</span>
+                      <strong id="needsActual">$0.00</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Deseos (30%) -->
+                <div class="mb-4">
+                  <div class="d-flex justify-content-between mb-2">
+                    <span class="fw-bold">Deseos (30%)</span>
+                    <span id="wantsPercentage" class="fw-bold">0%</span>
+                  </div>
+                  <div class="progress mb-2" style="height: 8px;">
+                    <div id="wantsBar" class="progress-bar bg-info" style="width: 0%"></div>
+                  </div>
+                  <div class="row text-muted small">
+                    <div class="col-6">
+                      <span>Recomendado:</span>
+                      <strong id="wantsRecommended">$0.00</strong>
+                    </div>
+                    <div class="col-6 text-end">
+                      <span>Actual:</span>
+                      <strong id="wantsActual">$0.00</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Ahorro (20%) -->
+                <div class="mb-0">
+                  <div class="d-flex justify-content-between mb-2">
+                    <span class="fw-bold">Ahorro (20%)</span>
+                    <span id="savingsPercentage" class="fw-bold">0%</span>
+                  </div>
+                  <div class="progress mb-2" style="height: 8px;">
+                    <div id="savingsBar" class="progress-bar bg-success" style="width: 0%"></div>
+                  </div>
+                  <div class="row text-muted small">
+                    <div class="col-6">
+                      <span>Recomendado:</span>
+                      <strong id="savingsRecommended">$0.00</strong>
+                    </div>
+                    <div class="col-6 text-end">
+                      <span>Actual:</span>
+                      <strong id="savingsActual">$0.00</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Breakdown Summary -->
+          <div class="col-lg-4">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body p-4 p-lg-5">
+                <h3 class="card-title h5 fw-bold mb-4">Desglose de Gastos</h3>
+                <ul class="list-unstyled">
+                  <li class="mb-3 d-flex justify-content-between">
+                    <span>Gastos Fijos:</span>
+                    <strong id="breakdownFixed">$0.00</strong>
+                  </li>
+                  <li class="mb-3 d-flex justify-content-between">
+                    <span>Gastos Variables:</span>
+                    <strong id="breakdownVariable">$0.00</strong>
+                  </li>
+                  <li class="mb-0 d-flex justify-content-between">
+                    <span>Tarjetas/Cuotas:</span>
+                    <strong id="breakdownDebt">$0.00</strong>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Savings Projection Card -->
+        <div class="row mb-4">
+          <div class="col-lg-12">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body p-4 p-lg-5">
+                <h2 class="card-title h3 mb-4 fw-bold">Proyección de Ahorro</h2>
+
+                <div class="row g-4" id="projectionContainer">
+                  <!-- Populated by JavaScript -->
+                </div>
+
+                <!-- Savings Goal Section -->
+                <div id="savingsGoalSection" style="display: none;" class="mt-5 pt-4 border-top">
+                  <h3 class="h5 fw-bold mb-4">Tu Meta de Ahorro</h3>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <p class="text-muted small mb-2">Tiempo para alcanzar tu meta</p>
+                      <p class="h3 fw-bold text-warning" id="monthsToGoal">-</p>
+                    </div>
+                    <div class="col-md-6">
+                      <p class="text-muted small mb-2">Fecha estimada</p>
+                      <p class="h3 fw-bold text-warning" id="goalDate">-</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Additional Insights -->
+        <div class="row mb-4">
+          <div class="col-lg-12">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body p-4 p-lg-5">
+                <h2 class="card-title h3 mb-4 fw-bold">Análisis y Recomendaciones</h2>
+                <div id="insightsContainer">
+                  <!-- Populated by JavaScript -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Back to Input Button -->
+        <div class="text-center mb-4">
+          <button type="button" class="btn btn-outline-secondary btn-lg" onclick="document.getElementById('inputSection').scrollIntoView({behavior: 'smooth'}); document.getElementById('resultsSection').style.display = 'none'; document.getElementById('inputSection').style.display = 'block';">
+            Editar Valores
+          </button>
+        </div>
+      </section>
+    </div>
   </main>
 
-  <script>
-    let cotizacionDolar = 39.65;
+  <!-- Footer -->
+  <footer class="bg-dark py-5">
+    <div class="container-lg text-white text-center">
+      <p class="mb-0">&copy; 2026 - Diagnóstico Financiero Personal | maniat1k</p>
+    </div>
+  </footer>
 
-    function parseNumber(input) {
-      return parseFloat((input || '').replace(/\./g, '').replace(',', '.')) || 0;
-    }
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9ODOCWM+IIcQTmnQJvM51QMNSTQF3DwD3P8wEyTT6rcc5S1gZJvP7zGkF"
+    crossorigin="anonymous"></script>
 
-    function actualizarDolares() {
-      const valorUYU = parseNumber(document.getElementById('objetivo').value);
-      const enUSD = (valorUYU / cotizacionDolar).toFixed(2);
-      console.log("Cotización: $" + enUSD);
-    }
-
-    function validarEntradasAhorro() {
-      const objetivo = parseNumber(document.getElementById('objetivo').value);
-      const aporte = parseNumber(document.getElementById('aporte').value);
-      const mensajeDiv = document.getElementById('resultadoAhorro');
-
-      if (!objetivo || !aporte) {
-        mensajeDiv.innerText = '⚠️ Completá todos los campos para poder calcular.';
-        return false;
-      }
-
-      if (aporte >= objetivo) {
-        mensajeDiv.innerText = '⚠️ El aporte no puede ser igual o mayor al objetivo. Por favor ajustá los valores.';
-        return false;
-      }
-
-      mensajeDiv.innerText = '';
-      return true;
-    }
-
-    function calcularAhorro() {
-      if (!validarEntradasAhorro()) return;
-      const objetivo = parseNumber(document.getElementById('objetivo').value);
-      const aporte = parseNumber(document.getElementById('aporte').value);
-      const frecuencia = parseFloat(document.getElementById('frecuencia').value);
-      const aportesNecesarios = Math.ceil(objetivo / aporte);
-      const diasTotales = Math.ceil(aportesNecesarios / (1 / frecuencia));
-      const hoy = new Date();
-      const fechaFinal = new Date(hoy);
-      fechaFinal.setDate(hoy.getDate() + diasTotales);
-      const opcionesFecha = { day: '2-digit', month: '2-digit', year: 'numeric' };
-      document.getElementById('resultadoAhorro').innerText =
-        `📊 Para alcanzar tu meta de $${objetivo}, necesitás hacer ${aportesNecesarios} aportes de $${aporte}.
-🕓 Lo lograrás en unos ${diasTotales} días (~ ${fechaFinal.toLocaleDateString('es-ES', opcionesFecha)}).`;
-    }
-
-    function calcularTodo() {
-      console.log("Botón calcular todo clickeado.");
-      calcularAhorro();
-    }
-  </script>
-
+  <!-- Custom Script -->
+  <script src="js/financial-calculator.js"></script>
 </body>
+
 </html>

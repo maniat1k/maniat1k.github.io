@@ -20,13 +20,22 @@ function escapeHtml(value) {
 
 function splitFrontmatter(raw, fileName) {
   const normalized = String(raw || "").replace(/^\uFEFF/, "");
-  const match = normalized.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
-  if (!match) {
+  const lines = normalized.split(/\r?\n/);
+  if (lines[0] !== "---") {
     throw new Error(`El archivo ${fileName} no tiene frontmatter YAML valido.`);
   }
+
+  const endIndex = lines.slice(1).findIndex((line) => line === "---");
+  if (endIndex === -1) {
+    throw new Error(`El archivo ${fileName} no tiene frontmatter YAML valido.`);
+  }
+
+  const frontmatter = lines.slice(1, endIndex + 1).join("\n");
+  const body = lines.slice(endIndex + 2).join("\n");
+
   return {
-    frontmatter: match[1],
-    body: match[2]
+    frontmatter,
+    body
   };
 }
 
@@ -49,7 +58,7 @@ function parseYamlFrontmatter(source, fileName) {
   for (const line of lines) {
     if (!line.trim()) continue;
 
-    const arrayMatch = line.match(/^\s*-\s+(.*)$/);
+    const arrayMatch = line.match(/^\s*[-*]\s+(.*)$/);
     if (arrayMatch) {
       if (!currentArrayKey) {
         throw new Error(`Lista YAML fuera de contexto en ${fileName}.`);

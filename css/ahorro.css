@@ -1,0 +1,442 @@
+/* ============================================
+   FINANCIAL CALCULATOR STYLES
+   Estilos para el diagnóstico financiero 50/30/20
+   ============================================ */
+
+:root {
+  --primary-color: #FFD100; /* Amarillo maniat1k */
+  --secondary-color: #00032E; /* Negro/Azul muy oscuro para títulos */
+  --background-light: #FDFDFB; /* Fondo claro */
+  --text-dark-emphasis: #495057;
+  --text-muted: #6c757d;
+  --border-light: #e9ecef;
+  --success-color: #28a745;
+  --warning-color: #ffc107;
+  --danger-color: #dc3545;
+  --info-color: #17a2b8;
+}
+
+/* ============================================
+   GENERAL STYLES
+   ============================================ */
+
+body {
+  background-color: var(--background-light);
+  color: var(--secondary-color);
+  font-family: 'Work Sans', sans-serif;
+  min-height: 100vh;
+  padding-top: 60px;
+}
+
+main {
+  background-color: var(--background-light);
+}
+
+/* ============================================
+   HEADINGS
+   ============================================ */
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--secondary-color);
+  font-weight: 600;
+}
+
+.text-warning {
+  color: var(--primary-color) !important;
+}
+
+/* ============================================
+   CARDS & CONTAINERS
+   ============================================ */
+
+.card {
+  border: none;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 3, 46, 0.08);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 3, 46, 0.12);
+  transform: translateY(-2px);
+}
+
+.card-body {
+  padding: 2rem;
+}
+
+.card-title {
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+/* ============================================
+   FORMS & INPUTS
+   ============================================ */
+
+.form-label {
+  font-weight: 600;
+  color: var(--secondary-color);
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+}
+
+.form-control {
+  border: 1px solid var(--border-light);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-control:focus {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 0.2rem rgba(255, 209, 0, 0.25);
+}
+
+.input-group-text {
+  border: none;
+  font-weight: 600;
+  color: var(--secondary-color);
+}
+
+.input-group-lg .form-control {
+  padding: 1rem;
+  font-size: 1.1rem;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.btn {
+  font-weight: 600;
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.btn-dark {
+  background-color: var(--secondary-color);
+  border-color: var(--secondary-color);
+  color: white;
+}
+
+.btn-dark:hover {
+  background-color: #1a1a3a;
+  border-color: #1a1a3a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 3, 46, 0.2);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.btn-primary:hover {
+  background-color: #e6b800;
+  border-color: #e6b800;
+}
+
+.btn-outline-secondary {
+  border-width: 2px;
+  border-color: var(--text-muted);
+  color: var(--text-muted);
+}
+
+.btn-outline-secondary:hover {
+  background-color: var(--text-muted);
+  color: white;
+}
+
+.btn-lg {
+  padding: 1rem 2rem;
+  font-size: 1.05rem;
+}
+
+/* ============================================
+   PROGRESS BARS
+   ============================================ */
+
+.progress {
+  background-color: var(--border-light);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.progress-bar {
+  background-color: var(--primary-color);
+  transition: width 0.6s ease;
+}
+
+.progress-bar.bg-primary {
+  background-color: #4BA1A7 !important;
+}
+
+.progress-bar.bg-info {
+  background-color: #17a2b8 !important;
+}
+
+.progress-bar.bg-success {
+  background-color: #28a745 !important;
+}
+
+/* ============================================
+   ALERT/STATUS STYLES
+   ============================================ */
+
+.alert {
+  border-radius: 0.75rem;
+  border: 1px solid;
+}
+
+.alert-light {
+  background-color: #f8f9fa;
+  color: var(--secondary-color);
+}
+
+.alert-warning {
+  background-color: #fff3cd;
+  border-color: #ffc107;
+  color: #856404;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+  color: #721c24;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  color: #155724;
+}
+
+/* Status Cards */
+#statusCard {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+
+.status-healthy {
+  background-color: #d4edda;
+  color: #155724;
+  border-left: 4px solid #28a745;
+}
+
+.status-adjusted {
+  background-color: #fff3cd;
+  color: #856404;
+  border-left: 4px solid #ffc107;
+}
+
+.status-at-risk {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-left: 4px solid #dc3545;
+}
+
+/* ============================================
+   TEXT UTILITIES
+   ============================================ */
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.text-secondary {
+  color: var(--secondary-color) !important;
+}
+
+.text-success {
+  color: var(--success-color) !important;
+}
+
+.text-warning {
+  color: var(--primary-color) !important;
+}
+
+.text-danger {
+  color: var(--danger-color) !important;
+}
+
+/* ============================================
+   UTILITIES
+   ============================================ */
+
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+.bg-yellow {
+  background-color: var(--primary-color) !important;
+}
+
+.bg-light-yellow {
+  background-color: #fff9e6 !important;
+}
+
+.bg-dark {
+  background-color: var(--secondary-color) !important;
+}
+
+.border-secondary-subtle {
+  border-color: var(--border-light) !important;
+}
+
+.shadow-sm {
+  box-shadow: 0 2px 8px rgba(0, 3, 46, 0.08) !important;
+}
+
+.shadow-lg {
+  box-shadow: 0 12px 24px rgba(0, 3, 46, 0.15) !important;
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+
+.navbar-brand img#logo {
+  max-height: 40px;
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand img#logo:hover {
+  transform: scale(1.05);
+}
+
+.offcanvas {
+  background-color: var(--secondary-color) !important;
+}
+
+.offcanvas-body .nav-link {
+  color: #fff !important;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.offcanvas-body .nav-link:hover {
+  color: var(--primary-color) !important;
+}
+
+.navbar-toggler-icon-custom svg {
+  fill: var(--secondary-color);
+  transition: fill 0.3s ease;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+footer {
+  background-color: var(--secondary-color) !important;
+  color: white;
+  margin-top: 5rem;
+  border-top: 4px solid var(--primary-color);
+}
+
+footer p {
+  margin: 0;
+  font-weight: 500;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 56px;
+  }
+
+  .card-body {
+    padding: 1.5rem;
+  }
+
+  .display-6 {
+    font-size: 2rem;
+  }
+
+  .lead {
+    font-size: 1rem;
+  }
+
+  .row.g-3 > * {
+    padding: 0.5rem;
+  }
+
+  main {
+    padding: 1rem 0;
+  }
+
+  .container-lg {
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .card-body {
+    padding: 1.25rem;
+  }
+
+  .btn-lg {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+  }
+
+  .h3 {
+    font-size: 1.5rem;
+  }
+
+  .h5 {
+    font-size: 1rem;
+  }
+
+  .d-grid {
+    gap: 0.5rem;
+  }
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card {
+  animation: slideIn 0.3s ease;
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+  body {
+    background-color: white;
+  }
+
+  .btn,
+  #inputSection,
+  .navbar,
+  footer {
+    display: none;
+  }
+
+  .card {
+    page-break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid var(--border-light);
+  }
+}
