@@ -1,8 +1,44 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-06-10T14:47:28.646Z",
+  "generated_at": "2026-06-10T20:07:00.902Z",
   "total": 8,
   "items": [
+    {
+      "repo": "maniat1k.github.io",
+      "message": "borrado de imagenes",
+      "date": "2026-06-10T20:00:15Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/b5fcd93cfe2ed0429b4033e24d5f9795b153bf03"
+    },
+    {
+      "repo": "maniat1k",
+      "message": "Revise README structure and update tool icons",
+      "date": "2026-06-10T19:47:14Z",
+      "url": "https://github.com/maniat1k/maniat1k/commit/10fa9c5c06d6da3b1ee55404316e9c3e197f9b32"
+    },
+    {
+      "repo": "maniat1k",
+      "message": "Add Postman badge to README.md",
+      "date": "2026-06-10T19:43:23Z",
+      "url": "https://github.com/maniat1k/maniat1k/commit/c7c8dc099eaec595d78c8b0b5d88f8864940c3e1"
+    },
+    {
+      "repo": "maniat1k.github.io",
+      "message": "Resolve merge conflict in blog.json",
+      "date": "2026-06-10T19:16:20Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/e9341be89216a35909ea0dbd808aefa8026ff534"
+    },
+    {
+      "repo": "maniat1k.github.io",
+      "message": "cambios globales sobre el nuevo ahorro.html + un post al respecto!",
+      "date": "2026-06-10T19:13:18Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/387f0ad1b2e118f2208d837bcbe119688687a116"
+    },
+    {
+      "repo": "maniat1k.github.io",
+      "message": "chore: refresh site data",
+      "date": "2026-06-10T14:47:32Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/85deef90d16073677a1f60b43b1de5e44cf93476"
+    },
     {
       "repo": "maniat1k.github.io",
       "message": "chore: refresh site data",
@@ -10,46 +46,10 @@
       "url": "https://github.com/maniat1k/maniat1k.github.io/commit/2cced2f0d62ad51d6859f17c9d75d2dd09bbb8d6"
     },
     {
-      "repo": "maniat1k.github.io",
-      "message": "chore: refresh site data",
-      "date": "2026-06-10T02:06:27Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/cd7d71de2e3e38b9abe4ed0076ca9e8541e957d8"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "message": "chore: refresh site data",
-      "date": "2026-06-09T19:53:45Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/a5b0ad535bd1ddb615dd6e5ff412376491f6c773"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "message": "Merge branch 'main' of https://github.com/maniat1k/maniat1k.github.io",
-      "date": "2026-06-09T17:53:06Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/634c66d5b8c1152f3bcfe87acf14a4903be6f350"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "message": "acumulacion de cambios para añadir el blog con md",
-      "date": "2026-06-09T17:49:48Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/ce35ad9e70c2341e5886a1a3fd6347dd08222d99"
-    },
-    {
       "repo": "nido",
       "message": "Merge pull request #2 from maniat1k/feat/publish-item-flow",
       "date": "2026-03-25T16:46:40Z",
       "url": "https://github.com/maniat1k/nido/commit/06e90a2f8826b404a686f6e5ce46330bcb9a818e"
-    },
-    {
-      "repo": "nido",
-      "message": "últimos cambios ya no voy a tocar nada más por un tiempo",
-      "date": "2026-03-25T16:30:49Z",
-      "url": "https://github.com/maniat1k/nido/commit/c627f4fcf49e065dc65934d196b51dbf221459d5"
-    },
-    {
-      "repo": "nido",
-      "message": "trabajo auditado",
-      "date": "2026-03-13T19:10:24Z",
-      "url": "https://github.com/maniat1k/nido/commit/7b170d0007e2d0691fb09731639da641cdb051f1"
     }
   ]
 }

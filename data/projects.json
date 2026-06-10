@@ -1,6 +1,6 @@
 {
   "source": "https://api.github.com/users/maniat1k/repos?per_page=100&sort=updated",
-  "generated_at": "2026-06-10T14:47:25.314Z",
+  "generated_at": "2026-06-10T20:06:57.613Z",
   "total": 11,
   "projects": [
     {
@@ -13,8 +13,26 @@
       "language": "JavaScript",
       "stargazers_count": 1,
       "forks_count": 0,
-      "updated_at": "2026-06-10T09:37:18Z",
+      "updated_at": "2026-06-10T20:01:44Z",
       "homepage": "https://maniat1k.github.io/",
+      "archived": false,
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
+    },
+    {
+      "full_name": "maniat1k/maniat1k",
+      "default_branch": "main",
+      "name": "maniat1k",
+      "html_url": "https://github.com/maniat1k/maniat1k",
+      "description": "✨ My GitHub profile README — digital tools & tweaks to simplify tech.",
+      "topics": [],
+      "language": "",
+      "stargazers_count": 1,
+      "forks_count": 0,
+      "updated_at": "2026-06-10T19:47:19Z",
+      "homepage": "",
       "archived": false,
       "fork": false,
       "owner": {
@@ -184,24 +202,6 @@
       "stargazers_count": 1,
       "forks_count": 0,
       "updated_at": "2026-03-01T14:12:20Z",
-      "homepage": "",
-      "archived": false,
-      "fork": false,
-      "owner": {
-        "login": "maniat1k"
-      }
-    },
-    {
-      "full_name": "maniat1k/maniat1k",
-      "default_branch": "main",
-      "name": "maniat1k",
-      "html_url": "https://github.com/maniat1k/maniat1k",
-      "description": "✨ My GitHub profile README — digital tools & tweaks to simplify tech.",
-      "topics": [],
-      "language": "",
-      "stargazers_count": 1,
-      "forks_count": 0,
-      "updated_at": "2026-02-28T11:24:30Z",
       "homepage": "",
       "archived": false,
       "fork": false,
