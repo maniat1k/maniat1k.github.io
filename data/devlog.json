@@ -1,37 +1,37 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-06-09T14:15:52.796Z",
+  "generated_at": "2026-06-10T14:47:28.646Z",
   "total": 8,
   "items": [
     {
       "repo": "maniat1k.github.io",
       "message": "chore: refresh site data",
-      "date": "2026-06-09T08:55:50Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/df3868ed004b54a8d31f93a81b941b5e88c2713a"
+      "date": "2026-06-10T09:37:13Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/2cced2f0d62ad51d6859f17c9d75d2dd09bbb8d6"
     },
     {
       "repo": "maniat1k.github.io",
       "message": "chore: refresh site data",
-      "date": "2026-06-09T01:54:31Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/1fdad775654eb50b879a983bd98e423d59cae59d"
+      "date": "2026-06-10T02:06:27Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/cd7d71de2e3e38b9abe4ed0076ca9e8541e957d8"
     },
     {
       "repo": "maniat1k.github.io",
       "message": "chore: refresh site data",
-      "date": "2026-06-08T19:57:50Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/1200e1851a2662ee96d74d955e0dad43dcf222a3"
+      "date": "2026-06-09T19:53:45Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/a5b0ad535bd1ddb615dd6e5ff412376491f6c773"
     },
     {
       "repo": "maniat1k.github.io",
-      "message": "chore: refresh site data",
-      "date": "2026-06-08T15:22:56Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/b1f4a113c84cd7a09c9a57d1ea9f2b571915dd34"
+      "message": "Merge branch 'main' of https://github.com/maniat1k/maniat1k.github.io",
+      "date": "2026-06-09T17:53:06Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/634c66d5b8c1152f3bcfe87acf14a4903be6f350"
     },
     {
       "repo": "maniat1k.github.io",
-      "message": "chore: refresh site data",
-      "date": "2026-06-08T10:13:01Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/36104d19f838add855499013816eaaf33df0d647"
+      "message": "acumulacion de cambios para añadir el blog con md",
+      "date": "2026-06-09T17:49:48Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/ce35ad9e70c2341e5886a1a3fd6347dd08222d99"
     },
     {
       "repo": "nido",
