@@ -1,8 +1,14 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-06-11T15:29:53.353Z",
+  "generated_at": "2026-06-11T20:07:27.584Z",
   "total": 8,
   "items": [
+    {
+      "repo": "maniat1k.github.io",
+      "message": "chore: refresh site data",
+      "date": "2026-06-11T15:29:56Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/a954ad4a34d78aaf256e8b1526fcda6662552b79"
+    },
     {
       "repo": "maniat1k.github.io",
       "message": "chore: refresh site data",
@@ -38,12 +44,6 @@
       "message": "Add Postman badge to README.md",
       "date": "2026-06-10T19:43:23Z",
       "url": "https://github.com/maniat1k/maniat1k/commit/c7c8dc099eaec595d78c8b0b5d88f8864940c3e1"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "message": "Resolve merge conflict in blog.json",
-      "date": "2026-06-10T19:16:20Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/e9341be89216a35909ea0dbd808aefa8026ff534"
     },
     {
       "repo": "nido",
