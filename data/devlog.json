@@ -1,8 +1,14 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-06-11T02:30:02.835Z",
+  "generated_at": "2026-06-11T10:00:34.624Z",
   "total": 8,
   "items": [
+    {
+      "repo": "maniat1k.github.io",
+      "message": "chore: refresh site data",
+      "date": "2026-06-11T02:30:06Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/599641af92411209a42ad8063ac35ac1bd70d021"
+    },
     {
       "repo": "maniat1k.github.io",
       "message": "chore: refresh site data",
@@ -38,12 +44,6 @@
       "message": "cambios globales sobre el nuevo ahorro.html + un post al respecto!",
       "date": "2026-06-10T19:13:18Z",
       "url": "https://github.com/maniat1k/maniat1k.github.io/commit/387f0ad1b2e118f2208d837bcbe119688687a116"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "message": "chore: refresh site data",
-      "date": "2026-06-10T14:47:32Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/85deef90d16073677a1f60b43b1de5e44cf93476"
     },
     {
       "repo": "nido",
