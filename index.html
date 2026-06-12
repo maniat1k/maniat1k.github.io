@@ -504,120 +504,38 @@ SELECT * FROM integrity_check;
               </div>
 
               <script>
-              function validarSintaxis() {
-                const textarea = document.getElementById('sql-input');
-                const sql = textarea.value;
-                const resultDiv = document.getElementById('validation-result');
+                function validarSintaxis() {
+                  const textarea = document.getElementById('sql-input');
+                  const resultDiv = document.getElementById('validation-result');
+                  if (!textarea || !resultDiv) return;
 
-                if (!sql.trim()) {
-                  resultDiv.innerHTML = "⚠️ Ingresa código SQL";
-                  resultDiv.style.color = "#ffc107";
-                  return;
+                  const sql = textarea.value;
+                  if (!sql.trim()) {
+                    resultDiv.innerHTML = "⚠️ Ingresa código SQL";
+                    resultDiv.style.color = "#ffc107";
+                    return;
+                  }
+
+                  if (typeof validatePostgresSqlSyntax === 'function') {
+                    const result = validatePostgresSqlSyntax(sql);
+                    resultDiv.innerHTML = result.message;
+                    resultDiv.style.color = result.valid ? '#198754' : '#dc3545';
+                    return;
+                  }
+
+                  resultDiv.innerHTML = '⚠️ Validador no disponible en este momento';
+                  resultDiv.style.color = '#ffc107';
                 }
 
-                const singleQuotes = (sql.match(/'/g) || []).length;
-                const doubleQuotes = (sql.match(/"/g) || []).length;
-                if (singleQuotes % 2 !== 0 || doubleQuotes % 2 !== 0) {
-                  resultDiv.innerHTML = "❌ Error: comillas sin cerrar detectadas";
-                  resultDiv.style.color = "#dc3545";
-                  return;
-                }
-
-                const withoutLineComments = sql.replace(/--.*$/gm, '');
-                const withoutBlockComments = withoutLineComments.replace(/\/\*[\s\S]*?\*\//g, '');
-                const trimmed = withoutBlockComments.trim();
-
-                if (!trimmed) {
-                  resultDiv.innerHTML = "❌ Error: consulta vacía o solo comentarios";
-                  resultDiv.style.color = "#dc3545";
-                  return;
-                }
-
-                if (!/;\s*$/.test(trimmed)) {
-                  resultDiv.innerHTML = "❌ Error: se requiere punto y coma al final";
-                  resultDiv.style.color = "#dc3545";
-                  return;
-                }
-
-                const statements = trimmed.split(/;\s*/).map(s => s.trim()).filter(Boolean);
-                if (statements.length === 0) {
-                  resultDiv.innerHTML = "❌ Error: no se detectan statements SQL válidos";
-                  resultDiv.style.color = "#dc3545";
-                  return;
-                }
-
-                const allowedStartTokens = [
-                  'WITH', 'SELECT', 'INSERT', 'UPDATE', 'DELETE',
-                  'CREATE', 'ALTER', 'DROP', 'TRUNCATE', 'GRANT',
-                  'REVOKE', 'BEGIN', 'COMMIT', 'ROLLBACK', 'SET'
-                ];
-
-                for (const stmt of statements) {
-                  const normStmt = stmt.replace(/^\s+|\s+$/g, '');
-                  const firstTokenMatch = normStmt.match(/^\s*(\w+)/i);
-                  if (!firstTokenMatch) {
-                    resultDiv.innerHTML = "❌ Error: statement SQL vacio o inválido";
-                    resultDiv.style.color = "#dc3545";
-                    return;
-                  }
-
-                  const firstToken = firstTokenMatch[1].toUpperCase();
-                  if (!allowedStartTokens.includes(firstToken)) {
-                    resultDiv.innerHTML = `❌ Error: token inicial SQL no reconocido: ${firstToken}`;
-                    resultDiv.style.color = "#dc3545";
-                    return;
-                  }
-
-                  if (firstToken === 'INSERT' && !/\bINTO\b/i.test(normStmt)) {
-                    resultDiv.innerHTML = "❌ Error: INSERT requiere INTO";
-                    resultDiv.style.color = "#dc3545";
-                    return;
-                  }
-
-                  if (firstToken === 'UPDATE' && !/\bSET\b/i.test(normStmt)) {
-                    resultDiv.innerHTML = "❌ Error: UPDATE requiere SET";
-                    resultDiv.style.color = "#dc3545";
-                    return;
-                  }
-
-                  if (firstToken === 'DELETE' && !/\bFROM\b/i.test(normStmt)) {
-                    resultDiv.innerHTML = "❌ Error: DELETE requiere FROM";
-                    resultDiv.style.color = "#dc3545";
-                    return;
-                  }
-
-                  if (firstToken === 'WITH' && !/\bSELECT\b/i.test(normStmt)) {
-                    resultDiv.innerHTML = "❌ Error: WITH requiere al menos una subconsulta SELECT";
-                    resultDiv.style.color = "#dc3545";
-                    return;
-                  }
-
-                  if (firstToken === 'SELECT' && !/\b(FROM|INTO)\b/i.test(normStmt)) {
-                    resultDiv.innerHTML = "❌ Error: SELECT requiere FROM o INTO";
-                    resultDiv.style.color = "#dc3545";
-                    return;
-                  }
-                }
-
-                const selectBlocks = trimmed.match(/\bSELECT\b[\s\S]*?(?=(;|$))/gi);
-                if (selectBlocks) {
-                  for (const block of selectBlocks) {
-                    if (!/\b(FROM|INTO)\b/i.test(block)) {
-                      resultDiv.innerHTML = "❌ Error: cada SELECT debe incluir FROM o INTO";
-                      resultDiv.style.color = "#dc3545";
-                      return;
+                const sqlInput = document.getElementById('sql-input');
+                if (sqlInput) {
+                  sqlInput.addEventListener('input', function () {
+                    const resultDiv = document.getElementById('validation-result');
+                    if (resultDiv) {
+                      resultDiv.innerHTML = '';
                     }
-                  }
+                  });
                 }
-
-                resultDiv.innerHTML = "✅ Sintaxis básica válida";
-                resultDiv.style.color = "#198754";
-              }
-
-              document.getElementById('sql-input').addEventListener('input', function () {
-                const resultDiv = document.getElementById('validation-result');
-                resultDiv.innerHTML = "";
-              });
               </script>
             </div>
           </div>
@@ -755,6 +673,7 @@ SELECT * FROM integrity_check;
   <script src="data/all.data.js"></script>
   <script src="data/projects.data.js"></script>
   <script src="data/linkedin.data.js"></script>
+  <script src="js/postgres-syntax-validator.js"></script>
   <script src="js/script.js"></script>
   <script src="js/blog.js"></script>
   <script src="js/feed-loader.js"></script>
