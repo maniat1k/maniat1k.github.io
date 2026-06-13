@@ -1,8 +1,14 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-06-12T19:49:22.776Z",
+  "generated_at": "2026-06-13T02:06:02.473Z",
   "total": 8,
   "items": [
+    {
+      "repo": "maniat1k.github.io",
+      "message": "chore: refresh site data",
+      "date": "2026-06-12T19:49:26Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/1539338659cd0bd434b01bb461611d92e5d61709"
+    },
     {
       "repo": "maniat1k.github.io",
       "message": "Mejora validador PostgreSQL y separa lógica en archivo JS",
@@ -26,12 +32,6 @@
       "message": "chore: refresh site data",
       "date": "2026-06-12T02:13:14Z",
       "url": "https://github.com/maniat1k/maniat1k.github.io/commit/dc93c5f73051695843b3c13a4ffa3369251ed16d"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "message": "chore: refresh site data",
-      "date": "2026-06-11T20:07:30Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/3ae0f05bc01975193107e9681d2165fafdc7af59"
     },
     {
       "repo": "maniat1k",
