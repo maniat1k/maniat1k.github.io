@@ -1,8 +1,14 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-06-15T16:50:51.353Z",
+  "generated_at": "2026-06-15T17:11:12.475Z",
   "total": 8,
   "items": [
+    {
+      "repo": "maniat1k.github.io",
+      "message": "post: la historia de el analizador de postgreSQL",
+      "date": "2026-06-15T17:10:30Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/838babb961dfbefec030bd940a8304bb9c4aad03"
+    },
     {
       "repo": "maniat1k.github.io",
       "message": "feat: analizador de postgres (alfa)",
@@ -44,12 +50,6 @@
       "message": "Merge pull request #2 from maniat1k/feat/publish-item-flow",
       "date": "2026-03-25T16:46:40Z",
       "url": "https://github.com/maniat1k/nido/commit/06e90a2f8826b404a686f6e5ce46330bcb9a818e"
-    },
-    {
-      "repo": "nido",
-      "message": "últimos cambios ya no voy a tocar nada más por un tiempo",
-      "date": "2026-03-25T16:30:49Z",
-      "url": "https://github.com/maniat1k/nido/commit/c627f4fcf49e065dc65934d196b51dbf221459d5"
     }
   ]
 }
