@@ -328,8 +328,13 @@
         skillsNode.appendChild(chip);
       });
     } catch (error) {
-      headlineNode.textContent = "Jefe de equipo especialista | Administración, análisis funcional y enfoque DevOps";
-      summaryNode.textContent = "Profesional en sistemas con más de una década de experiencia en plataformas críticas del sector público. Combino administración de sistemas, análisis funcional, automatización y prácticas DevOps para mejorar procesos, datos y operación productiva.";
+      headlineNode.textContent = "Especialista en Sistemas, DevOps y automatización";
+      summaryNode.innerHTML = `
+        <p>Profesional en sistemas con más de una década de experiencia trabajando sobre plataformas críticas vinculadas a la gestión pública. Mi perfil combina análisis funcional, administración de sistemas y una fuerte orientación DevOps, actuando como nexo entre las necesidades de los usuarios, los equipos de desarrollo y la operación diaria de los entornos productivos.</p>
+        <p>A lo largo de los años he construido una visión integral de la tecnología, participando tanto en la evolución de sistemas empresariales basados en Odoo como en la automatización de procesos, la calidad de los datos, el monitoreo, la documentación técnica y la gestión de ambientes complejos. Mi trabajo se centra en un objetivo muy concreto: transformar procesos frágiles y dependientes de las personas en sistemas confiables, repetibles y sostenibles en el tiempo.</p>
+        <p>Me siento cómodo trabajando en la intersección entre Linux, bases de datos, infraestructura y desarrollo, utilizando herramientas como PostgreSQL, Bash, Python y distintas prácticas DevOps para simplificar la operación y mejorar la continuidad de las plataformas que soportan el día a día de miles de usuarios.</p>
+        <p>Fuera del ámbito laboral, mantengo una filosofía de aprendizaje continuo y conocimiento abierto, participando en comunidades tecnológicas y desarrollando proyectos personales orientados a la automatización, la observabilidad y la construcción de soluciones simples para problemas reales.</p>
+      `;
       timelineNode.innerHTML = "";
       skillsNode.innerHTML = "";
       ["Automatización", "DevOps", "Linux", "PostgreSQL", "Odoo", "QA"].forEach((skill) => {

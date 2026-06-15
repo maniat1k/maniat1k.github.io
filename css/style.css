@@ -658,12 +658,14 @@ a:hover {
     width: 100%;
     display: flex;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: flex-start;
+    flex-wrap: wrap;
     gap: 1.25rem;
 }
 
 #about .about-copy {
-    max-width: 880px;
+    width: 100%;
+    max-width: none;
 }
 
 #about .about-bio-card #aboutHeadline {
@@ -677,6 +679,14 @@ a:hover {
     max-width: none;
     line-height: 1.48;
     margin-inline: 0;
+}
+
+#about .about-profile-text p {
+    margin-bottom: 0.85rem;
+}
+
+#about .about-profile-text p:last-child {
+    margin-bottom: 0;
 }
 
 #about .about-bio-card #linkedinButton {
