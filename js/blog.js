@@ -28,7 +28,7 @@
 
   function createTagMarkup(tags) {
     const list = Array.isArray(tags) ? tags : [];
-    return list.map((tag) => `<span class="project-tag">${escapeHtml(tag)}</span>`).join("");
+    return list.map((tag) => `<span class="site-chip">${escapeHtml(tag)}</span>`).join("");
   }
 
   function renderEmptyBlogPage(content) {

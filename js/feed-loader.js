@@ -125,6 +125,26 @@
     return value;
   }
 
+  function getLocalSocialImage(raw, source) {
+    const id = String(raw?.id || "").trim();
+    const map = {
+      instagram_5d9842018864: "assets/cards/instagram_instagram_5d9842018864.jpg",
+      instagram_aca8cbbca2ff: "assets/cards/instagram_instagram_aca8cbbca2ff.jpg",
+      youtube_9a6352225010: "assets/cards/youtube_youtube_9a6352225010.jpg",
+      youtube_dcc0333943a9: "assets/cards/youtube_youtube_dcc0333943a9.jpg"
+    };
+    if (id && map[id]) return map[id];
+    return `assets/fallback/${source}-1.svg`;
+  }
+
+  function getSocialImage(raw, source) {
+    const localImage = getLocalSocialImage(raw, source);
+    if (!localImage.includes("/fallback/")) return localImage;
+    const image = normalizeImageUrl(raw?.image);
+    if (image) return image;
+    return localImage;
+  }
+
   function normalizeSocialItem(raw) {
     const source = String(raw?.source || "").toLowerCase();
     if (source !== "instagram" && source !== "youtube") return null;
@@ -137,9 +157,10 @@
       date: String(raw.date || raw.updated_at || ""),
       description: String(raw.summary || raw.title || ""),
       url: String(raw.url),
-      image: String(raw.image || ""),
+      image: getSocialImage(raw, source),
       image_alt: String(raw.image_alt || raw.title || source),
-      tags: []
+      tags: [],
+      id: String(raw.id || "")
     };
   }
 
@@ -194,9 +215,29 @@
   }
 
   async function loadSocialItems() {
+    const itemsById = new Map();
+    const addItems = (items) => {
+      items.forEach((item) => {
+        const key = item.id || `${item.source}:${item.url}`;
+        if (!itemsById.has(key)) itemsById.set(key, item);
+      });
+    };
+
     try {
-      const payload = await fetchJson("data/all.json");
-      return sortByDate((payload?.items || []).map(normalizeSocialItem).filter(Boolean));
+      const [instagramPayload, youtubePayload, allPayload] = await Promise.allSettled([
+        fetchJson("data/instagram.json"),
+        fetchJson("data/youtube.json"),
+        fetchJson("data/all.json")
+      ]);
+
+      [instagramPayload, youtubePayload, allPayload].forEach((result) => {
+        if (result.status !== "fulfilled") return;
+        addItems((result.value?.items || []).map(normalizeSocialItem).filter(Boolean));
+      });
+
+      const items = Array.from(itemsById.values());
+      if (items.length) return sortByDate(items);
+      throw new Error("No social items available");
     } catch {
       return [
         {
@@ -206,7 +247,7 @@
           date: new Date().toISOString(),
           description: "Contenido reciente de Instagram.",
           url: "https://www.instagram.com/maniat1k/",
-          image: "assets/fallback/instagram-1.svg",
+          image: "assets/cards/instagram_instagram_5d9842018864.jpg",
           image_alt: "Instagram"
         },
         {
@@ -216,7 +257,7 @@
           date: new Date().toISOString(),
           description: "Contenido reciente de YouTube.",
           url: "https://www.youtube.com/@maniat1kUy",
-          image: "assets/fallback/youtube-1.svg",
+          image: "assets/cards/youtube_youtube_9a6352225010.jpg",
           image_alt: "YouTube"
         }
       ];
@@ -301,7 +342,7 @@
   }
 
   function createSocialCard(item) {
-    const image = normalizeImageUrl(item.image);
+    const image = normalizeImageUrl(item.image) || `assets/fallback/${item.source}-1.svg`;
     return `
       <div class="col mb-4 portfolio-item ${escapeHtml(item.source)}">
         <article class="project-card feed-card h-100">
@@ -410,7 +451,7 @@
     if (!list.length) return "";
     return `
       <div class="d-flex flex-wrap gap-2 mb-4">
-        ${list.map((tag) => `<span class="project-tag">${escapeHtml(tag)}</span>`).join("")}
+        ${list.map((tag) => `<span class="site-chip">${escapeHtml(tag)}</span>`).join("")}
       </div>
     `;
   }
@@ -531,7 +572,7 @@
     function createTagButton(value, label) {
       const button = document.createElement("button");
       button.type = "button";
-      button.className = "blog-tag-chip";
+      button.className = "site-chip blog-tag-chip";
       button.dataset.blogTag = value;
       button.textContent = label;
       return button;

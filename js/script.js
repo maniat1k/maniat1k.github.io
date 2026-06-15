@@ -323,18 +323,18 @@
 
       mergeUniqueSkills(parsed.skills, githubLanguages).forEach((skill) => {
         const chip = document.createElement("span");
-        chip.className = "project-tag";
+        chip.className = "site-chip";
         chip.textContent = skill;
         skillsNode.appendChild(chip);
       });
     } catch (error) {
       headlineNode.textContent = "Jefe de equipo especialista | Administración, análisis funcional y enfoque DevOps";
-      summaryNode.textContent = "Lidero equipos y soluciones operativas combinando administración de sistemas, análisis funcional, automatización y mejora continua.";
+      summaryNode.textContent = "Profesional en sistemas con más de una década de experiencia en plataformas críticas del sector público. Combino administración de sistemas, análisis funcional, automatización y prácticas DevOps para mejorar procesos, datos y operación productiva.";
       timelineNode.innerHTML = "";
       skillsNode.innerHTML = "";
       ["Automatización", "DevOps", "Linux", "PostgreSQL", "Odoo", "QA"].forEach((skill) => {
         const chip = document.createElement("span");
-        chip.className = "project-tag";
+        chip.className = "site-chip";
         chip.textContent = skill;
         skillsNode.appendChild(chip);
       });
