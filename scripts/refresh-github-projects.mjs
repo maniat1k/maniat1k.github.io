@@ -19,6 +19,8 @@ const GRAPHQL_URL = "https://api.github.com/graphql";
 const DEVLOG_LIMIT = 8;
 const CARD_LIMIT = 4;
 const TRIVIAL_MESSAGES = new Set(["fix", "small fix", "typo", "format", "update", "wip"]);
+const AUTOMATED_MESSAGE_PREFIXES = ["chore:", "ci:", "build:", "bot:"];
+const AUTOMATED_MESSAGE_PARTS = ["refresh site data", "update generated data", "automated", "github-actions"];
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || "";
 
 async function readJsonIfExists(filePath) {
@@ -156,6 +158,28 @@ function normalizeCommitMessage(message) {
   return value;
 }
 
+function isBotIdentity(value) {
+  const normalized = String(value || "").toLowerCase();
+  return normalized.includes("[bot]") || normalized.includes("github-actions") || normalized.includes("github actions");
+}
+
+function isAutomatedCommit(commit, message) {
+  const normalized = String(message || "").trim().toLowerCase();
+  if (!normalized) return true;
+  if (AUTOMATED_MESSAGE_PREFIXES.some((prefix) => normalized.startsWith(prefix))) return true;
+  if (AUTOMATED_MESSAGE_PARTS.some((part) => normalized.includes(part))) return true;
+
+  const identities = [
+    commit?.author?.login,
+    commit?.committer?.login,
+    commit?.commit?.author?.name,
+    commit?.commit?.author?.email,
+    commit?.commit?.committer?.name,
+    commit?.commit?.committer?.email
+  ];
+  return identities.some(isBotIdentity);
+}
+
 function buildLanguageList(languageTotals) {
   return Object.entries(languageTotals)
     .sort((a, b) => b[1] - a[1])
@@ -172,12 +196,13 @@ async function buildDevLog(repos) {
   for (const repo of candidates) {
     try {
       const owner = repo?.owner?.login || GITHUB_USER;
-      const url = `https://api.github.com/repos/${owner}/${repo.name}/commits?per_page=5`;
+      const url = `https://api.github.com/repos/${owner}/${repo.name}/commits?per_page=10`;
       const payload = await fetchJson(url);
       for (const commit of payload) {
         const message = normalizeCommitMessage(commit?.commit?.message?.split("\n")[0]);
         if (!message) continue;
         if (TRIVIAL_MESSAGES.has(message.toLowerCase())) continue;
+        if (isAutomatedCommit(commit, message)) continue;
         commits.push({
           repo: repo.name,
           message,

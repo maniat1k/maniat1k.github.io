@@ -2,6 +2,12 @@ name: Refresh Site Data
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "blog/**"
+      - "scripts/build-blog.mjs"
   schedule:
     - cron: "0 */6 * * *"
 

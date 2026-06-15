@@ -4,6 +4,14 @@
 
   var isotopeInstances = [];
 
+  if (!$) {
+    window.PortfolioGrid = {
+      initIsotope: function() {},
+      destroyIsotope: function() {}
+    };
+    return;
+  }
+
   function destroyIsotope() {
     isotopeInstances.forEach(function(instance) {
       instance.$buttonGroup.off(".portfolioFilters");
@@ -48,6 +56,11 @@
       $buttonGroup.on("click.portfolioFilters", "a", function(e) {
         e.preventDefault();
         var $button = $(this);
+        var source = $button.attr("data-source") || "all";
+        if (window.PortfolioFeed && typeof window.PortfolioFeed.selectSource === "function") {
+          window.PortfolioFeed.selectSource(source);
+          return;
+        }
         filterValue = $button.attr("data-filter");
         $grid.isotope({ filter: filterValue });
         $buttonGroup.find(".is-checked").removeClass("is-checked");
@@ -63,7 +76,7 @@
     destroyIsotope: destroyIsotope
   };
 
-})(jQuery);
+})(window.jQuery);
 
 (function() {
   "use strict";
@@ -144,172 +157,6 @@
       });
     } catch {
       applyStatsStripValues(fallback);
-    }
-  }
-
-  function getLanguageColor(language) {
-    const palette = {
-      JavaScript: "#f1e05a",
-      TypeScript: "#3178c6",
-      Python: "#3572A5",
-      HTML: "#e34c26",
-      CSS: "#563d7c",
-      Shell: "#89e051",
-      PowerShell: "#012456",
-      Dockerfile: "#384d54",
-      Jupyter: "#DA5B0B",
-      "Jupyter Notebook": "#DA5B0B",
-      PHP: "#4F5D95",
-      Ruby: "#701516",
-      Go: "#00ADD8",
-      Rust: "#dea584",
-      Java: "#b07219",
-      C: "#555555",
-      "C++": "#f34b7d",
-      "C#": "#178600",
-      Vue: "#41b883",
-      React: "#61dafb"
-    };
-    return palette[language] || "#8b949e";
-  }
-
-  function buildTagOptions(projects) {
-    const set = new Set();
-    projects.forEach((project) => {
-      if (project.language) set.add("lang:" + project.language);
-      (project.topics || []).forEach((topic) => set.add("topic:" + topic));
-    });
-    return Array.from(set).sort((a, b) => a.localeCompare(b));
-  }
-
-  function projectMatchesFilter(project, filter) {
-    if (filter === "all") return true;
-    if (filter.startsWith("lang:")) {
-      return (project.language || "") === filter.replace("lang:", "");
-    }
-    if (filter.startsWith("topic:")) {
-      const topic = filter.replace("topic:", "");
-      return (project.topics || []).includes(topic);
-    }
-    return true;
-  }
-
-  function createProjectCard(project, isPinned) {
-    const col = document.createElement("div");
-    col.className = "col";
-
-    const safeDescription = project.description || "Sin descripción.";
-    const language = project.language || "N/A";
-    const languageColor = getLanguageColor(project.language);
-    const visibilityBadge = project.private ? "Private" : "Public";
-    const updatedLabel = formatDate(project.updated_at);
-
-    col.innerHTML = `
-      <article class="project-card ${isPinned ? "pinned-card" : ""} h-100 p-4">
-        <div class="repo-card-bg-mark" aria-hidden="true">
-          <svg width="140" height="140" viewBox="0 0 24 24" focusable="false">
-            <use xlink:href="#github"></use>
-          </svg>
-        </div>
-        <header class="repo-card-header mb-3">
-          <div class="repo-card-title-wrap">
-            <h3 class="repo-card-title mb-0">${project.name}</h3>
-          </div>
-          <div class="repo-card-badges">
-            ${isPinned ? '<span class="badge text-bg-dark">Pinned</span>' : ""}
-            <span class="badge text-bg-light border">${visibilityBadge}</span>
-          </div>
-        </header>
-
-        <p class="repo-card-description mb-3">${safeDescription}</p>
-
-        <p class="repo-card-meta mb-3">
-          <span class="repo-meta-item"><span class="repo-lang-dot" style="background-color:${languageColor};"></span>${language}</span>
-          <span class="repo-meta-item">★ ${project.stargazers_count}</span>
-          <span class="repo-meta-item">Forks ${project.forks_count}</span>
-          <span class="repo-meta-item">Updated ${updatedLabel}</span>
-        </p>
-
-        <div class="repo-card-footer">
-          <a class="btn btn-primary btn-sm text-uppercase text-decoration-none" href="${project.html_url}" target="_blank" rel="noopener noreferrer">Ver repo</a>
-        </div>
-      </article>
-    `;
-
-    return col;
-  }
-
-  async function initProjects() {
-    const projectsGrid = document.getElementById("projectsGrid");
-    const pinnedGrid = document.getElementById("projectsPinned");
-    const filterSelect = document.getElementById("projectFilter");
-    const sortSelect = document.getElementById("projectSort");
-    const meta = document.getElementById("projectsMeta");
-
-    if (!projectsGrid || !pinnedGrid || !filterSelect || !sortSelect || !meta) return;
-
-    try {
-      let projectsPayload = null;
-      try {
-        projectsPayload = await fetchJson("data/projects.json");
-      } catch {
-        projectsPayload = window.__PORTFOLIO_PROJECTS__ || null;
-      }
-
-      let pinnedPayload = {};
-      try {
-        pinnedPayload = await fetchJson("data/pinned.json");
-      } catch {
-        pinnedPayload = { repos: [] };
-      }
-
-      if (!projectsPayload || !Array.isArray(projectsPayload.projects)) {
-        throw new Error("Projects data not available");
-      }
-
-      const rawProjects = Array.isArray(projectsPayload.projects) ? projectsPayload.projects : [];
-      const visibleProjects = rawProjects;
-      const pinnedRepos = Array.isArray(pinnedPayload?.repos) ? pinnedPayload.repos : [];
-      const pinnedSet = new Set(pinnedRepos);
-
-      const filterOptions = buildTagOptions(visibleProjects);
-      filterOptions.forEach((option) => {
-        const node = document.createElement("option");
-        node.value = option;
-        node.textContent = option.startsWith("lang:")
-          ? option.replace("lang:", "Language: ")
-          : option.replace("topic:", "Tag: ");
-        filterSelect.appendChild(node);
-      });
-
-      function render() {
-        const filterValue = filterSelect.value;
-
-        const sorted = [...visibleProjects].sort((a, b) => {
-          return new Date(b.updated_at) - new Date(a.updated_at);
-        });
-
-        const filtered = sorted.filter((project) => projectMatchesFilter(project, filterValue));
-
-        pinnedGrid.innerHTML = "";
-        projectsGrid.innerHTML = "";
-
-        filtered.forEach((project) => {
-          const isPinned = pinnedSet.has(project.name);
-          projectsGrid.appendChild(createProjectCard(project, isPinned));
-        });
-
-        meta.textContent = `${filtered.length} proyectos visibles · Fuente: GitHub API · Última actualización: ${formatDate(projectsPayload.generated_at)}`;
-      }
-
-      filterSelect.addEventListener("change", render);
-      sortSelect.addEventListener("change", render);
-      render();
-    } catch (error) {
-      pinnedGrid.innerHTML = "";
-      projectsGrid.innerHTML = "";
-      meta.textContent = "";
-      console.error(error);
     }
   }
 
@@ -446,8 +293,6 @@
 
       const parsed = parseLinkedInMarkdown(markdown);
 
-      if (parsed.headline) headlineNode.textContent = parsed.headline;
-      if (parsed.about) summaryNode.textContent = parsed.about;
       if (parsed.linkedin) linkedinButton.href = parsed.linkedin;
 
       timelineNode.innerHTML = "";
@@ -483,8 +328,8 @@
         skillsNode.appendChild(chip);
       });
     } catch (error) {
-      headlineNode.textContent = "Administrador de Sistemas · DevOps mindset";
-      summaryNode.textContent = "Perfil orientado a automatización operativa, QA estructurado y mejora continua de plataformas.";
+      headlineNode.textContent = "Jefe de equipo especialista | Administración, análisis funcional y enfoque DevOps";
+      summaryNode.textContent = "Lidero equipos y soluciones operativas combinando administración de sistemas, análisis funcional, automatización y mejora continua.";
       timelineNode.innerHTML = "";
       skillsNode.innerHTML = "";
       ["Automatización", "DevOps", "Linux", "PostgreSQL", "Odoo", "QA"].forEach((skill) => {
@@ -557,7 +402,6 @@
 
   document.addEventListener("DOMContentLoaded", function() {
     initStatsStrip();
-    initProjects();
     initLinkedInSection();
     initHeroParallax();
     initContactButton();

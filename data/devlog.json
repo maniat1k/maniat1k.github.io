@@ -1,38 +1,8 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-06-15T11:40:51.422Z",
-  "total": 8,
+  "generated_at": "2026-06-12T14:28:59.166Z",
+  "total": 3,
   "items": [
-    {
-      "repo": "maniat1k.github.io",
-      "message": "chore: refresh site data",
-      "date": "2026-06-15T02:32:37Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/c5f000bb74ebe89f24a5e75c35bf743d79c3701a"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "message": "chore: refresh site data",
-      "date": "2026-06-14T19:05:18Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/5fea372d77a33af74222dff04b27f9ae6a1ee8f7"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "message": "chore: refresh site data",
-      "date": "2026-06-14T13:24:14Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/26fa9153d8b197f441d83d333b11f9156f30da4b"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "message": "chore: refresh site data",
-      "date": "2026-06-14T08:58:57Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/f69b8e55adc7913b3769a4cab08b2bbdb7288783"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "message": "chore: refresh site data",
-      "date": "2026-06-14T02:28:29Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/41a92cd60c195c44356dc4b703a2824afdc4b256"
-    },
     {
       "repo": "maniat1k",
       "message": "Revise README structure and update tool icons",

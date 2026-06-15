@@ -31,49 +31,6 @@
     return list.map((tag) => `<span class="project-tag">${escapeHtml(tag)}</span>`).join("");
   }
 
-  function setBlogNavigationVisible(isVisible) {
-    const node = document.getElementById("blogNavItem");
-    if (!node) return;
-    node.classList.toggle("d-none", !isVisible);
-  }
-
-  function initLatestPostSection(payload) {
-    const section = document.getElementById("latestTechNoteSection");
-    if (!section) return;
-
-    const latest = payload?.latest;
-    if (!latest) {
-      section.remove();
-      return;
-    }
-
-    const title = document.getElementById("latestTechNoteTitle");
-    const date = document.getElementById("latestTechNoteDate");
-    const summary = document.getElementById("latestTechNoteSummary");
-    const link = document.getElementById("latestTechNoteLink");
-    const tags = document.getElementById("latestTechNoteTags");
-
-    if (!title || !date || !summary || !link || !tags) {
-      section.remove();
-      return;
-    }
-
-    title.textContent = latest.title || "Nota técnica";
-    date.textContent = formatDate(latest.date);
-    summary.textContent = latest.summary || "";
-    link.href = latest.url || "blog.html";
-
-    if (Array.isArray(latest.tags) && latest.tags.length) {
-      tags.innerHTML = createTagMarkup(latest.tags);
-      tags.classList.remove("d-none");
-    } else {
-      tags.innerHTML = "";
-      tags.classList.add("d-none");
-    }
-
-    section.classList.remove("d-none");
-  }
-
   function renderEmptyBlogPage(content) {
     content.innerHTML = `
       <article class="project-card blog-empty-card p-4">
@@ -181,23 +138,14 @@
   }
 
   async function initBlog() {
-    const needsBlogData =
-      Boolean(document.getElementById("latestTechNoteSection")) ||
-      Boolean(document.getElementById("blogPage")) ||
-      Boolean(document.getElementById("blogNavItem"));
+    const needsBlogData = Boolean(document.getElementById("blogPage"));
 
     if (!needsBlogData) return;
 
     try {
       const payload = await fetchJson("data/blog.json");
-      const hasPosts = Array.isArray(payload?.posts) && payload.posts.length > 0;
-      setBlogNavigationVisible(hasPosts);
-      initLatestPostSection(payload);
       initBlogPage(payload);
     } catch (error) {
-      setBlogNavigationVisible(false);
-      const section = document.getElementById("latestTechNoteSection");
-      if (section) section.remove();
       console.error(error);
       initBlogPage({ posts: [] });
     }

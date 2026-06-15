@@ -147,7 +147,7 @@
                 <a class="nav-link active text-uppercase ls-4 text-white" aria-current="page" href="#top">Inicio</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="#projects">Projects</a>
+                <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="#portfolio">Contenido</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link text-uppercase ls-4 text-white" aria-current="page" href="#about">Sobre mi</a>
@@ -217,23 +217,30 @@
       <div class="row g-4 mt-2">
         <div class="col-12">
           <article class="about-bio-card p-4 border rounded-4 h-100 bg-yellow">
-            <h3 class="h4" id="aboutHeadline">Administrador de Sistemas · DevOps mindset</h3>
-            <p id="aboutSummary" class="postf mb-4">Perfil orientado a automatización operativa, calidad de datos, trazabilidad y mejora continua en plataformas críticas.</p>
-            <a id="linkedinButton" class="btn btn-primary text-uppercase text-decoration-none d-inline-flex align-items-center gap-2" href="https://www.linkedin.com/in/marcelolemosuy/" target="_blank" rel="noopener noreferrer">
-              <svg class="linkedin stroke-2" width="18" height="18" aria-hidden="true" focusable="false">
-                <use xlink:href="#linkedin"></use>
-              </svg>
-              <span>LinkedIn</span>
-            </a>
+            <div class="about-tech-strip" aria-hidden="true">
+              <span class="about-terminal-dot"></span>
+              <span class="about-terminal-dot"></span>
+              <span class="about-terminal-dot"></span>
+              <span class="about-terminal-line">~/perfil $ whoami</span>
+              <span class="about-terminal-badge">DevOps · Linux · Datos</span>
+            </div>
+            <div class="about-card-content">
+              <div class="about-copy">
+                <h3 class="h4" id="aboutHeadline">Jefe de equipo especialista | Administración, análisis funcional y enfoque DevOps</h3>
+                <p id="aboutSummary" class="postf mb-0">Lidero equipos y soluciones operativas combinando administración de sistemas, análisis funcional, automatización y mejora continua.</p>
+              </div>
+              <a id="linkedinButton" class="btn btn-primary text-uppercase text-decoration-none d-inline-flex align-items-center gap-2" href="https://www.linkedin.com/in/marcelolemosuy/" target="_blank" rel="noopener noreferrer">
+                <svg class="linkedin stroke-2" width="18" height="18" aria-hidden="true" focusable="false">
+                  <use xlink:href="#linkedin"></use>
+                </svg>
+                <span>LinkedIn</span>
+              </a>
+            </div>
+            <div class="about-skills-wrap">
+              <h4 class="about-skills-title">Skills / Focus</h4>
+              <div id="skillsList" class="about-skills-list d-flex flex-wrap gap-2"></div>
+            </div>
           </article>
-        </div>
-      </div>
-      <div class="row mt-3">
-        <div class="col-12">
-          <div class="p-4 border rounded-4 mt-3">
-            <h3 class="h5">Skills / Focus</h3>
-            <div id="skillsList" class="d-flex flex-wrap gap-2"></div>
-          </div>
         </div>
       </div>
       <div id="experienceTimeline" class="d-none" aria-hidden="true"></div>
@@ -317,35 +324,16 @@
     </div>
   </section>
 
-  <section class="portfolio py-5">
+  <section id="portfolio" class="portfolio py-5">
     <div class="container">
       <div class="justify-content-center">
 
         <div class="row justify-content-center">
 
-          <div id="latestTechNoteSection" class="col-12 mb-5 d-none">
-            <article class="project-card blog-feature-card p-4 p-lg-5">
-              <div class="row g-4 align-items-center">
-                <div class="col-lg-8">
-                  <p class="postg small text-uppercase mb-2">Última Nota Técnica</p>
-                  <h2 id="latestTechNoteTitle" class="h3 mb-3"></h2>
-                  <p id="latestTechNoteDate" class="project-meta mb-2"></p>
-                  <p id="latestTechNoteSummary" class="postf blog-summary mb-4"></p>
-                  <div id="latestTechNoteTags" class="d-flex flex-wrap gap-2 mb-4 d-none"></div>
-                  <div class="d-flex flex-wrap gap-2">
-                    <a id="latestTechNoteLink" class="btn btn-primary text-uppercase text-decoration-none" href="blog.html">Leer completo</a>
-                    <a class="btn btn-outline-dark text-uppercase text-decoration-none" href="blog.html">Ver todas</a>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-
-          <div class="col-lg-6">
+          <div class="col-lg-7">
             <div class="section-header text-center">
-              <h4 class="fw-bold fs-2 txt-fx slide-up">
-                Combino análisis funcional, automatización y sentido común para que los sistemas realmente funcionen.
-              </h4>
+              <h2 class="fw-bold display-5 txt-fx slide-up mb-3">Laboratorio Digital</h2>
+              <p class="postf mb-0">Ideas, código, artículos y experimentos publicados en distintos canales.</p>
             </div><!--section-header-->
           </div>
 
@@ -353,11 +341,45 @@
             <a href="#" class="btn btn-primary text-decoration-none text-uppercase is-checked" data-source="all" data-filter="*">Todos</a>
             <a href="#" class="btn btn-primary text-decoration-none text-uppercase" data-source="instagram" data-filter=".instagram">Instagram</a>
             <a href="#" class="btn btn-primary text-decoration-none text-uppercase" data-source="youtube" data-filter=".youtube">Youtube</a>
-            <a href="#" class="btn btn-primary text-decoration-none text-uppercase" data-source="github" data-filter=".github">GitHub</a>
+            <a href="#" class="btn btn-primary text-decoration-none text-uppercase" data-source="blog" data-filter=".blog">Blog</a>
+            <a href="#" class="btn btn-primary text-decoration-none text-uppercase" data-source="github-projects" data-filter=".github-projects">GitHub Proyectos</a>
+            <a href="#" class="btn btn-primary text-decoration-none text-uppercase" data-source="github-log" data-filter=".github-log">GitHub Log</a>
+          </div>
+
+          <div id="githubProjectControls" class="row g-3 justify-content-center pb-4 projects-controls d-none">
+            <div class="col-md-4">
+              <label for="projectFilter" class="form-label fw-semibold">Filtrar por tag/lenguaje</label>
+              <select id="projectFilter" class="form-select">
+                <option value="all">Todos</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label for="projectSort" class="form-label fw-semibold">Ordenar</label>
+              <select id="projectSort" class="form-select">
+                <option value="updated">Más recientes</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="blogControls" class="blog-controls d-none pb-4">
+            <div class="row g-3 justify-content-center align-items-end">
+              <div class="col-md-4">
+                <label for="blogSort" class="form-label fw-semibold">Ordenar posts</label>
+                <select id="blogSort" class="form-select">
+                  <option value="desc">Más recientes</option>
+                  <option value="asc">Más antiguos</option>
+                </select>
+              </div>
+              <div class="col-12">
+                <p class="blog-tags-label mb-2">Tags</p>
+                <div id="blogTagCloud" class="blog-tag-cloud d-flex flex-wrap gap-2 justify-content-center"></div>
+              </div>
+            </div>
           </div>
         </div>
 
         <div id="portfolioGrid" class="grid p-0 clearfix row row-cols-2 row-cols-lg-3 row-cols-xl-4"></div>
+        <p id="portfolioMeta" class="postg mt-2 mb-0 small text-center"></p>
 
         <!--
         <div class="text-center p-3">
@@ -368,50 +390,6 @@
         -->
 
       </div>
-  </section>
-
-  <section id="projects" class="py-5">
-    <div class="container">
-      <div class="text-center">
-        <h2 class="display-3">Proyectos</h2>
-        <p class="postf">Repos públicos cargados desde GitHub.</p>
-      </div>
-
-      <div class="row g-3 justify-content-center py-4 projects-controls">
-        <div class="col-md-4">
-          <label for="projectFilter" class="form-label fw-semibold">Filtrar por tag/lenguaje</label>
-          <select id="projectFilter" class="form-select">
-            <option value="all">Todos</option>
-          </select>
-        </div>
-        <div class="col-md-4">
-          <label for="projectSort" class="form-label fw-semibold">Ordenar</label>
-          <select id="projectSort" class="form-select">
-            <option value="updated">Más recientes</option>
-          </select>
-        </div>
-      </div>
-
-      <div id="projectsPinned" class="d-none" aria-hidden="true"></div>
-      <div id="projectsGrid" class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4"></div>
-      <p id="projectsMeta" class="postg mt-4 mb-0 small text-center"></p>
-    </div>
-  </section>
-
-  <section id="dev-log" class="py-5">
-    <div class="container">
-      <div class="text-center">
-        <h2 class="display-3">Dev Log</h2>
-        <p class="postf mb-0">Últimos commits públicos para mostrar progreso técnico real en repositorios activos.</p>
-      </div>
-      <div class="row mt-4">
-        <div class="col-12">
-          <div class="p-4 border rounded-4 bg-white">
-            <div id="devLogList" class="row g-3"></div>
-          </div>
-        </div>
-      </div>
-    </div>
   </section>
 
   <section class="p-5 ">
@@ -677,7 +655,6 @@ SELECT * FROM integrity_check;
   <script src="js/script.js"></script>
   <script src="js/blog.js"></script>
   <script src="js/feed-loader.js"></script>
-  <script src="js/dev-log.js"></script>
 </body>
 
 </html>
