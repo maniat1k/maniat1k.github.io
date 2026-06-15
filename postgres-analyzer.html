@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="Analizador PostgreSQL - análisis estático de sintaxis SQL local en el navegador." />
+
+  <title>Analizador PostgreSQL</title>
+
+  <!-- fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header id="top" class="position-sticky top-0 start-0" style="z-index:10;">
+    <nav class="navbar bg-white fixed-top">
+      <div class="container-fluid">
+        <div class="d-flex align-items-center g-4">
+          <a class="navbar-brand d-flex" href="index.html">
+            <img src="images/logo.png" class="img-fluid" id="logo" alt="Logo de maniat1k">
+          </a>
+        </div>
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas" aria-label="Abrir menu de navegacion" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+          <span class="navbar-toggler-icon-custom">
+            <svg class="text-primary menu" width="32" height="32">
+              <use xlink:href="#menu"></use>
+            </svg>
+          </span>
+        </button>
+        <div class="offcanvas offcanvas-end text-white bg-black" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header">
+            <h2 id="offcanvasNavbarLabel" class="visually-hidden">Menu de navegacion</h2>
+            <button type="button" class="btn-close btn-close-white ms-3" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav flex-grow-1 p-4">
+              <li class="nav-item">
+                <strong class="text-white small">Páginas</strong>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-uppercase ls-4 text-white" href="index.html">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-uppercase ls-4 text-white" href="ahorro.html">Contenido</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-uppercase ls-4 text-white" href="blog.html">Blog</a>
+              </li>
+              <li class="nav-item mt-3">
+                <strong class="text-white small">Herramientas</strong>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-uppercase ls-4 text-white" href="ahorro.html">Ahorro</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-uppercase ls-4 text-white" href="postgres-analyzer.html">Analizador PostgreSQL</a>
+              </li>
+              <li class="nav-item mt-3">
+                <a class="nav-link text-uppercase ls-4 text-white" href="#footer">Contacto</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="pt-5 pb-5">
+    <div class="container-lg py-5">
+      <section class="mb-4 pt-5">
+        <div class="row align-items-center">
+          <div class="col-lg-8">
+            <h1 class="display-6 fw-bold mb-3">Analizador PostgreSQL</h1>
+            <p class="lead text-secondary mb-3">Pega tu código SQL/PostgreSQL y recibe un análisis estático básico en tu navegador. Esta herramienta no ejecuta consultas.</p>
+            <a href="index.html" class="btn btn-outline-dark text-uppercase text-decoration-none">Volver al portfolio</a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4 p-lg-5">
+            <div class="mb-3">
+              <label for="sql-input" class="form-label fw-bold">Ingresá SQL / PostgreSQL</label>
+              <textarea id="sql-input" class="form-control bg-dark text-light" rows="12" style="font-family: 'Courier New', monospace; font-size:0.95rem; border-radius:8px;" placeholder="Pegá tu consulta SQL aquí..."></textarea>
+            </div>
+
+            <div class="d-flex gap-2 mb-3">
+              <button id="analyzeBtn" class="btn btn-primary">Analizar</button>
+              <button id="clearBtn" class="btn btn-outline-secondary">Limpiar</button>
+              <button id="copyBtn" class="btn btn-outline-success">Copiar resultado</button>
+            </div>
+
+            <div class="alert alert-warning" role="alert">
+              <strong>Aviso:</strong> Esta herramienta no ejecuta SQL ni envía consultas a ningún servidor. El análisis se realiza localmente en tu navegador.
+            </div>
+
+            <div id="analysisArea" class="mt-3">
+              <h3 class="h6">Resultado</h3>
+              <div id="resultStatus" class="mb-2 small fw-bold"></div>
+              <div id="statementType" class="mb-2 small"></div>
+              <div id="errorsList" class="mb-2"></div>
+              <div id="warningsList" class="mb-2"></div>
+              <div id="recommendationsList" class="mb-2"></div>
+              <div class="mb-2">
+                <label class="form-label small fw-bold">Resumen copiable</label>
+                <textarea id="summary" class="form-control" rows="4" readonly style="font-family: monospace;"></textarea>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer id="footer" class="bg-black text-white py-5">
+    <div class="container-sm text-center">
+      <p class="mb-2 fw-semibold">Maniat1k · Creator Tech</p>
+      <p class="postg mb-3">© <span id="currentYear"></span></p>
+      <div class="d-flex justify-content-center align-items-center gap-3 flex-wrap">
+        <a class="text-decoration-none text-white" href="https://github.com/maniat1k" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+  <script src="js/postgres-syntax-validator.js"></script>
+
+  <script>
+    function detectStatementType(sql) {
+      if (!sql || !sql.trim()) return 'Desconocido';
+      const cleaned = sql.replace(/(^|\n)\s*(--.*|\/\*[\s\S]*?\*\/)/g, '').trim();
+      const m = cleaned.match(/^(?:WITH\b\s*(?:RECURSIVE\b\s*)?)?([A-Za-z]+)/i);
+      if (!m) return 'Desconocido';
+      const kw = m[1].toUpperCase();
+      const mapping = ['SELECT','INSERT','UPDATE','DELETE','CREATE','ALTER','DROP','TRUNCATE','GRANT','REVOKE'];
+      return mapping.includes(kw) ? kw : 'Otro (' + kw + ')';
+    }
+
+    function generateWarningsRecommendations(sql, stmtType) {
+      const warnings = [];
+      const recs = [];
+      const upper = (sql || '').toUpperCase();
+      if ((stmtType === 'UPDATE' || stmtType === 'DELETE') && !/\bWHERE\b/.test(upper)) {
+        warnings.push('No se detectó cláusula WHERE en UPDATE/DELETE. Podría afectar filas inesperadas.');
+      }
+      if ((stmtType === 'INSERT' || stmtType === 'UPDATE') && !/\bRETURNING\b/.test(upper)) {
+        recs.push('Considere usar RETURNING para obtener filas afectadas cuando sea útil.');
+      }
+      if (!/;\s*$/.test(sql.trim())) {
+        recs.push('Se recomienda terminar las sentencias con punto y coma ";" cuando se analizan múltiples statements.');
+      }
+      return { warnings, recs };
+    }
+
+    document.getElementById('analyzeBtn').addEventListener('click', function () {
+      const sql = document.getElementById('sql-input').value || '';
+      const resultStatus = document.getElementById('resultStatus');
+      const statementType = document.getElementById('statementType');
+      const errorsList = document.getElementById('errorsList');
+      const warningsList = document.getElementById('warningsList');
+      const recommendationsList = document.getElementById('recommendationsList');
+      const summary = document.getElementById('summary');
+
+      resultStatus.textContent = '';
+      statementType.textContent = '';
+      errorsList.innerHTML = '';
+      warningsList.innerHTML = '';
+      recommendationsList.innerHTML = '';
+      summary.value = '';
+
+      if (!sql.trim()) {
+        resultStatus.textContent = '⚠️ Ingresa código SQL';
+        resultStatus.style.color = '#ffc107';
+        return;
+      }
+
+      let validation = { valid: false, message: 'Validador no disponible' };
+      if (typeof validatePostgresSqlSyntax === 'function') {
+        validation = validatePostgresSqlSyntax(sql);
+      }
+
+      resultStatus.textContent = validation.message || '';
+      resultStatus.style.color = validation.valid ? '#198754' : '#dc3545';
+
+      const stmtType = detectStatementType(sql);
+      statementType.textContent = 'Tipo de sentencia: ' + stmtType;
+
+      if (!validation.valid) {
+        const err = document.createElement('div');
+        err.className = 'text-danger small mb-2';
+        err.textContent = 'Errores: ' + (validation.message || 'Sintaxis inválida');
+        errorsList.appendChild(err);
+      }
+
+      const { warnings, recs } = generateWarningsRecommendations(sql, stmtType);
+      if (warnings.length) {
+        const ul = document.createElement('ul');
+        ul.className = 'small text-warning';
+        warnings.forEach(w => { const li = document.createElement('li'); li.textContent = w; ul.appendChild(li); });
+        warningsList.appendChild(ul);
+      }
+      if (recs.length) {
+        const ul = document.createElement('ul');
+        ul.className = 'small text-info';
+        recs.forEach(r => { const li = document.createElement('li'); li.textContent = r; ul.appendChild(li); });
+        recommendationsList.appendChild(ul);
+      }
+
+      // resumen
+      const summaryText = [];
+      summaryText.push('Analizador PostgreSQL - Resultado');
+      summaryText.push('Validez: ' + (validation.valid ? 'VÁLIDO' : 'INVÁLIDO'));
+      summaryText.push('Tipo: ' + stmtType);
+      if (!validation.valid) summaryText.push('Error: ' + (validation.message || 'Error de sintaxis'));
+      if (warnings.length) summaryText.push('Advertencias: ' + warnings.join(' | '));
+      if (recs.length) summaryText.push('Recomendaciones: ' + recs.join(' | '));
+      summary.value = summaryText.join('\n');
+    });
+
+    document.getElementById('clearBtn').addEventListener('click', function () {
+      document.getElementById('sql-input').value = '';
+      document.getElementById('resultStatus').textContent = '';
+      document.getElementById('statementType').textContent = '';
+      document.getElementById('errorsList').innerHTML = '';
+      document.getElementById('warningsList').innerHTML = '';
+      document.getElementById('recommendationsList').innerHTML = '';
+      document.getElementById('summary').value = '';
+    });
+
+    document.getElementById('copyBtn').addEventListener('click', function () {
+      const summary = document.getElementById('summary');
+      if (!summary.value) return;
+      navigator.clipboard.writeText(summary.value).then(() => {
+        alert('Resumen copiado al portapapeles');
+      }).catch(() => {
+        alert('No se pudo copiar automáticamente. Seleccione y copie manualmente.');
+      });
+    });
+
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
+  </script>
+</body>
+
+</html>
