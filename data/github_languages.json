@@ -1,10 +1,10 @@
 {
   "source": "github-languages",
-  "generated_at": "2026-06-15T17:11:14.280Z",
+  "generated_at": "2026-06-15T20:42:22.091Z",
   "totals": {
-    "JavaScript": 148262,
-    "HTML": 72608,
-    "CSS": 28759,
+    "JavaScript": 149497,
+    "HTML": 73918,
+    "CSS": 28922,
     "Dart": 103398,
     "C++": 24784,
     "CMake": 19700,
@@ -20,7 +20,7 @@
   "languages": [
     {
       "name": "JavaScript",
-      "bytes": 148262
+      "bytes": 149497
     },
     {
       "name": "Dart",
@@ -28,11 +28,11 @@
     },
     {
       "name": "HTML",
-      "bytes": 72608
+      "bytes": 73918
     },
     {
       "name": "CSS",
-      "bytes": 28759
+      "bytes": 28922
     },
     {
       "name": "C++",

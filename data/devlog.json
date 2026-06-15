@@ -1,8 +1,14 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-06-15T17:11:12.475Z",
+  "generated_at": "2026-06-15T20:42:20.426Z",
   "total": 8,
   "items": [
+    {
+      "repo": "maniat1k.github.io",
+      "message": "mejora en el aboutSummary",
+      "date": "2026-06-15T17:58:22Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/7eb7f496e19ad189bbb5873b1112988a9fbc4293"
+    },
     {
       "repo": "maniat1k.github.io",
       "message": "post: la historia de el analizador de postgreSQL",
@@ -44,12 +50,6 @@
       "message": "Add Postman badge to README.md",
       "date": "2026-06-10T19:43:23Z",
       "url": "https://github.com/maniat1k/maniat1k/commit/c7c8dc099eaec595d78c8b0b5d88f8864940c3e1"
-    },
-    {
-      "repo": "nido",
-      "message": "Merge pull request #2 from maniat1k/feat/publish-item-flow",
-      "date": "2026-03-25T16:46:40Z",
-      "url": "https://github.com/maniat1k/nido/commit/06e90a2f8826b404a686f6e5ce46330bcb9a818e"
     }
   ]
 }
