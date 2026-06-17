@@ -1,6 +1,6 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-06-17T02:32:45.808Z",
+  "generated_at": "2026-06-17T10:22:19.518Z",
   "total": 8,
   "items": [
     {
@@ -14,12 +14,6 @@
       "message": "post: la historia de el analizador de postgreSQL",
       "date": "2026-06-15T17:10:30Z",
       "url": "https://github.com/maniat1k/maniat1k.github.io/commit/838babb961dfbefec030bd940a8304bb9c4aad03"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "message": "feat: analizador de postgres (alfa)",
-      "date": "2026-06-15T16:44:46Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/de98d4ec12bb0975c8a64c2211270010d2119edb"
     },
     {
       "repo": "maniat1k",
@@ -50,6 +44,12 @@
       "message": "trabajo auditado",
       "date": "2026-03-13T19:10:24Z",
       "url": "https://github.com/maniat1k/nido/commit/7b170d0007e2d0691fb09731639da641cdb051f1"
+    },
+    {
+      "repo": "nido",
+      "message": "First implementation to save.",
+      "date": "2026-03-09T15:04:57Z",
+      "url": "https://github.com/maniat1k/nido/commit/02713f26612a95ff28a98f6d8bcdc6f1f6d18f65"
     }
   ]
 }
