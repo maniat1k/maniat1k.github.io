@@ -1,6 +1,6 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-06-16T20:37:20.839Z",
+  "generated_at": "2026-06-17T02:32:45.808Z",
   "total": 8,
   "items": [
     {
@@ -20,12 +20,6 @@
       "message": "feat: analizador de postgres (alfa)",
       "date": "2026-06-15T16:44:46Z",
       "url": "https://github.com/maniat1k/maniat1k.github.io/commit/de98d4ec12bb0975c8a64c2211270010d2119edb"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "message": "cambios de imagen",
-      "date": "2026-06-15T15:04:25Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/8f025d928dc538a9f71ecc05e9114cbfcec0380e"
     },
     {
       "repo": "maniat1k",
@@ -50,6 +44,12 @@
       "message": "últimos cambios ya no voy a tocar nada más por un tiempo",
       "date": "2026-03-25T16:30:49Z",
       "url": "https://github.com/maniat1k/nido/commit/c627f4fcf49e065dc65934d196b51dbf221459d5"
+    },
+    {
+      "repo": "nido",
+      "message": "trabajo auditado",
+      "date": "2026-03-13T19:10:24Z",
+      "url": "https://github.com/maniat1k/nido/commit/7b170d0007e2d0691fb09731639da641cdb051f1"
     }
   ]
 }
