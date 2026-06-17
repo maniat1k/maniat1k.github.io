@@ -1,19 +1,19 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-06-17T12:32:26.603Z",
+  "generated_at": "2026-06-17T12:37:10.799Z",
   "total": 8,
   "items": [
+    {
+      "repo": "maniat1k.github.io",
+      "message": "actualizacion del post",
+      "date": "2026-06-17T12:36:40Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/2e1442a4000a602d337fce56de37e52f81a005c7"
+    },
     {
       "repo": "maniat1k.github.io",
       "message": "Mejora validador SQL PostgreSQL",
       "date": "2026-06-17T12:32:00Z",
       "url": "https://github.com/maniat1k/maniat1k.github.io/commit/6750cb3124bb5656a267e43ad2a4f3e6d857f2ce"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "message": "mejora en el aboutSummary",
-      "date": "2026-06-15T17:58:22Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/7eb7f496e19ad189bbb5873b1112988a9fbc4293"
     },
     {
       "repo": "maniat1k",
