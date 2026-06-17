@@ -1,8 +1,14 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-06-17T12:37:10.799Z",
+  "generated_at": "2026-06-17T12:42:05.943Z",
   "total": 8,
   "items": [
+    {
+      "repo": "maniat1k.github.io",
+      "message": "actualizacion del post",
+      "date": "2026-06-17T12:41:41Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/320d8fd5076715944e7a426273253ee453f5341e"
+    },
     {
       "repo": "maniat1k.github.io",
       "message": "actualizacion del post",
@@ -44,12 +50,6 @@
       "message": "trabajo auditado",
       "date": "2026-03-13T19:10:24Z",
       "url": "https://github.com/maniat1k/nido/commit/7b170d0007e2d0691fb09731639da641cdb051f1"
-    },
-    {
-      "repo": "nido",
-      "message": "First implementation to save.",
-      "date": "2026-03-09T15:04:57Z",
-      "url": "https://github.com/maniat1k/nido/commit/02713f26612a95ff28a98f6d8bcdc6f1f6d18f65"
     }
   ]
 }
