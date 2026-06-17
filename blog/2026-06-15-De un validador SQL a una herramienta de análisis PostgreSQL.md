@@ -162,16 +162,16 @@ Y probablemente siga evolucionando.
 
 Las siguientes mejoras ya están identificadas:
 
-* Crear una suite automática de tests.
-* Mejorar el soporte para `CREATE TABLE`.
-* Endurecer validaciones de `INSERT`.
-* Detectar estructuras SQL ambiguas.
-* Agregar recomendaciones más inteligentes.
-* Mejorar la clasificación de advertencias.
-* Permitir copiar resultados de análisis.
-* Incorporar estadísticas básicas de complejidad.
+## Próximos pasos
 
-El objetivo no es reemplazar PostgreSQL.
+- ~~Crear una suite automática de tests.~~
+- ~~Mejorar el soporte para `CREATE TABLE`.~~
+- ~~Endurecer validaciones de `INSERT`.~~
+- ~~Detectar estructuras SQL ambiguas.~~
+- ~~Agregar recomendaciones más inteligentes.~~
+- ~~Mejorar la clasificación de advertencias.~~
+- ~~Permitir copiar resultados de análisis.~~
+- ~~Incorporar estadísticas básicas de complejidad.~~
 
 El objetivo es ayudar a pensar mejor las consultas antes de ejecutarlas.
 
