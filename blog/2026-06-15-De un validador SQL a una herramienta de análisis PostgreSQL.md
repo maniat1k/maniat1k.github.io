@@ -177,4 +177,4 @@ El objetivo es ayudar a pensar mejor las consultas antes de ejecutarlas.
 
 > 🚀 Podés probar la herramienta acá:
 >
-> https://maniat1k.github.io/postgres-analyzer.html
+> [https://maniat1k.github.io/postgres-analyzer.html]( https://maniat1k.github.io/postgres-analyzer.html)

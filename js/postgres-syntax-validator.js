@@ -458,6 +458,14 @@
       }
     }
 
+    _parseQualifiedName() {
+      this._parseIdentifier();
+      while (this._matchSymbol('.')) {
+        this._advance();
+        this._parseIdentifier();
+      }
+    }
+
     _parseOptionalAlias() {
       if (this._matchKeyword('AS')) {
         this._advance();
@@ -533,24 +541,29 @@
 
     _parseInsertStatement() {
       this._expectKeyword('INSERT');
-      if (this._matchKeyword('INTO')) {
-        this._advance();
-      }
-      this._parseTableReference();
+      this._expectKeyword('INTO');
+      this._parseQualifiedName();
+      let columnCount = null;
       if (this._matchSymbol('(')) {
-        this._advance();
-        this._parseIdentifier();
-        while (this._matchSymbol(',')) {
-          this._advance();
-          this._parseIdentifier();
-        }
-        this._expectSymbol(')');
+        columnCount = this._parseIdentifierListInParentheses('La lista de columnas del INSERT no puede estar vacía');
       }
       if (this._matchKeyword('VALUES')) {
         this._advance();
-        this._parseValueGroups();
+        const valueCounts = this._parseValueGroups();
+        if (columnCount !== null) {
+          valueCounts.forEach((count) => {
+            if (count !== columnCount) {
+              throw new ParseError(`Cantidad de valores (${count}) no coincide con columnas (${columnCount})`, this._position());
+            }
+          });
+        }
+      } else if (this._matchKeyword('DEFAULT')) {
+        this._advance();
+        this._expectKeyword('VALUES');
       } else if (this._matchKeyword('SELECT') || this._matchKeyword('WITH')) {
         this._parseStatement();
+      } else {
+        throw new ParseError('INSERT incompleto: se esperaba VALUES, DEFAULT VALUES o SELECT', this._position());
       }
       if (this._matchKeyword('ON')) {
         this._advance();
@@ -566,23 +579,17 @@
     }
 
     _parseValueGroups() {
+      const counts = [];
       this._expectSymbol('(');
-      this._parseExpression();
-      while (this._matchSymbol(',')) {
-        this._advance();
-        this._parseExpression();
-      }
+      counts.push(this._parseCommaSeparatedExpressionsUntil(')', 'VALUES no puede estar vacío'));
       this._expectSymbol(')');
       while (this._matchSymbol(',')) {
         this._advance();
         this._expectSymbol('(');
-        this._parseExpression();
-        while (this._matchSymbol(',')) {
-          this._advance();
-          this._parseExpression();
-        }
+        counts.push(this._parseCommaSeparatedExpressionsUntil(')', 'VALUES no puede estar vacío'));
         this._expectSymbol(')');
       }
+      return counts;
     }
 
     _parseUpdateStatement() {
@@ -621,6 +628,11 @@
       while (this._matchKeyword('TEMP') || this._matchKeyword('TEMPORARY') || this._matchKeyword('UNLOGGED')) {
         this._advance();
       }
+      if (this._matchKeyword('TABLE')) {
+        this._advance();
+        this._parseCreateTableStatement();
+        return;
+      }
       if (this._matchKeyword('TABLE') || this._matchKeyword('VIEW') || this._matchKeyword('INDEX') || this._matchKeyword('SCHEMA') || this._matchKeyword('DATABASE') || this._matchKeyword('FUNCTION') || this._matchKeyword('PROCEDURE') || this._matchKeyword('TYPE')) {
         this._advance();
       }
@@ -647,6 +659,191 @@
           this._parseStatement();
         }
       }
+    }
+
+    _parseCreateTableStatement() {
+      if (this._matchKeyword('IF')) {
+        this._advance();
+        this._expectKeyword('NOT');
+        this._expectKeyword('EXISTS');
+      }
+
+      this._parseQualifiedName();
+
+      if (this._matchKeyword('AS')) {
+        this._advance();
+        if (this._matchKeyword('SELECT') || this._matchKeyword('WITH')) {
+          this._parseStatement();
+          return;
+        }
+        throw new ParseError('CREATE TABLE AS requiere SELECT o WITH', this._position());
+      }
+
+      this._expectSymbol('(');
+      if (this._matchSymbol(')')) {
+        throw new ParseError('CREATE TABLE requiere al menos una columna o constraint', this._position());
+      }
+
+      while (!this._isAtEnd()) {
+        if (this._matchSymbol(',')) {
+          throw new ParseError('Coma sobrante o definición vacía en CREATE TABLE', this._position());
+        }
+
+        this._parseTableElement();
+
+        if (this._matchSymbol(',')) {
+          this._advance();
+          if (this._matchSymbol(')')) {
+            throw new ParseError('Coma sobrante antes de cerrar CREATE TABLE', this._position());
+          }
+          continue;
+        }
+
+        if (this._matchSymbol(')')) {
+          this._advance();
+          return;
+        }
+
+        throw new ParseError('Se esperaba coma entre definiciones de CREATE TABLE', this._position());
+      }
+
+      throw new ParseError('Se esperaba el símbolo )', this._position());
+    }
+
+    _parseTableElement() {
+      if (this._matchKeyword('CONSTRAINT')) {
+        this._advance();
+        this._parseIdentifier();
+        this._parseTableConstraint();
+        return;
+      }
+
+      if (this._matchKeyword('PRIMARY') || this._matchKeyword('UNIQUE') || this._matchKeyword('CHECK') || this._matchKeyword('FOREIGN')) {
+        this._parseTableConstraint();
+        return;
+      }
+
+      this._parseIdentifier();
+
+      if (this._isColumnConstraintStart(this.tokens[this.position]) || this._matchSymbol(',') || this._matchSymbol(')')) {
+        throw new ParseError('Columna sin tipo de dato en CREATE TABLE', this._position());
+      }
+
+      this._parseColumnType();
+
+      while (!this._isAtEnd() && !this._matchSymbol(',') && !this._matchSymbol(')')) {
+        if (this._isColumnConstraintStart(this.tokens[this.position])) {
+          this._parseColumnConstraint();
+          continue;
+        }
+        if (this._matchIdentifier()) {
+          throw new ParseError('Se esperaba coma entre definiciones de CREATE TABLE', this._position());
+        }
+        throw new ParseError('Token inesperado en definición de columna CREATE TABLE', this._position());
+      }
+    }
+
+    _parseColumnType() {
+      if (!(this._matchType('identifier') || this._matchType('quotedIdentifier') || this._matchType('keyword'))) {
+        throw new ParseError('Tipo de dato esperado en CREATE TABLE', this._position());
+      }
+      this._advance();
+
+      const allowedTypeTail = new Set(['PRECISION', 'VARYING', 'WITH', 'WITHOUT', 'TIME', 'ZONE']);
+      while (!this._isAtEnd()) {
+        const token = this.tokens[this.position];
+        if (!(token.type === 'identifier' || token.type === 'keyword') || !allowedTypeTail.has(token.value)) break;
+        this._advance();
+      }
+
+      if (this._matchSymbol('(')) {
+        this._advance();
+        this._parseBalancedParentheses();
+      }
+      if (this._matchSymbol('[')) {
+        this._advance();
+        this._expectSymbol(']');
+      }
+    }
+
+    _parseColumnConstraint() {
+      if (this._matchKeyword('CONSTRAINT')) {
+        this._advance();
+        this._parseIdentifier();
+      }
+      if (this._matchKeyword('PRIMARY')) {
+        this._advance();
+        this._expectKeyword('KEY');
+        return;
+      }
+      if (this._matchKeyword('NOT')) {
+        this._advance();
+        this._expectKeyword('NULL');
+        return;
+      }
+      if (this._matchKeyword('UNIQUE')) {
+        this._advance();
+        return;
+      }
+      if (this._matchKeyword('DEFAULT')) {
+        this._advance();
+        this._parseExpressionUntil({
+          symbols: new Set([',', ')']),
+          keywords: new Set(['CONSTRAINT', 'PRIMARY', 'NOT', 'UNIQUE', 'CHECK', 'REFERENCES'])
+        });
+        return;
+      }
+      if (this._matchKeyword('CHECK')) {
+        this._advance();
+        this._expectSymbol('(');
+        this._parseBalancedParentheses();
+        return;
+      }
+      if (this._matchKeyword('REFERENCES')) {
+        this._advance();
+        this._parseTableReference();
+        if (this._matchSymbol('(')) {
+          this._parseIdentifierListInParentheses('La lista REFERENCES no puede estar vacía');
+        }
+        return;
+      }
+      throw new ParseError('Constraint de columna no reconocida', this._position());
+    }
+
+    _parseTableConstraint() {
+      if (this._matchKeyword('PRIMARY')) {
+        this._advance();
+        this._expectKeyword('KEY');
+        this._parseIdentifierListInParentheses('PRIMARY KEY requiere columnas');
+        return;
+      }
+      if (this._matchKeyword('UNIQUE')) {
+        this._advance();
+        this._parseIdentifierListInParentheses('UNIQUE requiere columnas');
+        return;
+      }
+      if (this._matchKeyword('CHECK')) {
+        this._advance();
+        this._expectSymbol('(');
+        this._parseBalancedParentheses();
+        return;
+      }
+      if (this._matchKeyword('FOREIGN')) {
+        this._advance();
+        this._expectKeyword('KEY');
+        this._parseIdentifierListInParentheses('FOREIGN KEY requiere columnas');
+        this._expectKeyword('REFERENCES');
+        this._parseTableReference();
+        if (this._matchSymbol('(')) {
+          this._parseIdentifierListInParentheses('REFERENCES requiere columnas');
+        }
+        return;
+      }
+      throw new ParseError('Constraint de tabla no reconocida', this._position());
+    }
+
+    _isColumnConstraintStart(token) {
+      return token && token.type === 'keyword' && ['CONSTRAINT', 'PRIMARY', 'NOT', 'UNIQUE', 'DEFAULT', 'CHECK', 'REFERENCES'].includes(token.value);
     }
 
     _parseAlterStatement() {
@@ -753,6 +950,48 @@
         this._advance();
         this._parseExpression();
       }
+    }
+
+    _parseIdentifierListInParentheses(emptyMessage) {
+      let count = 0;
+      this._expectSymbol('(');
+      if (this._matchSymbol(')')) {
+        throw new ParseError(emptyMessage || 'Lista vacía no permitida', this._position());
+      }
+      this._parseIdentifier();
+      count += 1;
+      while (this._matchSymbol(',')) {
+        this._advance();
+        if (this._matchSymbol(')')) {
+          throw new ParseError('Coma sobrante en lista de identificadores', this._position());
+        }
+        this._parseIdentifier();
+        count += 1;
+      }
+      this._expectSymbol(')');
+      return count;
+    }
+
+    _parseCommaSeparatedExpressionsUntil(endSymbol, emptyMessage) {
+      let count = 0;
+      if (this._matchSymbol(endSymbol)) {
+        throw new ParseError(emptyMessage || 'Lista de expresiones vacía', this._position());
+      }
+      this._parseExpressionUntil({
+        symbols: new Set([',', endSymbol])
+      });
+      count += 1;
+      while (this._matchSymbol(',')) {
+        this._advance();
+        if (this._matchSymbol(endSymbol)) {
+          throw new ParseError('Coma sobrante en lista de valores', this._position());
+        }
+        this._parseExpressionUntil({
+          symbols: new Set([',', endSymbol])
+        });
+        count += 1;
+      }
+      return count;
     }
 
     _parseExpression() {
@@ -1007,18 +1246,143 @@
     }
   }
 
-  function validatePostgresSqlSyntax(sql) {
+  function detectStatementTypeFromTokens(tokens) {
+    const firstCommand = tokens.find((token) => token.type === 'keyword' && ['WITH', 'SELECT', 'INSERT', 'UPDATE', 'DELETE', 'CREATE', 'ALTER', 'DROP', 'TRUNCATE', 'GRANT', 'REVOKE'].includes(token.value));
+    if (!firstCommand) return 'Desconocido';
+    if (firstCommand.value !== 'WITH') return firstCommand.value;
+    const afterWith = tokens.find((token) => token.type === 'keyword' && ['SELECT', 'INSERT', 'UPDATE', 'DELETE'].includes(token.value));
+    return afterWith ? `WITH ${afterWith.value}` : 'WITH';
+  }
+
+  function countSqlCommands(tokens) {
+    return tokens.filter((token) => token.type === 'keyword' && ['SELECT', 'INSERT', 'UPDATE', 'DELETE', 'CREATE', 'ALTER', 'DROP', 'TRUNCATE', 'GRANT', 'REVOKE', 'WITH'].includes(token.value)).length;
+  }
+
+  function estimateComplexity(tokens, lineCount, commandCount) {
+    const joinCount = tokens.filter((token) => token.type === 'keyword' && token.value === 'JOIN').length;
+    const clauseCount = tokens.filter((token) => token.type === 'keyword' && ['WHERE', 'GROUP', 'ORDER', 'HAVING', 'UNION', 'INTERSECT', 'EXCEPT', 'WITH'].includes(token.value)).length;
+    if (commandCount > 2 || joinCount > 2 || clauseCount > 4 || tokens.length > 120 || lineCount > 20) return 'alta';
+    if (commandCount > 1 || joinCount > 0 || clauseCount > 1 || tokens.length > 35 || lineCount > 6) return 'media';
+    return 'baja';
+  }
+
+  function buildStats(sql, tokens, diagnostics) {
+    const lineCount = String(sql || '').replace(/\r\n/g, '\n').split('\n').length;
+    const commandCount = Math.max(
+      1,
+      String(sql || '').split(';').map((part) => part.trim()).filter(Boolean).length,
+      countSqlCommands(tokens)
+    );
+    return {
+      lines: lineCount,
+      commands: commandCount,
+      statementType: detectStatementTypeFromTokens(tokens),
+      errors: diagnostics.errors.length,
+      warnings: diagnostics.warnings.length,
+      complexity: estimateComplexity(tokens, lineCount, commandCount)
+    };
+  }
+
+  function messageForDiagnostics(diagnostics) {
+    if (diagnostics.errors.length) return `❌ Error: ${diagnostics.errors[0]}`;
+    if (diagnostics.warnings.length) return `⚠️ Advertencia: ${diagnostics.warnings[0]}`;
+    return '✅ Sintaxis PostgreSQL válida';
+  }
+
+  function recommendationForError(message) {
+    if (/INSERT incompleto|se esperaba VALUES/i.test(message)) return 'Agregá VALUES (...), DEFAULT VALUES o un SELECT después del INSERT.';
+    if (/Expresión SQL inválida o inesperada/i.test(message)) return 'Revisá que cada SELECT tenga columnas o expresiones antes de FROM/WHERE.';
+    if (/Cantidad de valores/i.test(message)) return 'Revisá que la cantidad de columnas coincida con la cantidad de valores en cada grupo VALUES.';
+    if (/Columna sin tipo|Tipo de dato esperado/i.test(message)) return 'Indicá un tipo de dato para cada columna, por ejemplo id SERIAL o name TEXT.';
+    if (/coma sobrante/i.test(message)) return 'Eliminá la coma sobrante o agregá la definición que falta.';
+    if (/coma entre definiciones/i.test(message)) return 'Separá cada columna o constraint con una coma.';
+    if (/Cadena o identificador entre comillas sin cerrar/i.test(message)) return 'Cerrá la comilla de texto o identificador antes de continuar.';
+    if (/Se esperaba el símbolo \)/i.test(message)) return 'Cerrá los paréntesis abiertos.';
+    if (/INTO/i.test(message)) return 'Usá la forma INSERT INTO tabla (...) VALUES (...).';
+    return '';
+  }
+
+  function collectWarnings(tokens, sql) {
+    const warnings = [];
+    const starters = ['SELECT', 'INSERT', 'UPDATE', 'DELETE', 'CREATE', 'ALTER', 'DROP', 'TRUNCATE'];
+    let lastSemicolonPosition = -1;
+    let seenStarter = null;
+
+    tokens.forEach((token, index) => {
+      if (token.type === 'symbol' && token.value === ';') {
+        lastSemicolonPosition = index;
+        seenStarter = null;
+        return;
+      }
+      if (token.type === 'keyword' && starters.includes(token.value)) {
+        if (seenStarter && lastSemicolonPosition < index) {
+          warnings.push(`Se detectó una posible mezcla de comandos (${seenStarter} y ${token.value}) sin separador claro.`);
+        }
+        seenStarter = token.value;
+      }
+    });
+
+    if (String(sql || '').trim() && !/;\s*$/.test(String(sql || '').trim())) {
+      warnings.push('La sentencia no termina con punto y coma; puede ser válido, pero dificulta analizar múltiples comandos.');
+    }
+
+    return warnings;
+  }
+
+  function analyzePostgresSql(sql) {
     const trimmed = sql.replace(/\r\n/g, '\n');
     const tokenizer = new Tokenizer(trimmed);
     const tokens = tokenizer.tokenize().filter(Boolean);
+    const diagnostics = {
+      errors: [],
+      warnings: [],
+      recommendations: [],
+      info: []
+    };
+
     if (!tokens.length) {
-      return { valid: false, message: '❌ Error: consulta vacía o solo comentarios' };
+      diagnostics.errors.push('consulta vacía o solo comentarios');
+      diagnostics.recommendations.push('Ingresá una sentencia SQL antes de analizar.');
+      return {
+        valid: false,
+        status: 'error',
+        message: messageForDiagnostics(diagnostics),
+        ...diagnostics,
+        stats: buildStats(sql, tokens, diagnostics)
+      };
     }
 
-    const parser = new Parser(tokens);
-    parser.parseStatements();
+    try {
+      const parser = new Parser(tokens);
+      parser.parseStatements();
+    } catch (error) {
+      if (error instanceof ParseError) {
+        diagnostics.errors.push(error.message);
+        const recommendation = recommendationForError(error.message);
+        if (recommendation) diagnostics.recommendations.push(recommendation);
+      } else {
+        diagnostics.errors.push('Error interno al validar SQL');
+      }
+    }
 
-    return { valid: true, message: '✅ Sintaxis PostgreSQL válida' };
+    if (!diagnostics.errors.length) {
+      diagnostics.warnings.push(...collectWarnings(tokens, sql));
+    }
+
+    diagnostics.info.push('Análisis estático local: no ejecuta SQL ni verifica objetos reales de la base.');
+
+    const status = diagnostics.errors.length ? 'error' : (diagnostics.warnings.length ? 'warning' : 'ok');
+    return {
+      valid: !diagnostics.errors.length,
+      status,
+      message: messageForDiagnostics(diagnostics),
+      ...diagnostics,
+      stats: buildStats(sql, tokens, diagnostics)
+    };
+  }
+
+  function validatePostgresSqlSyntax(sql) {
+    return analyzePostgresSql(sql);
   }
 
   function safeValidatePostgresSqlSyntax(sql) {
@@ -1026,11 +1390,28 @@
       return validatePostgresSqlSyntax(sql);
     } catch (error) {
       if (error instanceof ParseError) {
-        return { valid: false, message: `❌ Error: ${error.message}` };
+        const diagnostics = {
+          errors: [error.message],
+          warnings: [],
+          recommendations: [recommendationForError(error.message)].filter(Boolean),
+          info: [],
+          stats: { lines: 0, commands: 0, statementType: 'Desconocido', errors: 1, warnings: 0, complexity: 'baja' }
+        };
+        return { valid: false, status: 'error', message: `❌ Error: ${error.message}`, ...diagnostics };
       }
-      return { valid: false, message: '❌ Error interno al validar SQL' };
+      return {
+        valid: false,
+        status: 'error',
+        message: '❌ Error interno al validar SQL',
+        errors: ['Error interno al validar SQL'],
+        warnings: [],
+        recommendations: [],
+        info: [],
+        stats: { lines: 0, commands: 0, statementType: 'Desconocido', errors: 1, warnings: 0, complexity: 'baja' }
+      };
     }
   }
 
   window.validatePostgresSqlSyntax = safeValidatePostgresSqlSyntax;
+  window.analyzePostgresSql = safeValidatePostgresSqlSyntax;
 })();

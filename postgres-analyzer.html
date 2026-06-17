@@ -107,6 +107,7 @@
               <h3 class="h6">Resultado</h3>
               <div id="resultStatus" class="mb-2 small fw-bold"></div>
               <div id="statementType" class="mb-2 small"></div>
+              <div id="statsSummary" class="mb-2 small"></div>
               <div id="errorsList" class="mb-2"></div>
               <div id="warningsList" class="mb-2"></div>
               <div id="recommendationsList" class="mb-2"></div>
@@ -169,6 +170,7 @@
       const sql = document.getElementById('sql-input').value || '';
       const resultStatus = document.getElementById('resultStatus');
       const statementType = document.getElementById('statementType');
+      const statsSummary = document.getElementById('statsSummary');
       const errorsList = document.getElementById('errorsList');
       const warningsList = document.getElementById('warningsList');
       const recommendationsList = document.getElementById('recommendationsList');
@@ -176,6 +178,7 @@
 
       resultStatus.textContent = '';
       statementType.textContent = '';
+      statsSummary.textContent = '';
       errorsList.innerHTML = '';
       warningsList.innerHTML = '';
       recommendationsList.innerHTML = '';
@@ -187,25 +190,38 @@
         return;
       }
 
-      let validation = { valid: false, message: 'Validador no disponible' };
-      if (typeof validatePostgresSqlSyntax === 'function') {
+      let validation = { valid: false, status: 'error', message: 'Validador no disponible', errors: ['Validador no disponible'], warnings: [], recommendations: [], info: [], stats: null };
+      if (typeof analyzePostgresSql === 'function') {
+        validation = analyzePostgresSql(sql);
+      } else if (typeof validatePostgresSqlSyntax === 'function') {
         validation = validatePostgresSqlSyntax(sql);
       }
 
       resultStatus.textContent = validation.message || '';
-      resultStatus.style.color = validation.valid ? '#198754' : '#dc3545';
+      resultStatus.style.color = validation.status === 'warning' ? '#b58100' : (validation.valid ? '#198754' : '#dc3545');
 
-      const stmtType = detectStatementType(sql);
+      const stmtType = validation.stats?.statementType || detectStatementType(sql);
       statementType.textContent = 'Tipo de sentencia: ' + stmtType;
-
-      if (!validation.valid) {
-        const err = document.createElement('div');
-        err.className = 'text-danger small mb-2';
-        err.textContent = 'Errores: ' + (validation.message || 'Sintaxis inválida');
-        errorsList.appendChild(err);
+      if (validation.stats) {
+        statsSummary.textContent = [
+          'Líneas: ' + validation.stats.lines,
+          'Comandos estimados: ' + validation.stats.commands,
+          'Errores: ' + validation.stats.errors,
+          'Advertencias: ' + validation.stats.warnings,
+          'Complejidad: ' + validation.stats.complexity
+        ].join(' · ');
       }
 
-      const { warnings, recs } = generateWarningsRecommendations(sql, stmtType);
+      if (validation.errors?.length) {
+        const ul = document.createElement('ul');
+        ul.className = 'small text-danger';
+        validation.errors.forEach(error => { const li = document.createElement('li'); li.textContent = error; ul.appendChild(li); });
+        errorsList.appendChild(ul);
+      }
+
+      const generated = generateWarningsRecommendations(sql, stmtType);
+      const warnings = [...(validation.warnings || []), ...generated.warnings];
+      const recs = [...(validation.recommendations || []), ...generated.recs];
       if (warnings.length) {
         const ul = document.createElement('ul');
         ul.className = 'small text-warning';
@@ -218,15 +234,27 @@
         recs.forEach(r => { const li = document.createElement('li'); li.textContent = r; ul.appendChild(li); });
         recommendationsList.appendChild(ul);
       }
+      if (validation.info?.length) {
+        const ul = document.createElement('ul');
+        ul.className = 'small text-secondary';
+        validation.info.forEach(info => { const li = document.createElement('li'); li.textContent = info; ul.appendChild(li); });
+        recommendationsList.appendChild(ul);
+      }
 
       // resumen
       const summaryText = [];
       summaryText.push('Analizador PostgreSQL - Resultado');
-      summaryText.push('Validez: ' + (validation.valid ? 'VÁLIDO' : 'INVÁLIDO'));
+      summaryText.push('Estado: ' + (validation.status === 'warning' ? 'ADVERTENCIA' : (validation.valid ? 'VÁLIDO' : 'INVÁLIDO')));
       summaryText.push('Tipo: ' + stmtType);
-      if (!validation.valid) summaryText.push('Error: ' + (validation.message || 'Error de sintaxis'));
+      if (validation.stats) {
+        summaryText.push('Líneas: ' + validation.stats.lines);
+        summaryText.push('Comandos estimados: ' + validation.stats.commands);
+        summaryText.push('Complejidad: ' + validation.stats.complexity);
+      }
+      if (validation.errors?.length) summaryText.push('Errores: ' + validation.errors.join(' | '));
       if (warnings.length) summaryText.push('Advertencias: ' + warnings.join(' | '));
       if (recs.length) summaryText.push('Recomendaciones: ' + recs.join(' | '));
+      if (validation.info?.length) summaryText.push('Información: ' + validation.info.join(' | '));
       summary.value = summaryText.join('\n');
     });
 
@@ -234,6 +262,7 @@
       document.getElementById('sql-input').value = '';
       document.getElementById('resultStatus').textContent = '';
       document.getElementById('statementType').textContent = '';
+      document.getElementById('statsSummary').textContent = '';
       document.getElementById('errorsList').innerHTML = '';
       document.getElementById('warningsList').innerHTML = '';
       document.getElementById('recommendationsList').innerHTML = '';
