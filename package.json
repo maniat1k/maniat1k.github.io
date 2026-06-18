@@ -10,6 +10,7 @@
     "refresh:linkedin": "node scripts/refresh-linkedin-fallback.mjs",
     "stats:build": "node scripts/generate-stats.mjs",
     "test:postgres": "node tests/postgres-syntax-validator.test.mjs",
+    "test:finance": "node tests/financial-calculator.test.mjs",
     "refresh:data": "npm run refresh:github && npm run refresh:linkedin && npm run stats:build && npm run blog:build && npm run feeds:build",
     "preview": "node scripts/preview.mjs",
     "dev": "node scripts/preview.mjs"

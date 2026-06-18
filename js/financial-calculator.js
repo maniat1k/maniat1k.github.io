@@ -1,747 +1,1085 @@
 /**
- * FINANCIAL CALCULATOR - Diagnóstico Financiero 50/30/20
- * =========================================================
- * Este módulo contiene toda la lógica para calcular y visualizar
- * el diagnóstico financiero basado en la regla 50/30/20.
- * 
- * Funcionalidades:
- * - Validación de entrada de datos
- * - Parseo de números con punto o coma
- * - Cálculos de distribución 50/30/20
- * - Generación de recomendaciones inteligentes
- * - Proyección de ahorro a corto/mediano/largo plazo
- * - Estados visuales (Saludable, Ajustado, En Riesgo)
+ * Local personal finance analyzer.
+ * Works entirely in the browser: no backend, no accounts, no tracking.
  */
+(function () {
+  'use strict';
 
-// =========================================================
-// CONFIGURACIÓN Y CONSTANTES
-// =========================================================
-
-const CONFIG = {
-  NEEDS_PERCENTAGE: 0.50,      // 50% para necesidades
-  WANTS_PERCENTAGE: 0.30,      // 30% para deseos
-  SAVINGS_PERCENTAGE: 0.20,    // 20% para ahorro
-  CURRENCY_SYMBOL: '$',
-  CURRENCY_DECIMALS: 2,
-};
-
-// =========================================================
-// SELECTORES DEL DOM
-// =========================================================
-
-const selectors = {
-  form: '#financialForm',
-  inputSection: '#inputSection',
-  resultsSection: '#resultsSection',
-  recommendationsAlert: '#recommendationsAlert',
-  
-  // Inputs
-  monthlyIncome: '#monthlyIncome',
-  rent: '#rent',
-  utilities: '#utilities',
-  food: '#food',
-  transport: '#transport',
-  insurance: '#insurance',
-  otherFixed: '#otherFixed',
-  entertainment: '#entertainment',
-  dining: '#dining',
-  shopping: '#shopping',
-  subscriptions: '#subscriptions',
-  otherVariable: '#otherVariable',
-  creditCards: '#creditCards',
-  loans: '#loans',
-  savingsGoal: '#savingsGoal',
-  
-  // Summary outputs
-  summaryIncome: '#summaryIncome',
-  summaryCommitted: '#summaryCommitted',
-  summaryAvailable: '#summaryAvailable',
-  summarySavingCapacity: '#summarySavingCapacity',
-  
-  // Status indicator
-  statusCard: '#statusCard',
-  statusEmoji: '#statusEmoji',
-  statusLabel: '#statusLabel',
-  statusDescription: '#statusDescription',
-  
-  // Distribution
-  needsPercentage: '#needsPercentage',
-  needsBar: '#needsBar',
-  needsRecommended: '#needsRecommended',
-  needsActual: '#needsActual',
-  wantsPercentage: '#wantsPercentage',
-  wantsBar: '#wantsBar',
-  wantsRecommended: '#wantsRecommended',
-  wantsActual: '#wantsActual',
-  savingsPercentage: '#savingsPercentage',
-  savingsBar: '#savingsBar',
-  savingsRecommended: '#savingsRecommended',
-  savingsActual: '#savingsActual',
-  
-  // Breakdown
-  breakdownFixed: '#breakdownFixed',
-  breakdownVariable: '#breakdownVariable',
-  breakdownDebt: '#breakdownDebt',
-  
-  // Projections
-  projectionContainer: '#projectionContainer',
-  savingsGoalSection: '#savingsGoalSection',
-  monthsToGoal: '#monthsToGoal',
-  goalDate: '#goalDate',
-  
-  // Insights
-  insightsContainer: '#insightsContainer',
-};
-
-// =========================================================
-// UTILIDADES DE FORMATEO
-// =========================================================
-
-/**
- * Convierte un número a formato de moneda
- * @param {number} value - Valor a formatear
- * @returns {string} Valor formateado
- */
-function formatCurrency(value) {
-  return `${CONFIG.CURRENCY_SYMBOL}${parseFloat(value).toFixed(CONFIG.CURRENCY_DECIMALS)
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
-}
-
-/**
- * Parsea un valor de entrada que puede tener punto o coma
- * Acepta: "1000", "1,000", "1.000", "1.000,00"
- * @param {string} value - Valor a parsear
- * @returns {number} Número parseado
- */
-function parseNumber(value) {
-  if (!value || typeof value !== 'string') return 0;
-  
-  // Remover espacios
-  let clean = value.trim();
-  if (!clean) return 0;
-  
-  // Si tiene ambos punto y coma, el último separador es el decimal
-  const lastDot = clean.lastIndexOf('.');
-  const lastComma = clean.lastIndexOf(',');
-  
-  // Si tiene ambos, determinar cuál es el decimal
-  if (lastDot > -1 && lastComma > -1) {
-    if (lastDot > lastComma) {
-      // Formato: 1.000,00 o 1,000.00
-      clean = clean.replace(/,/g, '').replace('.', ',');
-    } else {
-      // Formato: 1,000.00
-      clean = clean.replace(/,/g, '');
+  const SCHEMA_VERSION = '2.0.0';
+  const CONFIG = {
+    CURRENCY_SYMBOL: '$',
+    CURRENCY_DECIMALS: 2,
+    ESSENTIAL_LIMIT: 0.50,
+    SAVINGS_TARGET: 0.20,
+    SCENARIOS: {
+      conservador: 0.50,
+      realista: 0.75,
+      agresivo: 1
     }
-  } else if (lastComma > -1) {
-    // Si solo tiene coma, verificar si es separador de miles o decimal
-    const parts = clean.split(',');
-    if (parts[1].length === 2) {
-      // Es decimal: "1000,00"
-      clean = clean.replace(',', '.');
-    } else {
-      // Es miles: "1,000"
-      clean = clean.replace(',', '');
+  };
+
+  const FIELD_IDS = [
+    'monthlyIncome', 'extraIncome', 'otherIncome',
+    'rent', 'utilities', 'food', 'transport', 'insurance', 'health', 'education', 'family', 'otherFixed',
+    'entertainment', 'dining', 'shopping', 'subscriptions', 'otherVariable',
+    'totalDebt', 'creditCards', 'loans', 'debtExtraPayment',
+    'emergencyFund', 'savingsGoal', 'goalName'
+  ];
+
+  const CURRENCY_FIELD_IDS = FIELD_IDS.filter((id) => id !== 'goalName');
+  const STEPS = [
+    { id: 'monthlyIncome', category: 'Ingresos', title: '¿Cuál es tu sueldo mensual?', help: 'Tu ingreso principal del mes. Podés sumar partidas con +.', kind: 'income' },
+    { id: 'extraIncome', category: 'Ingresos', title: '¿Tenés ingresos extra?', help: 'Freelance, bonos, comisiones u otros ingresos variables.', kind: 'income' },
+    { id: 'otherIncome', category: 'Ingresos', title: '¿Algún otro ingreso mensual?', help: 'Cualquier entrada adicional que quieras considerar.', kind: 'income' },
+    { id: 'rent', category: 'Necesidades', title: '¿Cuánto gastás en alquiler o hipoteca?', help: 'Incluí alquiler, expensas o cuota de vivienda.', kind: 'needs' },
+    { id: 'utilities', category: 'Necesidades', title: '¿Cuánto van tus servicios?', help: 'Luz, agua, internet, celular y servicios básicos.', kind: 'needs' },
+    { id: 'food', category: 'Necesidades', title: '¿Cuánto destinás a alimentación?', help: 'Supermercado y compras esenciales de comida.', kind: 'needs' },
+    { id: 'transport', category: 'Necesidades', title: '¿Cuánto gastás en transporte?', help: 'Boletos, combustible, peajes, taxi o apps.', kind: 'needs' },
+    { id: 'insurance', category: 'Necesidades', title: '¿Tenés gastos de seguros?', help: 'Seguro del auto, hogar, vida u otros.', kind: 'needs' },
+    { id: 'health', category: 'Necesidades', title: '¿Cuánto gastás en salud?', help: 'Mutualista, medicamentos, consultas o tratamientos.', kind: 'needs' },
+    { id: 'education', category: 'Necesidades', title: '¿Cuánto destinás a educación?', help: 'Cursos, cuotas, materiales o formación recurrente.', kind: 'needs' },
+    { id: 'family', category: 'Necesidades', title: '¿Tenés gastos familiares?', help: 'Ayudas, cuidados o responsabilidades familiares.', kind: 'needs' },
+    { id: 'otherFixed', category: 'Necesidades', title: '¿Otros gastos fijos?', help: 'Cualquier necesidad mensual que no entró antes.', kind: 'needs' },
+    { id: 'entertainment', category: 'Deseos', title: '¿Cuánto gastás en ocio?', help: 'Salidas, entretenimiento, hobbies y planes.', kind: 'wants' },
+    { id: 'dining', category: 'Deseos', title: '¿Cuánto gastás comiendo afuera?', help: 'Restaurantes, cafés, delivery y antojos.', kind: 'wants' },
+    { id: 'shopping', category: 'Deseos', title: '¿Cuánto va a compras o ropa?', help: 'Compras personales que podés ajustar si hace falta.', kind: 'wants' },
+    { id: 'subscriptions', category: 'Deseos', title: '¿Cuánto pagás en suscripciones?', help: 'Streaming, apps, membresías y software.', kind: 'wants' },
+    { id: 'otherVariable', category: 'Deseos', title: '¿Otros gastos variables?', help: 'Gastos personales que cambian mes a mes.', kind: 'wants' },
+    { id: 'totalDebt', category: 'Deudas', title: '¿Cuál es tu deuda total?', help: 'Saldo pendiente aproximado, si aplica.', kind: 'debt' },
+    { id: 'creditCards', category: 'Deudas', title: '¿Cuánto pagás de mínimo mensual?', help: 'Pago mínimo de tarjetas u obligaciones similares.', kind: 'debt' },
+    { id: 'loans', category: 'Deudas', title: '¿Cuánto pagás en préstamos o cuotas?', help: 'Cuotas mensuales de préstamos activos.', kind: 'debt' },
+    { id: 'debtExtraPayment', category: 'Deudas', title: '¿Harías un pago extra mensual?', help: 'Monto adicional para acelerar salida de deuda.', kind: 'debt' },
+    { id: 'emergencyFund', category: 'Fondo', title: '¿Cuánto tenés en fondo de emergencia?', help: 'Dinero disponible para imprevistos.', kind: 'fund' },
+    { id: 'savingsGoal', category: 'Objetivo', title: '¿Tenés una meta de ahorro?', help: 'Monto objetivo opcional. Podés dejarlo en 0.', kind: 'goal' }
+  ];
+  let currentStepIndex = 0;
+
+  function $(id) {
+    return document.getElementById(id);
+  }
+
+  function getValue(id) {
+    const element = $(id);
+    return element ? element.value : '';
+  }
+
+  function setValue(id, value) {
+    const element = $(id);
+    if (!element) return;
+    element.value = value === 0 || value ? String(value) : '';
+  }
+
+  function ensureFieldMessage(element) {
+    if (!element || element.dataset.errorReady === 'true') return;
+    const message = document.createElement('div');
+    message.className = 'field-feedback small mt-1';
+    message.id = `${element.id}Feedback`;
+    element.closest('.input-group')?.insertAdjacentElement('afterend', message);
+    element.dataset.errorReady = 'true';
+  }
+
+  function setFieldState(id, result) {
+    const element = $(id);
+    if (!element) return;
+    ensureFieldMessage(element);
+    const feedback = $(`${id}Feedback`);
+    element.classList.toggle('is-invalid', !result.valid);
+    element.classList.toggle('is-valid-expression', result.valid && String(element.value || '').match(/[+\-]/));
+    if (feedback) {
+      feedback.textContent = result.valid ? '' : result.error;
+      feedback.className = `field-feedback small mt-1 ${result.valid ? '' : 'text-danger'}`;
     }
   }
-  
-  return parseFloat(clean) || 0;
-}
 
-/**
- * Calcula el porcentaje
- * @param {number} value - Valor
- * @param {number} total - Total
- * @returns {number} Porcentaje
- */
-function calculatePercentage(value, total) {
-  if (total === 0) return 0;
-  return (value / total) * 100;
-}
-
-/**
- * Redondea un número a 2 decimales
- * @param {number} value - Valor a redondear
- * @returns {number} Valor redondeado
- */
-function roundToTwo(value) {
-  return Math.round(value * 100) / 100;
-}
-
-// =========================================================
-// LECTURA DE DATOS DEL FORMULARIO
-// =========================================================
-
-/**
- * Lee todos los valores del formulario
- * @returns {Object} Objeto con todos los valores
- */
-function readFormData() {
-  const data = {
-    monthlyIncome: parseNumber(document.querySelector(selectors.monthlyIncome).value),
-    fixedExpenses: {
-      rent: parseNumber(document.querySelector(selectors.rent).value),
-      utilities: parseNumber(document.querySelector(selectors.utilities).value),
-      food: parseNumber(document.querySelector(selectors.food).value),
-      transport: parseNumber(document.querySelector(selectors.transport).value),
-      insurance: parseNumber(document.querySelector(selectors.insurance).value),
-      otherFixed: parseNumber(document.querySelector(selectors.otherFixed).value),
-    },
-    variableExpenses: {
-      entertainment: parseNumber(document.querySelector(selectors.entertainment).value),
-      dining: parseNumber(document.querySelector(selectors.dining).value),
-      shopping: parseNumber(document.querySelector(selectors.shopping).value),
-      subscriptions: parseNumber(document.querySelector(selectors.subscriptions).value),
-      otherVariable: parseNumber(document.querySelector(selectors.otherVariable).value),
-    },
-    debt: {
-      creditCards: parseNumber(document.querySelector(selectors.creditCards).value),
-      loans: parseNumber(document.querySelector(selectors.loans).value),
-    },
-    savingsGoal: parseNumber(document.querySelector(selectors.savingsGoal).value),
-  };
-  
-  return data;
-}
-
-/**
- * Suma todos los gastos fijos
- * @param {Object} fixedExpenses - Objeto con gastos fijos
- * @returns {number} Total de gastos fijos
- */
-function getTotalFixedExpenses(fixedExpenses) {
-  return Object.values(fixedExpenses).reduce((sum, val) => sum + val, 0);
-}
-
-/**
- * Suma todos los gastos variables
- * @param {Object} variableExpenses - Objeto con gastos variables
- * @returns {number} Total de gastos variables
- */
-function getTotalVariableExpenses(variableExpenses) {
-  return Object.values(variableExpenses).reduce((sum, val) => sum + val, 0);
-}
-
-/**
- * Suma todas las deudas
- * @param {Object} debt - Objeto con deudas
- * @returns {number} Total de deudas
- */
-function getTotalDebt(debt) {
-  return Object.values(debt).reduce((sum, val) => sum + val, 0);
-}
-
-// =========================================================
-// CÁLCULOS PRINCIPALES
-// =========================================================
-
-/**
- * Realiza todos los cálculos del diagnóstico financiero
- * @param {Object} data - Datos del formulario
- * @returns {Object} Objeto con todos los cálculos
- */
-function calculateFinancialDiagnosis(data) {
-  // Validación: ingreso mensual obligatorio
-  if (data.monthlyIncome <= 0) {
-    throw new Error('El ingreso mensual debe ser mayor a 0');
+  function clearFieldStates() {
+    CURRENCY_FIELD_IDS.forEach((id) => setFieldState(id, { valid: true, error: '' }));
   }
-  
-  const totalFixed = getTotalFixedExpenses(data.fixedExpenses);
-  const totalVariable = getTotalVariableExpenses(data.variableExpenses);
-  const totalDebt = getTotalDebt(data.debt);
-  const totalCommitted = totalFixed + totalVariable + totalDebt;
-  const availableMonthly = data.monthlyIncome - totalCommitted;
-  
-  // Cálculos de la regla 50/30/20
-  const recommended = {
-    needs: data.monthlyIncome * CONFIG.NEEDS_PERCENTAGE,
-    wants: data.monthlyIncome * CONFIG.WANTS_PERCENTAGE,
-    savings: data.monthlyIncome * CONFIG.SAVINGS_PERCENTAGE,
-  };
-  
-  // Gasto actual en necesidades = gastos fijos + parte de deudas (consideramos como necesarias)
-  const actualNeeds = totalFixed + totalDebt;
-  
-  // Gasto actual en deseos = gastos variables
-  const actualWants = totalVariable;
-  
-  // Capacidad real de ahorro
-  const actualSavings = Math.max(0, availableMonthly);
-  
-  // Cálculo de porcentajes reales
-  const actualPercentages = {
-    needs: calculatePercentage(actualNeeds, data.monthlyIncome),
-    wants: calculatePercentage(actualWants, data.monthlyIncome),
-    savings: calculatePercentage(actualSavings, data.monthlyIncome),
-  };
-  
-  return {
-    monthlyIncome: roundToTwo(data.monthlyIncome),
-    totalFixed: roundToTwo(totalFixed),
-    totalVariable: roundToTwo(totalVariable),
-    totalDebt: roundToTwo(totalDebt),
-    totalCommitted: roundToTwo(totalCommitted),
-    availableMonthly: roundToTwo(availableMonthly),
-    actualSavings: roundToTwo(actualSavings),
-    recommended,
-    actual: {
-      needs: roundToTwo(actualNeeds),
-      wants: roundToTwo(actualWants),
-      savings: roundToTwo(actualSavings),
-    },
-    percentages: {
-      actual: actualPercentages,
-      recommended: {
-        needs: CONFIG.NEEDS_PERCENTAGE * 100,
-        wants: CONFIG.WANTS_PERCENTAGE * 100,
-        savings: CONFIG.SAVINGS_PERCENTAGE * 100,
+
+  function getStep() {
+    return STEPS[currentStepIndex] || STEPS[0];
+  }
+
+  function formatCurrency(value) {
+    return `${CONFIG.CURRENCY_SYMBOL}${Number(value || 0).toFixed(CONFIG.CURRENCY_DECIMALS).replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`;
+  }
+
+  function normalizeNumberString(value) {
+    if (typeof value === 'number') return Number.isFinite(value) ? value : 0;
+    if (!value || typeof value !== 'string') return '';
+    let clean = value.trim().replace(/\s/g, '');
+    if (!clean) return '';
+    const lastDot = clean.lastIndexOf('.');
+    const lastComma = clean.lastIndexOf(',');
+    if (lastDot > -1 && lastComma > -1) {
+      clean = lastDot > lastComma ? clean.replace(/,/g, '') : clean.replace(/\./g, '').replace(',', '.');
+    } else if (lastComma > -1) {
+      const parts = clean.split(',');
+      clean = parts[1] && parts[1].length <= 2 ? clean.replace(',', '.') : clean.replace(/,/g, '');
+    } else if ((clean.match(/\./g) || []).length > 1) {
+      clean = clean.replace(/\./g, '');
+    }
+    return clean;
+  }
+
+  function parseNumber(value) {
+    if (typeof value === 'number') return Number.isFinite(value) ? value : 0;
+    const clean = normalizeNumberString(value);
+    if (!clean) return 0;
+    return Number.parseFloat(clean) || 0;
+  }
+
+  function parseExpressionNumber(value) {
+    if (typeof value === 'number') {
+      return { value: Number.isFinite(value) ? value : 0, valid: Number.isFinite(value), error: Number.isFinite(value) ? '' : 'Ingresá un número válido.' };
+    }
+
+    const original = String(value || '').trim();
+    if (!original) return { value: 0, valid: true, error: '' };
+
+    const expression = original.replace(/\$/g, '').replace(/\s/g, '');
+    if (!/^[0-9.,+\-]+$/.test(expression)) {
+      return { value: 0, valid: false, error: 'Usá solo números, puntos, comas, + o -.' };
+    }
+
+    let index = 0;
+    let operator = 1;
+    let total = 0;
+    let sawNumber = false;
+
+    if (expression[0] === '+' || expression[0] === '-') {
+      operator = expression[0] === '-' ? -1 : 1;
+      index = 1;
+    }
+
+    while (index < expression.length) {
+      let token = '';
+      while (index < expression.length && expression[index] !== '+' && expression[index] !== '-') {
+        token += expression[index];
+        index += 1;
+      }
+
+      if (!token || !/[0-9]/.test(token)) {
+        return { value: 0, valid: false, error: 'Revisá la operación. Ejemplo válido: 1500+3000-200.' };
+      }
+
+      const normalized = normalizeNumberString(token);
+      if (!normalized || !/^\d+(\.\d+)?$/.test(normalized)) {
+        return { value: 0, valid: false, error: 'Hay un número que no se pudo interpretar.' };
+      }
+
+      total += operator * Number.parseFloat(normalized);
+      sawNumber = true;
+
+      if (index < expression.length) {
+        operator = expression[index] === '-' ? -1 : 1;
+        index += 1;
+        if (index >= expression.length || expression[index] === '+' || expression[index] === '-') {
+          return { value: 0, valid: false, error: 'La operación quedó incompleta.' };
+        }
+      }
+    }
+
+    return { value: roundToTwo(total), valid: sawNumber, error: sawNumber ? '' : 'Ingresá un número válido.' };
+  }
+
+  function readCurrencyField(id, options = {}) {
+    const result = parseExpressionNumber(getValue(id));
+    if (options.mark !== false) setFieldState(id, result);
+    return result.valid ? result.value : 0;
+  }
+
+  function validateCurrencyFields(options = {}) {
+    return CURRENCY_FIELD_IDS.reduce((valid, id) => {
+      const result = parseExpressionNumber(getValue(id));
+      if (options.mark !== false) setFieldState(id, result);
+      return valid && result.valid;
+    }, true);
+  }
+
+  function roundToTwo(value) {
+    return Math.round((Number(value) || 0) * 100) / 100;
+  }
+
+  function calculatePercentage(value, total) {
+    return total > 0 ? (value / total) * 100 : 0;
+  }
+
+  function defaultFinanceData() {
+    return {
+      schemaVersion: SCHEMA_VERSION,
+      exportedAt: null,
+      incomes: { sueldo: 0, extra: 0, otros: 0 },
+      expenses: {
+        fixed: {
+          vivienda: 0,
+          servicios: 0,
+          alimentacion: 0,
+          transporte: 0,
+          salud: 0,
+          educacion: 0,
+          familia: 0,
+          otros: 0
+        },
+        variable: {
+          ocio: 0,
+          alimentacion: 0,
+          otros: 0
+        }
       },
-    },
-    status: getFinancialStatus(actualPercentages.savings, availableMonthly),
-    savingsGoal: data.savingsGoal,
-  };
-}
-
-/**
- * Determina el estado financiero del usuario
- * @param {number} savingsPercentage - Porcentaje de ahorro real
- * @param {number} available - Disponible mensual
- * @returns {Object} Objeto con estatus y descripción
- */
-function getFinancialStatus(savingsPercentage, available) {
-  if (available <= 0) {
-    return {
-      status: 'at-risk',
-      emoji: '🔴',
-      label: 'En Riesgo',
-      color: 'danger',
-      description: 'Tu disponible es negativo o cero. Necesitas revisar tus gastos urgentemente.',
-    };
-  } else if (savingsPercentage >= 20) {
-    return {
-      status: 'healthy',
-      emoji: '🟢',
-      label: 'Saludable',
-      color: 'success',
-      description: 'Tu capacidad de ahorro es cercana o superior al 20%. ¡Excelente!',
-    };
-  } else {
-    return {
-      status: 'adjusted',
-      emoji: '🟡',
-      label: 'Ajustado',
-      color: 'warning',
-      description: 'Tu capacidad de ahorro es menor al 20%. Hay margen para mejorar.',
+      debts: {
+        total: 0,
+        minimumMonthly: 0,
+        loanMonthly: 0,
+        extraMonthly: 0
+      },
+      goals: [{ name: '', amount: 0 }],
+      emergencyFund: { current: 0 },
+      estimatedSavingCapacity: 0
     };
   }
-}
 
-/**
- * Genera recomendaciones inteligentes basadas en la situación financiera
- * @param {Object} diagnosis - Objeto con los cálculos del diagnóstico
- * @returns {Array} Array de recomendaciones
- */
-function generateRecommendations(diagnosis) {
-  const recommendations = [];
-  const needsPercentage = diagnosis.percentages.actual.needs;
-  
-  // Recomendacion 1: Sobre gastos fijos y deudas
-  if (needsPercentage > 50) {
-    recommendations.push({
-      type: 'warning',
-      title: 'Necesidades Elevadas',
-      message: `Las necesidades (incluyendo deudas) consumen el ${needsPercentage.toFixed(1)}% de tus ingresos, superando el 50% recomendado. Antes de enfocarte en aumentar el ahorro, considera revisar gastos fijos como alquiler o servicios, y evaluar la posibilidad de reducir deudas o tarjetas de credito.`,
-    });
-  } else if (needsPercentage <= 50 && diagnosis.percentages.actual.savings >= 20) {
-    recommendations.push({
-      type: 'success',
-      title: '✅ Distribucion Saludable',
-      message: 'Tu distribucion esta alineada con la regla 50/30/20. Estas en el camino correcto. Manten esta disciplina y podras lograr tus metas de ahorro.',
+  function normalizeFinanceData(raw) {
+    const base = defaultFinanceData();
+    const data = raw && typeof raw === 'object' ? raw : {};
+    const normalized = {
+      ...base,
+      schemaVersion: String(data.schemaVersion || data.version || SCHEMA_VERSION),
+      exportedAt: data.exportedAt || null,
+      incomes: { ...base.incomes, ...(data.incomes || {}) },
+      expenses: {
+        fixed: { ...base.expenses.fixed, ...(data.expenses?.fixed || {}) },
+        variable: { ...base.expenses.variable, ...(data.expenses?.variable || {}) }
+      },
+      debts: { ...base.debts, ...(data.debts || {}) },
+      goals: Array.isArray(data.goals) && data.goals.length ? data.goals : base.goals,
+      emergencyFund: { ...base.emergencyFund, ...(data.emergencyFund || {}) },
+      estimatedSavingCapacity: parseNumber(data.estimatedSavingCapacity)
+    };
+
+    Object.keys(normalized.incomes).forEach((key) => normalized.incomes[key] = parseNumber(normalized.incomes[key]));
+    Object.keys(normalized.expenses.fixed).forEach((key) => normalized.expenses.fixed[key] = parseNumber(normalized.expenses.fixed[key]));
+    Object.keys(normalized.expenses.variable).forEach((key) => normalized.expenses.variable[key] = parseNumber(normalized.expenses.variable[key]));
+    Object.keys(normalized.debts).forEach((key) => normalized.debts[key] = parseNumber(normalized.debts[key]));
+    normalized.emergencyFund.current = parseNumber(normalized.emergencyFund.current);
+    normalized.goals = normalized.goals.map((goal) => ({
+      name: String(goal?.name || ''),
+      amount: parseNumber(goal?.amount)
+    }));
+
+    return normalized;
+  }
+
+  function readFormData() {
+    return normalizeFinanceData({
+      incomes: {
+        sueldo: readCurrencyField('monthlyIncome'),
+        extra: readCurrencyField('extraIncome'),
+        otros: readCurrencyField('otherIncome')
+      },
+      expenses: {
+        fixed: {
+          vivienda: readCurrencyField('rent'),
+          servicios: readCurrencyField('utilities'),
+          alimentacion: readCurrencyField('food'),
+          transporte: readCurrencyField('transport'),
+          salud: readCurrencyField('health'),
+          educacion: readCurrencyField('education'),
+          familia: readCurrencyField('family'),
+          otros: readCurrencyField('insurance') + readCurrencyField('otherFixed')
+        },
+        variable: {
+          ocio: readCurrencyField('entertainment') + readCurrencyField('dining'),
+          alimentacion: 0,
+          otros: readCurrencyField('shopping') + readCurrencyField('subscriptions') + readCurrencyField('otherVariable')
+        }
+      },
+      debts: {
+        total: readCurrencyField('totalDebt'),
+        minimumMonthly: readCurrencyField('creditCards'),
+        loanMonthly: readCurrencyField('loans'),
+        extraMonthly: readCurrencyField('debtExtraPayment')
+      },
+      goals: [{ name: getValue('goalName'), amount: readCurrencyField('savingsGoal') }],
+      emergencyFund: { current: readCurrencyField('emergencyFund') }
     });
   }
-  
-  // Recomendacion 2: Sobre disponible mensual
-  if (diagnosis.availableMonthly <= 0) {
-    recommendations.push({
-      type: 'danger',
-      title: 'Situacion Critica',
-      message: 'Tu disponible mensual es negativo. Gastas mas de lo que ganas. Esto es insostenible a largo plazo. Necesitas reducciones urgentes en tus gastos, especialmente en deudas y gastos variables.',
-    });
-  } else if (diagnosis.availableMonthly > 0 && diagnosis.availableMonthly < diagnosis.recommended.savings) {
-    recommendations.push({
-      type: 'info',
-      title: 'Aumenta tu Capacidad de Ahorro',
-      message: `Actualmente tienes ${formatCurrency(diagnosis.availableMonthly)} disponibles. Para alcanzar la meta del 20% en ahorro necesitarias ${formatCurrency(diagnosis.recommended.savings)}. Revisa tus gastos variables para encontrar oportunidades de optimizacion.`,
-    });
-  }
-  
-  // Recomendacion 3: Sobre deudas
-  if (diagnosis.totalDebt > 0) {
-    const debtPercentage = (diagnosis.totalDebt / diagnosis.monthlyIncome) * 100;
-    recommendations.push({
-      type: 'warning',
-      title: 'Gestion de Deudas',
-      message: `Tus deudas representan el ${debtPercentage.toFixed(1)}% de tus ingresos. Considera crear un plan para reducir estas obligaciones, ya que liberarian flujo de caja para ahorrar.`,
-    });
-  }
-  
-  // Recomendacion 4: Sobre gastos variables
-  if (diagnosis.percentages.actual.wants > 30) {
-    recommendations.push({
-      type: 'warning',
-      title: 'Gastos Variables Elevados',
-      message: `Tus gastos variables (deseos) representan el ${diagnosis.percentages.actual.wants.toFixed(1)}% de tus ingresos, superando el 30% sugerido. Estos son mas flexibles y podrias reducirlos para aumentar tu ahorro.`,
-    });
-  }
-  
-  if (recommendations.length === 0) {
-    recommendations.push({
-      type: 'success',
-      title: 'Todo va bien',
-      message: 'Tu situacion financiera esta equilibrada. Manten tu disciplina y continua ahorrando.',
-    });
-  }
-  
-  return recommendations;
-}
 
-/**
- * Calcula las proyecciones de ahorro
- * @param {Object} diagnosis - Objeto con los cálculos del diagnóstico
- * @returns {Object} Proyecciones a 3, 6 y 12 meses
- */
-function calculateSavingsProjections(diagnosis) {
-  const monthlyRate = diagnosis.actualSavings;
-  
-  return {
-    threeMonths: roundToTwo(monthlyRate * 3),
-    sixMonths: roundToTwo(monthlyRate * 6),
-    twelveMonths: roundToTwo(monthlyRate * 12),
-  };
-}
-
-/**
- * Calcula cuánto tiempo falta para alcanzar la meta de ahorro
- * @param {Object} diagnosis - Objeto con los cálculos del diagnóstico
- * @returns {Object|null} Información sobre la meta o null si no hay meta
- */
-function calculateGoalTimeline(diagnosis) {
-  if (!diagnosis.savingsGoal || diagnosis.savingsGoal === 0 || diagnosis.actualSavings === 0) {
-    return null;
+  function writeFormData(data) {
+    const normalized = normalizeFinanceData(data);
+    setValue('monthlyIncome', normalized.incomes.sueldo);
+    setValue('extraIncome', normalized.incomes.extra);
+    setValue('otherIncome', normalized.incomes.otros);
+    setValue('rent', normalized.expenses.fixed.vivienda);
+    setValue('utilities', normalized.expenses.fixed.servicios);
+    setValue('food', normalized.expenses.fixed.alimentacion);
+    setValue('transport', normalized.expenses.fixed.transporte);
+    setValue('health', normalized.expenses.fixed.salud);
+    setValue('education', normalized.expenses.fixed.educacion);
+    setValue('family', normalized.expenses.fixed.familia);
+    setValue('insurance', 0);
+    setValue('otherFixed', normalized.expenses.fixed.otros);
+    setValue('entertainment', normalized.expenses.variable.ocio);
+    setValue('dining', 0);
+    setValue('shopping', 0);
+    setValue('subscriptions', 0);
+    setValue('otherVariable', normalized.expenses.variable.otros);
+    setValue('totalDebt', normalized.debts.total);
+    setValue('creditCards', normalized.debts.minimumMonthly);
+    setValue('loans', normalized.debts.loanMonthly);
+    setValue('debtExtraPayment', normalized.debts.extraMonthly);
+    setValue('emergencyFund', normalized.emergencyFund.current);
+    setValue('savingsGoal', normalized.goals[0]?.amount || 0);
+    setValue('goalName', normalized.goals[0]?.name || '');
   }
-  
-  const monthsNeeded = Math.ceil(diagnosis.savingsGoal / diagnosis.actualSavings);
-  const today = new Date();
-  const targetDate = new Date(today.getFullYear(), today.getMonth() + monthsNeeded, today.getDate());
-  
-  return {
-    goal: diagnosis.savingsGoal,
-    monthsNeeded: monthsNeeded,
-    estimatedDate: targetDate,
-    formattedDate: targetDate.toLocaleDateString('es-ES', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    }),
-  };
-}
 
-// =========================================================
-// RENDERIZADO DE RESULTADOS
-// =========================================================
+  function sumValues(object) {
+    return Object.values(object || {}).reduce((sum, value) => sum + parseNumber(value), 0);
+  }
 
-/**
- * Actualiza la UI con los resultados del diagnóstico
- * @param {Object} diagnosis - Objeto con los cálculos del diagnóstico
- */
-function displayResults(diagnosis) {
-  // Mostrar sección de resultados
-  document.querySelector(selectors.resultsSection).style.display = 'block';
-  
-  // Scroll suave a los resultados
-  setTimeout(() => {
-    document.querySelector(selectors.resultsSection).scrollIntoView({ behavior: 'smooth' });
-  }, 100);
-  
-  // Recomendaciones alertas
-  displayRecommendations(diagnosis);
-  
-  // Resumen financiero
-  document.querySelector(selectors.summaryIncome).textContent = formatCurrency(diagnosis.monthlyIncome);
-  document.querySelector(selectors.summaryCommitted).textContent = formatCurrency(diagnosis.totalCommitted);
-  document.querySelector(selectors.summaryAvailable).textContent = formatCurrency(diagnosis.availableMonthly);
-  document.querySelector(selectors.summarySavingCapacity).textContent = formatCurrency(diagnosis.actualSavings);
-  
-  // Estado financiero
-  const status = diagnosis.status;
-  document.querySelector(selectors.statusEmoji).textContent = status.emoji;
-  document.querySelector(selectors.statusLabel).textContent = status.label;
-  document.querySelector(selectors.statusDescription).textContent = status.description;
-  
-  // Actualizar color del card de estado
-  const statusCard = document.querySelector(selectors.statusCard);
-  statusCard.className = `card border-0 shadow-sm status-${status.status}`;
-  
-  // Distribución 50/30/20
-  displayDistribution(diagnosis);
-  
-  // Desglose de gastos
-  document.querySelector(selectors.breakdownFixed).textContent = formatCurrency(diagnosis.totalFixed);
-  document.querySelector(selectors.breakdownVariable).textContent = formatCurrency(diagnosis.totalVariable);
-  document.querySelector(selectors.breakdownDebt).textContent = formatCurrency(diagnosis.totalDebt);
-  
-  // Proyecciones de ahorro
-  displayProjections(diagnosis);
-  
-  // Insights
-  displayInsights(diagnosis);
-}
+  function calculateDebtSimulation(data) {
+    const total = data.debts.total;
+    const minimum = data.debts.minimumMonthly + data.debts.loanMonthly;
+    const extra = data.debts.extraMonthly;
+    const monthsMinimum = total > 0 && minimum > 0 ? Math.ceil(total / minimum) : 0;
+    const monthsWithExtra = total > 0 && minimum + extra > 0 ? Math.ceil(total / (minimum + extra)) : 0;
+    return {
+      total,
+      minimum,
+      extra,
+      monthsMinimum,
+      monthsWithExtra,
+      difference: monthsMinimum && monthsWithExtra ? Math.max(0, monthsMinimum - monthsWithExtra) : 0,
+      active: total > 0 || minimum > 0
+    };
+  }
 
-/**
- * Muestra las recomendaciones como alertas
- * @param {Object} diagnosis - Objeto con los cálculos del diagnóstico
- */
-function displayRecommendations(diagnosis) {
-  const recommendations = generateRecommendations(diagnosis);
-  const container = document.querySelector(selectors.recommendationsAlert);
-  
-  let html = '';
-  recommendations.forEach(rec => {
-    const alertClass = getAlertClass(rec.type);
-    html += `
-      <div class="alert ${alertClass} border-0 shadow-sm" role="alert">
-        <h4 class="alert-heading">${rec.title}</h4>
-        <p class="mb-0">${rec.message}</p>
+  function calculateFinancialDiagnosis(data) {
+    const totalIncome = sumValues(data.incomes);
+    if (totalIncome <= 0) throw new Error('El ingreso mensual debe ser mayor a 0');
+
+    const fixedExpenses = sumValues(data.expenses.fixed);
+    const variableExpenses = sumValues(data.expenses.variable);
+    const monthlyDebtPayment = data.debts.minimumMonthly + data.debts.loanMonthly;
+    const totalExpenses = fixedExpenses + variableExpenses + monthlyDebtPayment;
+    const monthlyBalance = totalIncome - totalExpenses;
+    const savingCapacity = monthlyBalance;
+    const essentialSpending = fixedExpenses + monthlyDebtPayment;
+    const essentialPercentage = calculatePercentage(essentialSpending, totalIncome);
+    const debtSimulation = calculateDebtSimulation(data);
+    const emergencyTargets = {
+      oneMonth: totalExpenses,
+      threeMonths: totalExpenses * 3,
+      sixMonths: totalExpenses * 6
+    };
+    const emergencyProgress = emergencyTargets.threeMonths > 0
+      ? Math.min(100, calculatePercentage(data.emergencyFund.current, emergencyTargets.threeMonths))
+      : 0;
+    const investmentAllowed = monthlyBalance > 0 && !debtSimulation.active && data.emergencyFund.current >= emergencyTargets.oneMonth;
+
+    return {
+      data,
+      totalIncome: roundToTwo(totalIncome),
+      fixedExpenses: roundToTwo(fixedExpenses),
+      variableExpenses: roundToTwo(variableExpenses),
+      monthlyDebtPayment: roundToTwo(monthlyDebtPayment),
+      totalExpenses: roundToTwo(totalExpenses),
+      totalCommitted: roundToTwo(totalExpenses),
+      monthlyBalance: roundToTwo(monthlyBalance),
+      availableMonthly: roundToTwo(monthlyBalance),
+      savingCapacity: roundToTwo(savingCapacity),
+      actualSavings: roundToTwo(Math.max(0, savingCapacity)),
+      essentialSpending: roundToTwo(essentialSpending),
+      essentialPercentage,
+      emergencyTargets,
+      emergencyProgress,
+      debtSimulation,
+      investmentAllowed,
+      recommendation: buildMainRecommendation(monthlyBalance, debtSimulation, data.emergencyFund.current, emergencyTargets.oneMonth),
+      status: getFinancialStatus(savingCapacity, essentialPercentage),
+      goals: data.goals,
+      projections: calculateSavingsProjections(Math.max(0, savingCapacity)),
+      scenarios: calculateSavingsScenarios(Math.max(0, savingCapacity)),
+      percentages: {
+        actual: {
+          needs: calculatePercentage(essentialSpending, totalIncome),
+          wants: calculatePercentage(variableExpenses, totalIncome),
+          savings: calculatePercentage(Math.max(0, savingCapacity), totalIncome)
+        },
+        recommended: { needs: 50, wants: 30, savings: 20 }
+      },
+      recommended: {
+        needs: totalIncome * 0.5,
+        wants: totalIncome * 0.3,
+        savings: totalIncome * 0.2
+      },
+      actual: {
+        needs: essentialSpending,
+        wants: variableExpenses,
+        savings: Math.max(0, savingCapacity)
+      },
+      gauge: getGaugeState(totalIncome, totalExpenses, essentialPercentage, savingCapacity)
+    };
+  }
+
+  function getGaugeState(totalIncome, totalExpenses, essentialPercentage, savingCapacity) {
+    const spendingRatio = calculatePercentage(totalExpenses, totalIncome);
+    const savingsPercentage = calculatePercentage(Math.max(0, savingCapacity), totalIncome);
+
+    if (savingCapacity < 0 || spendingRatio > 100) {
+      return {
+        zone: 'danger',
+        label: 'Zona de riesgo',
+        pill: 'Rojo',
+        message: 'Estás gastando más de lo que entra',
+        ratio: spendingRatio,
+        needle: 100
+      };
+    }
+
+    if (essentialPercentage > 50 || savingsPercentage < 10 || spendingRatio > 80) {
+      return {
+        zone: 'warning',
+        label: 'Zona ajustada',
+        pill: 'Amarillo',
+        message: essentialPercentage > 50
+          ? 'Tus necesidades superan el 50% recomendado'
+          : 'Tu ahorro disponible está por debajo de lo ideal',
+        ratio: spendingRatio,
+        needle: Math.min(100, spendingRatio)
+      };
+    }
+
+    return {
+      zone: 'success',
+      label: 'Zona saludable',
+      pill: 'Verde',
+      message: 'Zona saludable',
+      ratio: spendingRatio,
+      needle: Math.min(100, spendingRatio)
+    };
+  }
+
+  function getFinancialStatus(savingCapacity, essentialPercentage) {
+    if (savingCapacity < 0) {
+      return { status: 'at-risk', emoji: '🔴', label: 'Saldo negativo', color: 'danger', description: 'Los gastos superan los ingresos. La prioridad es reducir egresos o aumentar ingresos.' };
+    }
+    if (essentialPercentage > 70) {
+      return { status: 'adjusted', emoji: '🟡', label: 'Muy comprometido', color: 'warning', description: 'El gasto esencial ocupa demasiado espacio. Conviene revisar deudas y costos fijos.' };
+    }
+    if (savingCapacity > 0) {
+      return { status: 'healthy', emoji: '🟢', label: 'Con margen', color: 'success', description: 'Hay saldo mensual positivo. Podés ordenar prioridades y sostener un plan.' };
+    }
+    return { status: 'adjusted', emoji: '🟡', label: 'Equilibrio justo', color: 'warning', description: 'No hay margen de ahorro. Conviene ajustar gastos variables o fijos.' };
+  }
+
+  function buildMainRecommendation(balance, debt, emergencyCurrent, emergencyOneMonth) {
+    if (balance < 0) return 'Prioridad: corregir el saldo negativo antes de pensar en inversión o nuevos objetivos.';
+    if (debt.active) return 'Prioridad: estabilizar y reducir deuda activa. La inversión no debería ser el foco principal todavía.';
+    if (emergencyCurrent < emergencyOneMonth) return 'Prioridad: construir al menos un mes de gastos como fondo de emergencia.';
+    return 'Situación ordenada: podés sostener ahorro, fortalecer el fondo y evaluar inversión prudente sin prometer rentabilidad.';
+  }
+
+  function calculateSavingsProjections(monthlySaving) {
+    return { threeMonths: monthlySaving * 3, sixMonths: monthlySaving * 6, twelveMonths: monthlySaving * 12 };
+  }
+
+  function calculateSavingsScenarios(monthlySaving) {
+    return Object.entries(CONFIG.SCENARIOS).map(([name, factor]) => ({
+      name,
+      monthly: roundToTwo(monthlySaving * factor),
+      threeMonths: roundToTwo(monthlySaving * factor * 3),
+      sixMonths: roundToTwo(monthlySaving * factor * 6),
+      twelveMonths: roundToTwo(monthlySaving * factor * 12)
+    }));
+  }
+
+  function generateRecommendations(diagnosis) {
+    const recommendations = [];
+    if (diagnosis.monthlyBalance < 0) {
+      recommendations.push({ type: 'danger', title: 'Ahorro negativo', message: 'Tu saldo mensual es negativo. Reducí gastos no esenciales, revisá deuda o buscá mejorar ingresos antes de asumir nuevos compromisos.' });
+    }
+    if (diagnosis.essentialPercentage > 50) {
+      recommendations.push({ type: 'warning', title: 'Gasto esencial elevado', message: `El gasto esencial representa ${diagnosis.essentialPercentage.toFixed(1)}% de tus ingresos. Revisá vivienda, servicios, transporte y deuda.` });
+    }
+    if (diagnosis.debtSimulation.active) {
+      recommendations.push({ type: 'warning', title: 'Deuda activa', message: 'Con deuda activa, conviene priorizar un plan de pagos y evitar tratar la inversión como prioridad principal.' });
+    }
+    if (diagnosis.monthlyBalance >= 0 && diagnosis.emergencyProgress < 100) {
+      recommendations.push({ type: 'info', title: 'Fondo de emergencia', message: 'Antes de objetivos más ambiciosos, buscá acercarte al menos a 3 meses de gastos cubiertos.' });
+    }
+    if (diagnosis.investmentAllowed) {
+      recommendations.push({ type: 'success', title: 'Inversión prudente', message: 'Podés evaluar opciones prudentes y líquidas, sin prometer rentabilidad ni comprometer tu fondo de emergencia.' });
+    }
+    if (!recommendations.length) {
+      recommendations.push({ type: 'success', title: 'Diagnóstico estable', message: 'La situación es manejable. Mantené seguimiento mensual y ajustes pequeños.' });
+    }
+    return recommendations;
+  }
+
+  function buildEditableExport(data) {
+    return { ...normalizeFinanceData(data), schemaVersion: SCHEMA_VERSION, exportedAt: new Date().toISOString() };
+  }
+
+  function buildDiagnosisSummary(diagnosis) {
+    const debt = diagnosis.debtSimulation;
+    const lines = [
+      'Diagnóstico financiero personal',
+      `Ingresos: ${formatCurrency(diagnosis.totalIncome)}`,
+      `Gastos: ${formatCurrency(diagnosis.totalExpenses)}`,
+      `Saldo mensual: ${formatCurrency(diagnosis.monthlyBalance)}`,
+      `Capacidad de ahorro: ${formatCurrency(diagnosis.savingCapacity)}`,
+      `Gasto esencial: ${diagnosis.essentialPercentage.toFixed(1)}%`,
+      `Deuda: ${debt.active ? `${formatCurrency(debt.total)} total, ${debt.monthsMinimum || '-'} meses mínimo, ${debt.monthsWithExtra || '-'} meses con extra` : 'sin deuda activa'}`,
+      `Fondo de emergencia: ${formatCurrency(diagnosis.data.emergencyFund.current)} (${diagnosis.emergencyProgress.toFixed(1)}% del objetivo de 3 meses)`,
+      `Recomendación principal: ${diagnosis.recommendation}`,
+      'Escenarios:',
+      ...diagnosis.scenarios.map((scenario) => `- ${scenario.name}: 3m ${formatCurrency(scenario.threeMonths)}, 6m ${formatCurrency(scenario.sixMonths)}, 12m ${formatCurrency(scenario.twelveMonths)}`)
+    ];
+    return lines.join('\n');
+  }
+
+  function validateImportedData(raw) {
+    if (!raw || typeof raw !== 'object' || Array.isArray(raw)) throw new Error('El archivo no contiene un objeto JSON válido.');
+    if (!raw.incomes && !raw.expenses && !raw.debts && !raw.emergencyFund) throw new Error('El archivo no parece ser una exportación financiera compatible.');
+    return normalizeFinanceData(raw);
+  }
+
+  function downloadText(filename, content, type = 'application/json') {
+    const blob = new Blob([content], { type });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function displayResults(diagnosis, options = {}) {
+    const results = $('resultsSection');
+    if (results) results.style.display = 'block';
+    displayRecommendations(diagnosis);
+    displayFinancialGauge(diagnosis);
+    displayBudgetCards(diagnosis);
+    setText('summaryIncome', formatCurrency(diagnosis.totalIncome));
+    setText('summaryCommitted', formatCurrency(diagnosis.totalExpenses));
+    setText('summaryAvailable', formatCurrency(diagnosis.monthlyBalance));
+    setText('summarySavingCapacity', formatCurrency(diagnosis.savingCapacity));
+    setText('statusEmoji', diagnosis.status.emoji);
+    setText('statusLabel', diagnosis.status.label);
+    setText('statusDescription', diagnosis.status.description);
+    const statusCard = $('statusCard');
+    if (statusCard) statusCard.className = `card border-0 shadow-sm status-${diagnosis.status.status}`;
+    displayDistribution(diagnosis);
+    setText('breakdownFixed', formatCurrency(diagnosis.fixedExpenses));
+    setText('breakdownVariable', formatCurrency(diagnosis.variableExpenses));
+    setText('breakdownDebt', formatCurrency(diagnosis.monthlyDebtPayment));
+    displayProjections(diagnosis);
+    displayInsights(diagnosis);
+    displayDebtSimulation(diagnosis);
+    displayEmergencyFund(diagnosis);
+    displayInvestmentGuidance(diagnosis);
+    setValue('diagnosisSummary', buildDiagnosisSummary(diagnosis));
+    if (options.scroll !== false) setTimeout(() => results?.scrollIntoView({ behavior: 'smooth' }), 100);
+  }
+
+  function resetDashboard() {
+    setText('dashboardIncome', formatCurrency(0));
+    setText('gaugeZoneLabel', 'Cargá tus datos');
+    setText('gaugeZonePill', 'Inicio');
+    setText('gaugeSpendingRatio', '0% usado');
+    setText('gaugeMessage', 'Empezá por tu sueldo mensual.');
+    setText('dashboardAlertTitle', 'Diagnóstico listo para empezar');
+    setText('dashboardAlertText', 'A medida que avances, vamos recalculando todo.');
+    const needle = $('gaugeNeedle');
+    if (needle) needle.style.transform = 'translateX(-50%) rotate(-90deg)';
+    ['needs', 'wants', 'savings'].forEach((prefix) => {
+      setText(`${prefix}CardAmount`, formatCurrency(0));
+      setText(`${prefix}CardStatus`, prefix === 'savings' ? 'Objetivo 20%' : `Hasta ${prefix === 'needs' ? '50' : '30'}%`);
+      setBar(`${prefix}CardBar`, 0);
+      setBarState(`${prefix}CardBar`, 'success');
+    });
+    const alert = $('savingsAlert');
+    if (alert) {
+      alert.className = 'alert mb-0 alert-light';
+      alert.textContent = 'Tu ahorro posible hoy es de $0.00';
+    }
+    const recommendations = $('recommendationsAlert');
+    if (recommendations) recommendations.innerHTML = '';
+    updateZoneClasses('success');
+  }
+
+  function setText(id, text) {
+    const element = $(id);
+    if (element) element.textContent = text;
+  }
+
+  function displayRecommendations(diagnosis) {
+    const container = $('recommendationsAlert');
+    if (!container) return;
+    container.innerHTML = generateRecommendations(diagnosis).map((item) => `
+      <div class="alert ${getAlertClass(item.type)} border-0 shadow-sm" role="alert">
+        <h4 class="alert-heading">${item.title}</h4>
+        <p class="mb-0">${item.message}</p>
+      </div>
+    `).join('');
+  }
+
+  function getAlertClass(type) {
+    return { warning: 'alert-warning', success: 'alert-success', danger: 'alert-danger', info: 'alert-info' }[type] || 'alert-info';
+  }
+
+  function displayDistribution(diagnosis) {
+    setText('needsPercentage', `${diagnosis.percentages.actual.needs.toFixed(1)}% / 50%`);
+    setText('wantsPercentage', `${diagnosis.percentages.actual.wants.toFixed(1)}% / 30%`);
+    setText('savingsPercentage', `${diagnosis.percentages.actual.savings.toFixed(1)}% / 20%`);
+    setText('needsRecommended', formatCurrency(diagnosis.recommended.needs));
+    setText('wantsRecommended', formatCurrency(diagnosis.recommended.wants));
+    setText('savingsRecommended', formatCurrency(diagnosis.recommended.savings));
+    setText('needsActual', formatCurrency(diagnosis.actual.needs));
+    setText('wantsActual', formatCurrency(diagnosis.actual.wants));
+    setText('savingsActual', formatCurrency(diagnosis.actual.savings));
+    setBar('needsBar', diagnosis.percentages.actual.needs);
+    setBar('wantsBar', diagnosis.percentages.actual.wants);
+    setBar('savingsBar', diagnosis.percentages.actual.savings);
+    setBarState('needsBar', getCategoryState(diagnosis.percentages.actual.needs, 50, false));
+    setBarState('wantsBar', getCategoryState(diagnosis.percentages.actual.wants, 30, false));
+    setBarState('savingsBar', getCategoryState(diagnosis.percentages.actual.savings, 20, true));
+  }
+
+  function setBar(id, percentage) {
+    const bar = $(id);
+    if (bar) bar.style.width = `${Math.max(0, Math.min(100, percentage))}%`;
+  }
+
+  function setBarState(id, state) {
+    const bar = $(id);
+    if (!bar) return;
+    bar.classList.remove('bar-success', 'bar-warning', 'bar-danger');
+    bar.classList.add(`bar-${state}`);
+  }
+
+  function getCategoryState(actualPercentage, recommendedPercentage, higherIsBetter) {
+    if (higherIsBetter) {
+      if (actualPercentage >= recommendedPercentage) return 'success';
+      if (actualPercentage >= recommendedPercentage / 2) return 'warning';
+      return 'danger';
+    }
+
+    if (actualPercentage <= recommendedPercentage) return 'success';
+    if (actualPercentage <= recommendedPercentage * 1.2) return 'warning';
+    return 'danger';
+  }
+
+  function displayFinancialGauge(diagnosis) {
+    const gauge = diagnosis.gauge;
+    const needle = $('gaugeNeedle');
+    const angle = -90 + (Math.max(0, Math.min(100, gauge.needle)) * 1.8);
+    if (needle) needle.style.transform = `translateX(-50%) rotate(${angle}deg)`;
+
+    setText('dashboardIncome', formatCurrency(diagnosis.totalIncome));
+    setText('gaugeZoneLabel', gauge.label);
+    setText('gaugeZonePill', gauge.pill);
+    setText('gaugeSpendingRatio', `${Math.min(999, gauge.ratio).toFixed(1)}% usado`);
+    setText('gaugeMessage', gauge.message);
+    setText('dashboardAlertTitle', gauge.message);
+    setText('dashboardAlertText', buildDashboardAlertText(diagnosis));
+    updateZoneClasses(gauge.zone);
+  }
+
+  function updateZoneClasses(zone) {
+    ['gaugeZoneLabel', 'gaugeZonePill', 'gaugeMessage'].forEach((id) => {
+      const element = $(id);
+      if (!element) return;
+      element.classList.remove('zone-success', 'zone-warning', 'zone-danger');
+      element.classList.add(`zone-${zone}`);
+    });
+    const alert = $('dashboardAlert');
+    if (alert) {
+      alert.classList.remove('dashboard-alert-success', 'dashboard-alert-warning', 'dashboard-alert-danger');
+      alert.classList.add(`dashboard-alert-${zone}`);
+    }
+  }
+
+  function buildDashboardAlertText(diagnosis) {
+    if (diagnosis.savingCapacity < 0) return 'Te recomendamos ajustar gastos o revisar ingresos cuanto antes.';
+    if (diagnosis.essentialPercentage > 50) return 'Las necesidades superan la referencia del 50%.';
+    if (diagnosis.percentages.actual.savings < 20) return 'Todavía hay margen para acercarte al 20% de ahorro.';
+    return 'Buen equilibrio: tu ahorro está alineado con la referencia.';
+  }
+
+  function displayBudgetCards(diagnosis) {
+    updateBudgetCard('needs', diagnosis.actual.needs, diagnosis.percentages.actual.needs, 50, false);
+    updateBudgetCard('wants', diagnosis.actual.wants, diagnosis.percentages.actual.wants, 30, false);
+    updateBudgetCard('savings', diagnosis.actual.savings, diagnosis.percentages.actual.savings, 20, true);
+
+    const alert = $('savingsAlert');
+    if (alert) {
+      const state = diagnosis.savingCapacity < 0 ? 'danger' : diagnosis.percentages.actual.savings < 10 ? 'warning' : 'success';
+      alert.className = `alert mt-3 mb-0 alert-${state === 'danger' ? 'danger' : state === 'warning' ? 'warning' : 'success'}`;
+      alert.textContent = diagnosis.savingCapacity < 0
+        ? `Tu ahorro posible hoy es negativo: ${formatCurrency(diagnosis.savingCapacity)}`
+        : `Tu ahorro posible hoy es de ${formatCurrency(diagnosis.savingCapacity)}`;
+    }
+  }
+
+  function updateBudgetCard(prefix, amount, percentage, recommended, higherIsBetter) {
+    const state = getCategoryState(percentage, recommended, higherIsBetter);
+    const card = $(`${prefix}Card`);
+    if (card) {
+      card.classList.remove('budget-success', 'budget-warning', 'budget-danger');
+      card.classList.add(`budget-${state}`);
+    }
+
+    setText(`${prefix}CardAmount`, formatCurrency(amount));
+    setText(`${prefix}CardStatus`, buildCategoryLabel(prefix, percentage, recommended, state));
+    setBar(`${prefix}CardBar`, percentage);
+    setBarState(`${prefix}CardBar`, state);
+  }
+
+  function buildCategoryLabel(prefix, percentage, recommended, state) {
+    if (prefix === 'savings') {
+      if (state === 'success') return `${percentage.toFixed(1)}% - objetivo logrado`;
+      if (state === 'warning') return `${percentage.toFixed(1)}% - ahorro bajo`;
+      return `${percentage.toFixed(1)}% - alerta de ahorro`;
+    }
+
+    if (state === 'success') return `${percentage.toFixed(1)}% de ${recommended}% recomendado`;
+    if (state === 'warning') return `${percentage.toFixed(1)}% - cerca del límite`;
+    return `${percentage.toFixed(1)}% - supera lo recomendado`;
+  }
+
+  function displayProjections(diagnosis) {
+    const container = $('projectionContainer');
+    if (!container) return;
+    container.innerHTML = diagnosis.scenarios.map((scenario) => `
+      <div class="col-md-4">
+        <div class="finance-mini-card h-100">
+          <p class="text-muted small mb-2 text-capitalize">${scenario.name}</p>
+          <p class="mb-1">3 meses: <strong>${formatCurrency(scenario.threeMonths)}</strong></p>
+          <p class="mb-1">6 meses: <strong>${formatCurrency(scenario.sixMonths)}</strong></p>
+          <p class="mb-0">12 meses: <strong>${formatCurrency(scenario.twelveMonths)}</strong></p>
+        </div>
+      </div>
+    `).join('');
+
+    const goal = diagnosis.goals[0];
+    const goalSection = $('savingsGoalSection');
+    if (goalSection && goal?.amount > 0 && diagnosis.actualSavings > 0) {
+      const months = Math.ceil(goal.amount / diagnosis.actualSavings);
+      const target = new Date();
+      target.setMonth(target.getMonth() + months);
+      goalSection.style.display = 'block';
+      setText('monthsToGoal', `${months} meses`);
+      setText('goalDate', target.toLocaleDateString('es-UY', { year: 'numeric', month: 'long' }));
+    } else if (goalSection) {
+      goalSection.style.display = 'none';
+    }
+  }
+
+  function displayInsights(diagnosis) {
+    const container = $('insightsContainer');
+    if (!container) return;
+    container.innerHTML = `
+      <div class="mb-4">
+        <h4 class="h6 fw-bold">Diagnóstico</h4>
+        <p>Total ingresos: <strong>${formatCurrency(diagnosis.totalIncome)}</strong>. Total gastos: <strong>${formatCurrency(diagnosis.totalExpenses)}</strong>. Saldo mensual: <strong>${formatCurrency(diagnosis.monthlyBalance)}</strong>.</p>
+      </div>
+      <div class="mb-0">
+        <h4 class="h6 fw-bold">Recomendación principal</h4>
+        <p>${diagnosis.recommendation}</p>
       </div>
     `;
-  });
-  
-  container.innerHTML = html;
-}
-
-/**
- * Retorna la clase CSS para el tipo de alerta
- * @param {string} type - Tipo de alerta (warning, success, danger, info)
- * @returns {string} Clase CSS
- */
-function getAlertClass(type) {
-  const map = {
-    'warning': 'alert-warning',
-    'success': 'alert-success',
-    'danger': 'alert-danger',
-    'info': 'alert-info',
-  };
-  return map[type] || 'alert-info';
-}
-
-/**
- * Renderiza la distribución 50/30/20
- * @param {Object} diagnosis - Objeto con los cálculos del diagnóstico
- */
-function displayDistribution(diagnosis) {
-  const { actual, recommended } = diagnosis.percentages;
-  
-  // Necesidades (50%)
-  document.querySelector(selectors.needsPercentage).textContent = 
-    `${actual.needs.toFixed(1)}% / ${recommended.needs.toFixed(0)}%`;
-  document.querySelector(selectors.needsBar).style.width = `${Math.min(actual.needs, 100)}%`;
-  document.querySelector(selectors.needsRecommended).textContent = formatCurrency(diagnosis.recommended.needs);
-  document.querySelector(selectors.needsActual).textContent = formatCurrency(diagnosis.actual.needs);
-  
-  // Deseos (30%)
-  document.querySelector(selectors.wantsPercentage).textContent = 
-    `${actual.wants.toFixed(1)}% / ${recommended.wants.toFixed(0)}%`;
-  document.querySelector(selectors.wantsBar).style.width = `${Math.min(actual.wants, 100)}%`;
-  document.querySelector(selectors.wantsRecommended).textContent = formatCurrency(diagnosis.recommended.wants);
-  document.querySelector(selectors.wantsActual).textContent = formatCurrency(diagnosis.actual.wants);
-  
-  // Ahorro (20%)
-  document.querySelector(selectors.savingsPercentage).textContent = 
-    `${actual.savings.toFixed(1)}% / ${recommended.savings.toFixed(0)}%`;
-  document.querySelector(selectors.savingsBar).style.width = `${Math.min(actual.savings, 100)}%`;
-  document.querySelector(selectors.savingsRecommended).textContent = formatCurrency(diagnosis.recommended.savings);
-  document.querySelector(selectors.savingsActual).textContent = formatCurrency(diagnosis.actual.savings);
-}
-
-/**
- * Renderiza las proyecciones de ahorro
- * @param {Object} diagnosis - Objeto con los cálculos del diagnóstico
- */
-function displayProjections(diagnosis) {
-  const projections = calculateSavingsProjections(diagnosis);
-  const container = document.querySelector(selectors.projectionContainer);
-  
-  let html = `
-    <div class="col-md-4">
-      <div class="text-center">
-        <p class="text-muted small mb-2">Ahorro en 3 meses</p>
-        <p class="h3 fw-bold text-success">${formatCurrency(projections.threeMonths)}</p>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="text-center">
-        <p class="text-muted small mb-2">Ahorro en 6 meses</p>
-        <p class="h3 fw-bold text-success">${formatCurrency(projections.sixMonths)}</p>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="text-center">
-        <p class="text-muted small mb-2">Ahorro en 12 meses</p>
-        <p class="h3 fw-bold text-success">${formatCurrency(projections.twelveMonths)}</p>
-      </div>
-    </div>
-  `;
-  
-  container.innerHTML = html;
-  
-  // Meta de ahorro
-  const goalTimeline = calculateGoalTimeline(diagnosis);
-  const goalSection = document.querySelector(selectors.savingsGoalSection);
-  
-  if (goalTimeline) {
-    goalSection.style.display = 'block';
-    document.querySelector(selectors.monthsToGoal).textContent = 
-      `${goalTimeline.monthsNeeded} meses (~${Math.round(goalTimeline.monthsNeeded / 12)} años)`;
-    document.querySelector(selectors.goalDate).textContent = goalTimeline.formattedDate;
-  } else {
-    goalSection.style.display = 'none';
   }
-}
 
-/**
- * Renderiza los insights y análisis adicionales
- * @param {Object} diagnosis - Objeto con los cálculos del diagnóstico
- */
-function displayInsights(diagnosis) {
-  const container = document.querySelector(selectors.insightsContainer);
-  const { actual, recommended } = diagnosis.percentages;
-  
-  let insights = [];
-  
-  // Análisis 1: Situación general
-  if (diagnosis.availableMonthly > 0) {
-    insights.push(`
-      <div class="mb-4">
-        <h4 class="h6 fw-bold">📊 Tu Situación General</h4>
-        <p>Tienes un disponible mensual de ${formatCurrency(diagnosis.availableMonthly)}, 
-           lo que significa que gastas el ${((diagnosis.totalCommitted / diagnosis.monthlyIncome) * 100).toFixed(1)}% 
-           de tus ingresos.</p>
-      </div>
-    `);
+  function displayDebtSimulation(diagnosis) {
+    const container = $('debtSimulationContainer');
+    if (!container) return;
+    const debt = diagnosis.debtSimulation;
+    container.innerHTML = debt.active ? `
+      <p>Deuda total: <strong>${formatCurrency(debt.total)}</strong></p>
+      <p>Meses pagando mínimo: <strong>${debt.monthsMinimum || '-'}</strong></p>
+      <p>Meses con pago extra: <strong>${debt.monthsWithExtra || '-'}</strong></p>
+      <p>Diferencia estimada: <strong>${debt.difference}</strong> meses</p>
+      <p class="small text-warning mb-0">Con deuda activa, la inversión no debería ser la prioridad principal.</p>
+    ` : '<p class="mb-0 text-success">No se detecta deuda activa.</p>';
   }
-  
-  // Análisis 2: Comparación con la regla
-  if (actual.needs > recommended.needs) {
-    insights.push(`
-      <div class="mb-4">
-        <h4 class="h6 fw-bold">🎯 Oportunidad en Necesidades</h4>
-        <p>Tus gastos en necesidades superan el 50% recomendado en ${(actual.needs - recommended.needs).toFixed(1)} 
-           puntos porcentuales. Optimizar estos gastos es prioritario.</p>
-      </div>
-    `);
-  }
-  
-  if (actual.wants > recommended.wants) {
-    insights.push(`
-      <div class="mb-4">
-        <h4 class="h6 fw-bold">🛍️ Gestión de Deseos</h4>
-        <p>Tus gastos variables superan el 30% recomendado. Podrías reducirlos en 
-           ${formatCurrency((actual.wants / 100 * diagnosis.monthlyIncome) - diagnosis.recommended.wants)} 
-           para mejorar tu ahorro.</p>
-      </div>
-    `);
-  }
-  
-  // Análisis 3: Potencial de ahorro
-  const potentialSavings = diagnosis.recommended.savings - diagnosis.actual.savings;
-  if (potentialSavings > 0) {
-    insights.push(`
-      <div class="mb-4">
-        <h4 class="h6 fw-bold">💰 Tu Potencial de Ahorro</h4>
-        <p>Si logras alcanzar el 20% de ahorro recomendado, podrías ahorrar 
-           ${formatCurrency(potentialSavings)} adicionales al mes. 
-           En un año, esto equivaldría a ${formatCurrency(potentialSavings * 12)}.</p>
-      </div>
-    `);
-  }
-  
-  // Análisis 4: Sostenibilidad
-  if (diagnosis.availableMonthly >= diagnosis.actual.savings) {
-    insights.push(`
-      <div class="mb-4">
-        <h4 class="h6 fw-bold">✅ Sostenibilidad</h4>
-        <p>Tu plan financiero es sostenible con los gastos actuales. Mantén esta disciplina 
-           para alcanzar tus metas de ahorro.</p>
-      </div>
-    `);
-  }
-  
-  container.innerHTML = insights.join('') || '<p class="text-muted">No hay análisis adicionales disponibles.</p>';
-}
 
-// =========================================================
-// VALIDACIÓN Y MANEJO DE EVENTOS
-// =========================================================
-
-/**
- * Valida que el ingreso sea mayor a 0
- * @returns {boolean} True si es válido
- */
-function validateForm() {
-  const income = parseNumber(document.querySelector(selectors.monthlyIncome).value);
-  if (income <= 0) {
-    alert('Por favor, ingresa un ingreso mensual válido mayor a 0.');
-    return false;
+  function displayEmergencyFund(diagnosis) {
+    const container = $('emergencyFundContainer');
+    if (!container) return;
+    container.innerHTML = `
+      <p>Actual: <strong>${formatCurrency(diagnosis.data.emergencyFund.current)}</strong></p>
+      <p>1 mes: <strong>${formatCurrency(diagnosis.emergencyTargets.oneMonth)}</strong></p>
+      <p>3 meses: <strong>${formatCurrency(diagnosis.emergencyTargets.threeMonths)}</strong></p>
+      <p>6 meses: <strong>${formatCurrency(diagnosis.emergencyTargets.sixMonths)}</strong></p>
+      <div class="progress mb-2" style="height:8px;"><div class="progress-bar bg-success" style="width:${Math.min(100, diagnosis.emergencyProgress)}%"></div></div>
+      <p class="small mb-0">Avance hacia 3 meses: ${diagnosis.emergencyProgress.toFixed(1)}%</p>
+    `;
   }
-  return true;
-}
 
-/**
- * Maneja el envío del formulario
- */
-function handleFormSubmit(e) {
-  e.preventDefault();
-  
-  try {
-    if (!validateForm()) return;
-    
+  function displayInvestmentGuidance(diagnosis) {
+    const container = $('investmentContainer');
+    if (!container) return;
+    container.innerHTML = diagnosis.investmentAllowed
+      ? '<p class="text-success">Podría evaluarse como paso posible, priorizando liquidez, diversificación y bajo riesgo. No hay rentabilidad garantizada.</p>'
+      : '<p class="text-muted">Todavía no aparece como prioridad. Primero corregí saldo negativo, deuda activa o fondo de emergencia mínimo.</p>';
+  }
+
+  function renderStepper() {
+    const step = getStep();
+    const input = $('stepAmountInput');
+    setText('stepCounter', `${currentStepIndex + 1} de ${STEPS.length}`);
+    setText('stepCategory', step.category);
+    setText('stepTitle', step.title);
+    setText('stepHelp', step.help);
+    if (input) {
+      input.value = getValue(step.id);
+      input.focus();
+      input.select();
+    }
+    const progress = $('stepProgressFill');
+    if (progress) progress.style.width = `${((currentStepIndex + 1) / STEPS.length) * 100}%`;
+    const back = $('stepBackBtn');
+    if (back) back.disabled = currentStepIndex === 0;
+    const next = $('stepNextBtn');
+    if (next) next.textContent = currentStepIndex === STEPS.length - 1 ? 'Finalizar' : 'Siguiente';
+    renderStepMap();
+    updateStepFeedback();
+  }
+
+  function renderStepMap() {
+    const container = $('stepMap');
+    if (!container) return;
+    container.innerHTML = STEPS.map((step, index) => {
+      const value = getValue(step.id);
+      const hasValue = String(value || '').trim() !== '';
+      const state = index === currentStepIndex ? 'active' : hasValue ? 'done' : '';
+      return `
+        <button type="button" class="step-map-item ${state}" data-step-index="${index}">
+          <span class="step-map-dot">${index + 1}</span>
+          <span>${step.category}</span>
+        </button>
+      `;
+    }).join('');
+    container.querySelectorAll('[data-step-index]').forEach((button) => {
+      button.addEventListener('click', () => {
+        currentStepIndex = Number(button.dataset.stepIndex || 0);
+        renderStepper();
+      });
+    });
+  }
+
+  function updateStepFeedback() {
+    const input = $('stepAmountInput');
+    const step = getStep();
+    if (!input || !step) return;
+    const result = parseExpressionNumber(input.value);
+    const feedback = $('stepFeedback');
+    const validMark = $('stepValidMark');
+    input.classList.toggle('is-invalid', !result.valid);
+    input.classList.toggle('is-valid-expression', result.valid && String(input.value || '').match(/[+\-]/));
+    if (validMark) validMark.style.opacity = result.valid && String(input.value || '').trim() ? '1' : '0.25';
+    if (!feedback) return;
+    if (!result.valid) {
+      feedback.className = 'step-feedback small mt-3 text-danger';
+      feedback.textContent = result.error;
+    } else {
+      feedback.className = 'step-feedback small mt-3 text-success';
+      feedback.textContent = `Se calculará: ${formatCurrency(result.value)}. También podés escribir 0.`;
+    }
+  }
+
+  function syncStepInput() {
+    const step = getStep();
+    const input = $('stepAmountInput');
+    if (!step || !input) return;
+    setValue(step.id, input.value);
+    const result = parseExpressionNumber(input.value);
+    setFieldState(step.id, result);
+    updateStepFeedback();
+    updateLiveDiagnosis();
+    renderStepMap();
+  }
+
+  function goToNextStep() {
+    const step = getStep();
+    const result = parseExpressionNumber(getValue(step.id));
+    setFieldState(step.id, result);
+    if (!result.valid) {
+      updateStepFeedback();
+      $('stepAmountInput')?.focus();
+      return;
+    }
+    if (currentStepIndex < STEPS.length - 1) {
+      currentStepIndex += 1;
+      renderStepper();
+    } else {
+      runDiagnosis({ scroll: false });
+      setText('fileStatus', 'Diagnóstico completo. Podés ajustar cualquier paso desde el mapa.');
+    }
+  }
+
+  function goToPreviousStep() {
+    if (currentStepIndex <= 0) return;
+    currentStepIndex -= 1;
+    renderStepper();
+  }
+
+  function validateForm(options = {}) {
+    if (!validateCurrencyFields({ mark: true })) {
+      setText('fileStatus', 'Hay una operación inválida. Corregila para actualizar el diagnóstico.');
+      if (!options.silent) {
+        const firstInvalid = document.querySelector?.('.form-control.is-invalid');
+        firstInvalid?.focus();
+      }
+      return false;
+    }
+
+    if (sumValues(readFormData().incomes) <= 0) {
+      if (options.silent) return false;
+      setText('fileStatus', 'Ingresá al menos un ingreso mensual mayor a 0.');
+      return false;
+    }
+    return true;
+  }
+
+  function runDiagnosis(options = {}) {
+    if (!validateForm(options)) return null;
     const data = readFormData();
     const diagnosis = calculateFinancialDiagnosis(data);
-    displayResults(diagnosis);
-  } catch (error) {
-    alert(`Error: ${error.message}`);
-    console.error('Error en el cálculo:', error);
+    displayResults(diagnosis, options);
+    setText('fileStatus', options.live ? 'Diagnóstico actualizado en tiempo real.' : '');
+    return diagnosis;
   }
-}
 
-// =========================================================
-// INICIALIZACIÓN
-// =========================================================
-
-document.addEventListener('DOMContentLoaded', function() {
-  // Asociar manejador del formulario
-  const form = document.querySelector(selectors.form);
-  if (form) {
-    form.addEventListener('submit', handleFormSubmit);
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    try {
+      runDiagnosis();
+    } catch (error) {
+      setText('fileStatus', `Error: ${error.message}`);
+    }
   }
-  
-  console.log('✅ Financial Calculator inicializado correctamente');
-});
 
-// =========================================================
-// EXPORTACIÓN DE FUNCIONES (para debugging)
-// =========================================================
+  function updateLiveDiagnosis() {
+    const hasInput = CURRENCY_FIELD_IDS.some((id) => String(getValue(id) || '').trim());
+    if (!hasInput) {
+      clearFieldStates();
+      resetDashboard();
+      setText('fileStatus', '');
+      return;
+    }
 
-// Disponible en la consola del navegador: window.FinancialCalculator
-window.FinancialCalculator = {
-  formatCurrency,
-  parseNumber,
-  calculatePercentage,
-  roundToTwo,
-  readFormData,
-  calculateFinancialDiagnosis,
-  generateRecommendations,
-  calculateSavingsProjections,
-  calculateGoalTimeline,
-  getFinancialStatus,
-};
+    try {
+      runDiagnosis({ silent: true, scroll: false, live: true });
+    } catch (error) {
+      setText('fileStatus', `No se pudo actualizar todavía: ${error.message}`);
+    }
+  }
+
+  function exportData() {
+    const data = buildEditableExport(readFormData());
+    downloadText(`finanzas-personales-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify(data, null, 2));
+    setText('fileStatus', 'Datos exportados como archivo JSON local.');
+  }
+
+  function importDataFromFile(file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const parsed = JSON.parse(String(reader.result || ''));
+        const data = validateImportedData(parsed);
+        writeFormData(data);
+        setText('fileStatus', 'Archivo importado correctamente. Revisá los datos y calculá el diagnóstico.');
+        updateLiveDiagnosis();
+        renderStepper();
+      } catch (error) {
+        setText('fileStatus', `Error al importar: ${error.message}`);
+      }
+    };
+    reader.readAsText(file);
+  }
+
+  function copySummary() {
+    const summary = getValue('diagnosisSummary');
+    if (!summary) return;
+    navigator.clipboard?.writeText(summary).then(() => {
+      setText('fileStatus', 'Resumen copiado al portapapeles.');
+    }).catch(() => {
+      setText('fileStatus', 'No se pudo copiar automáticamente. Seleccioná el resumen y copialo manualmente.');
+    });
+  }
+
+  function downloadSummary() {
+    const diagnosis = runDiagnosis();
+    if (!diagnosis) return;
+    downloadText(`resumen-financiero-${new Date().toISOString().slice(0, 10)}.txt`, buildDiagnosisSummary(diagnosis), 'text/plain');
+  }
+
+  function init() {
+    resetDashboard();
+    $('financialForm')?.addEventListener('submit', handleFormSubmit);
+    CURRENCY_FIELD_IDS.forEach((id) => {
+      const element = $(id);
+      ensureFieldMessage(element);
+      element?.addEventListener('input', updateLiveDiagnosis);
+    });
+    renderStepper();
+    $('stepAmountInput')?.addEventListener('input', syncStepInput);
+    $('stepAmountInput')?.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        syncStepInput();
+        goToNextStep();
+      }
+    });
+    $('stepNextBtn')?.addEventListener('click', () => {
+      syncStepInput();
+      goToNextStep();
+    });
+    $('stepBackBtn')?.addEventListener('click', goToPreviousStep);
+    $('goalName')?.addEventListener('input', updateLiveDiagnosis);
+    $('exportDataBtn')?.addEventListener('click', exportData);
+    $('importDataBtn')?.addEventListener('click', () => $('importFile')?.click());
+    $('importFile')?.addEventListener('change', (event) => {
+      const file = event.target.files?.[0];
+      if (file) importDataFromFile(file);
+      event.target.value = '';
+    });
+    $('copySummaryBtn')?.addEventListener('click', copySummary);
+    $('downloadSummaryBtn')?.addEventListener('click', downloadSummary);
+    $('financialForm')?.addEventListener('reset', () => {
+      setTimeout(() => {
+        const results = $('resultsSection');
+        if (results) results.style.display = 'block';
+        setText('fileStatus', '');
+        clearFieldStates();
+        currentStepIndex = 0;
+        resetDashboard();
+        renderStepper();
+      }, 0);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', init);
+
+  window.FinancialCalculator = {
+    formatCurrency,
+    parseNumber,
+    parseExpressionNumber,
+    calculatePercentage,
+    roundToTwo,
+    defaultFinanceData,
+    normalizeFinanceData,
+    validateImportedData,
+    readFormData,
+    writeFormData,
+    calculateFinancialDiagnosis,
+    calculateDebtSimulation,
+    calculateSavingsProjections,
+    calculateSavingsScenarios,
+    generateRecommendations,
+    buildEditableExport,
+    buildDiagnosisSummary
+  };
+})();

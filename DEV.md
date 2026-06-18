@@ -64,5 +64,11 @@ npm run test:postgres
 ```
 Valida casos básicos y límite de `SELECT`, `INSERT` y `CREATE TABLE` contra `js/postgres-syntax-validator.js`.
 
+## Tests de la herramienta de ahorro
+```bash
+npm run test:finance
+```
+Valida diagnóstico, deuda, fondo de emergencia, exportación editable e importación con datos completos, campos faltantes y archivos incompatibles.
+
 ## Nota offline
 Si no hay red o falla una fuente, se mantienen los JSON existentes y el frontend oculta bloques vacíos sin errores visibles.
