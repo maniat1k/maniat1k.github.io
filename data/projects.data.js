@@ -1,8 +1,26 @@
 window.__PORTFOLIO_PROJECTS__ = {
   "source": "https://api.github.com/users/maniat1k/repos?per_page=100&sort=updated",
-  "generated_at": "2026-06-18T14:40:47.085Z",
+  "generated_at": "2026-06-18T20:06:31.240Z",
   "total": 11,
   "projects": [
+    {
+      "full_name": "maniat1k/wintop",
+      "default_branch": "main",
+      "name": "wintop",
+      "html_url": "https://github.com/maniat1k/wintop",
+      "description": "",
+      "topics": [],
+      "language": "PowerShell",
+      "stargazers_count": 1,
+      "forks_count": 0,
+      "updated_at": "2026-06-18T18:02:51Z",
+      "homepage": "",
+      "archived": false,
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
+    },
     {
       "full_name": "maniat1k/maniat1k.github.io",
       "default_branch": "main",
@@ -13,7 +31,7 @@ window.__PORTFOLIO_PROJECTS__ = {
       "language": "JavaScript",
       "stargazers_count": 1,
       "forks_count": 0,
-      "updated_at": "2026-06-18T14:32:56Z",
+      "updated_at": "2026-06-18T17:00:52Z",
       "homepage": "https://maniat1k.github.io/",
       "archived": false,
       "fork": false,
@@ -130,24 +148,6 @@ window.__PORTFOLIO_PROJECTS__ = {
       "stargazers_count": 1,
       "forks_count": 0,
       "updated_at": "2026-03-01T14:12:31Z",
-      "homepage": "",
-      "archived": false,
-      "fork": false,
-      "owner": {
-        "login": "maniat1k"
-      }
-    },
-    {
-      "full_name": "maniat1k/wintop",
-      "default_branch": "main",
-      "name": "wintop",
-      "html_url": "https://github.com/maniat1k/wintop",
-      "description": "",
-      "topics": [],
-      "language": "PowerShell",
-      "stargazers_count": 0,
-      "forks_count": 0,
-      "updated_at": "2026-03-01T14:12:30Z",
       "homepage": "",
       "archived": false,
       "fork": false,
