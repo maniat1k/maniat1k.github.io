@@ -16,8 +16,22 @@ const GITHUB_PROJECT_CARDS_FILE = path.join(DATA_DIR, "github_project_cards.json
 const GITHUB_USER = "maniat1k";
 const API_URL = `https://api.github.com/users/${GITHUB_USER}/repos?per_page=100&sort=updated`;
 const GRAPHQL_URL = "https://api.github.com/graphql";
-const DEVLOG_LIMIT = 8;
+const MAX_GITHUB_LOG_ITEMS = 12;
+const GITHUB_COMMITS_PER_REPO = 5;
 const CARD_LIMIT = 4;
+const githubRepos = [
+  { name: "maniat1k.github.io", type: "principal" },
+  { name: "maniat1k", type: "principal" },
+  { name: "wintop", type: "principal" },
+  { name: "nido", type: "principal" },
+  { name: "Clean_windows", type: "principal" },
+  { name: "SlimWin-", type: "principal" },
+  { name: "maniat1k-brand", type: "historico" },
+  { name: "Solarizedxterm", type: "historico" },
+  { name: "windows11_fixMBR", type: "historico" },
+  { name: "birame", type: "historico" },
+  { name: "savevm", type: "historico" }
+];
 const TRIVIAL_MESSAGES = new Set(["fix", "small fix", "typo", "format", "update", "wip"]);
 const AUTOMATED_MESSAGE_PREFIXES = ["chore:", "ci:", "build:", "bot:"];
 const AUTOMATED_MESSAGE_PARTS = ["refresh site data", "update generated data", "automated", "github-actions"];
@@ -188,15 +202,20 @@ function buildLanguageList(languageTotals) {
 
 async function buildDevLog(repos) {
   const commits = [];
-  const candidates = repos
-    .filter((repo) => !repo.fork && !repo.archived)
-    .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
-    .slice(0, 8);
+  const reposByName = new Map(repos.map((repo) => [repo.name.toLowerCase(), repo]));
+  const candidates = githubRepos
+    .map((config) => {
+      const repo = reposByName.get(config.name.toLowerCase());
+      if (!repo || repo.fork || repo.archived) return null;
+      return { ...config, repo };
+    })
+    .filter(Boolean);
 
-  for (const repo of candidates) {
+  for (const candidate of candidates) {
     try {
+      const repo = candidate.repo;
       const owner = repo?.owner?.login || GITHUB_USER;
-      const url = `https://api.github.com/repos/${owner}/${repo.name}/commits?per_page=10`;
+      const url = `https://api.github.com/repos/${owner}/${repo.name}/commits?per_page=${GITHUB_COMMITS_PER_REPO}`;
       const payload = await fetchJson(url);
       for (const commit of payload) {
         const message = normalizeCommitMessage(commit?.commit?.message?.split("\n")[0]);
@@ -205,6 +224,7 @@ async function buildDevLog(repos) {
         if (isAutomatedCommit(commit, message)) continue;
         commits.push({
           repo: repo.name,
+          repoType: candidate.type,
           message,
           date: commit?.commit?.committer?.date || commit?.commit?.author?.date || "",
           url: commit?.html_url || repo.html_url
@@ -216,7 +236,7 @@ async function buildDevLog(repos) {
   }
 
   commits.sort((a, b) => new Date(b.date) - new Date(a.date));
-  return commits.slice(0, DEVLOG_LIMIT);
+  return commits.slice(0, MAX_GITHUB_LOG_ITEMS);
 }
 
 async function buildLanguageTotals(repos) {

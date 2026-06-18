@@ -884,6 +884,29 @@ a:hover {
     line-height: 1.35;
 }
 
+.github-log-repo-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    align-items: center;
+}
+
+.github-log-repo-chip {
+    font-weight: 700;
+}
+
+.github-log-type-principal {
+    background: #f3f8f6;
+    border-color: #d7e7df;
+    color: #23533f;
+}
+
+.github-log-type-historico {
+    background: #f7f7f7;
+    border-color: #dedede;
+    color: #555;
+}
+
 .blog-feed-card {
     background: linear-gradient(180deg, #fffdfb 0%, #ffffff 100%);
     border-left: 4px solid #eadfd3;

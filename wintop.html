@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="WinTop: monitor de procesos para Windows escrito en PowerShell, inspirado en htop de Linux." />
+
+  <title>WinTop | maniat1k</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/wintop.css">
+</head>
+
+<body class="wintop-page">
+  <header id="top" class="wintop-header">
+    <nav class="navbar navbar-expand-lg wintop-nav">
+      <div class="container">
+        <a class="navbar-brand wintop-brand" href="index.html" aria-label="Volver a maniat1k">
+          <span class="brand-prompt" aria-hidden="true">&gt;_</span>
+          <span>WinTop</span>
+        </a>
+        <button class="navbar-toggler wintop-toggler" type="button" data-bs-toggle="offcanvas"
+          aria-label="Abrir menu de navegacion" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+          <span></span>
+        </button>
+        <div class="offcanvas offcanvas-end wintop-offcanvas" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+          <div class="offcanvas-header">
+            <h2 id="offcanvasNavbarLabel" class="visually-hidden">Menu de navegacion</h2>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body align-items-center">
+            <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+              <li class="nav-item"><a class="nav-link active" href="#top">Inicio</a></li>
+              <li class="nav-item"><a class="nav-link" href="#features">Características</a></li>
+              <li class="nav-item"><a class="nav-link" href="#install">Instalación</a></li>
+              <li class="nav-item"><a class="nav-link" href="#usage">Uso</a></li>
+              <li class="nav-item"><a class="nav-link" href="#shortcuts">Atajos</a></li>
+              <li class="nav-item"><a class="nav-link" href="index.html">Portfolio</a></li>
+              <li class="nav-item">
+                <a class="btn wintop-btn wintop-btn-ghost" href="https://github.com/maniat1k/wintop" target="_blank" rel="noopener noreferrer">Ver en GitHub</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="wintop-hero">
+      <div class="container">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-5">
+            <p class="wintop-kicker"><span></span> Monitor de procesos para Windows</p>
+            <h1>WinTop</h1>
+            <p class="wintop-subtitle">htop, pero para Windows.</p>
+            <p class="wintop-lead">
+              WinTop es un monitor de procesos para Windows escrito en PowerShell. Liviano, rápido y portable. Te permite ver CPU, memoria, procesos y controlar tu sistema desde la terminal.
+            </p>
+            <div class="wintop-hero-actions">
+              <a class="btn wintop-btn wintop-btn-primary" href="#install"><span aria-hidden="true">&gt;_</span> Instalación rápida</a>
+              <a class="btn wintop-btn wintop-btn-ghost" href="https://github.com/maniat1k/wintop" target="_blank" rel="noopener noreferrer">Ver en GitHub</a>
+            </div>
+            <div class="wintop-hero-notes">
+              <span>Rápido</span>
+              <span>Portable</span>
+              <span>PowerShell</span>
+            </div>
+          </div>
+
+          <div class="col-lg-7">
+            <div class="terminal-window" aria-label="Vista previa de WinTop en terminal">
+              <div class="terminal-titlebar">
+                <span class="terminal-prompt">&gt;_</span>
+                <span>top</span>
+                <div class="terminal-controls" aria-hidden="true">
+                  <span></span><span></span><span></span>
+                </div>
+              </div>
+              <div class="terminal-screen">
+                <div class="terminal-cpu">
+                  <div><span>CPU 0</span><strong style="--w:72%"></strong><em>28.1%</em></div>
+                  <div><span>CPU 1</span><strong style="--w:82%"></strong><em>32.7%</em></div>
+                  <div><span>CPU 2</span><strong style="--w:61%"></strong><em>21.4%</em></div>
+                  <div><span>CPU 3</span><strong style="--w:54%"></strong><em>18.9%</em></div>
+                </div>
+                <div class="terminal-memory">
+                  <span>Memoria</span>
+                  <strong style="--w:62%"></strong>
+                  <em>8.24 GB / 15.93 GB</em>
+                </div>
+                <div class="terminal-stats">
+                  <span>Tareas: 162</span>
+                  <span>Hilos: 2407</span>
+                  <span>Uptime: 02:17:43</span>
+                </div>
+                <div class="terminal-table">
+                  <div class="terminal-row terminal-head">
+                    <span>PID</span><span>USUARIO</span><span>PRI</span><span>HILOS</span><span>MEM RES</span><span>CPU%</span><span>COMANDO</span>
+                  </div>
+                  <div class="terminal-row"><span>1234</span><span>maniat1k</span><span>8</span><span>56</span><span>98.1 MB</span><span>12.4</span><span>Code.exe</span></div>
+                  <div class="terminal-row"><span>5678</span><span>SYSTEM</span><span>8</span><span>132</span><span>75.4 MB</span><span>7.6</span><span>explorer.exe</span></div>
+                  <div class="terminal-row"><span>9012</span><span>maniat1k</span><span>8</span><span>34</span><span>45.2 MB</span><span>5.1</span><span>PowerShell.exe</span></div>
+                  <div class="terminal-row"><span>3456</span><span>SYSTEM</span><span>8</span><span>98</span><span>38.7 MB</span><span>3.2</span><span>svchost.exe</span></div>
+                  <div class="terminal-row"><span>7890</span><span>maniat1k</span><span>8</span><span>27</span><span>28.9 MB</span><span>2.8</span><span>chrome.exe</span></div>
+                </div>
+                <div class="terminal-footer">
+                  <span>q Salir</span><span>h Ayuda</span><span>c CPU</span><span>m Mem</span><span>f Filtro</span><span>k Matar</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="features" class="wintop-section">
+      <div class="container">
+        <div class="section-heading text-center">
+          <p>Características</p>
+          <h2>Diseñado para mirar el sistema desde la terminal</h2>
+        </div>
+        <div class="feature-grid">
+          <article class="wintop-card"><span>CPU</span><h3>CPU por núcleo</h3><p>Barras por núcleo para ver cómo se reparte la carga cuando Windows permite consultar contadores del sistema.</p></article>
+          <article class="wintop-card"><span>MEM</span><h3>Memoria física usada</h3><p>Lectura clara de memoria física con valores útiles para diagnóstico rápido.</p></article>
+          <article class="wintop-card"><span>PID</span><h3>Tabla completa</h3><p>PID, usuario, prioridad, hilos, memoria, CPU y comando en una vista pensada para operar.</p></article>
+          <article class="wintop-card"><span>DELTA</span><h3>CPU precisa</h3><p>CPU calculada por delta entre muestras, no solo por acumulado desde el inicio.</p></article>
+          <article class="wintop-card"><span>SORT</span><h3>Ordenamiento</h3><p>Ordená por CPU, memoria, PID o nombre sin salir de la consola.</p></article>
+          <article class="wintop-card"><span>FIND</span><h3>Filtro operativo</h3><p>Filtrá procesos por PID, usuario o comando para enfocarte rápido en lo que importa.</p></article>
+          <article class="wintop-card"><span>KILL</span><h3>Cierre desde teclado</h3><p>Cerrá procesos por PID directamente desde la vista interactiva cuando lo necesites.</p></article>
+          <article class="wintop-card"><span>SAFE</span><h3>Fallbacks robustos</h3><p>Continúa funcionando cuando Windows restringe WMI/CIM o consola interactiva.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="wintop-section wintop-panel-section">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-6" id="install">
+            <article class="wintop-panel h-100">
+              <h2>Instalación rápida</h2>
+              <p>Cloná el repositorio y ejecutá el script desde PowerShell.</p>
+              <pre><code>git clone https://github.com/maniat1k/wintop.git
+cd wintop
+.\top.ps1</code></pre>
+              <a class="btn wintop-btn wintop-btn-primary" href="https://github.com/maniat1k/wintop" target="_blank" rel="noopener noreferrer">Abrir repositorio</a>
+            </article>
+          </div>
+          <div class="col-lg-6" id="usage">
+            <article class="wintop-panel h-100">
+              <h2>Uso básico</h2>
+              <p>Ejemplos para iniciar WinTop, ajustar refresco, limitar filas o tomar una sola muestra.</p>
+              <pre><code>top
+top -RefreshRate 1 -ProcessLimit 40 -SortBy mem
+top -Once</code></pre>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="shortcuts" class="wintop-section">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-7">
+            <article class="wintop-panel h-100">
+              <h2>Atajos de teclado</h2>
+              <div class="shortcut-grid">
+                <p><kbd>q</kbd> salir</p>
+                <p><kbd>h</kbd> ayuda</p>
+                <p><kbd>c</kbd> ordenar por CPU</p>
+                <p><kbd>m</kbd> ordenar por memoria</p>
+                <p><kbd>p</kbd> ordenar por PID</p>
+                <p><kbd>n</kbd> ordenar por nombre</p>
+                <p><kbd>f</kbd> filtrar</p>
+                <p><kbd>k</kbd> cerrar proceso por PID</p>
+                <p><kbd>+</kbd> mostrar más filas</p>
+                <p><kbd>-</kbd> mostrar menos filas</p>
+              </div>
+            </article>
+          </div>
+          <div class="col-lg-5">
+            <article class="wintop-panel h-100">
+              <h2>Requisitos</h2>
+              <ul class="requirements-list">
+                <li>Windows 10/11</li>
+                <li>PowerShell 5.1 o PowerShell 7+</li>
+              </ul>
+              <div class="wintop-callout">
+                <strong>Open Source</strong>
+                <span>WinTop vive en GitHub y acepta feedback, issues y contribuciones.</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wintop-footer">
+    <div class="container text-center">
+      <p class="mb-2">Hecho con PowerShell por maniat1k</p>
+      <a href="https://github.com/maniat1k/wintop" target="_blank" rel="noopener noreferrer">github.com/maniat1k/wintop</a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

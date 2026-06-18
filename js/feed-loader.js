@@ -10,6 +10,23 @@
     "github-log": "GitHub Log"
   };
 
+  const GITHUB_USER = "maniat1k";
+  const MAX_GITHUB_LOG_ITEMS = 12;
+  const GITHUB_COMMITS_PER_REPO = 5;
+  const githubRepos = [
+    { name: "maniat1k.github.io", type: "principal" },
+    { name: "maniat1k", type: "principal" },
+    { name: "wintop", type: "principal" },
+    { name: "nido", type: "principal" },
+    { name: "Clean_windows", type: "principal" },
+    { name: "SlimWin-", type: "principal" },
+    { name: "maniat1k-brand", type: "historico" },
+    { name: "Solarizedxterm", type: "historico" },
+    { name: "windows11_fixMBR", type: "historico" },
+    { name: "birame", type: "historico" },
+    { name: "savevm", type: "historico" }
+  ];
+
   const Fallback = {
     blogItems: [
       {
@@ -60,6 +77,8 @@
         title: "chore: refresh site data",
         date: "2026-06-12T09:53:18Z",
         description: "maniat1k.github.io",
+        repo: "maniat1k.github.io",
+        repoType: "principal",
         url: "https://github.com/maniat1k/maniat1k.github.io/commit/ab7b1db6b49fa5d215f66b68846e4a5241ab7446"
       },
       {
@@ -68,6 +87,8 @@
         title: "Revise README structure and update tool icons",
         date: "2026-06-10T19:47:14Z",
         description: "maniat1k",
+        repo: "maniat1k",
+        repoType: "principal",
         url: "https://github.com/maniat1k/maniat1k/commit/10fa9c5c06d6da3b1ee55404316e9c3e197f9b32"
       }
     ]
@@ -115,6 +136,10 @@
     const response = await fetch(path, { cache: "no-store" });
     if (!response.ok) throw new Error("Could not fetch " + path);
     return response.json();
+  }
+
+  function getRepoConfig(repoName) {
+    return githubRepos.find((repo) => repo.name.toLowerCase() === String(repoName || "").toLowerCase()) || null;
   }
 
   function normalizeImageUrl(url) {
@@ -197,15 +222,32 @@
 
   function normalizeCommit(commit) {
     if (!commit?.url) return null;
+    const repo = String(commit.repo || commit.description || "");
+    const repoConfig = getRepoConfig(repo);
     return {
       type: "github-log",
       source: "github-log",
       title: String(commit.message || commit.title || "Commit publico"),
       date: String(commit.date || ""),
-      description: String(commit.repo || commit.description || "Actividad reciente en GitHub"),
+      description: repo || "Actividad reciente en GitHub",
+      repo: repo || "GitHub",
+      repoType: String(commit.repoType || commit.type || repoConfig?.type || "principal"),
       url: String(commit.url),
-      tags: []
+      tags: [repo, commit.repoType || commit.type || repoConfig?.type].filter(Boolean).map(String)
     };
+  }
+
+  function normalizeGitHubApiCommit(commit, repoConfig) {
+    const message = String(commit?.commit?.message || "").split("\n")[0].trim();
+    const url = String(commit?.html_url || "");
+    if (!message || !url) return null;
+    return normalizeCommit({
+      repo: repoConfig.name,
+      repoType: repoConfig.type,
+      message,
+      date: commit?.commit?.committer?.date || commit?.commit?.author?.date || "",
+      url
+    });
   }
 
   function isAutomatedCommitItem(item) {
@@ -285,12 +327,31 @@
   }
 
   async function loadGithubLogItems() {
+    const localItemsPromise = fetchJson("data/devlog.json")
+      .then((payload) => (payload?.items || []).map(normalizeCommit).filter(Boolean))
+      .catch(() => Fallback.githubLogItems.map(normalizeCommit).filter(Boolean));
+
     try {
-      const payload = await fetchJson("data/devlog.json");
-      const items = (payload?.items || []).map(normalizeCommit).filter(Boolean).filter((item) => !isAutomatedCommitItem(item));
-      return items.length ? sortByDate(items) : Fallback.githubLogItems;
+      const requests = githubRepos.map((repo) => {
+        const url = `https://api.github.com/repos/${GITHUB_USER}/${encodeURIComponent(repo.name)}/commits?per_page=${GITHUB_COMMITS_PER_REPO}`;
+        return fetchJson(url).then((payload) => ({ repo, payload }));
+      });
+
+      const results = await Promise.allSettled(requests);
+      const liveItems = results.flatMap((result) => {
+        if (result.status !== "fulfilled") return [];
+        const payload = Array.isArray(result.value.payload) ? result.value.payload : [];
+        return payload.map((commit) => normalizeGitHubApiCommit(commit, result.value.repo)).filter(Boolean);
+      });
+
+      const items = sortByDate(liveItems.filter((item) => !isAutomatedCommitItem(item))).slice(0, MAX_GITHUB_LOG_ITEMS);
+      if (items.length) return items;
+
+      const localItems = await localItemsPromise;
+      return sortByDate(localItems.filter((item) => !isAutomatedCommitItem(item))).slice(0, MAX_GITHUB_LOG_ITEMS);
     } catch {
-      return Fallback.githubLogItems;
+      const localItems = await localItemsPromise;
+      return sortByDate(localItems.filter((item) => !isAutomatedCommitItem(item))).slice(0, MAX_GITHUB_LOG_ITEMS);
     }
   }
 
@@ -424,6 +485,8 @@
   }
 
   function createCommitCard(item) {
+    const repoType = item.repoType === "historico" ? "historico" : "principal";
+    const repoLabel = repoType === "historico" ? "Histórico" : "Principal";
     return `
       <div class="col mb-4 portfolio-item github-log">
         <article class="project-card github-log-card h-100 p-4">
@@ -436,7 +499,10 @@
             <span class="source-badge source-badge-github">GITHUB LOG</span>
             <span class="project-meta">${formatDate(item.date)}</span>
           </div>
-          <p class="project-meta mb-1">${escapeHtml(item.description)}</p>
+          <div class="github-log-repo-row mb-2">
+            <span class="site-chip github-log-repo-chip">${escapeHtml(item.repo || item.description)}</span>
+            <span class="site-chip github-log-type-chip github-log-type-${escapeHtml(repoType)}">${repoLabel}</span>
+          </div>
           <h3 class="h6 mb-2">${escapeHtml(item.title)}</h3>
           <div class="repo-card-footer">
             <a class="btn btn-primary btn-sm text-uppercase text-decoration-none" href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">Ver commit</a>

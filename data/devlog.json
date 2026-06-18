@@ -1,52 +1,60 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-06-18T14:40:49.781Z",
+  "generated_at": "2026-06-18T10:01:42.476Z",
   "total": 8,
   "items": [
     {
       "repo": "maniat1k.github.io",
-      "message": "feat: mejorar la base del diagnostico financiero y preparar nueva experiencia interactiva",
-      "date": "2026-06-18T14:31:26Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/2be031bf1c639213ec447436719a77489b931fb1"
-    },
-    {
-      "repo": "maniat1k.github.io",
+      "repoType": "principal",
       "message": "actualizacion del post",
       "date": "2026-06-17T12:41:41Z",
       "url": "https://github.com/maniat1k/maniat1k.github.io/commit/320d8fd5076715944e7a426273253ee453f5341e"
     },
     {
       "repo": "maniat1k.github.io",
+      "repoType": "principal",
       "message": "actualizacion del post",
       "date": "2026-06-17T12:36:40Z",
       "url": "https://github.com/maniat1k/maniat1k.github.io/commit/2e1442a4000a602d337fce56de37e52f81a005c7"
     },
     {
+      "repo": "maniat1k.github.io",
+      "repoType": "principal",
+      "message": "Mejora validador SQL PostgreSQL",
+      "date": "2026-06-17T12:32:00Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/6750cb3124bb5656a267e43ad2a4f3e6d857f2ce"
+    },
+    {
       "repo": "maniat1k",
+      "repoType": "principal",
       "message": "Revise README structure and update tool icons",
       "date": "2026-06-10T19:47:14Z",
       "url": "https://github.com/maniat1k/maniat1k/commit/10fa9c5c06d6da3b1ee55404316e9c3e197f9b32"
     },
     {
       "repo": "maniat1k",
+      "repoType": "principal",
       "message": "Add Postman badge to README.md",
       "date": "2026-06-10T19:43:23Z",
       "url": "https://github.com/maniat1k/maniat1k/commit/c7c8dc099eaec595d78c8b0b5d88f8864940c3e1"
     },
     {
       "repo": "nido",
+      "repoType": "principal",
       "message": "Merge pull request #2 from maniat1k/feat/publish-item-flow",
       "date": "2026-03-25T16:46:40Z",
       "url": "https://github.com/maniat1k/nido/commit/06e90a2f8826b404a686f6e5ce46330bcb9a818e"
     },
     {
       "repo": "nido",
+      "repoType": "principal",
       "message": "últimos cambios ya no voy a tocar nada más por un tiempo",
       "date": "2026-03-25T16:30:49Z",
       "url": "https://github.com/maniat1k/nido/commit/c627f4fcf49e065dc65934d196b51dbf221459d5"
     },
     {
       "repo": "nido",
+      "repoType": "principal",
       "message": "trabajo auditado",
       "date": "2026-03-13T19:10:24Z",
       "url": "https://github.com/maniat1k/nido/commit/7b170d0007e2d0691fb09731639da641cdb051f1"
