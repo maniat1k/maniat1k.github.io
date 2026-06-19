@@ -1,6 +1,6 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-06-19T10:08:36.870Z",
+  "generated_at": "2026-06-19T14:37:25.398Z",
   "total": 12,
   "items": [
     {
@@ -9,13 +9,6 @@
       "message": "Nueva página de WinTop y mejoras en la integración del portal GitHub",
       "date": "2026-06-18T17:00:24Z",
       "url": "https://github.com/maniat1k/maniat1k.github.io/commit/3558d9fa520a4b292b90535b99d3ebb8d6dc21ba"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "repoType": "principal",
-      "message": "feat: mejorar la base del diagnostico financiero y preparar nueva experiencia interactiva",
-      "date": "2026-06-18T14:31:26Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/2be031bf1c639213ec447436719a77489b931fb1"
     },
     {
       "repo": "maniat1k",
@@ -86,6 +79,13 @@
       "message": "Add Spanish translations and restructure README",
       "date": "2026-02-01T23:24:16Z",
       "url": "https://github.com/maniat1k/maniat1k/commit/2b82f9462a49a95fd5e7df478848761ef821d442"
+    },
+    {
+      "repo": "Clean_windows",
+      "repoType": "principal",
+      "message": "sync: importar cambios desde carpeta local",
+      "date": "2025-10-20T14:35:03Z",
+      "url": "https://github.com/maniat1k/Clean_windows/commit/5e7fa21ea9b9e00fe8fc92d28f7f9f1a5e32ad7a"
     }
   ]
 }
