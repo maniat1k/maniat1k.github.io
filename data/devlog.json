@@ -1,15 +1,8 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-06-19T19:22:21.306Z",
+  "generated_at": "2026-06-20T02:06:51.776Z",
   "total": 12,
   "items": [
-    {
-      "repo": "maniat1k.github.io",
-      "repoType": "principal",
-      "message": "Nueva página de WinTop y mejoras en la integración del portal GitHub",
-      "date": "2026-06-18T17:00:24Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/3558d9fa520a4b292b90535b99d3ebb8d6dc21ba"
-    },
     {
       "repo": "maniat1k",
       "repoType": "principal",
@@ -86,6 +79,13 @@
       "message": "sync: importar cambios desde carpeta local",
       "date": "2025-10-20T14:35:03Z",
       "url": "https://github.com/maniat1k/Clean_windows/commit/5e7fa21ea9b9e00fe8fc92d28f7f9f1a5e32ad7a"
+    },
+    {
+      "repo": "maniat1k-brand",
+      "repoType": "historico",
+      "message": "initial: brand assets (media excluded via .gitignore)",
+      "date": "2025-10-20T14:17:09Z",
+      "url": "https://github.com/maniat1k/maniat1k-brand/commit/ae1149ae221cf7121ab612d2fa5968b664775dce"
     }
   ]
 }
