@@ -66,6 +66,11 @@
   color: var(--wintop-green);
 }
 
+.wintop-github-star {
+  display: flex;
+  align-items: center;
+}
+
 .wintop-toggler {
   border: 1px solid var(--wintop-border);
   border-radius: 8px;
@@ -440,6 +445,10 @@
 
   .wintop-offcanvas .wintop-btn {
     width: 100%;
+    margin-top: 0.75rem;
+  }
+
+  .wintop-github-star {
     margin-top: 0.75rem;
   }
 
