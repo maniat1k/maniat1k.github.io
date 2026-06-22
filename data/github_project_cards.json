@@ -1,6 +1,6 @@
 {
   "source": "github-project-cards",
-  "generated_at": "2026-06-22T16:23:30.429Z",
+  "generated_at": "2026-06-22T20:29:49.328Z",
   "total": 4,
   "items": [
     {
@@ -29,27 +29,27 @@
     },
     {
       "source": "github",
-      "id": "github_maniat1k.github.io",
-      "title": "maniat1k.github.io",
-      "url": "https://github.com/maniat1k/maniat1k.github.io",
-      "date": "2026-06-22T11:29:50Z",
-      "summary": "Maniat1k Portfolio",
-      "image": "https://opengraph.githubassets.com/1/maniat1k/maniat1k.github.io",
-      "image_alt": "Preview de maniat1k.github.io",
+      "id": "github_maniat1k",
+      "title": "maniat1k",
+      "url": "https://github.com/maniat1k/maniat1k",
+      "date": "2026-06-22T17:50:32Z",
+      "summary": "🛠️ Building practical tools, automations and technical projects around DevOps and SysAdmin.",
+      "image": "https://opengraph.githubassets.com/1/maniat1k/maniat1k",
+      "image_alt": "Preview de maniat1k",
       "stars": 1,
-      "updated_at": "2026-06-22T11:29:50Z"
+      "updated_at": "2026-06-22T17:50:32Z"
     },
     {
       "source": "github",
-      "id": "github_wintop",
-      "title": "wintop",
-      "url": "https://github.com/maniat1k/wintop",
-      "date": "2026-06-18T18:02:51Z",
-      "summary": "WinTop",
-      "image": "https://opengraph.githubassets.com/1/maniat1k/wintop",
-      "image_alt": "Preview de wintop",
+      "id": "github_maniat1k.github.io",
+      "title": "maniat1k.github.io",
+      "url": "https://github.com/maniat1k/maniat1k.github.io",
+      "date": "2026-06-22T17:45:49Z",
+      "summary": "My digital workshop: DevOps, SysAdmin, PowerShell, automation and technical projects.",
+      "image": "https://opengraph.githubassets.com/1/maniat1k/maniat1k.github.io",
+      "image_alt": "Preview de maniat1k.github.io",
       "stars": 1,
-      "updated_at": "2026-06-18T18:02:51Z"
+      "updated_at": "2026-06-22T17:45:49Z"
     }
   ]
 }

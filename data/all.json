@@ -1,31 +1,31 @@
 {
   "source": "all",
-  "generated_at": "2026-06-22T16:23:31.480Z",
+  "generated_at": "2026-06-22T20:29:50.477Z",
   "total": 8,
   "items": [
+    {
+      "source": "github",
+      "id": "github_maniat1k",
+      "title": "maniat1k",
+      "url": "https://github.com/maniat1k/maniat1k",
+      "date": "2026-06-22T17:50:32.000Z",
+      "image": "",
+      "image_alt": "maniat1k",
+      "summary": "🛠️ Building practical tools, automations and technical projects around DevOps and SysAdmin.",
+      "stars": 1,
+      "updated_at": "2026-06-22T17:50:32.000Z"
+    },
     {
       "source": "github",
       "id": "github_maniat1k.github.io",
       "title": "maniat1k.github.io",
       "url": "https://github.com/maniat1k/maniat1k.github.io",
-      "date": "2026-06-22T11:29:50.000Z",
+      "date": "2026-06-22T17:45:49.000Z",
       "image": "",
       "image_alt": "maniat1k.github.io",
-      "summary": "Maniat1k Portfolio",
+      "summary": "My digital workshop: DevOps, SysAdmin, PowerShell, automation and technical projects.",
       "stars": 1,
-      "updated_at": "2026-06-22T11:29:50.000Z"
-    },
-    {
-      "source": "github",
-      "id": "github_wintop",
-      "title": "wintop",
-      "url": "https://github.com/maniat1k/wintop",
-      "date": "2026-06-18T18:02:51.000Z",
-      "image": "",
-      "image_alt": "wintop",
-      "summary": "WinTop",
-      "stars": 1,
-      "updated_at": "2026-06-18T18:02:51.000Z"
+      "updated_at": "2026-06-22T17:45:49.000Z"
     },
     {
       "source": "github",

@@ -1,8 +1,15 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-06-22T16:23:28.244Z",
+  "generated_at": "2026-06-22T20:29:47.371Z",
   "total": 12,
   "items": [
+    {
+      "repo": "maniat1k.github.io",
+      "repoType": "principal",
+      "message": "feat: add official GitHub star button to WinTop landing page",
+      "date": "2026-06-22T17:22:46Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/3c5fb3438dc802891ee05b65d8be5c9c7ac1e04c"
+    },
     {
       "repo": "maniat1k",
       "repoType": "principal",
@@ -79,13 +86,6 @@
       "message": "sync: importar cambios desde carpeta local",
       "date": "2025-10-20T14:35:03Z",
       "url": "https://github.com/maniat1k/Clean_windows/commit/5e7fa21ea9b9e00fe8fc92d28f7f9f1a5e32ad7a"
-    },
-    {
-      "repo": "maniat1k-brand",
-      "repoType": "historico",
-      "message": "initial: brand assets (media excluded via .gitignore)",
-      "date": "2025-10-20T14:17:09Z",
-      "url": "https://github.com/maniat1k/maniat1k-brand/commit/ae1149ae221cf7121ab612d2fa5968b664775dce"
     }
   ]
 }
