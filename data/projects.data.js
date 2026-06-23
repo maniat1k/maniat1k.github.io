@@ -1,8 +1,35 @@
 window.__PORTFOLIO_PROJECTS__ = {
   "source": "https://api.github.com/users/maniat1k/repos?per_page=100&sort=updated",
-  "generated_at": "2026-06-22T20:29:43.786Z",
+  "generated_at": "2026-06-23T02:00:46.699Z",
   "total": 11,
   "projects": [
+    {
+      "full_name": "maniat1k/maniat1k.github.io",
+      "default_branch": "main",
+      "name": "maniat1k.github.io",
+      "html_url": "https://github.com/maniat1k/maniat1k.github.io",
+      "description": "My digital workshop: DevOps, SysAdmin, PowerShell, automation and technical projects.",
+      "topics": [
+        "automation",
+        "blog",
+        "build-in-public",
+        "devops",
+        "github-pages",
+        "portfolio",
+        "powershell",
+        "sysadmin"
+      ],
+      "language": "JavaScript",
+      "stargazers_count": 1,
+      "forks_count": 0,
+      "updated_at": "2026-06-22T20:29:55Z",
+      "homepage": "https://maniat1k.github.io/",
+      "archived": false,
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
+    },
     {
       "full_name": "maniat1k/maniat1k",
       "default_branch": "main",
@@ -25,33 +52,6 @@ window.__PORTFOLIO_PROJECTS__ = {
       "forks_count": 0,
       "updated_at": "2026-06-22T17:50:32Z",
       "homepage": "https://maniat1k.github.io",
-      "archived": false,
-      "fork": false,
-      "owner": {
-        "login": "maniat1k"
-      }
-    },
-    {
-      "full_name": "maniat1k/maniat1k.github.io",
-      "default_branch": "main",
-      "name": "maniat1k.github.io",
-      "html_url": "https://github.com/maniat1k/maniat1k.github.io",
-      "description": "My digital workshop: DevOps, SysAdmin, PowerShell, automation and technical projects.",
-      "topics": [
-        "automation",
-        "blog",
-        "build-in-public",
-        "devops",
-        "github-pages",
-        "portfolio",
-        "powershell",
-        "sysadmin"
-      ],
-      "language": "JavaScript",
-      "stargazers_count": 1,
-      "forks_count": 0,
-      "updated_at": "2026-06-22T17:45:49Z",
-      "homepage": "https://maniat1k.github.io/",
       "archived": false,
       "fork": false,
       "owner": {
