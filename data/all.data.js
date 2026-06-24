@@ -1,31 +1,31 @@
 window.__PORTFOLIO_FEEDS__ = {
   "source": "all",
-  "generated_at": "2026-06-24T08:50:14.256Z",
+  "generated_at": "2026-06-24T14:01:47.177Z",
   "total": 8,
   "items": [
+    {
+      "source": "github",
+      "id": "github_Clean_windows",
+      "title": "Clean_windows",
+      "url": "https://github.com/maniat1k/Clean_windows",
+      "date": "2026-06-24T13:49:34.000Z",
+      "image": "",
+      "image_alt": "Clean_windows",
+      "summary": "Toolkit PowerShell para mantenimiento seguro de Windows",
+      "stars": 1,
+      "updated_at": "2026-06-24T13:49:34.000Z"
+    },
     {
       "source": "github",
       "id": "github_maniat1k.github.io",
       "title": "maniat1k.github.io",
       "url": "https://github.com/maniat1k/maniat1k.github.io",
-      "date": "2026-06-24T02:01:19.000Z",
+      "date": "2026-06-24T08:50:21.000Z",
       "image": "",
       "image_alt": "maniat1k.github.io",
       "summary": "My digital workshop: DevOps, SysAdmin, PowerShell, automation and technical projects.",
       "stars": 1,
-      "updated_at": "2026-06-24T02:01:19.000Z"
-    },
-    {
-      "source": "github",
-      "id": "github_maniat1k",
-      "title": "maniat1k",
-      "url": "https://github.com/maniat1k/maniat1k",
-      "date": "2026-06-22T17:50:32.000Z",
-      "image": "",
-      "image_alt": "maniat1k",
-      "summary": "🛠️ Building practical tools, automations and technical projects around DevOps and SysAdmin.",
-      "stars": 1,
-      "updated_at": "2026-06-22T17:50:32.000Z"
+      "updated_at": "2026-06-24T08:50:21.000Z"
     },
     {
       "source": "github",

@@ -1,6 +1,6 @@
 {
   "source": "github-project-cards",
-  "generated_at": "2026-06-24T08:50:13.102Z",
+  "generated_at": "2026-06-24T14:01:46.079Z",
   "total": 4,
   "items": [
     {
@@ -29,27 +29,27 @@
     },
     {
       "source": "github",
+      "id": "github_Clean_windows",
+      "title": "Clean_windows",
+      "url": "https://github.com/maniat1k/Clean_windows",
+      "date": "2026-06-24T13:49:34Z",
+      "summary": "Toolkit PowerShell para mantenimiento seguro de Windows",
+      "image": "https://opengraph.githubassets.com/1/maniat1k/Clean_windows",
+      "image_alt": "Preview de Clean_windows",
+      "stars": 1,
+      "updated_at": "2026-06-24T13:49:34Z"
+    },
+    {
+      "source": "github",
       "id": "github_maniat1k.github.io",
       "title": "maniat1k.github.io",
       "url": "https://github.com/maniat1k/maniat1k.github.io",
-      "date": "2026-06-24T02:01:19Z",
+      "date": "2026-06-24T08:50:21Z",
       "summary": "My digital workshop: DevOps, SysAdmin, PowerShell, automation and technical projects.",
       "image": "https://opengraph.githubassets.com/1/maniat1k/maniat1k.github.io",
       "image_alt": "Preview de maniat1k.github.io",
       "stars": 1,
-      "updated_at": "2026-06-24T02:01:19Z"
-    },
-    {
-      "source": "github",
-      "id": "github_maniat1k",
-      "title": "maniat1k",
-      "url": "https://github.com/maniat1k/maniat1k",
-      "date": "2026-06-22T17:50:32Z",
-      "summary": "🛠️ Building practical tools, automations and technical projects around DevOps and SysAdmin.",
-      "image": "https://opengraph.githubassets.com/1/maniat1k/maniat1k",
-      "image_alt": "Preview de maniat1k",
-      "stars": 1,
-      "updated_at": "2026-06-22T17:50:32Z"
+      "updated_at": "2026-06-24T08:50:21Z"
     }
   ]
 }

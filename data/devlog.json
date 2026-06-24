@@ -1,8 +1,15 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-06-24T08:50:11.278Z",
+  "generated_at": "2026-06-24T14:01:44.025Z",
   "total": 12,
   "items": [
+    {
+      "repo": "Clean_windows",
+      "repoType": "principal",
+      "message": "1er reset del proyecto",
+      "date": "2026-06-24T12:50:35Z",
+      "url": "https://github.com/maniat1k/Clean_windows/commit/f4aafe3ffdbe7b5be17342d3d695aa006c54bb37"
+    },
     {
       "repo": "maniat1k",
       "repoType": "principal",
@@ -79,13 +86,6 @@
       "message": "sync: importar cambios desde carpeta local",
       "date": "2025-10-20T14:35:03Z",
       "url": "https://github.com/maniat1k/Clean_windows/commit/5e7fa21ea9b9e00fe8fc92d28f7f9f1a5e32ad7a"
-    },
-    {
-      "repo": "maniat1k-brand",
-      "repoType": "historico",
-      "message": "initial: brand assets (media excluded via .gitignore)",
-      "date": "2025-10-20T14:17:09Z",
-      "url": "https://github.com/maniat1k/maniat1k-brand/commit/ae1149ae221cf7121ab612d2fa5968b664775dce"
     }
   ]
 }
