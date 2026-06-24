@@ -1,6 +1,6 @@
 {
   "source": "github-project-cards",
-  "generated_at": "2026-06-24T14:01:46.079Z",
+  "generated_at": "2026-06-24T19:23:54.285Z",
   "total": 4,
   "items": [
     {
@@ -32,24 +32,24 @@
       "id": "github_Clean_windows",
       "title": "Clean_windows",
       "url": "https://github.com/maniat1k/Clean_windows",
-      "date": "2026-06-24T13:49:34Z",
+      "date": "2026-06-24T14:27:43Z",
       "summary": "Toolkit PowerShell para mantenimiento seguro de Windows",
       "image": "https://opengraph.githubassets.com/1/maniat1k/Clean_windows",
       "image_alt": "Preview de Clean_windows",
-      "stars": 1,
-      "updated_at": "2026-06-24T13:49:34Z"
+      "stars": 2,
+      "updated_at": "2026-06-24T14:27:43Z"
     },
     {
       "source": "github",
-      "id": "github_maniat1k.github.io",
-      "title": "maniat1k.github.io",
-      "url": "https://github.com/maniat1k/maniat1k.github.io",
-      "date": "2026-06-24T08:50:21Z",
-      "summary": "My digital workshop: DevOps, SysAdmin, PowerShell, automation and technical projects.",
-      "image": "https://opengraph.githubassets.com/1/maniat1k/maniat1k.github.io",
-      "image_alt": "Preview de maniat1k.github.io",
+      "id": "github_wintop",
+      "title": "wintop",
+      "url": "https://github.com/maniat1k/wintop",
+      "date": "2026-06-24T16:31:21Z",
+      "summary": "A simple system monitor for Windows inspired by htop and built with PowerShell.",
+      "image": "https://opengraph.githubassets.com/1/maniat1k/wintop",
+      "image_alt": "Preview de wintop",
       "stars": 1,
-      "updated_at": "2026-06-24T08:50:21Z"
+      "updated_at": "2026-06-24T16:31:21Z"
     }
   ]
 }
