@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="Clean Windows Toolkit: mantenimiento, limpieza y reparación básica de Windows desde PowerShell." />
+  <title>Clean Windows Toolkit | maniat1k</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/wintop.css">
+  <link rel="stylesheet" href="css/clean-windows.css">
+</head>
+
+<body class="wintop-page clean-windows-page">
+  <div class="cw-site-frame">
+    <header id="top" class="wintop-header cw-header">
+      <nav class="navbar navbar-expand-lg wintop-nav">
+        <div class="container cw-container">
+          <a class="navbar-brand wintop-brand" href="index.html" aria-label="Volver a maniat1k">
+            <span class="cw-brand-mark" aria-hidden="true">M1</span>
+            <span>maniat1k <em>/ Clean Windows</em></span>
+          </a>
+          <button class="navbar-toggler wintop-toggler" type="button" data-bs-toggle="offcanvas"
+            aria-label="Abrir menú de navegación" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+            <span></span>
+          </button>
+          <div class="offcanvas offcanvas-end wintop-offcanvas" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+              <h2 id="offcanvasNavbarLabel" class="visually-hidden">Menú de navegación</h2>
+              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button>
+            </div>
+            <div class="offcanvas-body align-items-center">
+              <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+                <li class="nav-item"><a class="nav-link active" href="#top">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" href="#que-hace">Qué hace</a></li>
+                <li class="nav-item"><a class="nav-link" href="#filosofia">Filosofía</a></li>
+                <li class="nav-item"><a class="nav-link" href="#quick-start">Quick start</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.html">Portfolio</a></li>
+                <li class="nav-item wintop-github-star">
+                  <a class="github-button" href="https://github.com/maniat1k/Clean_windows" data-icon="octicon-star"
+                    data-size="large" data-show-count="true"
+                    data-color-scheme="no-preference: dark; light: dark; dark: dark;"
+                    aria-label="Star maniat1k/Clean_windows on GitHub">Star</a>
+                </li>
+                <li class="nav-item">
+                  <a class="btn wintop-btn wintop-btn-ghost" href="https://github.com/maniat1k/Clean_windows" target="_blank" rel="noopener noreferrer">Ver en GitHub</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="cw-hero">
+        <div class="container cw-container">
+          <div class="cw-hero-grid">
+            <div class="cw-hero-copy">
+              <p class="cw-kicker"><span></span> PowerShell toolkit</p>
+              <h1>Clean Windows Toolkit</h1>
+              <p class="cw-hero-subtitle">Mantenimiento seguro. Control visible. Sin recetas agresivas.</p>
+              <p class="cw-hero-description">
+Una herramienta práctica para técnicos, sysadmins y usuarios avanzados que concentra tareas habituales de limpieza, diagnóstico y reparación básica en un único menú. <b>Actualmente se encuentra en fase beta</b> y continúa evolucionando con nuevas funcionalidades, mejoras de seguridad y refinamientos basados en la experiencia de uso real.
+</p>
+              <div class="cw-hero-actions">
+                <a class="btn wintop-btn wintop-btn-ghost cw-github-btn" href="https://github.com/maniat1k/Clean_windows" target="_blank" rel="noopener noreferrer">
+                  <svg aria-hidden="true" viewBox="0 0 16 16" width="18" height="18"><path fill="currentColor" d="M8 0C3.58 0 0 3.64 0 8.13c0 3.59 2.29 6.64 5.47 7.71.4.08.55-.18.55-.39 0-.19-.01-.83-.01-1.51-2.01.38-2.53-.5-2.69-.96-.09-.23-.48-.96-.82-1.15-.28-.15-.68-.53-.01-.54.63-.01 1.08.59 1.23.83.72 1.23 1.87.88 2.33.67.07-.53.28-.88.51-1.08-1.78-.21-3.64-.91-3.64-4.02 0-.89.31-1.62.82-2.19-.08-.2-.36-1.04.08-2.16 0 0 .67-.22 2.2.84A7.45 7.45 0 0 1 8 3.91c.68 0 1.36.09 2 .27 1.53-1.06 2.2-.84 2.2-.84.44 1.12.16 1.96.08 2.16.51.57.82 1.3.82 2.19 0 3.12-1.87 3.81-3.65 4.02.29.25.54.74.54 1.5 0 1.08-.01 1.95-.01 2.22 0 .22.15.47.55.39A8.14 8.14 0 0 0 16 8.13C16 3.64 12.42 0 8 0Z"/></svg>
+                  Ver repositorio
+                </a>
+                <a class="cw-text-link" href="https://github.com/maniat1k/Clean_windows/blob/main/Clean-Windows.ps1" target="_blank" rel="noopener noreferrer">Ver script principal <span aria-hidden="true">↗</span></a>
+              </div>
+            </div>
+
+            <div class="cw-hero-art" aria-label="Ilustración abstracta de una consola PowerShell administrando Windows">
+              <div class="cw-orbit cw-orbit-one"></div>
+              <div class="cw-orbit cw-orbit-two"></div>
+              <div class="cw-art-chip cw-chip-safe">SAFE</div>
+              <div class="cw-art-chip cw-chip-ps">PS</div>
+              <div class="cw-art-chip cw-chip-admin">ADMIN</div>
+              <div class="cw-spark cw-spark-one">✦</div>
+              <div class="cw-spark cw-spark-two">✦</div>
+              <div class="cw-console-card">
+                <div class="cw-console-top"><span></span><span></span><span></span></div>
+                <div class="cw-console-body">
+                  <p><strong>PS C:\</strong> .\Clean-Windows.ps1</p>
+                  <p class="cw-console-ok">[OK] entorno validado</p>
+                  <div class="cw-console-progress"><span></span></div>
+                  <p>seleccioná una opción <b>_</b></p>
+                </div>
+              </div>
+              <div class="cw-windows-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+            </div>
+          </div>
+
+          <div class="cw-stack-strip" aria-label="Tecnologías y alcance">
+            <span>Windows 10 / 11</span>
+            <span>PowerShell 5.1 / 7</span>
+            <span>Menú interactivo</span>
+            <span>MIT License</span>
+            <span>Sin módulos externos</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="que-hace" class="cw-section cw-services">
+        <div class="container cw-container">
+          <div class="cw-section-intro">
+            <p class="cw-section-label">Qué hace</p>
+            <p>Un flujo técnico y conservador para resolver tareas repetitivas de mantenimiento sin perder de vista qué cambia en el sistema.</p>
+          </div>
+
+          <div class="cw-card-grid">
+            <article class="cw-service-card cw-card-dark">
+              <div class="cw-card-heading"><h2><mark>Limpieza</mark><br>segura</h2></div>
+              <div class="cw-clean-art" aria-hidden="true"><span></span><span></span><span></span><span></span><b>✓</b></div>
+              <div class="cw-card-footer"><span class="cw-round-arrow">↗</span><p>Temporales del usuario y de Windows con confirmación previa.</p></div>
+            </article>
+
+            <article class="cw-service-card cw-card-light">
+              <div class="cw-card-heading"><h2>Mantenimiento<br><mark>guiado</mark></h2></div>
+              <div class="cw-menu-art" aria-hidden="true">
+                <div><span>01</span><i></i></div><div><span>02</span><i></i></div><div><span>03</span><i></i></div>
+                <b>&gt;_</b>
+              </div>
+              <div class="cw-card-footer"><span class="cw-round-arrow">↗</span><p>Un menú reúne discos, servicios, PATH, Python e información del sistema.</p></div>
+            </article>
+
+            <article class="cw-service-card cw-card-light">
+              <div class="cw-card-heading"><h2>Validaciones<br><mark>y protección</mark></h2></div>
+              <div class="cw-shield-art" aria-hidden="true"><div class="cw-shield">✓</div><span>ADMIN</span><span>HDD ONLY</span><span>BACKUP</span></div>
+              <div class="cw-card-footer"><span class="cw-round-arrow">↗</span><p>Permisos detectados, confirmaciones sensibles y backup antes de reparar PATH.</p></div>
+            </article>
+
+            <article class="cw-service-card cw-card-dark">
+              <div class="cw-card-heading"><h2><mark>Hecho para</mark><br>usuarios técnicos</h2></div>
+              <div class="cw-tech-art" aria-hidden="true"><span>PS</span><span>SYS</span><span>PATH</span><span>SSD</span><i></i><b>_</b></div>
+              <div class="cw-card-footer"><span class="cw-round-arrow">↗</span><p>Diseñado para técnicos, sysadmins y usuarios avanzados de PowerShell.</p></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="cw-section cw-cta-section">
+        <div class="container cw-container">
+          <article class="cw-cta-panel">
+            <div>
+              <p class="cw-mono-label">MANTENIMIENTO CONTROLADO</p>
+              <h2>Menos tareas manuales.<br>Más decisiones visibles.</h2>
+              <a class="cw-solid-button" href="#quick-start">Ejecutar el toolkit <span>↘</span></a>
+            </div>
+            <div class="cw-cta-art" aria-hidden="true">
+              <div class="cw-window-grid"><span></span><span></span><span></span><span></span></div>
+              <div class="cw-cta-ring cw-ring-one"></div><div class="cw-cta-ring cw-ring-two"></div>
+              <i>✓</i><b>✦</b>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="filosofia" class="cw-section cw-philosophy">
+        <div class="container cw-container">
+          <div class="cw-section-intro">
+            <p class="cw-section-label">Filosofía del proyecto</p>
+            <p>Automatizar lo repetitivo sin convertir el mantenimiento en una caja negra.</p>
+          </div>
+          <article class="cw-principle-panel">
+            <div class="cw-principle">
+              <span>01</span><h3>Conservar</h3>
+              <p>No realiza debloat, no desinstala programas y no descarga dependencias.</p>
+            </div>
+            <div class="cw-principle">
+              <span>02</span><h3>Validar</h3>
+              <p>Bloquea la desfragmentación si no confirma un HDD y limita acciones sin elevación.</p>
+            </div>
+            <div class="cw-principle">
+              <span>03</span><h3>Explicar</h3>
+              <p>Pide confirmación antes de cambios sensibles y resume el resultado de cada acción.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="quick-start" class="cw-section cw-quick-start">
+        <div class="container cw-container">
+          <article class="cw-quick-panel">
+            <div class="cw-quick-copy">
+              <p class="cw-section-label">Quick start</p>
+              <h2>Tres comandos.<br>Un menú completo.</h2>
+              <p>PowerShell sigue funcionando sin elevación e informa qué opciones quedan limitadas. Para disponer de todas, abrilo como Administrador.</p>
+            </div>
+            <div class="cw-code-window">
+              <div class="cw-code-bar"><span>PowerShell</span><span>Clean-Windows.ps1</span></div>
+              <pre><code><em>01</em> git clone https://github.com/maniat1k/Clean_windows.git
+
+<em>02</em> cd Clean_windows
+
+<em>03</em> powershell -ExecutionPolicy Bypass -File .\Clean-Windows.ps1</code></pre>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="cw-footer">
+      <div class="container cw-container">
+        <p><span>maniat1k</span> / Clean Windows Toolkit</p>
+        <a href="https://github.com/maniat1k/Clean_windows" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+
+</html>
