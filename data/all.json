@@ -1,19 +1,19 @@
 {
   "source": "all",
-  "generated_at": "2026-06-24T19:23:55.287Z",
+  "generated_at": "2026-06-25T02:03:41.649Z",
   "total": 8,
   "items": [
     {
       "source": "github",
-      "id": "github_wintop",
-      "title": "wintop",
-      "url": "https://github.com/maniat1k/wintop",
-      "date": "2026-06-24T16:31:21.000Z",
+      "id": "github_maniat1k.github.io",
+      "title": "maniat1k.github.io",
+      "url": "https://github.com/maniat1k/maniat1k.github.io",
+      "date": "2026-06-24T19:24:10.000Z",
       "image": "",
-      "image_alt": "wintop",
-      "summary": "A simple system monitor for Windows inspired by htop and built with PowerShell.",
+      "image_alt": "maniat1k.github.io",
+      "summary": "My digital workshop: DevOps, SysAdmin, PowerShell, automation and technical projects.",
       "stars": 1,
-      "updated_at": "2026-06-24T16:31:21.000Z"
+      "updated_at": "2026-06-24T19:24:10.000Z"
     },
     {
       "source": "github",
