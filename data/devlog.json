@@ -1,6 +1,6 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-06-25T19:43:05.683Z",
+  "generated_at": "2026-06-26T02:05:11.772Z",
   "total": 12,
   "items": [
     {
@@ -9,13 +9,6 @@
       "message": "feat: agrega monitorización de red (Wi-Fi/Ethernet y subida/bajada)",
       "date": "2026-06-24T16:27:39Z",
       "url": "https://github.com/maniat1k/wintop/commit/48cbc4ffba21f5adcc4e1bcaee0b4d4445a3537c"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "repoType": "principal",
-      "message": "creacion de la pagina de clean-windows",
-      "date": "2026-06-24T15:00:12Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/21c813608696d22b786e3ffe0b170325a1bb69be"
     },
     {
       "repo": "Clean_windows",
@@ -86,6 +79,13 @@
       "message": "Remove activity and statistics from README",
       "date": "2026-02-01T23:30:04Z",
       "url": "https://github.com/maniat1k/maniat1k/commit/994ccbf58dce82c6ad5e2097be64e74e28f4e5c8"
+    },
+    {
+      "repo": "maniat1k",
+      "repoType": "principal",
+      "message": "Add Spanish translations and restructure README",
+      "date": "2026-02-01T23:24:16Z",
+      "url": "https://github.com/maniat1k/maniat1k/commit/2b82f9462a49a95fd5e7df478848761ef821d442"
     }
   ]
 }
