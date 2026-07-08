@@ -1,8 +1,29 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-07-08T13:25:15.471Z",
+  "generated_at": "2026-07-08T19:02:50.418Z",
   "total": 12,
   "items": [
+    {
+      "repo": "maniat1k.github.io",
+      "repoType": "principal",
+      "message": "añadiendo el boton de ko-fi",
+      "date": "2026-07-08T16:55:59Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/559ae223488db16a491026da583f73e243c989d4"
+    },
+    {
+      "repo": "maniat1k",
+      "repoType": "principal",
+      "message": "Update Ko-fi link in README",
+      "date": "2026-07-08T14:35:37Z",
+      "url": "https://github.com/maniat1k/maniat1k/commit/db42174ddbcad38ab837bb2e27e6e9db1120efc2"
+    },
+    {
+      "repo": "maniat1k",
+      "repoType": "principal",
+      "message": "Remove YouTube link from README",
+      "date": "2026-07-08T14:26:12Z",
+      "url": "https://github.com/maniat1k/maniat1k/commit/98fe36ee32eeaa34d69db11d9f33f65ca8e2dd59"
+    },
     {
       "repo": "wintop",
       "repoType": "principal",
@@ -65,27 +86,6 @@
       "message": "feat: implement publish item flow with tags input and my items view",
       "date": "2026-03-06T19:22:23Z",
       "url": "https://github.com/maniat1k/nido/commit/e5532b1349496904c78e8c0199ea75a1e9d0cdd8"
-    },
-    {
-      "repo": "maniat1k",
-      "repoType": "principal",
-      "message": "Update README with professional profile and projects",
-      "date": "2026-02-28T11:24:27Z",
-      "url": "https://github.com/maniat1k/maniat1k/commit/6e61e140e7c24e8d07e0e96a5c4d4e1a3839c465"
-    },
-    {
-      "repo": "maniat1k",
-      "repoType": "principal",
-      "message": "Remove activity and statistics from README",
-      "date": "2026-02-01T23:30:04Z",
-      "url": "https://github.com/maniat1k/maniat1k/commit/994ccbf58dce82c6ad5e2097be64e74e28f4e5c8"
-    },
-    {
-      "repo": "maniat1k",
-      "repoType": "principal",
-      "message": "Add Spanish translations and restructure README",
-      "date": "2026-02-01T23:24:16Z",
-      "url": "https://github.com/maniat1k/maniat1k/commit/2b82f9462a49a95fd5e7df478848761ef821d442"
     }
   ]
 }

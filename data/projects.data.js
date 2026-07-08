@@ -1,6 +1,6 @@
 window.__PORTFOLIO_PROJECTS__ = {
   "source": "https://api.github.com/users/maniat1k/repos?per_page=100&sort=updated",
-  "generated_at": "2026-07-08T13:25:11.445Z",
+  "generated_at": "2026-07-08T19:02:47.055Z",
   "total": 11,
   "projects": [
     {
@@ -22,8 +22,36 @@ window.__PORTFOLIO_PROJECTS__ = {
       "language": "JavaScript",
       "stargazers_count": 1,
       "forks_count": 0,
-      "updated_at": "2026-07-08T08:04:20Z",
+      "updated_at": "2026-07-08T16:56:55Z",
       "homepage": "https://maniat1k.github.io/",
+      "archived": false,
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
+    },
+    {
+      "full_name": "maniat1k/maniat1k",
+      "default_branch": "main",
+      "name": "maniat1k",
+      "html_url": "https://github.com/maniat1k/maniat1k",
+      "description": "🛠️ Building practical tools, automations and technical projects around DevOps and SysAdmin.",
+      "topics": [
+        "automation",
+        "build-in-public",
+        "devops",
+        "github-pages",
+        "linux",
+        "odoo",
+        "postgresql",
+        "powershell",
+        "sysadmin"
+      ],
+      "language": "",
+      "stargazers_count": 1,
+      "forks_count": 0,
+      "updated_at": "2026-07-08T14:36:55Z",
+      "homepage": "https://maniat1k.github.io",
       "archived": false,
       "fork": false,
       "owner": {
@@ -78,34 +106,6 @@ window.__PORTFOLIO_PROJECTS__ = {
       "forks_count": 0,
       "updated_at": "2026-06-24T14:27:43Z",
       "homepage": "https://maniat1k.github.io/clean-windows.html",
-      "archived": false,
-      "fork": false,
-      "owner": {
-        "login": "maniat1k"
-      }
-    },
-    {
-      "full_name": "maniat1k/maniat1k",
-      "default_branch": "main",
-      "name": "maniat1k",
-      "html_url": "https://github.com/maniat1k/maniat1k",
-      "description": "🛠️ Building practical tools, automations and technical projects around DevOps and SysAdmin.",
-      "topics": [
-        "automation",
-        "build-in-public",
-        "devops",
-        "github-pages",
-        "linux",
-        "odoo",
-        "postgresql",
-        "powershell",
-        "sysadmin"
-      ],
-      "language": "",
-      "stargazers_count": 1,
-      "forks_count": 0,
-      "updated_at": "2026-06-22T17:50:32Z",
-      "homepage": "https://maniat1k.github.io",
       "archived": false,
       "fork": false,
       "owner": {
