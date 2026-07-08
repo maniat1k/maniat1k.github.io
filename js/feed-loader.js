@@ -395,13 +395,11 @@
   }
 
   function getAllItems() {
-    return [
-      ...sortByDate(state.blogItems).slice(0, 2),
-      ...sortByDate(state.githubProjectItems).slice(0, 2),
-      ...sortByDate(state.githubLogItems).slice(0, 2),
-      ...sortByDate(state.socialItems.filter((item) => item.source === "instagram")).slice(0, 1),
-      ...sortByDate(state.socialItems.filter((item) => item.source === "youtube")).slice(0, 1)
-    ];
+    return sortByDate([
+      ...state.blogItems,
+      ...state.githubProjectItems,
+      ...state.githubLogItems
+    ]).slice(0, 8);
   }
 
   function projectMatchesFilter(item) {
