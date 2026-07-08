@@ -202,6 +202,20 @@
     };
   }
 
+  function normalizeKofiPost(post) {
+    if (!post?.url) return null;
+    return {
+      type: "kofi",
+      source: "kofi",
+      label: String(post.label || "KO-FI"),
+      title: String(post.title || "Post en Ko-fi"),
+      date: String(post.date || ""),
+      description: String(post.description || post.summary || ""),
+      url: String(post.url),
+      tags: Array.isArray(post.tags) ? post.tags.map(String) : []
+    };
+  }
+
   function normalizeProject(project) {
     if (!project?.html_url && !project?.url) return null;
     const language = String(project.language || "");
@@ -308,8 +322,19 @@
 
   async function loadBlogItems() {
     try {
-      const payload = await fetchJson("data/blog.json");
-      const items = (payload?.posts || []).map(normalizeBlogPost).filter(Boolean);
+      const [blogPayload, kofiPayload] = await Promise.allSettled([
+        fetchJson("data/blog.json"),
+        fetchJson("data/kofi-posts.json")
+      ]);
+
+      const localPosts = blogPayload.status === "fulfilled" ? blogPayload.value?.posts || [] : [];
+      const kofiPostsPayload = kofiPayload.status === "fulfilled" ? kofiPayload.value : [];
+      const kofiPosts = Array.isArray(kofiPostsPayload) ? kofiPostsPayload : kofiPostsPayload?.posts || [];
+      const items = [
+        ...localPosts.map(normalizeBlogPost),
+        ...kofiPosts.map(normalizeKofiPost)
+      ].filter(Boolean);
+
       return items.length ? sortByDate(items) : Fallback.blogItems;
     } catch {
       return Fallback.blogItems;
@@ -429,18 +454,21 @@
   }
 
   function createBlogCard(item) {
+    const source = item.source === "kofi" ? "kofi" : "blog";
+    const label = item.source === "kofi" ? (item.label || "KO-FI") : "BLOG ORIGINAL";
+    const linkAttrs = item.source === "kofi" ? ' target="_blank" rel="noopener noreferrer"' : "";
     return `
-      <div class="col mb-4 portfolio-item blog">
+      <div class="col mb-4 portfolio-item blog ${escapeHtml(source)}">
         <article class="project-card blog-feed-card h-100 p-4">
           <div class="card-source-row mb-3">
-            <span class="source-badge source-badge-blog">BLOG ORIGINAL</span>
+            <span class="source-badge source-badge-${escapeHtml(source)}">${escapeHtml(label)}</span>
             <span class="project-meta">${formatDate(item.date)}</span>
           </div>
           <h3 class="repo-card-title mb-3">${escapeHtml(item.title)}</h3>
           <p class="postf mb-3 feed-summary">${escapeHtml(item.description || "Post publicado en el blog.")}</p>
           ${createTags(item.tags)}
           <div class="repo-card-footer">
-            <a class="btn btn-primary btn-sm text-uppercase text-decoration-none" href="${escapeHtml(item.url)}">Leer post</a>
+            <a class="btn btn-primary btn-sm text-uppercase text-decoration-none" href="${escapeHtml(item.url)}"${linkAttrs}>Leer post</a>
           </div>
         </article>
       </div>
@@ -524,7 +552,7 @@
 
   function createCard(item) {
     if (item.source === "instagram" || item.source === "youtube") return createSocialCard(item);
-    if (item.source === "blog") return createBlogCard(item);
+    if (item.source === "blog" || item.source === "kofi") return createBlogCard(item);
     if (item.source === "github-projects") return createProjectCard(item);
     if (item.source === "github-log") return createCommitCard(item);
     return "";

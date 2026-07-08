@@ -816,6 +816,11 @@ a:hover {
     border-color: #eadfd3;
 }
 
+.source-badge-kofi {
+    background: #f2fbff;
+    border-color: #cdeefe;
+}
+
 .source-badge-github {
     background: #f7f7f7;
     border-color: #dedede;
