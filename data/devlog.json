@@ -1,6 +1,6 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-07-09T09:05:55.569Z",
+  "generated_at": "2026-07-09T14:25:29.894Z",
   "total": 12,
   "items": [
     {
@@ -23,13 +23,6 @@
       "message": "feat: integracion de  Ko-fi posts a mi portal",
       "date": "2026-07-08T19:30:00Z",
       "url": "https://github.com/maniat1k/maniat1k.github.io/commit/e7f0bb1940d4dee3d1eef64506344731869e8889"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "repoType": "principal",
-      "message": "añadiendo el boton de ko-fi",
-      "date": "2026-07-08T16:55:59Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/559ae223488db16a491026da583f73e243c989d4"
     },
     {
       "repo": "maniat1k",
@@ -86,6 +79,13 @@
       "message": "últimos cambios ya no voy a tocar nada más por un tiempo",
       "date": "2026-03-25T16:30:49Z",
       "url": "https://github.com/maniat1k/nido/commit/c627f4fcf49e065dc65934d196b51dbf221459d5"
+    },
+    {
+      "repo": "nido",
+      "repoType": "principal",
+      "message": "trabajo auditado",
+      "date": "2026-03-13T19:10:24Z",
+      "url": "https://github.com/maniat1k/nido/commit/7b170d0007e2d0691fb09731639da641cdb051f1"
     }
   ]
 }
