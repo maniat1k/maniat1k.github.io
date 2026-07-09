@@ -204,6 +204,7 @@
 
   function normalizeKofiPost(post) {
     if (!post?.url) return null;
+    const image = normalizeImageUrl(post.image);
     return {
       type: "kofi",
       source: "kofi",
@@ -212,6 +213,7 @@
       date: String(post.date || ""),
       description: String(post.description || post.summary || ""),
       url: String(post.url),
+      image: /^(https?:)?\/\//i.test(image) ? "" : image,
       tags: Array.isArray(post.tags) ? post.tags.map(String) : []
     };
   }
@@ -455,18 +457,32 @@
     const source = item.source === "kofi" ? "kofi" : "blog";
     const label = item.source === "kofi" ? (item.label || "KO-FI") : "BLOG ORIGINAL";
     const linkAttrs = item.source === "kofi" ? ' target="_blank" rel="noopener noreferrer"' : "";
+    const media = source === "kofi" && item.image ? `
+      <a href="${escapeHtml(item.url)}" title="${escapeHtml(item.title)}"${linkAttrs} class="d-block text-decoration-none feed-card-media kofi-card-media overflow-hidden position-relative">
+        <img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.title)}" data-source="kofi" class="img-fluid" loading="lazy">
+        <div class="media-overlay-band d-flex align-items-end justify-content-between p-3">
+          <span class="feed-media-label">KO-FI</span>
+          <svg class="feed-media-icon" width="20" height="20" aria-hidden="true" focusable="false">
+            <use href="#kofi"></use>
+          </svg>
+        </div>
+      </a>
+    ` : "";
     return `
       <div class="col mb-4 portfolio-item blog ${escapeHtml(source)}">
-        <article class="project-card blog-feed-card h-100 p-4">
-          <div class="card-source-row mb-3">
-            <span class="source-badge source-badge-${escapeHtml(source)}">${escapeHtml(label)}</span>
-            <span class="project-meta">${formatDate(item.date)}</span>
-          </div>
-          <h3 class="repo-card-title mb-3">${escapeHtml(item.title)}</h3>
-          <p class="postf mb-3 feed-summary">${escapeHtml(item.description || "Post publicado en el blog.")}</p>
-          ${createTags(item.tags)}
-          <div class="repo-card-footer">
-            <a class="btn btn-primary btn-sm text-uppercase text-decoration-none" href="${escapeHtml(item.url)}"${linkAttrs}>Leer post</a>
+        <article class="project-card blog-feed-card h-100${media ? " overflow-hidden" : " p-4"}">
+          ${media}
+          <div class="${media ? "p-4 d-flex flex-column flex-grow-1" : "d-flex flex-column flex-grow-1"}">
+            <div class="card-source-row mb-3">
+              <span class="source-badge source-badge-${escapeHtml(source)}">${escapeHtml(label)}</span>
+              <span class="project-meta">${formatDate(item.date)}</span>
+            </div>
+            <h3 class="repo-card-title mb-3">${escapeHtml(item.title)}</h3>
+            <p class="postf mb-3 feed-summary">${escapeHtml(item.description || "Post publicado en el blog.")}</p>
+            ${createTags(item.tags)}
+            <div class="repo-card-footer">
+              <a class="btn btn-primary btn-sm text-uppercase text-decoration-none" href="${escapeHtml(item.url)}"${linkAttrs}>Leer post</a>
+            </div>
           </div>
         </article>
       </div>
@@ -569,6 +585,10 @@
     grid.querySelectorAll("img[data-source]").forEach((img) => {
       img.addEventListener("error", () => {
         const wrapper = img.closest(".feed-card-media");
+        if (wrapper?.classList.contains("kofi-card-media")) {
+          wrapper.remove();
+          return;
+        }
         if (wrapper) wrapper.innerHTML = '<div class="feed-empty-frame" aria-hidden="true"></div>';
       }, { once: true });
     });

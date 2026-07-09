@@ -3,7 +3,12 @@
     "title": "Integrando Ko-fi con mi portal",
     "description": "Estoy dando un paso más para centralizar todo mi contenido: integrar publicaciones de Ko-fi dentro de mi portal personal.",
     "date": "2026-07-08",
-    "tags": ["kofi", "portal", "github-pages", "proyectos"],
+    "tags": [
+      "kofi",
+      "portal",
+      "github-pages",
+      "proyectos"
+    ],
     "url": "https://ko-fi.com/post/Integrando-Ko-fi-con-mi-portal-W7L322UDXK",
     "source": "kofi",
     "label": "KO-FI"

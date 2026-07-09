@@ -6,12 +6,14 @@
   "scripts": {
     "blog:build": "node scripts/build-blog.mjs",
     "feeds:build": "node scripts/feeds/fetch-feeds.mjs",
+    "kofi:build": "node scripts/fetch-kofi-posts.mjs",
     "refresh:github": "node scripts/refresh-github-projects.mjs",
     "refresh:linkedin": "node scripts/refresh-linkedin-fallback.mjs",
     "stats:build": "node scripts/generate-stats.mjs",
+    "test:kofi": "node tests/kofi-importer.test.mjs",
     "test:postgres": "node tests/postgres-syntax-validator.test.mjs",
     "test:finance": "node tests/financial-calculator.test.mjs",
-    "refresh:data": "npm run refresh:github && npm run refresh:linkedin && npm run stats:build && npm run blog:build && npm run feeds:build",
+    "refresh:data": "npm run refresh:github && npm run refresh:linkedin && npm run stats:build && npm run blog:build && npm run kofi:build && npm run feeds:build",
     "preview": "node scripts/preview.mjs",
     "dev": "node scripts/preview.mjs"
   },
