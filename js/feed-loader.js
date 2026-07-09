@@ -11,6 +11,7 @@
   };
 
   const GITHUB_USER = "maniat1k";
+  const MAX_VISIBLE_CARDS = 8;
   const MAX_GITHUB_LOG_ITEMS = 12;
   const GITHUB_COMMITS_PER_REPO = 5;
   const githubRepos = [
@@ -401,7 +402,7 @@
       ...state.blogItems,
       ...state.githubProjectItems,
       ...state.githubLogItems
-    ]).slice(0, 8);
+    ]).slice(0, MAX_VISIBLE_CARDS);
   }
 
   function projectMatchesFilter(item) {
@@ -416,15 +417,17 @@
         ? state.blogItems
         : state.blogItems.filter((item) => item.tags.includes(state.blogTag));
       const sorted = sortByDate(filtered);
-      return state.blogSort === "asc" ? sorted.reverse() : sorted;
+      return (state.blogSort === "asc" ? sorted.reverse() : sorted).slice(0, MAX_VISIBLE_CARDS);
     }
-    if (state.activeSource === "github-log") return sortByDate(state.githubLogItems);
+    if (state.activeSource === "github-log") return sortByDate(state.githubLogItems).slice(0, MAX_VISIBLE_CARDS);
     if (state.activeSource === "github-projects") {
       const filtered = state.githubProjectItems.filter(projectMatchesFilter);
-      if (state.projectSort === "stars") return [...filtered].sort((a, b) => Number(b.stars || 0) - Number(a.stars || 0));
-      return sortByDate(filtered);
+      const sorted = state.projectSort === "stars"
+        ? [...filtered].sort((a, b) => Number(b.stars || 0) - Number(a.stars || 0))
+        : sortByDate(filtered);
+      return sorted.slice(0, MAX_VISIBLE_CARDS);
     }
-    return sortByDate(state.socialItems.filter((item) => item.source === state.activeSource));
+    return sortByDate(state.socialItems.filter((item) => item.source === state.activeSource)).slice(0, MAX_VISIBLE_CARDS);
   }
 
   function createSocialCard(item) {

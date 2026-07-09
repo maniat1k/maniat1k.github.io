@@ -82,6 +82,34 @@ function absoluteUrl(url, base = `https://ko-fi.com/${KOFI_USER}`) {
   }
 }
 
+function isKofiPostUrl(url) {
+  try {
+    const parsed = new URL(String(url || ""));
+    return /(^|\.)ko-fi\.com$/i.test(parsed.hostname) && /^\/post\/[^/]+/i.test(parsed.pathname);
+  } catch {
+    return false;
+  }
+}
+
+function isRemoteUrl(url) {
+  return /^(https?:)?\/\//i.test(String(url || ""));
+}
+
+function isLocalImagePath(image) {
+  const value = String(image || "").trim();
+  return Boolean(value) && !isRemoteUrl(value) && !path.isAbsolute(value);
+}
+
+async function hasValidLocalImage(post) {
+  if (!isLocalImagePath(post?.image)) return false;
+  try {
+    await fs.access(path.join(OUTPUT_ROOT, post.image));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 async function fetchText(url) {
   if (FIXTURE_DIR) {
     const parsed = new URL(url);
@@ -121,11 +149,13 @@ function discoverPostUrls(html) {
   const hrefMatches = html.matchAll(/href=["']([^"']*\/post\/[^"']+)["']/gi);
   for (const match of hrefMatches) {
     const url = absoluteUrl(match[1]);
-    if (url.includes("/post/")) urls.add(url.split("?")[0]);
+    if (isKofiPostUrl(url)) urls.add(url.split("?")[0]);
   }
 
   const plainMatches = html.matchAll(/https:\/\/ko-fi\.com\/post\/[A-Za-z0-9-]+/g);
-  for (const match of plainMatches) urls.add(match[0]);
+  for (const match of plainMatches) {
+    if (isKofiPostUrl(match[0])) urls.add(match[0]);
+  }
 
   return [...urls];
 }
@@ -175,7 +205,7 @@ async function writeIfChanged(filePath, buffer) {
 }
 
 async function cacheImage(remoteUrl, post) {
-  if (!remoteUrl || !/^https?:\/\//i.test(remoteUrl)) return "";
+  if (!remoteUrl || !isRemoteUrl(remoteUrl)) return "";
 
   let contentType = "";
   let buffer;
@@ -258,7 +288,12 @@ async function discoverPosts() {
 
 async function buildPost(url, existingByUrl) {
   const previous = existingByUrl.get(url) || {};
+  const previousHasValidImage = await hasValidLocalImage(previous);
   let html = "";
+
+  if (previousHasValidImage) {
+    return normalizeExisting(previous);
+  }
 
   try {
     html = await fetchText(url);
@@ -268,19 +303,19 @@ async function buildPost(url, existingByUrl) {
   }
 
   const title = cleanText(
+    previous.title ||
     getMeta(html, "og:title") ||
     getMeta(html, "twitter:title") ||
     (html.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [])[1] ||
-    previous.title ||
     "Post en Ko-fi",
     120
   ).replace(/\s*\|\s*Ko-fi.*$/i, "");
 
   const description = cleanText(
-    getMeta(html, "og:description") ||
-    getMeta(html, "twitter:description") ||
     previous.description ||
     previous.summary ||
+    getMeta(html, "og:description") ||
+    getMeta(html, "twitter:description") ||
     "",
     240
   );
@@ -304,7 +339,7 @@ async function buildPost(url, existingByUrl) {
   return normalizeExisting({
     title,
     description,
-    date: toIsoDate(getMeta(html, "article:published_time") || getJsonLdDate(html), previous.date),
+    date: previous.date || toIsoDate(getMeta(html, "article:published_time") || getJsonLdDate(html)),
     tags: Array.isArray(previous.tags) && previous.tags.length ? previous.tags : ["kofi"],
     url,
     image: image || previous.image || "",
@@ -321,12 +356,14 @@ async function writePosts(posts) {
 }
 
 async function main() {
-  const existingPosts = (await readExistingPosts()).map(normalizeExisting).filter((post) => post.url);
+  const existingPosts = (await readExistingPosts())
+    .map(normalizeExisting)
+    .filter((post) => isKofiPostUrl(post.url));
   const existingByUrl = new Map(existingPosts.map((post) => [post.url, post]));
   let discoveredUrls = await discoverPosts();
 
   if (!discoveredUrls.length) {
-    discoveredUrls = existingPosts.map((post) => post.url).filter(Boolean);
+    discoveredUrls = existingPosts.map((post) => post.url).filter(isKofiPostUrl);
     if (!discoveredUrls.length) {
       warn("no Ko-fi posts discovered; keeping current data/kofi-posts.json");
       await writePosts(existingPosts);
@@ -336,7 +373,7 @@ async function main() {
   }
 
   const posts = [];
-  for (const url of discoveredUrls) {
+  for (const url of discoveredUrls.filter(isKofiPostUrl)) {
     posts.push(await buildPost(url, existingByUrl));
   }
 
@@ -365,6 +402,8 @@ export {
   buildPost,
   getMainContentImage,
   getMeta,
+  hasValidLocalImage,
+  isKofiPostUrl,
   main,
   normalizeExisting
 };
