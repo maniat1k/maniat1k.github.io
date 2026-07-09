@@ -1,8 +1,15 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-07-09T16:57:18.445Z",
+  "generated_at": "2026-07-09T17:17:17.851Z",
   "total": 12,
   "items": [
+    {
+      "repo": "maniat1k.github.io",
+      "repoType": "principal",
+      "message": "arreglo de detalles en tarjetas",
+      "date": "2026-07-09T17:16:43Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/1888fd3a0f31b04de6c323fdaeca2254ff57f563"
+    },
     {
       "repo": "maniat1k.github.io",
       "repoType": "principal",
@@ -79,13 +86,6 @@
       "message": "últimos cambios ya no voy a tocar nada más por un tiempo",
       "date": "2026-03-25T16:30:49Z",
       "url": "https://github.com/maniat1k/nido/commit/c627f4fcf49e065dc65934d196b51dbf221459d5"
-    },
-    {
-      "repo": "nido",
-      "repoType": "principal",
-      "message": "trabajo auditado",
-      "date": "2026-03-13T19:10:24Z",
-      "url": "https://github.com/maniat1k/nido/commit/7b170d0007e2d0691fb09731639da641cdb051f1"
     }
   ]
 }
