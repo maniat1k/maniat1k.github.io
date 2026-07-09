@@ -1,21 +1,21 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-07-09T16:25:44.903Z",
+  "generated_at": "2026-07-09T16:57:18.445Z",
   "total": 12,
   "items": [
+    {
+      "repo": "maniat1k.github.io",
+      "repoType": "principal",
+      "message": "feat: add avatar favicon assets",
+      "date": "2026-07-09T16:56:42Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/f6094e7fb853a8f08bca9c83123dad460fe0cf7a"
+    },
     {
       "repo": "maniat1k.github.io",
       "repoType": "principal",
       "message": "feat: automate Ko-fi post import with cached images",
       "date": "2026-07-09T16:24:06Z",
       "url": "https://github.com/maniat1k/maniat1k.github.io/commit/5aa626bd2f381ff62402983482365e5b24f7f3e0"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "repoType": "principal",
-      "message": "mejora con el cargador de tarjetas",
-      "date": "2026-07-08T19:54:50Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/097cb49d3e542d433dbdcdc7a3a3cf22a329523e"
     },
     {
       "repo": "wintop",
