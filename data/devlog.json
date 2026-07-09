@@ -1,6 +1,6 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-07-09T17:17:17.851Z",
+  "generated_at": "2026-07-09T19:17:49.066Z",
   "total": 12,
   "items": [
     {
@@ -16,13 +16,6 @@
       "message": "feat: add avatar favicon assets",
       "date": "2026-07-09T16:56:42Z",
       "url": "https://github.com/maniat1k/maniat1k.github.io/commit/f6094e7fb853a8f08bca9c83123dad460fe0cf7a"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "repoType": "principal",
-      "message": "feat: automate Ko-fi post import with cached images",
-      "date": "2026-07-09T16:24:06Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/5aa626bd2f381ff62402983482365e5b24f7f3e0"
     },
     {
       "repo": "wintop",
@@ -86,6 +79,13 @@
       "message": "últimos cambios ya no voy a tocar nada más por un tiempo",
       "date": "2026-03-25T16:30:49Z",
       "url": "https://github.com/maniat1k/nido/commit/c627f4fcf49e065dc65934d196b51dbf221459d5"
+    },
+    {
+      "repo": "nido",
+      "repoType": "principal",
+      "message": "trabajo auditado",
+      "date": "2026-03-13T19:10:24Z",
+      "url": "https://github.com/maniat1k/nido/commit/7b170d0007e2d0691fb09731639da641cdb051f1"
     }
   ]
 }
