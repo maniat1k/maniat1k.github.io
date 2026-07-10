@@ -1089,6 +1089,20 @@ a:hover {
     background: #fcfcfc;
 }
 
+.kofi-inline-cta {
+    max-width: 760px;
+    border: 1px solid #eadfd3;
+    border-radius: 0.75rem;
+    background: #fffdfb;
+    padding: 1rem 1.15rem;
+    color: #303030;
+}
+
+.kofi-inline-cta p {
+    color: #555;
+    line-height: 1.5;
+}
+
 /* footer cleanup */
 #footer .social-links a {
     color: inherit;

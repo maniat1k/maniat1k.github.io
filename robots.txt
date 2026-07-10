@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://maniat1k.github.io/sitemap.xml

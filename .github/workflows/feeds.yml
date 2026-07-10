@@ -5,8 +5,12 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - "data/*.json"
+      - "data/*.data.js"
+      - "assets/images/kofi/**"
   schedule:
-    - cron: "0 */6 * * *"
+    - cron: "15 9,21 * * *"
 
 permissions:
   contents: write
@@ -24,7 +28,16 @@ jobs:
           node-version: "20"
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Validate Ko-fi importer
+        run: npm run test:kofi
+
+      - name: Validate PostgreSQL analyzer
+        run: npm run test:postgres
+
+      - name: Validate financial calculator
+        run: npm run test:finance
 
       - name: Build GitHub data
         env:
