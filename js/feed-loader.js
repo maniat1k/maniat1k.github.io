@@ -400,8 +400,7 @@
   function getAllItems() {
     return sortByDate([
       ...state.blogItems,
-      ...state.githubProjectItems,
-      ...state.githubLogItems
+      ...state.githubProjectItems
     ]).slice(0, MAX_VISIBLE_CARDS);
   }
 
