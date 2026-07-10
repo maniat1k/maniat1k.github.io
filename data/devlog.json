@@ -1,14 +1,14 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-07-10T13:52:20.902Z",
+  "generated_at": "2026-07-10T15:37:44.232Z",
   "total": 12,
   "items": [
     {
       "repo": "maniat1k.github.io",
       "repoType": "principal",
-      "message": "arreglo de detalles en tarjetas",
-      "date": "2026-07-09T17:16:43Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/1888fd3a0f31b04de6c323fdaeca2254ff57f563"
+      "message": "feat: mejora SEO, automatización y acceso a Ko-fi",
+      "date": "2026-07-10T15:37:04Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/82df8db9d763c36531ec2bb63f6ea196a03de1bd"
     },
     {
       "repo": "wintop",
