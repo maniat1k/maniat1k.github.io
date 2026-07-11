@@ -1,6 +1,6 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-07-11T10:32:41.362Z",
+  "generated_at": "2026-07-11T22:04:57.098Z",
   "total": 12,
   "items": [
     {
@@ -9,13 +9,6 @@
       "message": "fix: oculta GitHub Log del filtro todos",
       "date": "2026-07-10T15:44:36Z",
       "url": "https://github.com/maniat1k/maniat1k.github.io/commit/5197282b3207b0dc1c9f441724e948917f5bf66c"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "repoType": "principal",
-      "message": "feat: mejora SEO, automatización y acceso a Ko-fi",
-      "date": "2026-07-10T15:37:04Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/82df8db9d763c36531ec2bb63f6ea196a03de1bd"
     },
     {
       "repo": "wintop",
@@ -86,6 +79,13 @@
       "message": "trabajo auditado",
       "date": "2026-03-13T19:10:24Z",
       "url": "https://github.com/maniat1k/nido/commit/7b170d0007e2d0691fb09731639da641cdb051f1"
+    },
+    {
+      "repo": "nido",
+      "repoType": "principal",
+      "message": "First implementation to save.",
+      "date": "2026-03-09T15:04:57Z",
+      "url": "https://github.com/maniat1k/nido/commit/02713f26612a95ff28a98f6d8bcdc6f1f6d18f65"
     }
   ]
 }
