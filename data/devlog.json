@@ -1,15 +1,8 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-07-12T10:41:20.343Z",
+  "generated_at": "2026-07-12T22:05:35.648Z",
   "total": 12,
   "items": [
-    {
-      "repo": "maniat1k.github.io",
-      "repoType": "principal",
-      "message": "fix: oculta GitHub Log del filtro todos",
-      "date": "2026-07-10T15:44:36Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/5197282b3207b0dc1c9f441724e948917f5bf66c"
-    },
     {
       "repo": "wintop",
       "repoType": "principal",
@@ -86,6 +79,13 @@
       "message": "First implementation to save.",
       "date": "2026-03-09T15:04:57Z",
       "url": "https://github.com/maniat1k/nido/commit/02713f26612a95ff28a98f6d8bcdc6f1f6d18f65"
+    },
+    {
+      "repo": "nido",
+      "repoType": "principal",
+      "message": "feat: implement publish item flow with tags input and my items view",
+      "date": "2026-03-06T19:22:23Z",
+      "url": "https://github.com/maniat1k/nido/commit/e5532b1349496904c78e8c0199ea75a1e9d0cdd8"
     }
   ]
 }
