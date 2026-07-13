@@ -1,8 +1,29 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-07-13T12:16:35.103Z",
+  "generated_at": "2026-07-13T19:21:35.585Z",
   "total": 12,
   "items": [
+    {
+      "repo": "maniat1k.github.io",
+      "repoType": "principal",
+      "message": "content: use cemetery image for Ko-fi post card",
+      "date": "2026-07-13T13:48:00Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/ece6e50f6fffa82ee942cf795f68bbca4282794e"
+    },
+    {
+      "repo": "maniat1k.github.io",
+      "repoType": "principal",
+      "message": "assets: add Ko-fi cemetery post image",
+      "date": "2026-07-13T13:47:41Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/15533b7ac410529f986bd2828a9c2d26dcaf320a"
+    },
+    {
+      "repo": "maniat1k.github.io",
+      "repoType": "principal",
+      "message": "content: add Ko-fi documentation post card",
+      "date": "2026-07-13T13:34:47Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/655aca21871ceab8515562771a4af07b4beac70b"
+    },
     {
       "repo": "wintop",
       "repoType": "principal",
@@ -65,27 +86,6 @@
       "message": "últimos cambios ya no voy a tocar nada más por un tiempo",
       "date": "2026-03-25T16:30:49Z",
       "url": "https://github.com/maniat1k/nido/commit/c627f4fcf49e065dc65934d196b51dbf221459d5"
-    },
-    {
-      "repo": "nido",
-      "repoType": "principal",
-      "message": "trabajo auditado",
-      "date": "2026-03-13T19:10:24Z",
-      "url": "https://github.com/maniat1k/nido/commit/7b170d0007e2d0691fb09731639da641cdb051f1"
-    },
-    {
-      "repo": "nido",
-      "repoType": "principal",
-      "message": "First implementation to save.",
-      "date": "2026-03-09T15:04:57Z",
-      "url": "https://github.com/maniat1k/nido/commit/02713f26612a95ff28a98f6d8bcdc6f1f6d18f65"
-    },
-    {
-      "repo": "nido",
-      "repoType": "principal",
-      "message": "feat: implement publish item flow with tags input and my items view",
-      "date": "2026-03-06T19:22:23Z",
-      "url": "https://github.com/maniat1k/nido/commit/e5532b1349496904c78e8c0199ea75a1e9d0cdd8"
     }
   ]
 }
