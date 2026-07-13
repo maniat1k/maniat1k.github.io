@@ -1,5 +1,20 @@
 [
   {
+    "title": "El cementerio de scripts también es documentación",
+    "description": "Una reflexión sobre los scripts que quedan atrás, el valor de documentarlos y cómo convertir la experiencia técnica acumulada en conocimiento reutilizable.",
+    "date": "2026-07-11",
+    "tags": [
+      "kofi",
+      "documentación",
+      "scripting",
+      "automatización"
+    ],
+    "url": "https://ko-fi.com/post/El-cementerio-de-scripts-tambien-es-documentacion-M4M422YHNJ",
+    "source": "kofi",
+    "label": "KO-FI",
+    "image": "assets/images/kofi/integrando-ko-fi-con-mi-portal-w7l322udxk-57da180ea596.png"
+  },
+  {
     "title": "Integrando Ko-fi con mi portal",
     "description": "Estoy dando un paso más para centralizar todo mi contenido: integrar publicaciones de Ko-fi dentro de mi portal personal.",
     "date": "2026-07-08",
