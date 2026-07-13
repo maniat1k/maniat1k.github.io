@@ -10,7 +10,7 @@ on:
       - "data/*.data.js"
       - "assets/images/kofi/**"
   schedule:
-    - cron: "15 9,21 * * *"
+    - cron: "0 */6 * * *"
 
 permissions:
   contents: write
