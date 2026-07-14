@@ -1,6 +1,6 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-07-14T13:40:07.189Z",
+  "generated_at": "2026-07-14T19:17:31.412Z",
   "total": 12,
   "items": [
     {
@@ -16,13 +16,6 @@
       "message": "content: use cemetery image for Ko-fi post card",
       "date": "2026-07-13T13:48:00Z",
       "url": "https://github.com/maniat1k/maniat1k.github.io/commit/ece6e50f6fffa82ee942cf795f68bbca4282794e"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "repoType": "principal",
-      "message": "assets: add Ko-fi cemetery post image",
-      "date": "2026-07-13T13:47:41Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/15533b7ac410529f986bd2828a9c2d26dcaf320a"
     },
     {
       "repo": "wintop",
@@ -86,6 +79,13 @@
       "message": "últimos cambios ya no voy a tocar nada más por un tiempo",
       "date": "2026-03-25T16:30:49Z",
       "url": "https://github.com/maniat1k/nido/commit/c627f4fcf49e065dc65934d196b51dbf221459d5"
+    },
+    {
+      "repo": "nido",
+      "repoType": "principal",
+      "message": "trabajo auditado",
+      "date": "2026-03-13T19:10:24Z",
+      "url": "https://github.com/maniat1k/nido/commit/7b170d0007e2d0691fb09731639da641cdb051f1"
     }
   ]
 }
