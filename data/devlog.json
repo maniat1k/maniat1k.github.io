@@ -1,6 +1,6 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-07-14T08:01:55.835Z",
+  "generated_at": "2026-07-14T13:40:07.189Z",
   "total": 12,
   "items": [
     {
@@ -23,13 +23,6 @@
       "message": "assets: add Ko-fi cemetery post image",
       "date": "2026-07-13T13:47:41Z",
       "url": "https://github.com/maniat1k/maniat1k.github.io/commit/15533b7ac410529f986bd2828a9c2d26dcaf320a"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "repoType": "principal",
-      "message": "content: add Ko-fi documentation post card",
-      "date": "2026-07-13T13:34:47Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/655aca21871ceab8515562771a4af07b4beac70b"
     },
     {
       "repo": "wintop",
@@ -86,6 +79,13 @@
       "message": "Merge pull request #2 from maniat1k/feat/publish-item-flow",
       "date": "2026-03-25T16:46:40Z",
       "url": "https://github.com/maniat1k/nido/commit/06e90a2f8826b404a686f6e5ce46330bcb9a818e"
+    },
+    {
+      "repo": "nido",
+      "repoType": "principal",
+      "message": "últimos cambios ya no voy a tocar nada más por un tiempo",
+      "date": "2026-03-25T16:30:49Z",
+      "url": "https://github.com/maniat1k/nido/commit/c627f4fcf49e065dc65934d196b51dbf221459d5"
     }
   ]
 }
