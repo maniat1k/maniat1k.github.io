@@ -1,8 +1,20 @@
 window.__PORTFOLIO_FEEDS__ = {
   "source": "all",
-  "generated_at": "2026-07-14T02:23:40.432Z",
+  "generated_at": "2026-07-14T08:02:00.154Z",
   "total": 8,
   "items": [
+    {
+      "source": "github",
+      "id": "github_maniat1k.github.io",
+      "title": "maniat1k.github.io",
+      "url": "https://github.com/maniat1k/maniat1k.github.io",
+      "date": "2026-07-14T02:23:44.000Z",
+      "image": "",
+      "image_alt": "maniat1k.github.io",
+      "summary": "My digital workshop: DevOps, SysAdmin, PowerShell, automation and technical projects.",
+      "stars": 1,
+      "updated_at": "2026-07-14T02:23:44.000Z"
+    },
     {
       "source": "github",
       "id": "github_Clean_windows",
@@ -14,18 +26,6 @@ window.__PORTFOLIO_FEEDS__ = {
       "summary": "Toolkit PowerShell para mantenimiento seguro de Windows",
       "stars": 2,
       "updated_at": "2026-07-13T20:05:08.000Z"
-    },
-    {
-      "source": "github",
-      "id": "github_maniat1k.github.io",
-      "title": "maniat1k.github.io",
-      "url": "https://github.com/maniat1k/maniat1k.github.io",
-      "date": "2026-07-13T19:22:14.000Z",
-      "image": "",
-      "image_alt": "maniat1k.github.io",
-      "summary": "My digital workshop: DevOps, SysAdmin, PowerShell, automation and technical projects.",
-      "stars": 1,
-      "updated_at": "2026-07-13T19:22:14.000Z"
     },
     {
       "source": "github",
