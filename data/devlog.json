@@ -1,8 +1,15 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-07-13T19:21:35.585Z",
+  "generated_at": "2026-07-14T02:23:36.225Z",
   "total": 12,
   "items": [
+    {
+      "repo": "Clean_windows",
+      "repoType": "principal",
+      "message": "Refactor Clean-Windows TUI and maintenance tasks",
+      "date": "2026-07-13T20:04:40Z",
+      "url": "https://github.com/maniat1k/Clean_windows/commit/b6519ef06da0456a4e90fcf8b49d9b8d3665c2aa"
+    },
     {
       "repo": "maniat1k.github.io",
       "repoType": "principal",
@@ -79,13 +86,6 @@
       "message": "Merge pull request #2 from maniat1k/feat/publish-item-flow",
       "date": "2026-03-25T16:46:40Z",
       "url": "https://github.com/maniat1k/nido/commit/06e90a2f8826b404a686f6e5ce46330bcb9a818e"
-    },
-    {
-      "repo": "nido",
-      "repoType": "principal",
-      "message": "últimos cambios ya no voy a tocar nada más por un tiempo",
-      "date": "2026-03-25T16:30:49Z",
-      "url": "https://github.com/maniat1k/nido/commit/c627f4fcf49e065dc65934d196b51dbf221459d5"
     }
   ]
 }

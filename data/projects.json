@@ -1,8 +1,34 @@
 {
   "source": "https://api.github.com/users/maniat1k/repos?per_page=100&sort=updated",
-  "generated_at": "2026-07-13T19:21:32.000Z",
+  "generated_at": "2026-07-14T02:23:32.334Z",
   "total": 11,
   "projects": [
+    {
+      "full_name": "maniat1k/Clean_windows",
+      "default_branch": "main",
+      "name": "Clean_windows",
+      "html_url": "https://github.com/maniat1k/Clean_windows",
+      "description": "Toolkit PowerShell para mantenimiento seguro de Windows",
+      "topics": [
+        "automation",
+        "maintenance",
+        "powershell",
+        "sysadmin",
+        "toolkit",
+        "windows",
+        "windows11"
+      ],
+      "language": "PowerShell",
+      "stargazers_count": 2,
+      "forks_count": 0,
+      "updated_at": "2026-07-13T20:05:08Z",
+      "homepage": "https://maniat1k.github.io/clean-windows.html",
+      "archived": false,
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
+    },
     {
       "full_name": "maniat1k/maniat1k.github.io",
       "default_branch": "main",
@@ -22,7 +48,7 @@
       "language": "JavaScript",
       "stargazers_count": 1,
       "forks_count": 0,
-      "updated_at": "2026-07-13T13:48:25Z",
+      "updated_at": "2026-07-13T19:22:14Z",
       "homepage": "https://maniat1k.github.io/",
       "archived": false,
       "fork": false,
@@ -80,32 +106,6 @@
       "forks_count": 0,
       "updated_at": "2026-07-08T14:36:55Z",
       "homepage": "https://maniat1k.github.io",
-      "archived": false,
-      "fork": false,
-      "owner": {
-        "login": "maniat1k"
-      }
-    },
-    {
-      "full_name": "maniat1k/Clean_windows",
-      "default_branch": "main",
-      "name": "Clean_windows",
-      "html_url": "https://github.com/maniat1k/Clean_windows",
-      "description": "Toolkit PowerShell para mantenimiento seguro de Windows",
-      "topics": [
-        "automation",
-        "maintenance",
-        "powershell",
-        "sysadmin",
-        "toolkit",
-        "windows",
-        "windows11"
-      ],
-      "language": "PowerShell",
-      "stargazers_count": 2,
-      "forks_count": 0,
-      "updated_at": "2026-06-24T14:27:43Z",
-      "homepage": "https://maniat1k.github.io/clean-windows.html",
       "archived": false,
       "fork": false,
       "owner": {
