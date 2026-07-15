@@ -1,8 +1,15 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-07-15T13:40:51.963Z",
+  "generated_at": "2026-07-15T13:57:06.431Z",
   "total": 12,
   "items": [
+    {
+      "repo": "maniat1k.github.io",
+      "repoType": "principal",
+      "message": "mejora con el cargador de tarjetas - excluyo la autoreferencia del portal",
+      "date": "2026-07-15T13:56:20Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/584eb71c2191f014b3fb211fa99f35b7aa80bfe4"
+    },
     {
       "repo": "Clean_windows",
       "repoType": "principal",
@@ -79,13 +86,6 @@
       "message": "trabajo auditado",
       "date": "2026-03-13T19:10:24Z",
       "url": "https://github.com/maniat1k/nido/commit/7b170d0007e2d0691fb09731639da641cdb051f1"
-    },
-    {
-      "repo": "nido",
-      "repoType": "principal",
-      "message": "First implementation to save.",
-      "date": "2026-03-09T15:04:57Z",
-      "url": "https://github.com/maniat1k/nido/commit/02713f26612a95ff28a98f6d8bcdc6f1f6d18f65"
     }
   ]
 }
