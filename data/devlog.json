@@ -1,6 +1,6 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-07-14T19:17:31.412Z",
+  "generated_at": "2026-07-15T02:21:23.231Z",
   "total": 12,
   "items": [
     {
@@ -9,13 +9,6 @@
       "message": "Refactor Clean-Windows TUI and maintenance tasks",
       "date": "2026-07-13T20:04:40Z",
       "url": "https://github.com/maniat1k/Clean_windows/commit/b6519ef06da0456a4e90fcf8b49d9b8d3665c2aa"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "repoType": "principal",
-      "message": "content: use cemetery image for Ko-fi post card",
-      "date": "2026-07-13T13:48:00Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/ece6e50f6fffa82ee942cf795f68bbca4282794e"
     },
     {
       "repo": "wintop",
@@ -86,6 +79,13 @@
       "message": "trabajo auditado",
       "date": "2026-03-13T19:10:24Z",
       "url": "https://github.com/maniat1k/nido/commit/7b170d0007e2d0691fb09731639da641cdb051f1"
+    },
+    {
+      "repo": "nido",
+      "repoType": "principal",
+      "message": "First implementation to save.",
+      "date": "2026-03-09T15:04:57Z",
+      "url": "https://github.com/maniat1k/nido/commit/02713f26612a95ff28a98f6d8bcdc6f1f6d18f65"
     }
   ]
 }
