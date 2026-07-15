@@ -14,6 +14,7 @@
   const MAX_VISIBLE_CARDS = 8;
   const MAX_GITHUB_LOG_ITEMS = 12;
   const GITHUB_COMMITS_PER_REPO = 5;
+  const ALL_VIEW_EXCLUDED_GITHUB_REPOS = new Set(["maniat1k.github.io"]);
   const githubRepos = [
     { name: "maniat1k.github.io", type: "principal" },
     { name: "maniat1k", type: "principal" },
@@ -400,7 +401,9 @@
   function getAllItems() {
     return sortByDate([
       ...state.blogItems,
-      ...state.githubProjectItems
+      ...state.githubProjectItems.filter(
+        (item) => !ALL_VIEW_EXCLUDED_GITHUB_REPOS.has(String(item.title || "").toLowerCase())
+      )
     ]).slice(0, MAX_VISIBLE_CARDS);
   }
 
