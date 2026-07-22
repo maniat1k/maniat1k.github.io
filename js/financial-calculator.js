@@ -52,6 +52,21 @@
     { id: 'emergencyFund', category: 'Fondo', title: '¿Cuánto tenés en fondo de emergencia?', help: 'Dinero disponible para imprevistos.', kind: 'fund' },
     { id: 'savingsGoal', category: 'Objetivo', title: '¿Tenés una meta de ahorro?', help: 'Monto objetivo opcional. Podés dejarlo en 0.', kind: 'goal' }
   ];
+  const PLAN_STEPS = [
+    { title: 'Ingresos mensuales', short: 'Ingresos', description: '¿Cuánto dinero entra?', help: 'Contanos cuánto dinero entra en un mes habitual.', fields: ['monthlyIncome', 'extraIncome', 'otherIncome'] },
+    { title: 'Obligaciones fijas', short: 'Fijos', description: 'Vivienda, servicios, etc.', help: 'Sumá los compromisos básicos y recurrentes del mes.', fields: ['rent', 'utilities', 'food', 'transport', 'insurance', 'health', 'education', 'family', 'otherFixed'] },
+    { title: 'Gastos variables', short: 'Variables', description: 'Salidas, compras y gustos', help: 'Registrá gastos flexibles para entender cuánto destinás a disfrutar.', fields: ['entertainment', 'dining', 'shopping', 'subscriptions', 'otherVariable'] },
+    { title: 'Deudas', short: 'Deudas', description: 'Tarjetas, préstamos, etc.', help: 'Anotá saldos y pagos mensuales para priorizar una salida sostenible.', fields: ['totalDebt', 'creditCards', 'loans', 'debtExtraPayment'] },
+    { title: 'Ahorros y objetivos', short: 'Objetivos', description: 'Fondo, vivienda, proyectos', help: 'Definí tu colchón actual y el objetivo que querés construir.', fields: ['emergencyFund', 'savingsGoal', 'goalName'] },
+    { title: 'Resumen y plan', short: 'Resumen', description: 'Diagnóstico y próximos pasos', help: 'Revisá tu distribución y exportá una copia de tus datos.', fields: [] }
+  ];
+  const FIELD_META = {
+    monthlyIncome: ['Sueldo mensual', 'Tu ingreso principal del mes. Podés sumar partidas con +.'], extraIncome: ['Ingresos extra', 'Freelance, bonos o comisiones.'], otherIncome: ['Otros ingresos', 'Cualquier otra entrada mensual.'],
+    rent: ['Alquiler o hipoteca', 'Incluí vivienda y expensas.'], utilities: ['Servicios', 'Luz, agua, internet y celular.'], food: ['Alimentación', 'Supermercado y comida esencial.'], transport: ['Transporte', 'Boletos, combustible, peajes o apps.'], insurance: ['Seguros', 'Auto, hogar, vida u otros.'], health: ['Salud', 'Mutualista, medicamentos y consultas.'], education: ['Educación', 'Cuotas, cursos y materiales.'], family: ['Familia', 'Cuidados, ayudas y responsabilidades.'], otherFixed: ['Otros gastos fijos', 'Compromisos que no entraron antes.'],
+    entertainment: ['Entretenimiento y ocio', 'Salidas, actividades y hobbies.'], dining: ['Comidas fuera y cafés', 'Restaurantes, delivery y antojos.'], shopping: ['Compras y ropa', 'Compras personales ajustables.'], subscriptions: ['Suscripciones', 'Streaming, apps y membresías.'], otherVariable: ['Otros gastos variables', 'Gastos personales que cambian mes a mes.'],
+    totalDebt: ['Deuda total activa', 'Saldo pendiente aproximado.'], creditCards: ['Pago mínimo de tarjetas', 'Pago mensual mínimo.'], loans: ['Préstamos y cuotas', 'Cuotas mensuales activas.'], debtExtraPayment: ['Pago extra posible', 'Aporte adicional para reducir deuda.'],
+    emergencyFund: ['Fondo de emergencia actual', 'Dinero líquido disponible para imprevistos.'], savingsGoal: ['Monto objetivo', 'La cifra final que querés alcanzar.'], goalName: ['Nombre del objetivo', 'Ej.: fondo de emergencia, casa propia o viaje.']
+  };
   let currentStepIndex = 0;
 
   function $(id) {
@@ -405,11 +420,11 @@
           wants: calculatePercentage(variableExpenses, totalIncome),
           savings: calculatePercentage(Math.max(0, savingCapacity), totalIncome)
         },
-        recommended: { needs: 50, wants: 30, savings: 20 }
+        recommended: { needs: 70, wants: 10, savings: 20 }
       },
       recommended: {
-        needs: totalIncome * 0.5,
-        wants: totalIncome * 0.3,
+        needs: totalIncome * 0.7,
+        wants: totalIncome * 0.1,
         savings: totalIncome * 0.2
       },
       actual: {
@@ -1061,7 +1076,298 @@
     });
   }
 
-  document.addEventListener('DOMContentLoaded', init);
+  const visitedPlanSteps = new Set();
+
+  function formatPlanCurrency(value) {
+    return new Intl.NumberFormat('es-UY', {
+      style: 'currency', currency: 'UYU', currencyDisplay: 'narrowSymbol', maximumFractionDigits: 0
+    }).format(Number(value) || 0).replace('UYU', '$');
+  }
+
+  function planFieldHasValue(id) {
+    return String(getValue(id) || '').trim() !== '';
+  }
+
+  function isPlanStepComplete(index) {
+    if (index === 0) return sumValues(readFormData().incomes) > 0 && visitedPlanSteps.has(index);
+    if (index === 5) return visitedPlanSteps.has(index);
+    return visitedPlanSteps.has(index);
+  }
+
+  function openPlanner() {
+    $('welcomeScreen')?.setAttribute('hidden', '');
+    $('plannerShell')?.removeAttribute('hidden');
+    renderPlanExperience();
+    window.requestAnimationFrame(() => $('stepEditor')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  }
+
+  function goToPlanStep(index, options = {}) {
+    currentStepIndex = Math.max(0, Math.min(PLAN_STEPS.length - 1, Number(index) || 0));
+    renderPlanExperience();
+    if (options.scroll !== false) $('stepEditor')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function renderPlanNavigation() {
+    const container = $('stepNavigation');
+    if (!container) return;
+    container.innerHTML = PLAN_STEPS.map((step, index) => {
+      const complete = isPlanStepComplete(index);
+      const state = index === currentStepIndex ? 'active' : complete ? 'complete' : 'pending';
+      const marker = complete ? '<svg aria-hidden="true"><use href="#i-check"></use></svg>' : String(index + 1);
+      return `<button type="button" class="step-nav-item ${state}" data-plan-step="${index}" aria-current="${index === currentStepIndex ? 'step' : 'false'}">
+        <span class="step-nav-number">${marker}</span><span class="step-nav-copy"><strong>${step.title}</strong><small>${step.description}</small></span><svg aria-hidden="true"><use href="#i-arrow"></use></svg>
+      </button>`;
+    }).join('');
+    container.querySelectorAll('[data-plan-step]').forEach((button) => button.addEventListener('click', () => goToPlanStep(button.dataset.planStep)));
+    setText('overallStepLabel', `Paso ${currentStepIndex + 1} de ${PLAN_STEPS.length}`);
+    const progress = $('overallProgress');
+    if (progress) progress.style.width = `${((currentStepIndex + 1) / PLAN_STEPS.length) * 100}%`;
+  }
+
+  function fieldTemplate(id) {
+    const [label, help] = FIELD_META[id];
+    const original = getValue(id);
+    const isText = id === 'goalName';
+    const input = isText
+      ? `<input class="text-input" id="ui-${id}" data-proxy-for="${id}" type="text" value="${escapeHtml(original)}" placeholder="Ej.: Casa propia">`
+      : `<div class="money-input"><span aria-hidden="true">$</span><input id="ui-${id}" data-proxy-for="${id}" inputmode="decimal" value="${escapeHtml(original)}" placeholder="0" aria-describedby="ui-${id}-help"></div>`;
+    return `<div class="field-group ${id === 'goalName' ? 'full' : ''}"><label for="ui-${id}">${label}</label>${input}<small id="ui-${id}-help">${help}</small><small class="field-feedback" id="ui-${id}-feedback" role="alert"></small></div>`;
+  }
+
+  function escapeHtml(value) {
+    return String(value ?? '').replace(/[&<>'"]/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[character]));
+  }
+
+  function renderPlanEditor() {
+    const step = PLAN_STEPS[currentStepIndex];
+    setText('editorEyebrow', `Paso ${currentStepIndex + 1} de ${PLAN_STEPS.length}`);
+    setText('editorTitle', step.title);
+    setText('editorDescription', step.help);
+    setText('editorState', isPlanStepComplete(currentStepIndex) ? 'Completado' : currentStepIndex === 5 ? 'Revisión' : 'En progreso');
+    const fields = $('stepFields');
+    if (fields) {
+      fields.innerHTML = step.fields.length
+        ? `<div class="field-grid">${step.fields.map(fieldTemplate).join('')}</div>`
+        : `<div class="summary-message"><p>Tu panorama ya está listo para revisar. La distribución real se calcula con los datos que cargaste y la referencia 70/20/10 se mantiene como guía adaptable.</p></div>`;
+      fields.querySelectorAll('[data-proxy-for]').forEach((input) => {
+        input.addEventListener('input', () => syncProxyField(input));
+        input.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter') { event.preventDefault(); syncProxyField(input); }
+        });
+      });
+    }
+    const back = $('stepBackBtn');
+    if (back) back.disabled = currentStepIndex === 0;
+    const next = $('stepNextBtn');
+    if (next) next.innerHTML = currentStepIndex === PLAN_STEPS.length - 1
+      ? 'Plan listo <svg aria-hidden="true"><use href="#i-check"></use></svg>'
+      : 'Guardar y continuar <svg aria-hidden="true"><use href="#i-arrow"></use></svg>';
+    const sideNext = $('sideNextBtn');
+    if (sideNext) sideNext.hidden = currentStepIndex === PLAN_STEPS.length - 1;
+    setText('sideNextLabel', PLAN_STEPS[Math.min(currentStepIndex + 1, PLAN_STEPS.length - 1)].title);
+  }
+
+  function syncProxyField(input) {
+    const id = input.dataset.proxyFor;
+    setValue(id, input.value);
+    if (id !== 'goalName') {
+      const parsed = parseExpressionNumber(input.value);
+      input.parentElement?.classList.toggle('invalid', !parsed.valid);
+      setText(`ui-${id}-feedback`, parsed.valid ? '' : parsed.error);
+    }
+    renderPlanData();
+  }
+
+  function validateCurrentPlanStep() {
+    const step = PLAN_STEPS[currentStepIndex];
+    let valid = true;
+    step.fields.filter((id) => id !== 'goalName').forEach((id) => {
+      const result = parseExpressionNumber(getValue(id));
+      const proxy = $(`ui-${id}`);
+      proxy?.parentElement?.classList.toggle('invalid', !result.valid);
+      setText(`ui-${id}-feedback`, result.valid ? '' : result.error);
+      valid = valid && result.valid;
+    });
+    if (currentStepIndex === 0 && sumValues(readFormData().incomes) <= 0) {
+      const proxy = $('ui-monthlyIncome');
+      proxy?.parentElement?.classList.add('invalid');
+      setText('ui-monthlyIncome-feedback', 'Ingresá al menos un ingreso mensual mayor a 0.');
+      valid = false;
+    }
+    return valid;
+  }
+
+  function advancePlan() {
+    if (!validateCurrentPlanStep()) return;
+    visitedPlanSteps.add(currentStepIndex);
+    if (currentStepIndex < PLAN_STEPS.length - 1) goToPlanStep(currentStepIndex + 1);
+    else {
+      renderPlanExperience();
+      setText('fileStatus', 'Plan completo. Podés editar cualquier etapa o exportar tus datos.');
+    }
+  }
+
+  function getSafeDiagnosis() {
+    const data = readFormData();
+    if (sumValues(data.incomes) <= 0) return { data, diagnosis: null };
+    try { return { data, diagnosis: calculateFinancialDiagnosis(data) }; }
+    catch (error) { return { data, diagnosis: null }; }
+  }
+
+  function setActualRing(id, length, offset) {
+    const circle = $(id);
+    if (!circle) return;
+    const safeLength = Math.max(0, Math.min(100, Number(length) || 0));
+    circle.style.strokeDasharray = `${safeLength} ${100 - safeLength}`;
+    circle.style.strokeDashoffset = String(-offset);
+  }
+
+  function renderDonut(data, diagnosis) {
+    const income = diagnosis?.totalIncome || sumValues(data.incomes);
+    setText('donutIncome', formatPlanCurrency(income));
+    setText('donutNeedsAmount', `${formatPlanCurrency(income * .7)} objetivo`);
+    setText('donutBuildAmount', `${formatPlanCurrency(income * .2)} objetivo`);
+    setText('donutEnjoyAmount', `${formatPlanCurrency(income * .1)} objetivo`);
+
+    const fixedReady = visitedPlanSteps.has(1);
+    const variableReady = visitedPlanSteps.has(2);
+    const debtReady = visitedPlanSteps.has(3);
+    const completeForBalance = fixedReady && variableReady && debtReady;
+    const needs = diagnosis && (fixedReady || debtReady) ? Math.min(100, diagnosis.percentages.actual.needs) : 0;
+    const enjoy = diagnosis && variableReady ? Math.min(100, diagnosis.percentages.actual.wants) : 0;
+    const build = diagnosis && completeForBalance ? Math.min(100, diagnosis.percentages.actual.savings) : 0;
+    setActualRing('actualNeeds', needs, 0);
+    setActualRing('actualBuild', build, needs);
+    setActualRing('actualEnjoy', enjoy, needs + build);
+
+    const note = $('partialDataNote');
+    if (!income) {
+      setText('dataCompleteness', 'Tu guía 70/20/10');
+      setText('distributionIntro', 'Primero necesitamos conocer tus ingresos. Todavía no mostramos resultados para evitar conclusiones engañosas.');
+      if (note) note.innerHTML = '<svg aria-hidden="true"><use href="#i-info"></use></svg><span>Ingresá tu ingreso mensual para calcular montos de referencia.</span>';
+    } else if (!completeForBalance) {
+      setText('dataCompleteness', 'Distribución parcial');
+      setText('distributionIntro', 'La referencia ya está calculada; el anillo exterior solo muestra las categorías que terminaste.');
+      if (note) note.innerHTML = '<svg aria-hidden="true"><use href="#i-info"></use></svg><span>Resultado provisional: completá gastos fijos, variables y deudas para conocer tu saldo real.</span>';
+    } else {
+      setText('dataCompleteness', 'Panorama mensual completo');
+      setText('distributionIntro', 'Compará tu distribución actual con la guía y adaptala a tu realidad.');
+      if (note) note.innerHTML = `<svg aria-hidden="true"><use href="#i-info"></use></svg><span>${escapeHtml(diagnosis.recommendation)}</span>`;
+    }
+    const desc = $('donutDesc');
+    if (desc) desc.textContent = completeForBalance && diagnosis
+      ? `Distribución actual: ${needs.toFixed(1)} por ciento para vivir, ${build.toFixed(1)} para construir patrimonio y ${enjoy.toFixed(1)} para disfrutar.`
+      : 'Guía objetivo 70, 20 y 10. La distribución actual todavía está incompleta.';
+  }
+
+  function renderMetrics(data, diagnosis) {
+    const income = diagnosis?.totalIncome || sumValues(data.incomes);
+    const expenses = diagnosis?.totalExpenses || 0;
+    setText('metricIncome', formatPlanCurrency(income));
+    setText('metricExpenses', diagnosis && (visitedPlanSteps.has(1) || visitedPlanSteps.has(2) || visitedPlanSteps.has(3)) ? formatPlanCurrency(expenses) : 'Pendiente');
+    setText('metricDebt', visitedPlanSteps.has(3) ? formatPlanCurrency(data.debts.total) : 'Pendiente');
+    setText('metricSavings', visitedPlanSteps.has(4) ? formatPlanCurrency(data.emergencyFund.current) : 'Pendiente');
+  }
+
+  function renderWealthPlan(data, diagnosis) {
+    const target = (diagnosis?.totalIncome || sumValues(data.incomes)) * .2;
+    const debtShare = data.debts.total > 0 ? .6 : 0;
+    const fundShare = data.emergencyFund.current > 0 ? (debtShare ? .25 : .55) : (debtShare ? .35 : .7);
+    const goalShare = Math.max(0, 1 - debtShare - fundShare);
+    const items = [
+      ['Reducir deudas', target * debtShare, debtShare],
+      ['Fondo de emergencia', target * fundShare, fundShare],
+      [data.goals[0]?.name || 'Otros objetivos', target * goalShare, goalShare]
+    ];
+    const list = $('wealthList');
+    if (list) list.innerHTML = items.map(([label, amount, share]) => `<div class="wealth-item"><div class="wealth-item-head"><span>${escapeHtml(label)}</span><strong>${formatPlanCurrency(amount)}</strong></div><div class="mini-progress"><span style="width:${share * 100}%"></span></div></div>`).join('');
+    setText('wealthAvailable', `Disponible según objetivo: ${formatPlanCurrency(target)}`);
+    setText('wealthTotal', formatPlanCurrency(target));
+  }
+
+  function renderMonthlyPlan(data, diagnosis) {
+    const items = [
+      ['Cubrir gastos básicos', visitedPlanSteps.has(1), diagnosis ? formatPlanCurrency(diagnosis.fixedExpenses) : 'Pendiente'],
+      ['Pagar mínimos de deudas', visitedPlanSteps.has(3), visitedPlanSteps.has(3) ? formatPlanCurrency(data.debts.minimumMonthly + data.debts.loanMonthly) : 'Pendiente'],
+      ['Aportar a construcción patrimonial', Boolean(diagnosis && visitedPlanSteps.has(3)), diagnosis ? `${formatPlanCurrency(diagnosis.totalIncome * .2)} como referencia` : 'Pendiente'],
+      ['Reservar dinero para disfrutar', visitedPlanSteps.has(2), diagnosis ? `${formatPlanCurrency(diagnosis.totalIncome * .1)} como referencia` : 'Pendiente']
+    ];
+    const container = $('monthlyPlan');
+    if (container) container.innerHTML = items.map(([label, done, detail], index) => `<li><span class="plan-status ${done ? 'done' : index === currentStepIndex ? 'current' : ''}"><svg aria-hidden="true"><use href="#i-check"></use></svg></span><div><strong>${label}</strong><span>${detail}</span></div></li>`).join('');
+  }
+
+  function renderGoal(data) {
+    const goal = data.goals[0] || { name: '', amount: 0 };
+    const current = data.emergencyFund.current;
+    const progress = goal.amount > 0 ? Math.min(100, calculatePercentage(current, goal.amount)) : 0;
+    setText('primaryGoalName', goal.name || 'Definí tu objetivo');
+    setText('primaryGoalCurrent', `${formatPlanCurrency(current)} acumulado`);
+    setText('primaryGoalTarget', `${formatPlanCurrency(goal.amount)} objetivo`);
+    setText('goalProgressText', `${progress.toFixed(0)}%`);
+    const bar = $('goalProgressBar'); if (bar) bar.style.width = `${progress}%`;
+  }
+
+  function renderPlanData() {
+    const { data, diagnosis } = getSafeDiagnosis();
+    renderMetrics(data, diagnosis);
+    renderDonut(data, diagnosis);
+    renderWealthPlan(data, diagnosis);
+    renderMonthlyPlan(data, diagnosis);
+    renderGoal(data);
+  }
+
+  function renderPlanExperience() {
+    renderPlanNavigation();
+    renderPlanEditor();
+    renderPlanData();
+  }
+
+  function exportPlanData() {
+    const data = buildEditableExport(readFormData());
+    downloadText(`finanzas-personales-${new Date().toISOString().slice(0, 10)}.json`, JSON.stringify(data, null, 2));
+    setText('fileStatus', 'Datos exportados como JSON compatible con el esquema 2.0.0.');
+  }
+
+  function importPlanData(file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const data = validateImportedData(JSON.parse(String(reader.result || '')));
+        writeFormData(data);
+        PLAN_STEPS.slice(0, 5).forEach((_, index) => visitedPlanSteps.add(index));
+        openPlanner();
+        goToPlanStep(5, { scroll: false });
+        setText('fileStatus', 'Datos importados correctamente. Revisá el resumen antes de continuar.');
+      } catch (error) { setText('fileStatus', `Error al importar: ${error.message}`); }
+    };
+    reader.readAsText(file);
+  }
+
+  function resetPlan() {
+    FIELD_IDS.forEach((id) => setValue(id, ''));
+    visitedPlanSteps.clear();
+    currentStepIndex = 0;
+    setText('fileStatus', 'Plan reiniciado.');
+    renderPlanExperience();
+  }
+
+  function modernInit() {
+    $('startPlanBtn')?.addEventListener('click', openPlanner);
+    $('stepBackBtn')?.addEventListener('click', () => goToPlanStep(currentStepIndex - 1));
+    $('stepNextBtn')?.addEventListener('click', advancePlan);
+    $('sideNextBtn')?.addEventListener('click', advancePlan);
+    $('exportDataBtn')?.addEventListener('click', exportPlanData);
+    $('importDataBtn')?.addEventListener('click', () => $('importFile')?.click());
+    $('importFile')?.addEventListener('change', (event) => {
+      const file = event.target.files?.[0]; if (file) importPlanData(file); event.target.value = '';
+    });
+    $('financialForm')?.addEventListener('submit', (event) => event.preventDefault());
+    $('financialForm')?.addEventListener('reset', (event) => { event.preventDefault(); resetPlan(); });
+    document.querySelectorAll('[data-go-step]').forEach((button) => button.addEventListener('click', () => goToPlanStep(button.dataset.goStep)));
+    renderPlanExperience();
+  }
+
+  document.addEventListener('DOMContentLoaded', modernInit);
 
   window.FinancialCalculator = {
     formatCurrency,

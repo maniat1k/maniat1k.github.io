@@ -5,502 +5,160 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description"
-    content="Herramienta local de diagnóstico financiero personal para ingresos, gastos, deudas, fondo de emergencia y escenarios de ahorro." />
-
-  <title>Diagnóstico Financiero Personal</title>
+    content="Herramienta local para ordenar ingresos, gastos, deudas, ahorro y objetivos con una guía financiera 70/20/10." />
+  <title>Mi Plan Financiero | maniat1k</title>
 
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
   <link rel="apple-touch-icon" href="/assets/favicon/apple-touch-icon.png">
-
-  <!-- fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
     rel="stylesheet">
-
-  <!-- Bootstrap CSS v5.2.1 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
-
-  <!-- Custom Stylesheet -->
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+    crossorigin="anonymous" />
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/ahorro.css">
 </head>
 
-<body>
-  <!-- Header/Navbar -->
-  <header id="top" class="position-sticky top-0 start-0" style="z-index:10;">
-    <nav class="navbar bg-white fixed-top">
-      <div class="container-fluid">
-        <div class="d-flex align-items-center g-4">
-          <a class="navbar-brand d-flex" href="index.html">
-            <img src="images/logo.png" class="img-fluid" id="logo" alt="Logo de maniat1k">
-          </a>
-        </div>
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"
-          aria-label="Abrir menu de navegacion" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-          <span class="navbar-toggler-icon-custom">
-            <svg class="text-primary menu" width="32" height="32">
-              <use xlink:href="#menu"></use>
-            </svg>
-          </span>
-        </button>
-        <div class="offcanvas offcanvas-end text-white" tabindex="-1" id="offcanvasNavbar"
-          aria-labelledby="offcanvasNavbarLabel">
-          <div class="offcanvas-header">
-            <h2 id="offcanvasNavbarLabel" class="visually-hidden">Menu de navegacion</h2>
-            <button type="button" class="btn-close btn-close-white ms-3" data-bs-dismiss="offcanvas"
-              aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body">
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <a class="nav-link text-white" href="index.html">Inicio</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white" href="ahorro.html">Diagnóstico Financiero</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white" href="wintop.html">WinTop</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link text-white" data-kofi-link href="https://ko-fi.com/maniat1kuy" target="_blank" rel="noopener noreferrer">Apoyar en Ko-fi</a>
-              </li>
-            </ul>
-          </div>
-        </div>
+<body class="finance-page">
+  <svg class="icon-sprite" aria-hidden="true">
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" /></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8v9a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z" /></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8z" /></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M5 21h14a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2" /></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4m-5 5 5-5 5 5M5 21h14a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2" /></symbol>
+    <symbol id="i-income" viewBox="0 0 24 24"><path d="M12 2v20M17 6.5c0-1.4-2.2-2.5-5-2.5S7 5.1 7 6.5 9.2 9 12 9s5 1.1 5 2.5S14.8 14 12 14s-5 1.1-5 2.5S9.2 19 12 19s5-1.1 5-2.5" /></symbol>
+    <symbol id="i-expense" viewBox="0 0 24 24"><path d="M4 7h16v13H4zM7 4v6M17 4v6M4 11h16" /></symbol>
+    <symbol id="i-debt" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h3" /></symbol>
+    <symbol id="i-save" viewBox="0 0 24 24"><path d="M5 9a7 7 0 0 1 13-2h3l-2 5-5-2h3a5 5 0 1 0 0 5M8 21v-3M14 21v-3" /></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="m4 20 4.5-1 10-10a2.1 2.1 0 0 0-3-3l-10 10zM14 7l3 3" /></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6" /></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01" /></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/></symbol>
+  </svg>
+
+  <header class="finance-header" id="top">
+    <nav class="finance-nav" aria-label="Navegación principal">
+      <a class="finance-brand" href="index.html" aria-label="Volver al portfolio de maniat1k">
+        <span class="finance-logo"><img src="images/logo.png" alt="" /></span>
+        <span><strong>Mi Plan Financiero</strong><small>Ordená tu dinero. Construí tu futuro.</small></span>
+      </a>
+      <div class="finance-nav-actions">
+        <a class="nav-action nav-action-secondary" href="index.html"><svg><use href="#i-home" /></svg><span>Portfolio</span></a>
+        <a class="nav-action nav-action-secondary" data-kofi-link href="https://ko-fi.com/maniat1kuy" target="_blank" rel="noopener noreferrer"><svg><use href="#i-heart" /></svg><span>Ko-fi</span></a>
+        <button class="nav-action" type="button" id="exportDataBtn"><svg><use href="#i-download" /></svg><span>Exportar</span></button>
+        <button class="finance-menu" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Abrir menú"><svg><use href="#i-menu" /></svg></button>
+      </div>
+      <div class="offcanvas offcanvas-end text-white" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header"><h2 id="offcanvasNavbarLabel" class="h5 mb-0">Navegación</h2><button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Cerrar"></button></div>
+        <div class="offcanvas-body"><ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link text-white" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link text-white" aria-current="page" href="ahorro.html">Mi Plan Financiero</a></li>
+          <li class="nav-item"><a class="nav-link text-white" href="wintop.html">WinTop</a></li>
+          <li class="nav-item"><a class="nav-link text-white" data-kofi-link href="https://ko-fi.com/maniat1kuy" target="_blank" rel="noopener noreferrer">Apoyar en Ko-fi</a></li>
+        </ul></div>
       </div>
     </nav>
   </header>
 
-  <!-- Main Content -->
-  <main class="pt-5 pb-5">
-    <div class="container-lg py-5">
-      <!-- Title Section -->
-      <section class="mb-5 pt-5">
-        <div class="row align-items-center">
-          <div class="col-lg-8">
-            <h1 class="display-6 fw-bold mb-3">
-              <span class="text-warning">Diagnóstico Financiero</span> Personal
-            </h1>
-            <p class="lead text-secondary mb-3">
-              Analizá ingresos, gastos, deudas, fondo de emergencia y escenarios de ahorro. Todo funciona localmente en tu navegador.
-            </p>
-            <a href="index.html" class="btn btn-outline-dark text-uppercase text-decoration-none">Volver al portfolio</a>
-          </div>
-        </div>
-      </section>
+  <main>
+    <section class="welcome-screen" id="welcomeScreen" aria-labelledby="welcomeTitle">
+      <div class="welcome-content">
+        <span class="welcome-eyebrow">Tu información queda en este navegador</span>
+        <h1 id="welcomeTitle">Un plan simple para que tu dinero tenga dirección.</h1>
+        <p>Ordená ingresos, gastos, deudas y objetivos a tu ritmo. Usaremos la guía 70/20/10 como punto de partida adaptable, no como una regla rígida.</p>
+        <button class="primary-action" type="button" id="startPlanBtn">Empezar mi plan <svg><use href="#i-arrow" /></svg></button>
+        <div class="welcome-points" aria-label="Características"><span><svg><use href="#i-check" /></svg> Sin cuentas</span><span><svg><use href="#i-check" /></svg> Datos locales</span><span><svg><use href="#i-check" /></svg> Exportable</span></div>
+      </div>
+      <div class="welcome-preview" aria-hidden="true"><div class="preview-ring"><span>70</span><small>/ 20 / 10</small></div><p>Vivir. Construir. Disfrutar.</p></div>
+    </section>
 
-      <!-- Live Diagnosis Dashboard -->
-      <section id="resultsSection" class="diagnosis-dashboard mb-5">
-        <!-- Financial Gauge -->
-        <div class="dashboard-hero card border-0 shadow-sm mb-4">
-          <div class="card-body p-4 p-lg-5">
-            <div class="row align-items-center g-4">
-              <div class="col-lg-3">
-                <p class="text-muted small mb-2">Ingreso mensual</p>
-                <p class="h2 fw-bold mb-1" id="dashboardIncome">$0.00</p>
-                <p class="small text-muted mb-0">Capacidad total</p>
-              </div>
-              <div class="col-lg-6 text-center">
-                <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
-                  <div class="text-start">
-                    <p class="text-muted small mb-2">Velocímetro financiero</p>
-                    <h2 class="card-title h4 mb-1 fw-bold" id="gaugeZoneLabel">Cargá tus datos</h2>
-                  </div>
-                  <span class="financial-zone-pill" id="gaugeZonePill">Inicio</span>
-                </div>
-                <div class="financial-gauge" aria-label="Velocímetro financiero">
-                  <div class="financial-gauge-arc"></div>
-                  <div class="financial-gauge-needle" id="gaugeNeedle"></div>
-                  <div class="financial-gauge-center"></div>
-                </div>
-                <div class="d-flex justify-content-between text-muted small mt-2 gauge-scale">
-                  <span>0%</span>
-                  <span>50%</span>
-                  <span>80%</span>
-                  <span>100%+</span>
-                </div>
-                <p class="h3 fw-bold mb-1 mt-4" id="gaugeSpendingRatio">0% usado</p>
-                <p class="mb-0" id="gaugeMessage">Empezá por tu sueldo mensual.</p>
-              </div>
-              <div class="col-lg-3">
-                <div class="dashboard-alert" id="dashboardAlert">
-                  <p class="fw-bold mb-2" id="dashboardAlertTitle">Diagnóstico listo para empezar</p>
-                  <p class="small mb-0" id="dashboardAlertText">A medida que avances, vamos recalculando todo.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <div class="planner-shell" id="plannerShell" hidden>
+      <aside class="steps-panel" aria-label="Etapas del plan">
+        <div class="steps-progress"><span id="overallStepLabel">Paso 1 de 6</span><div class="progress-track"><span id="overallProgress"></span></div></div>
+        <nav class="step-navigation" id="stepNavigation"></nav>
+        <div class="privacy-note"><svg><use href="#i-info" /></svg><p><strong>Tus datos quedan guardados solo durante esta sesión.</strong><span>Podés exportarlos cuando quieras.</span></p></div>
+      </aside>
 
-        <!-- Budget Cards -->
-        <div class="row g-3 mb-4" id="budgetCards">
-          <div class="col-md-4">
-            <div class="budget-card h-100" id="needsCard">
-              <p class="text-muted small mb-2">Necesidades</p>
-              <p class="h4 fw-bold mb-1" id="needsCardAmount">$0.00</p>
-              <p class="small mb-2" id="needsCardStatus">Hasta 50%</p>
-              <div class="progress" style="height: 8px;">
-                <div id="needsCardBar" class="progress-bar" style="width: 0%"></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="budget-card h-100" id="wantsCard">
-              <p class="text-muted small mb-2">Deseos</p>
-              <p class="h4 fw-bold mb-1" id="wantsCardAmount">$0.00</p>
-              <p class="small mb-2" id="wantsCardStatus">Hasta 30%</p>
-              <div class="progress" style="height: 8px;">
-                <div id="wantsCardBar" class="progress-bar" style="width: 0%"></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="budget-card h-100" id="savingsCard">
-              <p class="text-muted small mb-2">Ahorro posible</p>
-              <p class="h4 fw-bold mb-1" id="savingsCardAmount">$0.00</p>
-              <p class="small mb-2" id="savingsCardStatus">Objetivo 20%</p>
-              <div class="progress" style="height: 8px;">
-                <div id="savingsCardBar" class="progress-bar" style="width: 0%"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="alert mb-0" id="savingsAlert" role="status">
-          Tu ahorro posible hoy es de $0.00
-        </div>
+      <div class="planner-main">
+        <section class="metrics-row" aria-label="Resumen financiero">
+          <article class="metric-card metric-income"><span class="metric-icon"><svg><use href="#i-income" /></svg></span><div><small>Ingresos mensuales</small><strong id="metricIncome">$0</strong><button type="button" data-go-step="0">Editar <svg><use href="#i-edit" /></svg></button></div></article>
+          <article class="metric-card metric-expense"><span class="metric-icon"><svg><use href="#i-expense" /></svg></span><div><small>Gastos totales</small><strong id="metricExpenses">$0</strong><button type="button" data-go-step="1">Editar <svg><use href="#i-edit" /></svg></button></div></article>
+          <article class="metric-card metric-debt"><span class="metric-icon"><svg><use href="#i-debt" /></svg></span><div><small>Deuda activa</small><strong id="metricDebt">$0</strong><button type="button" data-go-step="3">Editar <svg><use href="#i-edit" /></svg></button></div></article>
+          <article class="metric-card metric-saving"><span class="metric-icon"><svg><use href="#i-save" /></svg></span><div><small>Ahorro actual</small><strong id="metricSavings">$0</strong><button type="button" data-go-step="4">Editar <svg><use href="#i-edit" /></svg></button></div></article>
+        </section>
 
-        <!-- Recommendations Alert -->
-        <div id="recommendationsAlert" class="mt-4"></div>
-      </section>
-
-      <!-- Input Section -->
-      <section class="mb-5 stepper-section" id="inputSection">
-        <div class="card border-0 shadow-sm">
-          <div class="card-body p-4 p-lg-5">
-            <div class="text-center mb-4">
-              <h2 class="card-title h3 mb-2 fw-bold">Vamos paso a paso</h2>
-              <p class="text-muted mb-0">Completá cada categoría. Cuando termines una, pasamos a la siguiente.</p>
+        <div class="planner-grid">
+          <section class="visual-column" aria-labelledby="distributionTitle">
+            <header class="section-heading"><span class="section-kicker" id="dataCompleteness">Completando tu panorama</span><h2 id="distributionTitle">Así se distribuye tu dinero este mes</h2><p id="distributionIntro">Cargá tus datos paso a paso. La dona se irá completando sin adelantar conclusiones.</p></header>
+            <div class="donut-card" id="donutCard">
+              <div class="donut-stage">
+                <svg class="finance-donut" viewBox="0 0 420 420" role="img" aria-labelledby="donutTitle donutDesc">
+                  <title id="donutTitle">Distribución financiera 70, 20 y 10</title><desc id="donutDesc">Objetivo de 70 por ciento para vivir y cumplir, 20 para construir patrimonio y 10 para disfrutar.</desc>
+                  <circle class="donut-track" cx="210" cy="210" r="154" />
+                  <circle class="donut-segment donut-needs" id="donutNeeds" cx="210" cy="210" r="154" pathLength="100" />
+                  <circle class="donut-segment donut-build" id="donutBuild" cx="210" cy="210" r="154" pathLength="100" />
+                  <circle class="donut-segment donut-enjoy" id="donutEnjoy" cx="210" cy="210" r="154" pathLength="100" />
+                  <circle class="actual-track" cx="210" cy="210" r="181" pathLength="100" />
+                  <circle class="actual-segment actual-needs" id="actualNeeds" cx="210" cy="210" r="181" pathLength="100" />
+                  <circle class="actual-segment actual-build" id="actualBuild" cx="210" cy="210" r="181" pathLength="100" />
+                  <circle class="actual-segment actual-enjoy" id="actualEnjoy" cx="210" cy="210" r="181" pathLength="100" />
+                </svg>
+                <div class="donut-center"><small>Ingresos</small><strong id="donutIncome">$0</strong><span>por mes</span><button type="button" data-go-step="0">Editar ingreso</button></div>
+                <div class="donut-label label-needs"><strong>70%</strong><span>Vivir y cumplir</span><small id="donutNeedsAmount">$0 objetivo</small></div>
+                <div class="donut-label label-build"><strong>20%</strong><span>Construir patrimonio</span><small id="donutBuildAmount">$0 objetivo</small></div>
+                <div class="donut-label label-enjoy"><strong>10%</strong><span>Disfrutar</span><small id="donutEnjoyAmount">$0 objetivo</small></div>
+              </div>
+              <div class="donut-legend"><span><i class="legend-solid"></i>Distribución objetivo</span><span><i class="legend-dashed"></i>Tu distribución actual</span></div>
+              <div class="partial-data-note" id="partialDataNote" role="status"><svg><use href="#i-info" /></svg><span>Ingresá tu ingreso mensual para calcular montos de referencia.</span></div>
             </div>
 
-            <form id="financialForm" novalidate>
-              <div id="stepperExperience" class="stepper-experience">
-                <div class="stepper-progress-row">
-                  <span class="step-count-pill" id="stepCounter">1 de 1</span>
-                  <div class="step-progress-track">
-                    <div class="step-progress-fill" id="stepProgressFill"></div>
-                  </div>
+            <div class="step-editor" id="stepEditor">
+              <div class="editor-heading"><div><span id="editorEyebrow">Paso 1</span><h2 id="editorTitle">Ingresos mensuales</h2><p id="editorDescription">Contanos cuánto dinero entra en un mes habitual.</p></div><span class="editor-state" id="editorState">En progreso</span></div>
+              <form id="financialForm" novalidate>
+                <div id="stepFields"></div>
+                <div class="editor-actions"><button type="button" class="secondary-action" id="stepBackBtn">Anterior</button><button type="button" class="primary-action" id="stepNextBtn">Guardar y continuar <svg><use href="#i-arrow" /></svg></button></div>
+                <div class="file-tools"><button type="button" id="importDataBtn"><svg><use href="#i-upload" /></svg> Importar datos</button><button type="reset">Reiniciar plan</button><input type="file" id="importFile" hidden accept=".json,.txt,application/json,text/plain"><span id="fileStatus" role="status"></span></div>
+
+                <div class="field-store" id="fieldStore">
+                  <input id="monthlyIncome" data-type="currency"><input id="extraIncome" data-type="currency"><input id="otherIncome" data-type="currency">
+                  <input id="rent" data-type="currency"><input id="utilities" data-type="currency"><input id="food" data-type="currency"><input id="transport" data-type="currency"><input id="insurance" data-type="currency"><input id="health" data-type="currency"><input id="education" data-type="currency"><input id="family" data-type="currency"><input id="otherFixed" data-type="currency">
+                  <input id="entertainment" data-type="currency"><input id="dining" data-type="currency"><input id="shopping" data-type="currency"><input id="subscriptions" data-type="currency"><input id="otherVariable" data-type="currency">
+                  <input id="totalDebt" data-type="currency"><input id="creditCards" data-type="currency"><input id="loans" data-type="currency"><input id="debtExtraPayment" data-type="currency">
+                  <input id="emergencyFund" data-type="currency"><input id="savingsGoal" data-type="currency"><input id="goalName">
                 </div>
-                <div class="step-card">
-                  <p class="step-category mb-2" id="stepCategory">Ingreso</p>
-                  <h3 class="h4 fw-bold mb-2" id="stepTitle">¿Cuál es tu sueldo mensual?</h3>
-                  <p class="text-muted mb-4" id="stepHelp">Ingresá tu sueldo principal.</p>
-                  <div class="step-input-wrap">
-                    <span class="step-currency">$</span>
-                    <input type="text" class="step-input" id="stepAmountInput" inputmode="decimal"
-                      placeholder="Ej: 1500+3000">
-                    <span class="step-valid-mark" id="stepValidMark">✓</span>
-                  </div>
-                  <div class="step-feedback small mt-3" id="stepFeedback">También podés escribir 0.</div>
-                  <div class="d-flex justify-content-center gap-2 flex-wrap mt-4">
-                    <button type="button" class="btn btn-outline-secondary btn-lg" id="stepBackBtn">Anterior</button>
-                    <button type="button" class="btn btn-dark btn-lg" id="stepNextBtn">Siguiente</button>
-                    <button type="reset" class="btn btn-outline-dark btn-lg">Reiniciar</button>
-                  </div>
-                  <p class="text-muted small mt-3 mb-0">Presioná <kbd>Enter</kbd></p>
-                </div>
-                <div class="step-map" id="stepMap"></div>
-              </div>
-
-              <div class="legacy-fields" aria-hidden="true">
-              <!-- Ingreso Mensual -->
-              <div class="mb-4">
-                <label for="monthlyIncome" class="form-label fw-bold">
-                  Sueldo mensual <span class="text-danger">*</span>
-                </label>
-                <div class="input-group input-group-lg">
-                  <span class="input-group-text bg-light border-0">$</span>
-                  <input type="text" class="form-control border-0 bg-light" id="monthlyIncome" 
-                    placeholder="Ej: 3000 o 3.000,00" required data-type="currency">
-                </div>
-                <small class="text-muted d-block mt-2">Campo obligatorio. Acepta puntos o comas como separadores.</small>
-              </div>
-
-              <div class="row g-3 mb-5">
-                <div class="col-md-6">
-                  <label for="extraIncome" class="form-label">Ingresos extra</label>
-                  <div class="input-group">
-                    <span class="input-group-text bg-light border-0">$</span>
-                    <input type="text" class="form-control border-0 bg-light" id="extraIncome" placeholder="0" data-type="currency">
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <label for="otherIncome" class="form-label">Otros ingresos</label>
-                  <div class="input-group">
-                    <span class="input-group-text bg-light border-0">$</span>
-                    <input type="text" class="form-control border-0 bg-light" id="otherIncome" placeholder="0" data-type="currency">
-                  </div>
-                </div>
-              </div>
-
-              <!-- Fixed Expenses Section -->
-              <div class="mb-5">
-                <h3 class="h5 fw-bold mb-3 text-secondary">Gastos Fijos (Necesidades)</h3>
-                <p class="text-muted small mb-3">Gastos recurrentes mensuales que son difíciles de reducir.</p>
-
-                <div class="row g-3">
-                  <div class="col-md-6">
-                    <label for="rent" class="form-label">Alquiler/Hipoteca</label>
-                    <div class="input-group">
-                      <span class="input-group-text bg-light border-0">$</span>
-                      <input type="text" class="form-control border-0 bg-light" id="rent" 
-                        placeholder="0" data-type="currency">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="utilities" class="form-label">Servicios (Luz, Agua, Internet, etc.)</label>
-                    <div class="input-group">
-                      <span class="input-group-text bg-light border-0">$</span>
-                      <input type="text" class="form-control border-0 bg-light" id="utilities" 
-                        placeholder="0" data-type="currency">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="food" class="form-label">Alimentación</label>
-                    <div class="input-group">
-                      <span class="input-group-text bg-light border-0">$</span>
-                      <input type="text" class="form-control border-0 bg-light" id="food" 
-                        placeholder="0" data-type="currency">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="transport" class="form-label">Transporte</label>
-                    <div class="input-group">
-                      <span class="input-group-text bg-light border-0">$</span>
-                      <input type="text" class="form-control border-0 bg-light" id="transport" 
-                        placeholder="0" data-type="currency">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="insurance" class="form-label">Seguros</label>
-                    <div class="input-group">
-                      <span class="input-group-text bg-light border-0">$</span>
-                      <input type="text" class="form-control border-0 bg-light" id="insurance" 
-                        placeholder="0" data-type="currency">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="health" class="form-label">Salud</label>
-                    <div class="input-group">
-                      <span class="input-group-text bg-light border-0">$</span>
-                      <input type="text" class="form-control border-0 bg-light" id="health" placeholder="0" data-type="currency">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="education" class="form-label">Educación</label>
-                    <div class="input-group">
-                      <span class="input-group-text bg-light border-0">$</span>
-                      <input type="text" class="form-control border-0 bg-light" id="education" placeholder="0" data-type="currency">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="family" class="form-label">Familia</label>
-                    <div class="input-group">
-                      <span class="input-group-text bg-light border-0">$</span>
-                      <input type="text" class="form-control border-0 bg-light" id="family" placeholder="0" data-type="currency">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="otherFixed" class="form-label">Otros Gastos Fijos</label>
-                    <div class="input-group">
-                      <span class="input-group-text bg-light border-0">$</span>
-                      <input type="text" class="form-control border-0 bg-light" id="otherFixed" 
-                        placeholder="0" data-type="currency">
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Variable Expenses Section -->
-              <div class="mb-5">
-                <h3 class="h5 fw-bold mb-3 text-secondary">Gastos Variables (Deseos)</h3>
-                <p class="text-muted small mb-3">Gastos personales y de entretenimiento que puedes ajustar.</p>
-
-                <div class="row g-3">
-                  <div class="col-md-6">
-                    <label for="entertainment" class="form-label">Entretenimiento/Ocio</label>
-                    <div class="input-group">
-                      <span class="input-group-text bg-light border-0">$</span>
-                      <input type="text" class="form-control border-0 bg-light" id="entertainment" 
-                        placeholder="0" data-type="currency">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="dining" class="form-label">Comidas Fuera/Cafés</label>
-                    <div class="input-group">
-                      <span class="input-group-text bg-light border-0">$</span>
-                      <input type="text" class="form-control border-0 bg-light" id="dining" 
-                        placeholder="0" data-type="currency">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="shopping" class="form-label">Compras/Ropa</label>
-                    <div class="input-group">
-                      <span class="input-group-text bg-light border-0">$</span>
-                      <input type="text" class="form-control border-0 bg-light" id="shopping" 
-                        placeholder="0" data-type="currency">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="subscriptions" class="form-label">Suscripciones</label>
-                    <div class="input-group">
-                      <span class="input-group-text bg-light border-0">$</span>
-                      <input type="text" class="form-control border-0 bg-light" id="subscriptions" 
-                        placeholder="0" data-type="currency">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="otherVariable" class="form-label">Otros Gastos Variables</label>
-                    <div class="input-group">
-                      <span class="input-group-text bg-light border-0">$</span>
-                      <input type="text" class="form-control border-0 bg-light" id="otherVariable" 
-                        placeholder="0" data-type="currency">
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Debt Section -->
-              <div class="mb-5">
-                <h3 class="h5 fw-bold mb-3 text-secondary">Deudas</h3>
-                <p class="text-muted small mb-3">Pagos mensuales y simulación simple de reducción de deuda.</p>
-
-                <div class="row g-3">
-                  <div class="col-md-4">
-                    <label for="totalDebt" class="form-label">Deuda total</label>
-                    <div class="input-group">
-                      <span class="input-group-text bg-light border-0">$</span>
-                      <input type="text" class="form-control border-0 bg-light" id="totalDebt" placeholder="0" data-type="currency">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="creditCards" class="form-label">Pago mínimo mensual</label>
-                    <div class="input-group">
-                      <span class="input-group-text bg-light border-0">$</span>
-                      <input type="text" class="form-control border-0 bg-light" id="creditCards" 
-                        placeholder="0" data-type="currency">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <label for="loans" class="form-label">Préstamos/Cuotas mensuales</label>
-                    <div class="input-group">
-                      <span class="input-group-text bg-light border-0">$</span>
-                      <input type="text" class="form-control border-0 bg-light" id="loans" 
-                        placeholder="0" data-type="currency">
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <label for="debtExtraPayment" class="form-label">Pago extra mensual</label>
-                    <div class="input-group">
-                      <span class="input-group-text bg-light border-0">$</span>
-                      <input type="text" class="form-control border-0 bg-light" id="debtExtraPayment" placeholder="0" data-type="currency">
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="mb-5">
-                <h3 class="h5 fw-bold mb-3 text-secondary">Fondo de emergencia</h3>
-                <div class="row g-3">
-                  <div class="col-md-6">
-                    <label for="emergencyFund" class="form-label">Fondo actual</label>
-                    <div class="input-group">
-                      <span class="input-group-text bg-light border-0">$</span>
-                      <input type="text" class="form-control border-0 bg-light" id="emergencyFund" placeholder="0" data-type="currency">
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Savings Goal -->
-              <div class="mb-4">
-                <label for="savingsGoal" class="form-label fw-bold">
-                  Meta de Ahorro (Opcional)
-                </label>
-                <div class="input-group input-group-lg">
-                  <span class="input-group-text bg-light border-0">$</span>
-                  <input type="text" class="form-control border-0 bg-light" id="savingsGoal" 
-                    placeholder="Ej: 10000" data-type="currency">
-                </div>
-                <small class="text-muted d-block mt-2">Ingresa una cantidad si quieres proyectar cuándo la alcanzarás.</small>
-              </div>
-
-              <div class="mb-4">
-                <label for="goalName" class="form-label fw-bold">Nombre del objetivo (Opcional)</label>
-                <input type="text" class="form-control border-0 bg-light" id="goalName" placeholder="Ej: colchón, viaje, cancelar deuda">
-              </div>
-
-              <!-- Calculate Button -->
-              <div class="d-grid gap-2 d-md-flex flex-wrap">
-                <button type="submit" class="btn btn-dark btn-lg fw-bold">
-                  Calcular Diagnóstico
-                </button>
-                <button type="reset" class="btn btn-outline-secondary btn-lg fw-bold">
-                  Limpiar
-                </button>
-                <button type="button" class="btn btn-outline-dark btn-lg fw-bold" id="exportDataBtn">
-                  Exportar datos
-                </button>
-                <button type="button" class="btn btn-outline-dark btn-lg fw-bold" id="importDataBtn">
-                  Importar datos
-                </button>
-                <input type="file" id="importFile" class="d-none" accept=".json,.txt,application/json,text/plain">
-              </div>
-              <div id="fileStatus" class="small mt-3 text-muted"></div>
-              </div>
-            </form>
-
-            <!-- Info Box -->
-            <div class="alert alert-light mt-5 mb-0 border border-secondary-subtle">
-              <p class="mb-0 small">
-                <strong>📌 La regla 50/30/20:</strong> Es una referencia orientativa donde idealmente 50% de tus 
-                ingresos van a necesidades, 30% a gastos personales y 20% a ahorro. No es una obligación, sino una 
-                guía para evaluar el equilibrio financiero.
-              </p>
+              </form>
             </div>
-          </div>
-        </div>
-      </section>
 
-      <section class="mb-5">
-        <div class="kofi-inline-cta">
-          <p class="mb-2">¿Te resultó útil? Podés apoyar el desarrollo de nuevas herramientas y contenido técnico en Ko-fi.</p>
-          <a class="btn btn-primary btn-sm text-uppercase text-decoration-none" data-kofi-link href="https://ko-fi.com/maniat1kuy" target="_blank" rel="noopener noreferrer">Apoyar en Ko-fi</a>
-        </div>
-      </section>
+            <section class="rule-guide" aria-labelledby="ruleGuideTitle"><div class="guide-heading"><h2 id="ruleGuideTitle">¿Qué significa cada parte?</h2><p>Una guía flexible para ordenar prioridades según tu realidad.</p></div><div class="guide-grid">
+              <article class="guide-needs"><strong>70% <span>Vivir y cumplir</span></strong><p>Vivienda, servicios, comida, transporte, educación, salud, familia y obligaciones básicas.</p><small>Meta: cubrir lo esencial sin estrés.</small></article>
+              <article class="guide-build"><strong>20% <span>Construir patrimonio</span></strong><p>Reducir deuda, crear un fondo de emergencia, ahorrar para vivienda e invertir.</p><small>Meta: construir resiliencia y futuro.</small></article>
+              <article class="guide-enjoy"><strong>10% <span>Disfrutar</span></strong><p>Salidas, hobbies, gustos personales y experiencias que mejoran tu calidad de vida.</p><small>Meta: disfrutar sin culpa.</small></article>
+            </div></section>
+          </section>
 
+          <aside class="plan-column" aria-label="Tu plan financiero">
+            <section class="plan-card wealth-card"><header><span>¿Qué hacer con tu 20%?</span><h2>Construcción de patrimonio</h2><p id="wealthAvailable">Disponible según objetivo: $0</p></header><div class="wealth-list" id="wealthList"></div><footer><span>Total orientativo</span><strong id="wealthTotal">$0</strong></footer></section>
+            <section class="plan-card monthly-card"><header><svg><use href="#i-target" /></svg><h2>Tu plan de este mes</h2></header><ul id="monthlyPlan"></ul></section>
+            <section class="plan-card goal-card"><div><small>Tu objetivo principal</small><h2 id="primaryGoalName">Definí tu objetivo</h2><p><span id="primaryGoalCurrent">$0 acumulado</span> · <span id="primaryGoalTarget">$0 objetivo</span></p><div class="goal-progress"><span id="goalProgressBar"></span></div></div><strong id="goalProgressText">0%</strong></section>
+            <button class="next-step-card" type="button" id="sideNextBtn"><span><strong>Siguiente paso</strong><small id="sideNextLabel">Obligaciones fijas</small></span><svg><use href="#i-arrow" /></svg></button>
+            <div class="kofi-inline-cta"><p>¿Te resultó útil? Apoyá el desarrollo de herramientas independientes.</p><a data-kofi-link href="https://ko-fi.com/maniat1kuy" target="_blank" rel="noopener noreferrer">Apoyar en Ko-fi</a></div>
+          </aside>
+        </div>
+      </div>
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="bg-dark py-5">
-    <div class="container-lg text-white text-center">
-      <p class="mb-0">&copy; 2026 - Diagnóstico Financiero Personal | maniat1k</p>
-    </div>
-  </footer>
-
-  <!-- Bootstrap JS -->
+  <footer class="finance-footer"><p>&copy; 2026 maniat1k · Tu plan funciona localmente, no sale de tú maquina.</p></footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-C6RzsynM9ODOCWM+IIcQTmnQJvM51QMNSTQF3DwD3P8wEyTT6rcc5S1gZJvP7zGkF"
     crossorigin="anonymous"></script>
-
-  <!-- Custom Script -->
   <script src="js/financial-calculator.js"></script>
   <script src="https://storage.ko-fi.com/cdn/scripts/overlay-widget.js"></script>
   <script src="js/kofi.js"></script>
 </body>
-
 </html>

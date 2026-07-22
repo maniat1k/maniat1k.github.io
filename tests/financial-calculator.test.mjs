@@ -96,6 +96,15 @@ test('calcula un diagnostico positivo desde datos manuales', () => {
   assert.ok(diagnosis.scenarios.length >= 3);
 });
 
+test('usa 70/20/10 como distribucion objetivo sin alterar los datos', () => {
+  const diagnosis = finance.calculateFinancialDiagnosis(makeData());
+  assert.deepEqual({ ...diagnosis.percentages.recommended }, { needs: 70, wants: 10, savings: 20 });
+  assert.equal(diagnosis.recommended.needs, 77000);
+  assert.equal(diagnosis.recommended.wants, 11000);
+  assert.equal(diagnosis.recommended.savings, 22000);
+  assert.equal(diagnosis.actual.needs, 63000);
+});
+
 test('interpreta operaciones monetarias simples sin eval', () => {
   assert.equal(finance.parseExpressionNumber('1500+3000+2800').value, 7300);
   assert.equal(finance.parseExpressionNumber('20000-1500').value, 18500);
