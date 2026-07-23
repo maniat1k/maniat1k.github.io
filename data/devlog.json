@@ -1,15 +1,8 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-07-23T13:54:23.149Z",
+  "generated_at": "2026-07-23T19:14:33.643Z",
   "total": 12,
   "items": [
-    {
-      "repo": "maniat1k.github.io",
-      "repoType": "principal",
-      "message": "Rediseño completo de la herramienta de planificación financiera",
-      "date": "2026-07-22T18:42:40Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/8243a3d9ca58a25c891328c237bd89a30cd638ac"
-    },
     {
       "repo": "Clean_windows",
       "repoType": "principal",
@@ -86,6 +79,13 @@
       "message": "trabajo auditado",
       "date": "2026-03-13T19:10:24Z",
       "url": "https://github.com/maniat1k/nido/commit/7b170d0007e2d0691fb09731639da641cdb051f1"
+    },
+    {
+      "repo": "nido",
+      "repoType": "principal",
+      "message": "First implementation to save.",
+      "date": "2026-03-09T15:04:57Z",
+      "url": "https://github.com/maniat1k/nido/commit/02713f26612a95ff28a98f6d8bcdc6f1f6d18f65"
     }
   ]
 }
