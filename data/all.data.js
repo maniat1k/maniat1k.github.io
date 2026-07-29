@@ -1,6 +1,6 @@
 window.__PORTFOLIO_FEEDS__ = {
   "source": "all",
-  "generated_at": "2026-07-29T02:30:06.542Z",
+  "generated_at": "2026-07-29T08:39:51.459Z",
   "total": 8,
   "items": [
     {
@@ -8,12 +8,12 @@ window.__PORTFOLIO_FEEDS__ = {
       "id": "github_maniat1k.github.io",
       "title": "maniat1k.github.io",
       "url": "https://github.com/maniat1k/maniat1k.github.io",
-      "date": "2026-07-28T19:21:25.000Z",
+      "date": "2026-07-29T02:30:13.000Z",
       "image": "",
       "image_alt": "maniat1k.github.io",
       "summary": "My digital workshop: DevOps, SysAdmin, PowerShell, automation and technical projects.",
       "stars": 2,
-      "updated_at": "2026-07-28T19:21:25.000Z"
+      "updated_at": "2026-07-29T02:30:13.000Z"
     },
     {
       "source": "github",
