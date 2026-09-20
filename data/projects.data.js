@@ -1,8 +1,26 @@
 window.__PORTFOLIO_PROJECTS__ = {
   "source": "https://api.github.com/users/maniat1k/repos?per_page=100&sort=updated",
-  "generated_at": "2026-09-20T15:28:31.290Z",
-  "total": 11,
+  "generated_at": "2026-09-20T20:21:03.255Z",
+  "total": 12,
   "projects": [
+    {
+      "full_name": "maniat1k/proyecto-toolkit",
+      "default_branch": "main",
+      "name": "proyecto-toolkit",
+      "html_url": "https://github.com/maniat1k/proyecto-toolkit",
+      "description": "",
+      "topics": [],
+      "language": "PowerShell",
+      "stargazers_count": 0,
+      "forks_count": 0,
+      "updated_at": "2026-09-20T20:16:03Z",
+      "homepage": "",
+      "archived": false,
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
+    },
     {
       "full_name": "maniat1k/maniat1k.github.io",
       "default_branch": "main",
@@ -22,7 +40,7 @@ window.__PORTFOLIO_PROJECTS__ = {
       "language": "JavaScript",
       "stargazers_count": 1,
       "forks_count": 0,
-      "updated_at": "2026-09-20T10:39:58Z",
+      "updated_at": "2026-09-20T15:28:43Z",
       "homepage": "https://maniat1k.github.io/",
       "archived": false,
       "fork": false,
