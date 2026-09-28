@@ -1,8 +1,15 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-09-28T12:57:34.448Z",
+  "generated_at": "2026-09-28T22:57:03.129Z",
   "total": 12,
   "items": [
+    {
+      "repo": "Solarizedxterm",
+      "repoType": "historico",
+      "message": "docs: corrige instalación y presentación final",
+      "date": "2026-09-28T18:43:24Z",
+      "url": "https://github.com/maniat1k/Solarizedxterm/commit/fd1192991c9a38b1e953c24046eebf8d9711e681"
+    },
     {
       "repo": "Clean_windows",
       "repoType": "principal",
@@ -79,13 +86,6 @@
       "message": "trabajo auditado",
       "date": "2026-03-13T19:10:24Z",
       "url": "https://github.com/maniat1k/nido/commit/7b170d0007e2d0691fb09731639da641cdb051f1"
-    },
-    {
-      "repo": "nido",
-      "repoType": "principal",
-      "message": "First implementation to save.",
-      "date": "2026-03-09T15:04:57Z",
-      "url": "https://github.com/maniat1k/nido/commit/02713f26612a95ff28a98f6d8bcdc6f1f6d18f65"
     }
   ]
 }

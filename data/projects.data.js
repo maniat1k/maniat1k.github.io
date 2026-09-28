@@ -1,8 +1,53 @@
 window.__PORTFOLIO_PROJECTS__ = {
   "source": "https://api.github.com/users/maniat1k/repos?per_page=100&sort=updated",
-  "generated_at": "2026-09-28T12:57:30.702Z",
+  "generated_at": "2026-09-28T22:57:00.045Z",
   "total": 12,
   "projects": [
+    {
+      "full_name": "maniat1k/Solarizedxterm",
+      "default_branch": "master",
+      "name": "Solarizedxterm",
+      "html_url": "https://github.com/maniat1k/Solarizedxterm",
+      "description": "Solarized theme for xterm",
+      "topics": [],
+      "language": "",
+      "stargazers_count": 6,
+      "forks_count": 1,
+      "updated_at": "2026-09-28T18:43:28Z",
+      "homepage": "",
+      "archived": false,
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
+    },
+    {
+      "full_name": "maniat1k/proyecto-toolkit",
+      "default_branch": "main",
+      "name": "proyecto-toolkit",
+      "html_url": "https://github.com/maniat1k/proyecto-toolkit",
+      "description": "Toolkit local para estandarizar, validar y adecuar proyectos técnicos reduciendo trabajo repetitivo y consumo innecesario de IA.",
+      "topics": [
+        "ai-tools",
+        "automation",
+        "cli",
+        "develper-tools",
+        "devops",
+        "powershell",
+        "project-bootstrap",
+        "skills"
+      ],
+      "language": "PowerShell",
+      "stargazers_count": 1,
+      "forks_count": 0,
+      "updated_at": "2026-09-28T18:37:00Z",
+      "homepage": "",
+      "archived": false,
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
+    },
     {
       "full_name": "maniat1k/maniat1k.github.io",
       "default_branch": "main",
@@ -22,26 +67,8 @@ window.__PORTFOLIO_PROJECTS__ = {
       "language": "JavaScript",
       "stargazers_count": 1,
       "forks_count": 0,
-      "updated_at": "2026-09-28T03:45:58Z",
+      "updated_at": "2026-09-28T12:57:43Z",
       "homepage": "https://maniat1k.github.io/",
-      "archived": false,
-      "fork": false,
-      "owner": {
-        "login": "maniat1k"
-      }
-    },
-    {
-      "full_name": "maniat1k/proyecto-toolkit",
-      "default_branch": "main",
-      "name": "proyecto-toolkit",
-      "html_url": "https://github.com/maniat1k/proyecto-toolkit",
-      "description": "",
-      "topics": [],
-      "language": "PowerShell",
-      "stargazers_count": 1,
-      "forks_count": 0,
-      "updated_at": "2026-09-21T16:20:51Z",
-      "homepage": "",
       "archived": false,
       "fork": false,
       "owner": {
@@ -221,24 +248,6 @@ window.__PORTFOLIO_PROJECTS__ = {
       "stargazers_count": 1,
       "forks_count": 0,
       "updated_at": "2026-03-01T14:12:31Z",
-      "homepage": "",
-      "archived": false,
-      "fork": false,
-      "owner": {
-        "login": "maniat1k"
-      }
-    },
-    {
-      "full_name": "maniat1k/Solarizedxterm",
-      "default_branch": "master",
-      "name": "Solarizedxterm",
-      "html_url": "https://github.com/maniat1k/Solarizedxterm",
-      "description": "Solarized theme for xterm",
-      "topics": [],
-      "language": "",
-      "stargazers_count": 6,
-      "forks_count": 1,
-      "updated_at": "2026-03-01T14:12:26Z",
       "homepage": "",
       "archived": false,
       "fork": false,

@@ -1,6 +1,6 @@
 {
   "source": "github-project-cards",
-  "generated_at": "2026-09-28T12:57:36.698Z",
+  "generated_at": "2026-09-28T22:57:04.909Z",
   "total": 4,
   "items": [
     {
@@ -8,12 +8,12 @@
       "id": "github_Solarizedxterm",
       "title": "Solarizedxterm",
       "url": "https://github.com/maniat1k/Solarizedxterm",
-      "date": "2026-03-01T14:12:26Z",
+      "date": "2026-09-28T18:43:28Z",
       "summary": "Solarized theme for xterm",
       "image": "https://opengraph.githubassets.com/1/maniat1k/Solarizedxterm",
       "image_alt": "Preview de Solarizedxterm",
       "stars": 6,
-      "updated_at": "2026-03-01T14:12:26Z"
+      "updated_at": "2026-09-28T18:43:28Z"
     },
     {
       "source": "github",
@@ -41,15 +41,15 @@
     },
     {
       "source": "github",
-      "id": "github_maniat1k.github.io",
-      "title": "maniat1k.github.io",
-      "url": "https://github.com/maniat1k/maniat1k.github.io",
-      "date": "2026-09-28T03:45:58Z",
-      "summary": "My digital workshop: DevOps, SysAdmin, PowerShell, automation and technical projects.",
-      "image": "https://opengraph.githubassets.com/1/maniat1k/maniat1k.github.io",
-      "image_alt": "Preview de maniat1k.github.io",
+      "id": "github_proyecto-toolkit",
+      "title": "proyecto-toolkit",
+      "url": "https://github.com/maniat1k/proyecto-toolkit",
+      "date": "2026-09-28T18:37:00Z",
+      "summary": "Toolkit local para estandarizar, validar y adecuar proyectos técnicos reduciendo trabajo repetitivo y consumo innecesario de IA.",
+      "image": "https://opengraph.githubassets.com/1/maniat1k/proyecto-toolkit",
+      "image_alt": "Preview de proyecto-toolkit",
       "stars": 1,
-      "updated_at": "2026-09-28T03:45:58Z"
+      "updated_at": "2026-09-28T18:37:00Z"
     }
   ]
 }
