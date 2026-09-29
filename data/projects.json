@@ -1,8 +1,31 @@
 {
   "source": "https://api.github.com/users/maniat1k/repos?per_page=100&sort=updated",
-  "generated_at": "2026-09-29T12:09:44.392Z",
+  "generated_at": "2026-09-29T21:53:26.375Z",
   "total": 12,
   "projects": [
+    {
+      "full_name": "maniat1k/birame",
+      "default_branch": "master",
+      "name": "birame",
+      "html_url": "https://github.com/maniat1k/birame",
+      "description": "based on bira zsh theme!",
+      "topics": [
+        "oh-my-zsh",
+        "themes",
+        "zsh",
+        "zsh-theme"
+      ],
+      "language": "Shell",
+      "stargazers_count": 3,
+      "forks_count": 0,
+      "updated_at": "2026-09-29T19:21:08Z",
+      "homepage": "",
+      "archived": false,
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
+    },
     {
       "full_name": "maniat1k/maniat1k.github.io",
       "default_branch": "main",
@@ -22,7 +45,7 @@
       "language": "JavaScript",
       "stargazers_count": 1,
       "forks_count": 0,
-      "updated_at": "2026-09-29T04:20:38Z",
+      "updated_at": "2026-09-29T12:09:58Z",
       "homepage": "https://maniat1k.github.io/",
       "archived": false,
       "fork": false,
@@ -189,29 +212,6 @@
       "stargazers_count": 0,
       "forks_count": 0,
       "updated_at": "2026-03-01T14:12:41Z",
-      "homepage": "",
-      "archived": false,
-      "fork": false,
-      "owner": {
-        "login": "maniat1k"
-      }
-    },
-    {
-      "full_name": "maniat1k/birame",
-      "default_branch": "master",
-      "name": "birame",
-      "html_url": "https://github.com/maniat1k/birame",
-      "description": "based on bira zsh theme!",
-      "topics": [
-        "oh-my-zsh",
-        "themes",
-        "zsh",
-        "zsh-theme"
-      ],
-      "language": "Shell",
-      "stargazers_count": 3,
-      "forks_count": 0,
-      "updated_at": "2026-03-01T14:12:37Z",
       "homepage": "",
       "archived": false,
       "fork": false,

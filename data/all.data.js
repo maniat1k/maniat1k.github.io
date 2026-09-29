@@ -1,19 +1,31 @@
 window.__PORTFOLIO_FEEDS__ = {
   "source": "all",
-  "generated_at": "2026-09-29T12:09:52.124Z",
+  "generated_at": "2026-09-29T21:53:34.475Z",
   "total": 8,
   "items": [
+    {
+      "source": "github",
+      "id": "github_birame",
+      "title": "birame",
+      "url": "https://github.com/maniat1k/birame",
+      "date": "2026-09-29T19:21:08.000Z",
+      "image": "",
+      "image_alt": "birame",
+      "summary": "based on bira zsh theme!",
+      "stars": 3,
+      "updated_at": "2026-09-29T19:21:08.000Z"
+    },
     {
       "source": "github",
       "id": "github_maniat1k.github.io",
       "title": "maniat1k.github.io",
       "url": "https://github.com/maniat1k/maniat1k.github.io",
-      "date": "2026-09-29T04:20:38.000Z",
+      "date": "2026-09-29T12:09:58.000Z",
       "image": "",
       "image_alt": "maniat1k.github.io",
       "summary": "My digital workshop: DevOps, SysAdmin, PowerShell, automation and technical projects.",
       "stars": 1,
-      "updated_at": "2026-09-29T04:20:38.000Z"
+      "updated_at": "2026-09-29T12:09:58.000Z"
     },
     {
       "source": "github",
@@ -38,18 +50,6 @@ window.__PORTFOLIO_FEEDS__ = {
       "summary": "Toolkit PowerShell para mantenimiento seguro de Windows",
       "stars": 2,
       "updated_at": "2026-07-13T20:05:08.000Z"
-    },
-    {
-      "source": "github",
-      "id": "github_birame",
-      "title": "birame",
-      "url": "https://github.com/maniat1k/birame",
-      "date": "2026-03-01T14:12:37.000Z",
-      "image": "",
-      "image_alt": "birame",
-      "summary": "based on bira zsh theme!",
-      "stars": 3,
-      "updated_at": "2026-03-01T14:12:37.000Z"
     },
     {
       "source": "instagram",

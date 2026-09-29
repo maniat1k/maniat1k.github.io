@@ -1,6 +1,6 @@
 {
   "source": "github-project-cards",
-  "generated_at": "2026-09-29T12:09:50.355Z",
+  "generated_at": "2026-09-29T21:53:31.714Z",
   "total": 4,
   "items": [
     {
@@ -20,12 +20,12 @@
       "id": "github_birame",
       "title": "birame",
       "url": "https://github.com/maniat1k/birame",
-      "date": "2026-03-01T14:12:37Z",
+      "date": "2026-09-29T19:21:08Z",
       "summary": "based on bira zsh theme!",
       "image": "https://opengraph.githubassets.com/1/maniat1k/birame",
       "image_alt": "Preview de birame",
       "stars": 3,
-      "updated_at": "2026-03-01T14:12:37Z"
+      "updated_at": "2026-09-29T19:21:08Z"
     },
     {
       "source": "github",
@@ -44,12 +44,12 @@
       "id": "github_maniat1k.github.io",
       "title": "maniat1k.github.io",
       "url": "https://github.com/maniat1k/maniat1k.github.io",
-      "date": "2026-09-29T04:20:38Z",
+      "date": "2026-09-29T12:09:58Z",
       "summary": "My digital workshop: DevOps, SysAdmin, PowerShell, automation and technical projects.",
       "image": "https://opengraph.githubassets.com/1/maniat1k/maniat1k.github.io",
       "image_alt": "Preview de maniat1k.github.io",
       "stars": 1,
-      "updated_at": "2026-09-29T04:20:38Z"
+      "updated_at": "2026-09-29T12:09:58Z"
     }
   ]
 }
