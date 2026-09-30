@@ -1,11 +1,11 @@
 {
   "source": "github-languages",
-  "generated_at": "2026-09-29T21:53:31.712Z",
+  "generated_at": "2026-09-30T04:04:20.141Z",
   "totals": {
-    "Shell": 1657,
     "JavaScript": 246733,
     "HTML": 106839,
     "CSS": 45772,
+    "Shell": 1657,
     "PowerShell": 99277,
     "Python": 5506,
     "Dart": 103398,
