@@ -1,8 +1,22 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-09-30T17:46:57.442Z",
+  "generated_at": "2026-09-30T21:53:13.743Z",
   "total": 12,
   "items": [
+    {
+      "repo": "windows11_fixMBR",
+      "repoType": "historico",
+      "message": "fix: make MBR repair script explicit and fail-safe",
+      "date": "2026-09-30T20:53:09Z",
+      "url": "https://github.com/maniat1k/windows11_fixMBR/commit/2834c3739783399a0ad5f8c078d551ac3b7a3318"
+    },
+    {
+      "repo": "windows11_fixMBR",
+      "repoType": "historico",
+      "message": "docs: modernize boot repair guidance",
+      "date": "2026-09-30T20:53:07Z",
+      "url": "https://github.com/maniat1k/windows11_fixMBR/commit/53dda82bbfc9daf3fa4a45eaa135d8e728bb6910"
+    },
     {
       "repo": "birame",
       "repoType": "historico",
@@ -72,20 +86,6 @@
       "message": "Add Postman badge to README.md",
       "date": "2026-06-10T19:43:23Z",
       "url": "https://github.com/maniat1k/maniat1k/commit/c7c8dc099eaec595d78c8b0b5d88f8864940c3e1"
-    },
-    {
-      "repo": "nido",
-      "repoType": "principal",
-      "message": "Merge pull request #2 from maniat1k/feat/publish-item-flow",
-      "date": "2026-03-25T16:46:40Z",
-      "url": "https://github.com/maniat1k/nido/commit/06e90a2f8826b404a686f6e5ce46330bcb9a818e"
-    },
-    {
-      "repo": "nido",
-      "repoType": "principal",
-      "message": "últimos cambios ya no voy a tocar nada más por un tiempo",
-      "date": "2026-03-25T16:30:49Z",
-      "url": "https://github.com/maniat1k/nido/commit/c627f4fcf49e065dc65934d196b51dbf221459d5"
     }
   ]
 }
