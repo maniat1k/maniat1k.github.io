@@ -1,26 +1,8 @@
 window.__PORTFOLIO_PROJECTS__ = {
   "source": "https://api.github.com/users/maniat1k/repos?per_page=100&sort=updated",
-  "generated_at": "2026-09-30T21:53:10.319Z",
+  "generated_at": "2026-10-01T04:15:54.385Z",
   "total": 12,
   "projects": [
-    {
-      "full_name": "maniat1k/windows11_fixMBR",
-      "default_branch": "main",
-      "name": "windows11_fixMBR",
-      "html_url": "https://github.com/maniat1k/windows11_fixMBR",
-      "description": "quitar mi intalacion de Ubuntu a mi instalacion de Windows",
-      "topics": [],
-      "language": "Batchfile",
-      "stargazers_count": 0,
-      "forks_count": 0,
-      "updated_at": "2026-09-30T20:53:15Z",
-      "homepage": "",
-      "archived": false,
-      "fork": false,
-      "owner": {
-        "login": "maniat1k"
-      }
-    },
     {
       "full_name": "maniat1k/maniat1k.github.io",
       "default_branch": "main",
@@ -40,8 +22,26 @@ window.__PORTFOLIO_PROJECTS__ = {
       "language": "JavaScript",
       "stargazers_count": 1,
       "forks_count": 0,
-      "updated_at": "2026-09-30T17:47:06Z",
+      "updated_at": "2026-09-30T21:53:22Z",
       "homepage": "https://maniat1k.github.io/",
+      "archived": false,
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
+    },
+    {
+      "full_name": "maniat1k/windows11_fixMBR",
+      "default_branch": "main",
+      "name": "windows11_fixMBR",
+      "html_url": "https://github.com/maniat1k/windows11_fixMBR",
+      "description": "quitar mi intalacion de Ubuntu a mi instalacion de Windows",
+      "topics": [],
+      "language": "Batchfile",
+      "stargazers_count": 0,
+      "forks_count": 0,
+      "updated_at": "2026-09-30T20:53:15Z",
+      "homepage": "",
       "archived": false,
       "fork": false,
       "owner": {
