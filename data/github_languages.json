@@ -1,12 +1,12 @@
 {
   "source": "github-languages",
-  "generated_at": "2026-10-06T12:46:49.637Z",
+  "generated_at": "2026-10-06T22:21:15.871Z",
   "totals": {
-    "JavaScript": 245810,
+    "JavaScript": 246733,
     "HTML": 106839,
     "CSS": 45772,
     "Batchfile": 5819,
-    "Shell": 1657,
+    "Shell": 1013,
     "PowerShell": 99277,
     "Python": 5506,
     "Dart": 103398,
@@ -20,7 +20,7 @@
   "languages": [
     {
       "name": "JavaScript",
-      "bytes": 245810
+      "bytes": 246733
     },
     {
       "name": "HTML",
@@ -59,12 +59,12 @@
       "bytes": 1948
     },
     {
-      "name": "Shell",
-      "bytes": 1657
-    },
-    {
       "name": "C",
       "bytes": 1488
+    },
+    {
+      "name": "Shell",
+      "bytes": 1013
     },
     {
       "name": "Kotlin",
