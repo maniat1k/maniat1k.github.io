@@ -1,8 +1,35 @@
 window.__PORTFOLIO_PROJECTS__ = {
   "source": "https://api.github.com/users/maniat1k/repos?per_page=100&sort=updated",
-  "generated_at": "2026-10-06T22:21:09.934Z",
+  "generated_at": "2026-10-07T04:24:55.773Z",
   "total": 13,
   "projects": [
+    {
+      "full_name": "maniat1k/maniat1k.github.io",
+      "default_branch": "main",
+      "name": "maniat1k.github.io",
+      "html_url": "https://github.com/maniat1k/maniat1k.github.io",
+      "description": "My digital workshop: DevOps, SysAdmin, PowerShell, automation and technical projects.",
+      "topics": [
+        "automation",
+        "blog",
+        "build-in-public",
+        "devops",
+        "github-pages",
+        "portfolio",
+        "powershell",
+        "sysadmin"
+      ],
+      "language": "JavaScript",
+      "stargazers_count": 1,
+      "forks_count": 0,
+      "updated_at": "2026-10-06T22:21:23Z",
+      "homepage": "https://maniat1k.github.io/",
+      "archived": false,
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
+    },
     {
       "full_name": "maniat1k/savevm",
       "default_branch": "master",
@@ -38,33 +65,6 @@ window.__PORTFOLIO_PROJECTS__ = {
       "homepage": "https://termiweb.com",
       "archived": false,
       "fork": true,
-      "owner": {
-        "login": "maniat1k"
-      }
-    },
-    {
-      "full_name": "maniat1k/maniat1k.github.io",
-      "default_branch": "main",
-      "name": "maniat1k.github.io",
-      "html_url": "https://github.com/maniat1k/maniat1k.github.io",
-      "description": "My digital workshop: DevOps, SysAdmin, PowerShell, automation and technical projects.",
-      "topics": [
-        "automation",
-        "blog",
-        "build-in-public",
-        "devops",
-        "github-pages",
-        "portfolio",
-        "powershell",
-        "sysadmin"
-      ],
-      "language": "JavaScript",
-      "stargazers_count": 1,
-      "forks_count": 0,
-      "updated_at": "2026-10-06T12:46:56Z",
-      "homepage": "https://maniat1k.github.io/",
-      "archived": false,
-      "fork": false,
       "owner": {
         "login": "maniat1k"
       }
