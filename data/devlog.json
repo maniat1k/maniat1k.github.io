@@ -1,8 +1,36 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-10-07T12:40:57.196Z",
+  "generated_at": "2026-10-07T20:20:16.923Z",
   "total": 12,
   "items": [
+    {
+      "repo": "maniat1k.github.io",
+      "repoType": "principal",
+      "message": "style: reemplaza ilustración de FAQ por vista explotada de Vim",
+      "date": "2026-10-07T20:19:47Z",
+      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/693a3a8bfa2a73e6de021acfa8346af28339a2e9"
+    },
+    {
+      "repo": "SlimWin-",
+      "repoType": "principal",
+      "message": "docs: actualiza estado GUI simulada y guia de desarrollo",
+      "date": "2026-10-07T20:01:28Z",
+      "url": "https://github.com/maniat1k/SlimWin-/commit/7da5e855005460508dfc309ffec308eb9fce768f"
+    },
+    {
+      "repo": "SlimWin-",
+      "repoType": "principal",
+      "message": "feat: inicia GUI Avalonia .NET 10 con acciones simuladas",
+      "date": "2026-10-07T19:56:53Z",
+      "url": "https://github.com/maniat1k/SlimWin-/commit/f39f0b09258c4f821010cd02baa08280a9200ff9"
+    },
+    {
+      "repo": "SlimWin-",
+      "repoType": "principal",
+      "message": "docs: declara prototipo y define meta de GUI utilizable",
+      "date": "2026-10-07T18:15:35Z",
+      "url": "https://github.com/maniat1k/SlimWin-/commit/9567c24399f64471036783ef50c56a4ba7d630a5"
+    },
     {
       "repo": "windows11_fixMBR",
       "repoType": "historico",
@@ -58,34 +86,6 @@
       "message": "Remove YouTube link from README",
       "date": "2026-07-08T14:26:12Z",
       "url": "https://github.com/maniat1k/maniat1k/commit/98fe36ee32eeaa34d69db11d9f33f65ca8e2dd59"
-    },
-    {
-      "repo": "wintop",
-      "repoType": "principal",
-      "message": "feat: agrega monitorización de red (Wi-Fi/Ethernet y subida/bajada)",
-      "date": "2026-06-24T16:27:39Z",
-      "url": "https://github.com/maniat1k/wintop/commit/48cbc4ffba21f5adcc4e1bcaee0b4d4445a3537c"
-    },
-    {
-      "repo": "Clean_windows",
-      "repoType": "principal",
-      "message": "1er reset del proyecto",
-      "date": "2026-06-24T12:50:35Z",
-      "url": "https://github.com/maniat1k/Clean_windows/commit/f4aafe3ffdbe7b5be17342d3d695aa006c54bb37"
-    },
-    {
-      "repo": "maniat1k",
-      "repoType": "principal",
-      "message": "Revise README structure and update tool icons",
-      "date": "2026-06-10T19:47:14Z",
-      "url": "https://github.com/maniat1k/maniat1k/commit/10fa9c5c06d6da3b1ee55404316e9c3e197f9b32"
-    },
-    {
-      "repo": "maniat1k",
-      "repoType": "principal",
-      "message": "Add Postman badge to README.md",
-      "date": "2026-06-10T19:43:23Z",
-      "url": "https://github.com/maniat1k/maniat1k/commit/c7c8dc099eaec595d78c8b0b5d88f8864940c3e1"
     }
   ]
 }

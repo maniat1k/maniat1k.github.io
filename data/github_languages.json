@@ -1,13 +1,14 @@
 {
   "source": "github-languages",
-  "generated_at": "2026-10-07T12:40:59.892Z",
+  "generated_at": "2026-10-07T20:20:19.076Z",
   "totals": {
-    "JavaScript": 246330,
+    "JavaScript": 247253,
     "HTML": 106839,
     "CSS": 45772,
+    "C#": 13986,
+    "PowerShell": 99277,
     "Batchfile": 5819,
     "Shell": 1013,
-    "PowerShell": 99277,
     "Python": 5506,
     "Dart": 103398,
     "C++": 24784,
@@ -20,7 +21,7 @@
   "languages": [
     {
       "name": "JavaScript",
-      "bytes": 246330
+      "bytes": 247253
     },
     {
       "name": "HTML",
@@ -45,6 +46,10 @@
     {
       "name": "CMake",
       "bytes": 19700
+    },
+    {
+      "name": "C#",
+      "bytes": 13986
     },
     {
       "name": "Batchfile",

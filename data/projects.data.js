@@ -1,6 +1,6 @@
 window.__PORTFOLIO_PROJECTS__ = {
   "source": "https://api.github.com/users/maniat1k/repos?per_page=100&sort=updated",
-  "generated_at": "2026-10-07T12:40:51.594Z",
+  "generated_at": "2026-10-07T20:20:14.054Z",
   "total": 13,
   "projects": [
     {
@@ -22,8 +22,33 @@ window.__PORTFOLIO_PROJECTS__ = {
       "language": "JavaScript",
       "stargazers_count": 1,
       "forks_count": 0,
-      "updated_at": "2026-10-07T04:25:06Z",
+      "updated_at": "2026-10-07T20:20:04Z",
       "homepage": "https://maniat1k.github.io/",
+      "archived": false,
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
+    },
+    {
+      "full_name": "maniat1k/SlimWin-",
+      "default_branch": "main",
+      "name": "SlimWin-",
+      "html_url": "https://github.com/maniat1k/SlimWin-",
+      "description": "SlimWin es una herramienta en desarrollo para gestionar la limpieza y configuración de Windows 11 desde una interfaz gráfica basada en Avalonia y .NET 10. Actualmente ofrece un prototipo con acciones simuladas; las operaciones reales y su validación se incorporarán progresivamente.",
+      "topics": [
+        "avalonia",
+        "csharp",
+        "debloat",
+        "dotnet",
+        "windows-11",
+        "work-in-progress"
+      ],
+      "language": "C#",
+      "stargazers_count": 1,
+      "forks_count": 0,
+      "updated_at": "2026-10-07T20:06:38Z",
+      "homepage": "",
       "archived": false,
       "fork": false,
       "owner": {
@@ -248,24 +273,6 @@ window.__PORTFOLIO_PROJECTS__ = {
       "stargazers_count": 0,
       "forks_count": 0,
       "updated_at": "2026-03-25T16:46:46Z",
-      "homepage": "",
-      "archived": false,
-      "fork": false,
-      "owner": {
-        "login": "maniat1k"
-      }
-    },
-    {
-      "full_name": "maniat1k/SlimWin-",
-      "default_branch": "main",
-      "name": "SlimWin-",
-      "html_url": "https://github.com/maniat1k/SlimWin-",
-      "description": "Una herramienta sencilla y eficaz para optimizar Windows 11. Este script elimina aplicaciones innecesarias, desactiva servicios no deseados, configura ajustes de privacidad y limpia tu sistema, todo desde una interfaz gráfica intuitiva. Perfecto para quienes buscan un Windows más rápido y eficiente.",
-      "topics": [],
-      "language": "PowerShell",
-      "stargazers_count": 1,
-      "forks_count": 0,
-      "updated_at": "2026-03-01T14:12:31Z",
       "homepage": "",
       "archived": false,
       "fork": false,
