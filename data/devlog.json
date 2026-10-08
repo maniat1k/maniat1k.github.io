@@ -1,6 +1,6 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-10-08T04:36:07.361Z",
+  "generated_at": "2026-10-08T12:50:31.516Z",
   "total": 12,
   "items": [
     {
@@ -9,13 +9,6 @@
       "message": "fix: actualiza caché de la ilustración de FAQ",
       "date": "2026-10-07T20:23:22Z",
       "url": "https://github.com/maniat1k/maniat1k.github.io/commit/99283e8726119dcaf608f1595637cd778574bb42"
-    },
-    {
-      "repo": "maniat1k.github.io",
-      "repoType": "principal",
-      "message": "style: reemplaza ilustración de FAQ por vista explotada de Vim",
-      "date": "2026-10-07T20:19:47Z",
-      "url": "https://github.com/maniat1k/maniat1k.github.io/commit/693a3a8bfa2a73e6de021acfa8346af28339a2e9"
     },
     {
       "repo": "SlimWin-",
@@ -86,6 +79,13 @@
       "message": "Update Ko-fi link in README",
       "date": "2026-07-08T14:35:37Z",
       "url": "https://github.com/maniat1k/maniat1k/commit/db42174ddbcad38ab837bb2e27e6e9db1120efc2"
+    },
+    {
+      "repo": "maniat1k",
+      "repoType": "principal",
+      "message": "Remove YouTube link from README",
+      "date": "2026-07-08T14:26:12Z",
+      "url": "https://github.com/maniat1k/maniat1k/commit/98fe36ee32eeaa34d69db11d9f33f65ca8e2dd59"
     }
   ]
 }
