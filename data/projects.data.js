@@ -1,8 +1,36 @@
 window.__PORTFOLIO_PROJECTS__ = {
   "source": "https://api.github.com/users/maniat1k/repos?per_page=100&sort=updated",
-  "generated_at": "2026-10-09T12:36:04.302Z",
+  "generated_at": "2026-10-09T22:16:46.065Z",
   "total": 13,
   "projects": [
+    {
+      "full_name": "maniat1k/maniat1k",
+      "default_branch": "main",
+      "name": "maniat1k",
+      "html_url": "https://github.com/maniat1k/maniat1k",
+      "description": "🛠️ Building practical tools, automations and technical projects around DevOps and SysAdmin.",
+      "topics": [
+        "automation",
+        "build-in-public",
+        "devops",
+        "github-pages",
+        "linux",
+        "odoo",
+        "postgresql",
+        "powershell",
+        "sysadmin"
+      ],
+      "language": "",
+      "stargazers_count": 1,
+      "forks_count": 0,
+      "updated_at": "2026-10-09T16:02:27Z",
+      "homepage": "https://maniat1k.github.io",
+      "archived": false,
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
+    },
     {
       "full_name": "maniat1k/maniat1k.github.io",
       "default_branch": "main",
@@ -22,7 +50,7 @@ window.__PORTFOLIO_PROJECTS__ = {
       "language": "JavaScript",
       "stargazers_count": 1,
       "forks_count": 0,
-      "updated_at": "2026-10-09T04:39:34Z",
+      "updated_at": "2026-10-09T12:36:16Z",
       "homepage": "https://maniat1k.github.io/",
       "archived": false,
       "fork": false,
@@ -228,34 +256,6 @@ window.__PORTFOLIO_PROJECTS__ = {
       "forks_count": 0,
       "updated_at": "2026-07-13T20:05:08Z",
       "homepage": "https://maniat1k.github.io/clean-windows.html",
-      "archived": false,
-      "fork": false,
-      "owner": {
-        "login": "maniat1k"
-      }
-    },
-    {
-      "full_name": "maniat1k/maniat1k",
-      "default_branch": "main",
-      "name": "maniat1k",
-      "html_url": "https://github.com/maniat1k/maniat1k",
-      "description": "🛠️ Building practical tools, automations and technical projects around DevOps and SysAdmin.",
-      "topics": [
-        "automation",
-        "build-in-public",
-        "devops",
-        "github-pages",
-        "linux",
-        "odoo",
-        "postgresql",
-        "powershell",
-        "sysadmin"
-      ],
-      "language": "",
-      "stargazers_count": 1,
-      "forks_count": 0,
-      "updated_at": "2026-07-08T14:36:55Z",
-      "homepage": "https://maniat1k.github.io",
       "archived": false,
       "fork": false,
       "owner": {

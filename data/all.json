@@ -1,19 +1,19 @@
 {
   "source": "all",
-  "generated_at": "2026-10-09T12:36:11.861Z",
+  "generated_at": "2026-10-09T22:16:52.928Z",
   "total": 8,
   "items": [
     {
       "source": "github",
-      "id": "github_maniat1k.github.io",
-      "title": "maniat1k.github.io",
-      "url": "https://github.com/maniat1k/maniat1k.github.io",
-      "date": "2026-10-09T04:39:34.000Z",
+      "id": "github_maniat1k",
+      "title": "maniat1k",
+      "url": "https://github.com/maniat1k/maniat1k",
+      "date": "2026-10-09T16:02:27.000Z",
       "image": "",
-      "image_alt": "maniat1k.github.io",
-      "summary": "My digital workshop: DevOps, SysAdmin, PowerShell, automation and technical projects.",
+      "image_alt": "maniat1k",
+      "summary": "🛠️ Building practical tools, automations and technical projects around DevOps and SysAdmin.",
       "stars": 1,
-      "updated_at": "2026-10-09T04:39:34.000Z"
+      "updated_at": "2026-10-09T16:02:27.000Z"
     },
     {
       "source": "github",
