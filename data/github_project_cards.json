@@ -1,6 +1,6 @@
 {
   "source": "github-project-cards",
-  "generated_at": "2026-10-09T22:16:50.825Z",
+  "generated_at": "2026-10-10T04:25:17.001Z",
   "total": 4,
   "items": [
     {
@@ -41,15 +41,15 @@
     },
     {
       "source": "github",
-      "id": "github_maniat1k",
-      "title": "maniat1k",
-      "url": "https://github.com/maniat1k/maniat1k",
-      "date": "2026-10-09T16:02:27Z",
-      "summary": "🛠️ Building practical tools, automations and technical projects around DevOps and SysAdmin.",
-      "image": "https://opengraph.githubassets.com/1/maniat1k/maniat1k",
-      "image_alt": "Preview de maniat1k",
+      "id": "github_maniat1k.github.io",
+      "title": "maniat1k.github.io",
+      "url": "https://github.com/maniat1k/maniat1k.github.io",
+      "date": "2026-10-09T22:16:57Z",
+      "summary": "My digital workshop: DevOps, SysAdmin, PowerShell, automation and technical projects.",
+      "image": "https://opengraph.githubassets.com/1/maniat1k/maniat1k.github.io",
+      "image_alt": "Preview de maniat1k.github.io",
       "stars": 1,
-      "updated_at": "2026-10-09T16:02:27Z"
+      "updated_at": "2026-10-09T22:16:57Z"
     }
   ]
 }
