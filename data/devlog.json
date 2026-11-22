@@ -1,6 +1,6 @@
 {
   "source": "github-commits",
-  "generated_at": "2026-11-22T05:10:39.371Z",
+  "generated_at": "2026-11-22T14:04:18.603Z",
   "total": 12,
   "items": [
     {
@@ -39,34 +39,6 @@
       "url": "https://github.com/maniat1k/SlimWin-/commit/9567c24399f64471036783ef50c56a4ba7d630a5"
     },
     {
-      "repo": "windows11_fixMBR",
-      "repoType": "historico",
-      "message": "fix: make MBR repair script explicit and fail-safe",
-      "date": "2026-09-30T20:53:09Z",
-      "url": "https://github.com/maniat1k/windows11_fixMBR/commit/2834c3739783399a0ad5f8c078d551ac3b7a3318"
-    },
-    {
-      "repo": "windows11_fixMBR",
-      "repoType": "historico",
-      "message": "docs: modernize boot repair guidance",
-      "date": "2026-09-30T20:53:07Z",
-      "url": "https://github.com/maniat1k/windows11_fixMBR/commit/53dda82bbfc9daf3fa4a45eaa135d8e728bb6910"
-    },
-    {
-      "repo": "birame",
-      "repoType": "historico",
-      "message": "docs: finalize Birame as stable historical project",
-      "date": "2026-09-29T19:21:04Z",
-      "url": "https://github.com/maniat1k/birame/commit/e405968920073f3358ca804fee1672a8f1429d7b"
-    },
-    {
-      "repo": "Solarizedxterm",
-      "repoType": "historico",
-      "message": "docs: corrige instalación y presentación final",
-      "date": "2026-09-28T18:43:24Z",
-      "url": "https://github.com/maniat1k/Solarizedxterm/commit/fd1192991c9a38b1e953c24046eebf8d9711e681"
-    },
-    {
       "repo": "Clean_windows",
       "repoType": "principal",
       "message": "Refactor Clean-Windows TUI and maintenance tasks",
@@ -86,6 +58,34 @@
       "message": "Update Ko-fi link in README",
       "date": "2026-07-08T14:35:37Z",
       "url": "https://github.com/maniat1k/maniat1k/commit/db42174ddbcad38ab837bb2e27e6e9db1120efc2"
+    },
+    {
+      "repo": "maniat1k",
+      "repoType": "principal",
+      "message": "Remove YouTube link from README",
+      "date": "2026-07-08T14:26:12Z",
+      "url": "https://github.com/maniat1k/maniat1k/commit/98fe36ee32eeaa34d69db11d9f33f65ca8e2dd59"
+    },
+    {
+      "repo": "wintop",
+      "repoType": "principal",
+      "message": "feat: agrega monitorización de red (Wi-Fi/Ethernet y subida/bajada)",
+      "date": "2026-06-24T16:27:39Z",
+      "url": "https://github.com/maniat1k/wintop/commit/48cbc4ffba21f5adcc4e1bcaee0b4d4445a3537c"
+    },
+    {
+      "repo": "Clean_windows",
+      "repoType": "principal",
+      "message": "1er reset del proyecto",
+      "date": "2026-06-24T12:50:35Z",
+      "url": "https://github.com/maniat1k/Clean_windows/commit/f4aafe3ffdbe7b5be17342d3d695aa006c54bb37"
+    },
+    {
+      "repo": "maniat1k",
+      "repoType": "principal",
+      "message": "Revise README structure and update tool icons",
+      "date": "2026-06-10T19:47:14Z",
+      "url": "https://github.com/maniat1k/maniat1k/commit/10fa9c5c06d6da3b1ee55404316e9c3e197f9b32"
     }
   ]
 }

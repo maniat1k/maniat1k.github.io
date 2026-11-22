@@ -1,8 +1,67 @@
 window.__PORTFOLIO_PROJECTS__ = {
   "source": "https://api.github.com/users/maniat1k/repos?per_page=100&sort=updated",
-  "generated_at": "2026-11-22T05:10:35.938Z",
-  "total": 13,
+  "generated_at": "2026-11-22T14:04:16.469Z",
+  "total": 10,
   "projects": [
+    {
+      "full_name": "maniat1k/Solarizedxterm",
+      "default_branch": "master",
+      "name": "Solarizedxterm",
+      "html_url": "https://github.com/maniat1k/Solarizedxterm",
+      "description": "Solarized theme for xterm",
+      "topics": [],
+      "language": "",
+      "stargazers_count": 6,
+      "forks_count": 1,
+      "updated_at": "2026-11-22T10:23:16Z",
+      "homepage": "",
+      "archived": true,
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
+    },
+    {
+      "full_name": "maniat1k/birame",
+      "default_branch": "master",
+      "name": "birame",
+      "html_url": "https://github.com/maniat1k/birame",
+      "description": "based on bira zsh theme!",
+      "topics": [
+        "oh-my-zsh",
+        "themes",
+        "zsh",
+        "zsh-theme"
+      ],
+      "language": "Shell",
+      "stargazers_count": 3,
+      "forks_count": 0,
+      "updated_at": "2026-11-22T10:22:27Z",
+      "homepage": "",
+      "archived": true,
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
+    },
+    {
+      "full_name": "maniat1k/windows11_fixMBR",
+      "default_branch": "main",
+      "name": "windows11_fixMBR",
+      "html_url": "https://github.com/maniat1k/windows11_fixMBR",
+      "description": "quitar mi intalacion de Ubuntu a mi instalacion de Windows",
+      "topics": [],
+      "language": "Batchfile",
+      "stargazers_count": 0,
+      "forks_count": 0,
+      "updated_at": "2026-11-22T10:21:43Z",
+      "homepage": "",
+      "archived": true,
+      "fork": false,
+      "owner": {
+        "login": "maniat1k"
+      }
+    },
     {
       "full_name": "maniat1k/maniat1k.github.io",
       "default_branch": "main",
@@ -133,110 +192,6 @@ window.__PORTFOLIO_PROJECTS__ = {
       }
     },
     {
-      "full_name": "maniat1k/TermiWeb",
-      "default_branch": "main",
-      "name": "TermiWeb",
-      "html_url": "https://github.com/maniat1k/TermiWeb",
-      "description": "Open-source browser terminal for a Windows host.",
-      "topics": [],
-      "language": "",
-      "stargazers_count": 0,
-      "forks_count": 0,
-      "updated_at": "2026-10-06T15:22:29Z",
-      "homepage": "https://termiweb.com",
-      "archived": false,
-      "fork": true,
-      "owner": {
-        "login": "maniat1k"
-      }
-    },
-    {
-      "full_name": "maniat1k/windows11_fixMBR",
-      "default_branch": "main",
-      "name": "windows11_fixMBR",
-      "html_url": "https://github.com/maniat1k/windows11_fixMBR",
-      "description": "quitar mi intalacion de Ubuntu a mi instalacion de Windows",
-      "topics": [],
-      "language": "Batchfile",
-      "stargazers_count": 0,
-      "forks_count": 0,
-      "updated_at": "2026-09-30T20:53:15Z",
-      "homepage": "",
-      "archived": false,
-      "fork": false,
-      "owner": {
-        "login": "maniat1k"
-      }
-    },
-    {
-      "full_name": "maniat1k/birame",
-      "default_branch": "master",
-      "name": "birame",
-      "html_url": "https://github.com/maniat1k/birame",
-      "description": "based on bira zsh theme!",
-      "topics": [
-        "oh-my-zsh",
-        "themes",
-        "zsh",
-        "zsh-theme"
-      ],
-      "language": "Shell",
-      "stargazers_count": 3,
-      "forks_count": 0,
-      "updated_at": "2026-09-29T19:21:08Z",
-      "homepage": "",
-      "archived": false,
-      "fork": false,
-      "owner": {
-        "login": "maniat1k"
-      }
-    },
-    {
-      "full_name": "maniat1k/Solarizedxterm",
-      "default_branch": "master",
-      "name": "Solarizedxterm",
-      "html_url": "https://github.com/maniat1k/Solarizedxterm",
-      "description": "Solarized theme for xterm",
-      "topics": [],
-      "language": "",
-      "stargazers_count": 6,
-      "forks_count": 1,
-      "updated_at": "2026-09-28T18:43:28Z",
-      "homepage": "",
-      "archived": false,
-      "fork": false,
-      "owner": {
-        "login": "maniat1k"
-      }
-    },
-    {
-      "full_name": "maniat1k/proyecto-toolkit",
-      "default_branch": "main",
-      "name": "proyecto-toolkit",
-      "html_url": "https://github.com/maniat1k/proyecto-toolkit",
-      "description": "Toolkit local para estandarizar, validar y adecuar proyectos técnicos reduciendo trabajo repetitivo y consumo innecesario de IA.",
-      "topics": [
-        "ai-tools",
-        "automation",
-        "cli",
-        "develper-tools",
-        "devops",
-        "powershell",
-        "project-bootstrap",
-        "skills"
-      ],
-      "language": "PowerShell",
-      "stargazers_count": 1,
-      "forks_count": 0,
-      "updated_at": "2026-09-28T18:37:00Z",
-      "homepage": "",
-      "archived": false,
-      "fork": false,
-      "owner": {
-        "login": "maniat1k"
-      }
-    },
-    {
       "full_name": "maniat1k/Clean_windows",
       "default_branch": "main",
       "name": "Clean_windows",
@@ -256,24 +211,6 @@ window.__PORTFOLIO_PROJECTS__ = {
       "forks_count": 0,
       "updated_at": "2026-07-13T20:05:08Z",
       "homepage": "https://maniat1k.github.io/clean-windows.html",
-      "archived": false,
-      "fork": false,
-      "owner": {
-        "login": "maniat1k"
-      }
-    },
-    {
-      "full_name": "maniat1k/nido",
-      "default_branch": "develop",
-      "name": "nido",
-      "html_url": "https://github.com/maniat1k/nido",
-      "description": "Proyecto para una app de comercio de ropa de bebe",
-      "topics": [],
-      "language": "Dart",
-      "stargazers_count": 0,
-      "forks_count": 0,
-      "updated_at": "2026-03-25T16:46:46Z",
-      "homepage": "",
       "archived": false,
       "fork": false,
       "owner": {

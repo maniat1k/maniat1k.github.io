@@ -1,6 +1,6 @@
 {
   "source": "all",
-  "generated_at": "2026-11-22T05:10:42.616Z",
+  "generated_at": "2026-11-22T14:04:21.415Z",
   "total": 8,
   "items": [
     {
@@ -17,27 +17,27 @@
     },
     {
       "source": "github",
-      "id": "github_birame",
-      "title": "birame",
-      "url": "https://github.com/maniat1k/birame",
-      "date": "2026-09-29T19:21:08.000Z",
+      "id": "github_maniat1k",
+      "title": "maniat1k",
+      "url": "https://github.com/maniat1k/maniat1k",
+      "date": "2026-10-09T16:02:27.000Z",
       "image": "",
-      "image_alt": "birame",
-      "summary": "based on bira zsh theme!",
-      "stars": 3,
-      "updated_at": "2026-09-29T19:21:08.000Z"
+      "image_alt": "maniat1k",
+      "summary": "🛠️ Building practical tools, automations and technical projects around DevOps and SysAdmin.",
+      "stars": 1,
+      "updated_at": "2026-10-09T16:02:27.000Z"
     },
     {
       "source": "github",
-      "id": "github_Solarizedxterm",
-      "title": "Solarizedxterm",
-      "url": "https://github.com/maniat1k/Solarizedxterm",
-      "date": "2026-09-28T18:43:28.000Z",
+      "id": "github_wintop",
+      "title": "wintop",
+      "url": "https://github.com/maniat1k/wintop",
+      "date": "2026-10-08T18:47:39.000Z",
       "image": "",
-      "image_alt": "Solarizedxterm",
-      "summary": "Solarized theme for xterm",
-      "stars": 6,
-      "updated_at": "2026-09-28T18:43:28.000Z"
+      "image_alt": "wintop",
+      "summary": "A simple system monitor for Windows inspired by htop and built with PowerShell.",
+      "stars": 1,
+      "updated_at": "2026-10-08T18:47:39.000Z"
     },
     {
       "source": "github",

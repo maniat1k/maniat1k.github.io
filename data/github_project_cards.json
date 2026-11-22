@@ -1,32 +1,8 @@
 {
   "source": "github-project-cards",
-  "generated_at": "2026-11-22T05:10:41.080Z",
+  "generated_at": "2026-11-22T14:04:19.612Z",
   "total": 4,
   "items": [
-    {
-      "source": "github",
-      "id": "github_Solarizedxterm",
-      "title": "Solarizedxterm",
-      "url": "https://github.com/maniat1k/Solarizedxterm",
-      "date": "2026-09-28T18:43:28Z",
-      "summary": "Solarized theme for xterm",
-      "image": "https://opengraph.githubassets.com/1/maniat1k/Solarizedxterm",
-      "image_alt": "Preview de Solarizedxterm",
-      "stars": 6,
-      "updated_at": "2026-09-28T18:43:28Z"
-    },
-    {
-      "source": "github",
-      "id": "github_birame",
-      "title": "birame",
-      "url": "https://github.com/maniat1k/birame",
-      "date": "2026-09-29T19:21:08Z",
-      "summary": "based on bira zsh theme!",
-      "image": "https://opengraph.githubassets.com/1/maniat1k/birame",
-      "image_alt": "Preview de birame",
-      "stars": 3,
-      "updated_at": "2026-09-29T19:21:08Z"
-    },
     {
       "source": "github",
       "id": "github_Clean_windows",
@@ -50,6 +26,30 @@
       "image_alt": "Preview de maniat1k.github.io",
       "stars": 1,
       "updated_at": "2026-11-12T15:39:29Z"
+    },
+    {
+      "source": "github",
+      "id": "github_maniat1k",
+      "title": "maniat1k",
+      "url": "https://github.com/maniat1k/maniat1k",
+      "date": "2026-10-09T16:02:27Z",
+      "summary": "🛠️ Building practical tools, automations and technical projects around DevOps and SysAdmin.",
+      "image": "https://opengraph.githubassets.com/1/maniat1k/maniat1k",
+      "image_alt": "Preview de maniat1k",
+      "stars": 1,
+      "updated_at": "2026-10-09T16:02:27Z"
+    },
+    {
+      "source": "github",
+      "id": "github_wintop",
+      "title": "wintop",
+      "url": "https://github.com/maniat1k/wintop",
+      "date": "2026-10-08T18:47:39Z",
+      "summary": "A simple system monitor for Windows inspired by htop and built with PowerShell.",
+      "image": "https://opengraph.githubassets.com/1/maniat1k/wintop",
+      "image_alt": "Preview de wintop",
+      "stars": 1,
+      "updated_at": "2026-10-08T18:47:39Z"
     }
   ]
 }
